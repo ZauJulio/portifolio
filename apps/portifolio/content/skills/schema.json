@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SkillsContentSchema",
+  "type": "object",
+  "properties": {
+    "clusters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SkillCluster"
+      }
+    }
+  },
+  "definitions": {
+    "SkillCluster": {
+      "title": "SkillCluster",
+      "type": "object",
+      "required": ["id", "label", "color", "skills"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "color": { "type": "string" },
+        "skills": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Skill"
+          }
+        }
+      }
+    },
+    "Skill": {
+      "title": "Skill",
+      "type": "object",
+      "required": ["name", "level"],
+      "properties": {
+        "name": { "type": "string" },
+        "level": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    }
+  }
+}

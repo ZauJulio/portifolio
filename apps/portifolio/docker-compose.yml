@@ -1,0 +1,15 @@
+# Build context is the monorepo root (two levels up) — the image needs the root
+# package.json/bun.lock/turbo.json and the packages/* workspaces. Run from here
+# with `docker compose up --build`, or from the repo root with
+# `docker build -f apps/portifolio/Dockerfile .`.
+services:
+  web:
+    build:
+      context: ../..
+      dockerfile: apps/portifolio/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    restart: unless-stopped

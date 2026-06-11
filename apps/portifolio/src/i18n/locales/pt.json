@@ -1,0 +1,210 @@
+{
+  "common": {
+    "backToPortfolio": "Voltar ao Portfólio",
+    "backToAlbums": "Voltar aos Álbuns",
+    "home": "Início",
+    "close": "Fechar",
+    "loading": "Carregando...",
+    "search": "Buscar...",
+    "tags": "Tags",
+    "loadMore": "Mais"
+  },
+  "nav": {
+    "about": "Sobre",
+    "projects": "Projetos/Habilidades",
+    "hobbies": "Hobbies",
+    "hire": "Contrate-me",
+    "articles": "Artigos",
+    "photography": "Fotografia",
+    "cooking": "Culinária",
+    "music": "Música",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "contact": "Contato",
+    "resume": "Currículo"
+  },
+  "hero": {
+    "title": "Zaú Júlio",
+    "subtitle": "Desenvolvedor Full Stack | Tech Lead | Engenheiro de Sistemas"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "summary": "Engenheiro de software com mais de 6 anos de experiência construindo aplicações web escaláveis e sistemas distribuídos. Apaixonado por código limpo, arquitetura em nuvem e mentoria de desenvolvedores iniciantes.",
+    "experience": "Experiência",
+    "education": "Educação",
+    "skills": "Habilidades",
+    "languages": "Idiomas",
+    "thesis": "Tese",
+    "thesisTitle": "Tese: Análise do uso de computação em nuvem em startups no mercado brasileiro",
+    "thesisName": "Features Analyzer",
+    "thesisSubtitle": "Boilerplate para Ferramentas de Visualização e Análise de Dados",
+    "thesisDescription": "Uma aplicação desktop Python para análise de features de datasets, prototipagem e teste de modelos de machine learning e estatísticos. Construída com uma arquitetura modular usando GTK para a UI, apresentando um sistema customizado de gerenciamento de estado com o padrão Observer, um ORM JSON tipado com Pydantic e TinyDB, e suporte a internacionalização (i18n). Inclui containerização Docker e documentação automatizada com MkDocs.",
+    "thesisLink": "Ver Tese"
+  },
+  "projects": {
+    "title": "Projetos e Habilidades",
+    "description": "Uma seleção de projetos open-source abrangendo desenvolvimento full-stack, machine learning, ferramentas Linux e engenharia de sistemas.",
+    "noResults": "Nenhum projeto corresponde"
+  },
+  "articles": {
+    "title": "Artigos",
+    "latest": "Últimos Artigos",
+    "latestDescription": "Reflexões aleatórias, curiosidades digitais e coisas que eu quis escrever",
+    "description": "Escrevendo sobre engenharia de software, machine learning e as ferramentas que uso todos os dias. Mergulhos profundos, tutoriais e lições aprendidas construindo aplicações reais.",
+    "descriptionHome": "Reflexões sobre desenvolvimento de software, arquitetura em nuvem e tecnologia.",
+    "readMore": "Ler Mais",
+    "publishedOn": "Publicado em",
+    "backTo": "Voltar para Artigos",
+    "article": "Artigo",
+    "notFound": "Artigo não encontrado",
+    "notFoundDesc": "O artigo que você está procurando não existe.",
+    "originallyPublished": "Originalmente publicado",
+    "sortBy": "Ordenar por",
+    "sortDate": "Data",
+    "sortTitle": "Título",
+    "page": "Página {page} de {total}",
+    "prevPage": "Anterior",
+    "nextPage": "Próxima",
+    "noArticles": "Nenhum artigo ainda",
+    "noArticlesTagged": "Nenhum artigo com a tag \"{{tag}}\"",
+    "addArticlesHint": "Tente ajustar os filtros acima ou a busca para encontrar algo diferente.",
+    "contentNotFound": "Conteúdo não disponível"
+  },
+  "hobbies": {
+    "title": "Hobbies e Interesses",
+    "subtitle": "Além do código — as coisas que inspiram criatividade e mantêm o equilíbrio.",
+    "description": "Hobbies não são apenas passatempos; são essenciais para a saúde mental, criatividade e prevenção do burnout. Quando nos afastamos da tela e nos engajamos em diferentes atividades, damos ao nosso cérebro o espaço para processar, inovar e recarregar. A fotografia me ensina a ver a beleza nos detalhes, a culinária me conecta com cultura e atenção plena, e a música fornece o ritmo que alimenta meu foco.",
+    "quote": "\"Para ser criativo, você deve se dar permissão para explorar.\"",
+    "photography": {
+      "title": "Fotografia",
+      "description": "Capturando momentos e paisagens através da lente. Da fotografia de rua às imagens da natureza, explorando luz, composição e narrativa."
+    },
+    "cooking": {
+      "title": "Culinária",
+      "description": "Experimentando com sabores, técnicas e culinárias de todo o mundo. Da comida de conforto brasileira a pratos internacionais — transformando ingredientes em experiências."
+    },
+    "music": {
+      "title": "Música",
+      "description": "Tocando guitarra e explorando diferentes gêneros. A música é uma fonte constante de inspiração e criatividade."
+    }
+  },
+  "hire": {
+    "title": "Contrate-me",
+    "description": "Estou aberto a novas oportunidades, projetos freelancer e colaborações técnicas. Se você está procurando um desenvolvedor full-stack com experiência em design de sistemas, arquitetura em nuvem e IA — vamos conversar.",
+    "email": "Enviar Email",
+    "linkedin": "Conectar no LinkedIn"
+  },
+  "footer": {
+    "copyright": "Todos os direitos reservados.",
+    "builtWith": "Construído com",
+    "and": "e"
+  },
+  "photography": {
+    "title": "Fotografia",
+    "description": "Capturando momentos, paisagens e beleza cotidiana através da lente. Um diário visual dos lugares por onde passei e das coisas que chamaram minha atenção.",
+    "photos": "fotos",
+    "noAlbums": "Nenhum álbum ainda",
+    "addAlbumsHint": "Adicione seus álbuns ao arquivo photography.json e coloque as imagens no diretório public/photos/."
+  },
+  "cooking": {
+    "title": "Culinária",
+    "description": "Experimentando com sabores, técnicas e culinárias de todo o mundo. Da comida de conforto brasileira a pratos internacionais — transformando ingredientes em experiências.",
+    "ingredients": "Ingredientes",
+    "instructions": "Instruções",
+    "prepTime": "Tempo de Preparo",
+    "cookTime": "Tempo de Cozimento",
+    "servings": "Porções",
+    "noRecipes": "Nenhuma receita encontrada",
+    "searchPlaceholder": "Buscar receitas...",
+    "allCuisines": "Todas as Cozinhas",
+    "allMealTypes": "Todos os Tipos de Refeição",
+    "allCourseTypes": "Todos os Pratos",
+    "all": "Todos",
+    "backTo": "Voltar para Culinária",
+    "recipe": "Receita",
+    "notFound": "Receita não encontrada",
+    "notFoundDesc": "A receita que você está procurando não existe.",
+    "noRecipesMatch": "Nenhuma receita corresponde aos filtros",
+    "tryAdjusting": "Tente ajustar os filtros acima ou a busca para encontrar algo diferente.",
+    "prevPage": "Anterior",
+    "nextPage": "Próxima",
+    "contentNotFound": "Conteúdo não disponível"
+  },
+  "music": {
+    "title": "Música",
+    "description": "O que eu ouço enquanto codifico, relaxo e exploro. Playlists selecionadas e faixas favoritas entre gêneros — do ambient e eletrônico ao rock e MPB brasileira.",
+    "searchPlaceholder": "Buscar música...",
+    "genre": "Gênero",
+    "playlists": "Playlists",
+    "favorites": "Favoritos",
+    "all": "Todos",
+    "empty": "Playlists em breve",
+    "noResults": "Nenhuma música corresponde a este gênero"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Página não encontrada",
+    "backHome": "Voltar ao Início"
+  },
+  "errors": {
+    "oops": "Ops!",
+    "unexpected": "Ocorreu um erro inesperado.",
+    "pageNotFound": "A página solicitada não foi encontrada.",
+    "error": "Erro"
+  },
+  "softSkills": {
+    "title": "Soft Skills",
+    "items": [
+      {
+        "name": "Resolução Analítica de Problemas",
+        "description": "Diagnóstico de gargalos, debugging de arquiteturas complexas e otimização de latência/carga em sistemas de alta demanda."
+      },
+      {
+        "name": "Visão Sistêmica e Planejamento",
+        "description": "Gerenciamento de roadmaps de engenharia e desenho de arquiteturas de ecossistemas completos, conectando regras de negócio à infraestrutura."
+      },
+      {
+        "name": "Pragmatismo e Foco em Eficiência",
+        "description": "Priorização de performance, estabilidade e baixo consumo de recursos na tomada de decisão técnica e implementação de soluções."
+      },
+      {
+        "name": "Comunicação e Feedback",
+        "description": "Condução de code reviews construtivos focados em mitigação de vulnerabilidades e manutenção de relações sólidas com equipes de pesquisa e desenvolvimento."
+      },
+      {
+        "name": "Adaptabilidade Multidisciplinar",
+        "description": "Transição eficiente entre múltiplas stacks (Node.js, C#, Python), ambientes de infraestrutura (CI/CD, DevOps) e otimizações a nível de sistema operacional e hardware."
+      },
+      {
+        "name": "Autonomia e Pró-atividade",
+        "description": "Identificação independente de gargalos em infraestrutura e antecipação de necessidades de escalabilidade (ex: implementação preemptiva de cache e load balancing)."
+      },
+      {
+        "name": "Atenção aos Detalhes",
+        "description": "Revisão minuciosa em rotinas críticas, garantindo a integridade e precisão de dados em sistemas de relatórios institucionais e geração de documentos."
+      },
+      {
+        "name": "Aprendizado Contínuo",
+        "description": "Pesquisa ativa e integração de novas tecnologias, runtimes e ferramentas de automação para modernização de stacks e melhoria contínua de performance."
+      },
+      {
+        "name": "Colaboração Técnica",
+        "description": "Articulação de soluções entre desenvolvimento, infraestrutura e produto, disseminando boas práticas de engenharia e padrões de segurança com a equipe."
+      },
+      {
+        "name": "Gestão de Tempo e Priorização",
+        "description": "Equilíbrio entre o desenvolvimento de novas features complexas (ex: dashboards de indicadores) e a refatoração necessária para manter o baixo consumo de recursos e a estabilidade."
+      }
+    ]
+  },
+  "links": {
+    "pageTitle": "@ZauJulio — Links",
+    "pageDescription": "Desenvolvedor de Software — Todos os meus links em um só lugar.",
+    "bio": "Desenvolvedor de Software",
+    "resume": "Currículo",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "codersrank": "CodersRank",
+    "discord": "Discord"
+  }
+}

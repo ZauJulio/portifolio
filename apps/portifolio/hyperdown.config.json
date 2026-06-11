@@ -1,0 +1,45 @@
+{
+  "$schema": "./node_modules/@virtus/hyper-down/schemas/hyperdown.config.schema.json",
+  "database": {
+    "contentDir": "./content",
+    "frontmatterJsonPath": "../../frontmatter.json"
+  },
+  "sitemap": {
+    "siteUrl": "https://zaujulio.vercel.app",
+    "outputPath": "./public/sitemap.xml",
+    "staticRoutes": [
+      { "path": "/", "priority": "1.0", "changefreq": "weekly" },
+      { "path": "/pt", "priority": "1.0", "changefreq": "weekly" },
+      { "path": "/cooking", "priority": "0.8", "changefreq": "weekly" },
+      { "path": "/pt/cooking", "priority": "0.8", "changefreq": "weekly" },
+      { "path": "/articles", "priority": "0.8", "changefreq": "weekly" },
+      { "path": "/pt/articles", "priority": "0.8", "changefreq": "weekly" },
+      { "path": "/photography", "priority": "0.7", "changefreq": "monthly" },
+      { "path": "/pt/photography", "priority": "0.7", "changefreq": "monthly" },
+      { "path": "/music", "priority": "0.7", "changefreq": "monthly" },
+      { "path": "/pt/music", "priority": "0.7", "changefreq": "monthly" },
+      { "path": "/links", "priority": "0.6", "changefreq": "monthly" },
+      { "path": "/pt/links", "priority": "0.6", "changefreq": "monthly" }
+    ],
+    "contentTypes": [
+      {
+        "name": "recipe",
+        "basePath": "/cooking",
+        "priority": "0.6",
+        "changefreq": "monthly"
+      },
+      {
+        "name": "article",
+        "basePath": "/articles",
+        "priority": "0.7",
+        "changefreq": "monthly"
+      }
+    ]
+  },
+  "i18n": {
+    "defaultLocale": "en",
+    "locales": ["en", "pt-BR"],
+    "strategy": "folder",
+    "filePattern": {}
+  }
+}

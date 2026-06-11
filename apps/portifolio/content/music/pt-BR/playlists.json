@@ -1,0 +1,14 @@
+{
+  "$schema": "../schema.json",
+  "items": [
+    {
+      "id": "1",
+      "title": "NJP",
+      "description": "Pop Japonês — Vaundy, Fujii Kaze, jo0ji, Yorushika e mais",
+      "genre": "J-Pop / J-Rock",
+      "trackCount": 11,
+      "cover": "https://i.ytimg.com/vi/QvinYZfnPAs/maxresdefault.jpg",
+      "youtubeId": "PLSremB3M0yVm535-gt3BB2xyouBG6gwJp"
+    }
+  ]
+}

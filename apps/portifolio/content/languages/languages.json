@@ -1,0 +1,45 @@
+{
+  "$schema": "./schema.json",
+  "items": [
+    {
+      "id": "1",
+      "name": "Portuguese",
+      "nativeName": "Portugues",
+      "flag": "BR",
+      "emojiFlag": "🇧🇷",
+      "proficiency": "Native",
+      "color": "#EE4540",
+      "levels": { "speaking": 100, "listening": 100, "reading": 100 }
+    },
+    {
+      "id": "2",
+      "name": "English",
+      "nativeName": "English",
+      "flag": "US",
+      "emojiFlag": "🇺🇸",
+      "proficiency": "Intermediate",
+      "color": "#C72C41",
+      "levels": { "speaking": 35, "listening": 60, "reading": 95 }
+    },
+    {
+      "id": "3",
+      "name": "Spanish",
+      "nativeName": "Espanol",
+      "flag": "ES",
+      "emojiFlag": "🇪🇸",
+      "proficiency": "Basic",
+      "color": "#801336",
+      "levels": { "speaking": 20, "listening": 40, "reading": 45 }
+    },
+    {
+      "id": "4",
+      "name": "French",
+      "nativeName": "Francais",
+      "flag": "FR",
+      "emojiFlag": "🇫🇷",
+      "proficiency": "Beginner",
+      "color": "#F47370",
+      "levels": { "speaking": 10, "listening": 25, "reading": 30 }
+    }
+  ]
+}

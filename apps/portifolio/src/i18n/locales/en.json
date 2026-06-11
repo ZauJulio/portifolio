@@ -1,0 +1,210 @@
+{
+  "common": {
+    "backToPortfolio": "Back to Portfolio",
+    "backToAlbums": "Back to Albums",
+    "home": "Home",
+    "close": "Close",
+    "loading": "Loading...",
+    "search": "Search...",
+    "tags": "Tags",
+    "loadMore": "More"
+  },
+  "nav": {
+    "about": "About",
+    "projects": "Projects/Skills",
+    "hobbies": "Hobbies",
+    "hire": "Hire Me",
+    "articles": "Articles",
+    "photography": "Photography",
+    "cooking": "Cooking",
+    "music": "Music",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "contact": "Contact",
+    "resume": "Resume"
+  },
+  "hero": {
+    "title": "Zaú Júlio",
+    "subtitle": "Full Stack Developer | Tech Lead | Systems Engineer"
+  },
+  "about": {
+    "title": "About Me",
+    "summary": "Software engineer with 6+ years of experience building scalable web applications and distributed systems. Passionate about clean code, cloud architecture, and mentoring junior developers.",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "languages": "Languages",
+    "thesis": "Thesis",
+    "thesisTitle": "Thesis: Analysis of the use of cloud computing in startups in the Brazilian market",
+    "thesisName": "Features Analyzer",
+    "thesisSubtitle": "Boilerplate for Data Visualization and Analysis Tools",
+    "thesisDescription": "A Python desktop application for dataset feature analysis, prototyping and testing machine learning and statistical models. Built with a modular architecture using GTK for the UI, featuring a custom state management system with the Observer pattern, a typed JSON ORM with Pydantic and TinyDB, and internationalization support (i18n). Includes Docker containerization and automated documentation with MkDocs.",
+    "thesisLink": "View Thesis"
+  },
+  "projects": {
+    "title": "Projects & Skills",
+    "description": "A selection of open-source projects spanning full-stack development, machine learning, Linux tooling, and system engineering.",
+    "noResults": "No projects match"
+  },
+  "articles": {
+    "title": "Articles",
+    "latest": "Latest Articles",
+    "latestDescription": "Random musings, digital curiosities and stuff I just felt like writing",
+    "description": "Writing about software engineering, machine learning, and the tools I use every day. Deep dives, tutorials, and lessons learned from building real-world applications.",
+    "descriptionHome": "Thoughts on software development, cloud architecture, and technology.",
+    "readMore": "Read More",
+    "publishedOn": "Published on",
+    "backTo": "Back to Articles",
+    "article": "Article",
+    "notFound": "Article not found",
+    "notFoundDesc": "The article you're looking for doesn't exist.",
+    "originallyPublished": "Originally published",
+    "sortBy": "Sort by",
+    "sortDate": "Date",
+    "sortTitle": "Title",
+    "page": "Page {page} of {total}",
+    "prevPage": "Previous",
+    "nextPage": "Next",
+    "noArticles": "No articles yet",
+    "noArticlesTagged": "No articles tagged \"{{tag}}\"",
+    "addArticlesHint": "Try adjusting the filters above or the search to find something different.",
+    "contentNotFound": "Content not available"
+  },
+  "hobbies": {
+    "title": "Hobbies & Interests",
+    "subtitle": "Beyond code — the things that inspire creativity and keep the balance.",
+    "description": "Hobbies aren't just pastimes; they're essential for mental health, creativity, and preventing burnout. When we step away from the screen and engage in different activities, we give our brains the space to process, innovate, and recharge. Photography teaches me to see beauty in details, cooking connects me with culture and mindfulness, and music provides the rhythm that fuels my focus.",
+    "quote": "\"To be creative, you must give yourself permission to explore.\"",
+    "photography": {
+      "title": "Photography",
+      "description": "Capturing moments and landscapes through the lens. From street photography to nature shots, exploring light, composition, and storytelling."
+    },
+    "cooking": {
+      "title": "Cooking",
+      "description": "Exploring culinary traditions from around the world. Love experimenting with new flavors and techniques in the kitchen."
+    },
+    "music": {
+      "title": "Music",
+      "description": "Playing guitar and exploring different genres. Music is a constant source of inspiration and creativity."
+    }
+  },
+  "hire": {
+    "title": "Hire Me",
+    "description": "I'm open to new opportunities, freelance projects, and technical collaborations. If you're looking for a full-stack developer with experience in system design, cloud architecture, and AI — let's connect.",
+    "email": "Email Me",
+    "linkedin": "Connect on LinkedIn"
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "builtWith": "Built with",
+    "and": "and"
+  },
+  "photography": {
+    "title": "Photography",
+    "description": "Capturing moments, landscapes, and everyday beauty through the lens. A visual journal of the places I've been and the things that caught my eye.",
+    "photos": "photos",
+    "noAlbums": "No albums yet",
+    "addAlbumsHint": "Add your albums to the photography.json file and place images in the public/photos/ directory."
+  },
+  "cooking": {
+    "title": "Cooking",
+    "description": "Experimenting with flavors, techniques, and cuisines from around the world. From Brazilian comfort food to international dishes — turning ingredients into experiences.",
+    "ingredients": "Ingredients",
+    "instructions": "Instructions",
+    "prepTime": "Prep Time",
+    "cookTime": "Cook Time",
+    "servings": "Servings",
+    "noRecipes": "No recipes found",
+    "searchPlaceholder": "Search recipes...",
+    "allCuisines": "All Cuisines",
+    "allMealTypes": "All Meal Types",
+    "allCourseTypes": "All Course Types",
+    "all": "All",
+    "backTo": "Back to Cooking",
+    "recipe": "Recipe",
+    "notFound": "Recipe not found",
+    "notFoundDesc": "The recipe you're looking for doesn't exist.",
+    "noRecipesMatch": "No recipes match your filters",
+    "tryAdjusting": "Try adjusting the filters above or the search to find something different.",
+    "prevPage": "Previous",
+    "nextPage": "Next",
+    "contentNotFound": "Content not available"
+  },
+  "music": {
+    "title": "Music",
+    "description": "What I listen to while coding, relaxing, and exploring. Curated playlists and favorite tracks across genres — from ambient and electronic to rock and Brazilian MPB.",
+    "searchPlaceholder": "Search music...",
+    "genre": "Genre",
+    "playlists": "Playlists",
+    "favorites": "Favorites",
+    "all": "All",
+    "empty": "Playlists coming soon",
+    "noResults": "No music matches this genre"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Page not found",
+    "backHome": "Back to Home"
+  },
+  "errors": {
+    "oops": "Oops!",
+    "unexpected": "An unexpected error occurred.",
+    "pageNotFound": "The requested page could not be found.",
+    "error": "Error"
+  },
+  "softSkills": {
+    "title": "Soft Skills",
+    "items": [
+      {
+        "name": "Analytical Problem Solving",
+        "description": "Bottleneck diagnosis, complex architecture debugging, and latency/load optimization in high-demand systems."
+      },
+      {
+        "name": "Systems Thinking & Planning",
+        "description": "Engineering roadmap management and full ecosystem architecture design, connecting business rules to infrastructure."
+      },
+      {
+        "name": "Pragmatism & Efficiency Focus",
+        "description": "Prioritizing performance, stability, and low resource usage in technical decision-making and solution implementation."
+      },
+      {
+        "name": "Communication & Feedback",
+        "description": "Conducting constructive code reviews focused on vulnerability mitigation and maintaining solid relationships with R&D teams."
+      },
+      {
+        "name": "Multidisciplinary Adaptability",
+        "description": "Efficient transition between multiple stacks (Node.js, C#, Python), infrastructure environments (CI/CD, DevOps), and OS/hardware-level optimizations."
+      },
+      {
+        "name": "Autonomy & Proactivity",
+        "description": "Independent identification of infrastructure bottlenecks and anticipation of scalability needs (e.g., preemptive cache and load balancing implementation)."
+      },
+      {
+        "name": "Attention to Detail",
+        "description": "Thorough review of critical routines, ensuring data integrity and accuracy in institutional reporting systems and document generation."
+      },
+      {
+        "name": "Continuous Learning",
+        "description": "Active research and integration of new technologies, runtimes, and automation tools for stack modernization and continuous performance improvement."
+      },
+      {
+        "name": "Technical Collaboration",
+        "description": "Articulating solutions between development, infrastructure, and product, spreading engineering best practices and security standards across the team."
+      },
+      {
+        "name": "Time Management & Prioritization",
+        "description": "Balancing complex new feature development (e.g., indicator dashboards) with necessary refactoring to maintain low resource usage and stability."
+      }
+    ]
+  },
+  "links": {
+    "pageTitle": "@ZauJulio — Links",
+    "pageDescription": "Software Developer — All my links in one place.",
+    "bio": "Software Developer",
+    "resume": "Resume/CV",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "codersrank": "CodersRank",
+    "discord": "Discord"
+  }
+}

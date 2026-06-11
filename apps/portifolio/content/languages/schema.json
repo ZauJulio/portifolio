@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LanguageContentSchema",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Language"
+      }
+    }
+  },
+  "definitions": {
+    "Language": {
+      "title": "Language",
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "nativeName",
+        "flag",
+        "emojiFlag",
+        "proficiency",
+        "color",
+        "levels"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "nativeName": { "type": "string" },
+        "flag": { "type": "string" },
+        "emojiFlag": { "type": "string" },
+        "proficiency": {
+          "type": "string",
+          "enum": ["Native", "Advanced", "Upper Intermediate", "Intermediate", "Basic", "Beginner"]
+        },
+        "color": { "type": "string" },
+        "levels": {
+          "$ref": "#/definitions/LanguageProficiency"
+        }
+      }
+    },
+    "LanguageProficiency": {
+      "title": "LanguageProficiency",
+      "type": "object",
+      "properties": {
+        "speaking": { "type": "number", "minimum": 0, "maximum": 100 },
+        "listening": { "type": "number", "minimum": 0, "maximum": 100 },
+        "reading": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    }
+  }
+}

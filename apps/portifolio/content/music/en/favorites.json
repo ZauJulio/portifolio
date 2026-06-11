@@ -1,0 +1,53 @@
+{
+  "$schema": "../schema.json",
+  "items": [
+    {
+      "id": "1",
+      "title": "Shinunoga E-Wa",
+      "artist": "Fujii Kaze",
+      "genre": "J-Pop / J-Rock",
+      "cover": "https://i.ytimg.com/vi/3zh9Wb1KuW8/maxresdefault.jpg",
+      "youtubeId": "3zh9Wb1KuW8"
+    },
+    {
+      "id": "2",
+      "title": "Fukutsu ni Hana",
+      "artist": "jo0ji",
+      "genre": "J-Pop / J-Rock",
+      "cover": "https://i.ytimg.com/vi/mkYjdfWz0aU/maxresdefault.jpg",
+      "youtubeId": "mkYjdfWz0aU"
+    },
+    {
+      "id": "3",
+      "title": "踊り子 (Odoriko)",
+      "artist": "Vaundy",
+      "genre": "J-Pop / J-Rock",
+      "cover": "https://i.ytimg.com/vi/CnlMTBwsBHs/maxresdefault.jpg",
+      "youtubeId": "CnlMTBwsBHs"
+    },
+    {
+      "id": "4",
+      "title": "Snake",
+      "artist": "Yorushika",
+      "genre": "J-Pop / J-Rock",
+      "cover": "https://i.ytimg.com/vi/eZU8lpm6R6g/maxresdefault.jpg",
+      "youtubeId": "eZU8lpm6R6g"
+    },
+    {
+      "id": "5",
+      "title": "Matsuri",
+      "artist": "Fujii Kaze",
+      "genre": "J-Pop / J-Rock",
+      "cover": "https://i.ytimg.com/vi/HMqhXxH5-RQ/maxresdefault.jpg",
+      "youtubeId": "HMqhXxH5-RQ"
+    },
+    {
+      "id": "6",
+      "title": "東京フラッシュ (Tokyo Flash)",
+      "artist": "Vaundy",
+      "genre": "J-Pop / J-Rock",
+      "cover": "https://i.ytimg.com/vi/hS2BVRnQiYI/maxresdefault.jpg",
+      "youtubeId": "hS2BVRnQiYI"
+    }
+  ]
+}

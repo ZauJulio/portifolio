@@ -1,0 +1,25 @@
+{
+  "extends": "../../packages/configs/vite.json",
+  "compilerOptions": {
+    "preserveSymlinks": false,
+    "types": ["@types/bun", "node", "vite/client", "vike-react"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "paths": {
+      "@hyper-down/*": ["./.hyper-down/*"],
+      "@hyper-json": ["./.hyper-json"],
+      "@content/*": ["./content/*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "__tests__/**/*",
+    "e2e/**/*",
+    "*.ts",
+    "*.tsx",
+    ".hyper-json/**/*",
+    ".hyper-down/**/*"
+  ],
+  "exclude": ["node_modules", "build", "dist"]
+}

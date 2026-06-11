@@ -1,0 +1,25 @@
+/* Links page styles that Tailwind utilities can't express cleanly: the layered
+   radial-gradient backdrop and the staggered entrance animation. Everything else
+   (layout, colors, the hover gradient overlay) lives as Tailwind classes. */
+
+.page {
+  background-color: #080004;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(45, 19, 44, 0.4) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 100%, rgba(45, 19, 44, 0.15) 0%, transparent 50%);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animateIn {
+  animation: fadeInUp 0.5s ease-out both;
+}
