@@ -5,8 +5,8 @@
 Whenever you (the AI agent) edit, modify, refactor, or add **CODE** to this repository, you **MUST** run the following commands **in order**:
 
 1. **`bun run check`** — `oxlint` + `oxfmt`. ⚠️ This project uses **OXC**, NOT Biome or ESLint.
-2. **`bun run typecheck`** — TypeScript across the workspace.
-3. **`bun run test`** — all test suites.
+2. **`bun run typecheck`** — `tsc --noEmit`.
+3. **`bun run test`** — vitest unit/component suites.
 4. **`bun run build`** — ensures the project builds without errors.
 
 If **any** command fails or produces **ANY** warnings or errors, fix them before considering the task complete. **Do not ask for permission to fix errors — just fix them, then rerun the checks.**
@@ -15,10 +15,7 @@ If **any** command fails or produces **ANY** warnings or errors, fix them before
 
 ## Repository shape
 
-Bun + Turborepo workspace. One app, one shared-config package:
-
-- **`apps/portifolio`** (`@repo/portifolio`) — the portfolio. **Vike** hybrid SSG + SSR (React 19, Hono, bilingual `/` en, `/pt`).
-- **`packages/configs`** (`@repo/configs`) — shared tsconfig/oxlint/oxfmt/Tailwind/Vite presets.
+Flat single-package Bun repo (no workspaces, no turbo). The app lives at the root: Vike hybrid SSG + SSR (React 19, Hono, bilingual `/` en, `/pt`).
 
 The content engines are consumed **from npm** — [`@virtus/hyper-down`](https://www.npmjs.com/package/@virtus/hyper-down) (Markdown/MDX → SQLite FTS5, SSR-only) and [`@virtus/hyper-json`](https://www.npmjs.com/package/@virtus/hyper-json) (JSON Schema → typed content). Their source lives in the [virtus](https://github.com/ZauJulio/virtus) repo; each ships a `.agents/` reference tree inside the installed package.
 
@@ -33,9 +30,10 @@ The content engines are consumed **from npm** — [`@virtus/hyper-down`](https:/
 - **`hyperdownMdxPlugin` MUST be listed before `vike()`/`react()`** in `vite.config.ts`.
 - Loaders read the `.db` with `bun:sqlite` — or `node:sqlite` (Node ≥22, e.g. Vercel). Production prefers `dist/metadata/<name>.db`.
 - Listing pages are URL-driven (`q`/`tag`/`cuisine`/`page`/`sort`/`dir` from `pageContext.urlParsed.search`); detail pages use `getMetaBySlug` + the resolver.
-- The content `.db` files are build artifacts — regenerated every build, never committed.
+- Content `.db` files are build artifacts — regenerated every build, never committed.
+- Content types are defined in `frontmatter.json` (root, FrontMatter CMS format); `hyperdown.config.json` points at it and at `./content`.
 
-### apps/portifolio (Vike)
+### The Vike app
 
 - **Vike** (`vike` + `vike-react` + `vike-server` + `@vikejs/hono`), **hybrid SSG + SSR**: global `prerender: { partial: true }`; listings (`articles/`, `cooking/`) set `prerender: false` so `+data` search is live SSR (this also keeps `dist/server/index.mjs` in the build); detail pages (`@slug`) set `prerender: true`. `+config.ts` sets `passToClient: ["locale", "canonical", "displayLocale", "urlPathnameLocalized"]`.
 - **i18n is locale-stripping** (`src/i18n.ts` + `src/pages/+onBeforeRoute.ts`): default locale `en` is prefix-free; `pt-BR` lives under `/pt`. `+onBeforeRoute` strips the prefix and sets `pageContext.locale` + `urlLogical`.
@@ -44,16 +42,16 @@ The content engines are consumed **from npm** — [`@virtus/hyper-down`](https:/
 - **`useSearchDebounce`**: the guard `searchInput === serverQuery` makes it Strict-Mode-safe — never replace it with an `isFirstRender` ref.
 - **`PageMinimap`**: `cloneArticleInto` **must strip every descendant `id`** from the clone, or hash navigation targets the mirror copy.
 - **Article hash scroll**: Vike intercepts `<a href="#…">` via `pushState`, so a **capture-phase** click listener handles TOC clicks.
-- E2E (Playwright, `apps/portifolio/e2e/`) covers these behaviors as regression specs.
+- E2E (Playwright, `e2e/`) covers these behaviors as regression specs.
 
 ### Deploy (Vercel)
 
-- `vite-plugin-vercel` is enabled only when `VERCEL=1` (Vercel sets it); it rewrites the build into `.vercel/output/` (Build Output API). Locally/Docker, a plain build yields a runnable SSR server (`bun dist/server/index.mjs`).
-- The Vercel project is `zaujulio.github.io` (alias **zaujulio.vercel.app**); `.vercel/project.json` links this repo to it.
+- `vite-plugin-vercel` is enabled only when `VERCEL=1` (Vercel sets it); it rewrites the build into `.vercel/output/` (Build Output API). Locally/Docker, a plain build yields a runnable SSR server (`bun run start`).
+- The Vercel project alias is **zaujulio.vercel.app**; `.vercel/project.json` (gitignored, local) links the checkout to it.
 
 ### Auto-generated — Do Not Edit Manually
 
-- `apps/portifolio/.hyper-down/**` (`content/*/{types,builder,modules}.ts`, `default.ts`)
-- `apps/portifolio/.hyper-json/src/content/**` (`generated.d.ts`, per-type `types.ts`)
+- `.hyper-down/**` (`content/*/{types,builder,modules}.ts`, `default.ts`)
+- `.hyper-json/src/content/**` (`generated.d.ts`, per-type `types.ts`)
 
 Regenerated by the engines' Vite plugins on every build (idempotent writes).

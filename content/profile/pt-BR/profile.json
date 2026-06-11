@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../../public/schemas/profile-schema.json",
+  "$schema": "../../../public/schemas/profile-schema.json",
   "name": "Zaú Júlio",
   "title": "Engenheiro de Software",
   "location": "Brasil (UTC-3)",

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import type { RefObject } from "react";
 
-import tailwindConfig from "@repo/configs/tailwind.config";
+import tailwindConfig from "../../tailwind.config";
 
 import { useDomMirror } from "@/hooks/use-dom-mirror";
 import { useScrollMetrics } from "@/hooks/use-scroll-metrics";

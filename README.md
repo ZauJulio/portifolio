@@ -24,37 +24,55 @@ bilingual: `/` en, `/pt`) and the reference consumer of the
   validated, typed JSON imports. Powers `profile`, `projects`, `skills`, `education`,
   `languages`, `music`, and `photography`.
 
-## Quick start
+## Commands
 
 > Requires **Bun** (package manager pinned to `bun@1.3.5`).
 
 ```bash
 bun install
 
-bun run dev         # Vike dev server
-bun run build       # build (engines' codegen + SSG prerender + server bundle)
-bun run preview     # preview the production build
-bun run typecheck   # tsc across the workspace
-bun run test        # vitest unit/component tests
-bun run check       # oxlint + oxfmt (OXC — not ESLint/Prettier/Biome)
+bun run dev        # Vike dev server
+bun run build      # engines' codegen + SSG prerender + server bundle
+bun run preview    # preview the production build
+bun run start      # serve the production build (bun dist/server/index.mjs)
+bun run typecheck  # tsc --noEmit
+bun run test       # vitest (component/unit)
+bun run test:e2e   # Playwright end-to-end specs (e2e/)
+bun run check      # oxlint + oxfmt (OXC — not ESLint/Prettier/Biome)
 ```
-
-End-to-end specs (Playwright) live in [`apps/portifolio/e2e`](./apps/portifolio/e2e):
-`bun --cwd apps/portifolio run test:e2e`.
 
 ## Layout
 
 ```text
-apps/portifolio/      the Vike app (see its README for architecture details)
-packages/configs/     shared tsconfig/oxlint/oxfmt/Tailwind presets
+src/pages/            Vike pages (+Page/+data/+config), filesystem-routed
+  +onBeforeRoute.ts   i18n locale-stripping (/pt → urlLogical, sets pageContext.locale)
+  +Layout.tsx         shared shell; applies the URL-derived locale to i18next
+  articles/ cooking/  HyperDown listings (live SSR search) + @slug/ details (SSG)
+  music/ photography/ links/   HyperJson-backed pages
+src/components/       shared UI (Link, PageHeader, PageMinimap, Breadcrumbs, …)
+src/hooks/            use-search-params-nav, use-search-debounce
+content/<type>/       source content (.mdx for article/recipe, .json for the rest)
 frontmatter.json      content-type definitions (FrontMatter CMS format)
-.frontmatter/         FrontMatter CMS templates
+.hyper-down/          HyperDown codegen output (builders, MDX module maps) — generated
+.hyper-json/          HyperJson codegen output (ambient types) — generated
+e2e/                  Playwright specs
 ```
+
+## How content is loaded
+
+- **Listings** (`articles`, `cooking`): the `+data` loader reads the URL query
+  (`q`/`tag`/`cuisine`/`page`/`sort`/`dir`), runs the HyperDown repository server-side
+  (SQLite FTS5), and returns serializable results; the page patches the query via
+  `useSearchParamsNav` to revalidate. Served live (SSR, `prerender: false`).
+- **Details** (`@slug`): metadata via `getMetaBySlug`; MDX body resolved with
+  `createContentResolver` and rendered with `MdxRender`. Prerendered (SSG).
+- **JSON pages** import typed content directly (validated at build time by HyperJson).
 
 ## Deploy
 
-Deployed on **Vercel** (`vite-plugin-vercel` Build Output, SSR via `node:sqlite`).
-Content `.db` indexes are build artifacts — regenerated on every build, never committed.
+**Vercel** (`vite-plugin-vercel` Build Output API, SSR via `node:sqlite`) — or any
+Bun/Node host via `Dockerfile` / `bun run start`. Content `.db` indexes are build
+artifacts: regenerated on every build, never committed.
 
 ## License
 

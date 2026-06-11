@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "allowImportingTsExtensions": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "target": "ESNext",
+    "moduleDetection": "force",
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noUncheckedSideEffectImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveSymlinks": false,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "useDefineForClassFields": true,
+    "verbatimModuleSyntax": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "types": ["@types/bun", "node", "vite/client", "vike-react"],
+    "paths": {
+      "@hyper-down/*": ["./.hyper-down/*"],
+      "@hyper-json": ["./.hyper-json"],
+      "@content/*": ["./content/*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "__tests__/**/*",
+    "e2e/**/*",
+    "*.ts",
+    "*.tsx",
+    ".hyper-json/**/*",
+    ".hyper-down/**/*"
+  ],
+  "exclude": ["node_modules", "build", "dist"]
+}

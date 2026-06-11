@@ -150,7 +150,7 @@
   "frontMatter.content.pageFolders": [
     {
       "title": "Articles",
-      "path": "[[workspace]]/apps/portifolio/content/article",
+      "path": "[[workspace]]/content/article",
       "filePrefix": "",
       "contentTypes": ["article"],
       "defaultLocale": "en",
@@ -161,7 +161,7 @@
     },
     {
       "title": "Recipes",
-      "path": "[[workspace]]/apps/portifolio/content/recipe",
+      "path": "[[workspace]]/content/recipe",
       "filePrefix": "",
       "contentTypes": ["recipe"],
       "defaultLocale": "en",
