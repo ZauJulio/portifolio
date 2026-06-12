@@ -71,6 +71,18 @@ export default defineConfig(({ mode }) => ({
     external: ["pino", "pino-pretty", "bun:sqlite", "node:sqlite"],
     noExternal: ["tw-animate-css", "@muttum/hyper-down"],
   },
+  environments: {
+    // `ssr:` above only configures the "ssr" environment. vite-plugin-vercel builds
+    // the serverless function in its own "vercel_node" environment, which otherwise
+    // externalizes @muttum/hyper-down — its virtual:* imports then reach the final
+    // plugin-less bundling step unresolved and crash the lambda at request time.
+    vercel_node: {
+      resolve: {
+        external: ["pino", "pino-pretty", "bun:sqlite", "node:sqlite"],
+        noExternal: ["tw-animate-css", "@muttum/hyper-down"],
+      },
+    },
+  },
   optimizeDeps: {
     exclude: [
       "pino-pretty",
