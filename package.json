@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun --bun vike dev",
-    "build": "bun --bun vike build",
+    "build": "bun --bun scripts/build.ts",
     "preview": "bun --bun vike preview",
     "start": "NODE_ENV=production bun dist/server/index.mjs",
     "test": "vitest run --passWithNoTests",
