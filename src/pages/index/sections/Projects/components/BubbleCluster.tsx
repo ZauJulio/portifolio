@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import type { SkillCluster } from "@virtus/hyper-json";
+import type { SkillCluster } from "@muttum/hyper-json";
 
 type BubbleData = {
   name: string;

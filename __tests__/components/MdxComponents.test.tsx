@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
+import { defaultMdxComponents } from "@muttum/hyper-down";
 import { render, screen } from "@testing-library/react";
-import { defaultMdxComponents } from "@virtus/hyper-down";
 import { describe, expect, it } from "vitest";
 
 // The MDX component map HyperDown ships and the app renders article/recipe

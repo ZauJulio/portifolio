@@ -12,6 +12,6 @@
  * --------------------------------------------------------
  */
 
-import type { ContentModuleMap } from "@virtus/hyper-down/types";
+import type { ContentModuleMap } from "@muttum/hyper-down/types";
 
 export default import.meta.glob("/content/article/**/*.mdx", { eager: true }) as ContentModuleMap;

@@ -5,7 +5,7 @@ import profilePtBRJson from "@content/profile/pt-BR/profile.json";
 
 import { useLocale } from "@/i18n";
 
-import type { ExperienceItem, ProfileContentSchema } from "@virtus/hyper-json";
+import type { ExperienceItem, ProfileContentSchema } from "@muttum/hyper-json";
 
 export function useExperience() {
   const { locale } = useLocale();

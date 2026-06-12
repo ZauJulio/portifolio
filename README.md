@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://zaujulio.vercel.app"><img alt="Live" src="https://img.shields.io/badge/live-zaujulio.vercel.app-black?logo=vercel" /></a>
-  <a href="https://github.com/ZauJulio/virtus"><img alt="Powered by Virtus" src="https://img.shields.io/badge/powered%20by-Virtus-801336" /></a>
+  <a href="https://github.com/ZauJulio/muttum"><img alt="Powered by Muttum" src="https://img.shields.io/badge/powered%20by-Muttum-801336" /></a>
   <a href="./LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-green" /></a>
 </p>
 
@@ -18,7 +18,7 @@
 
 Personal portfolio — a [Vike](https://vike.dev/) **hybrid SSG + SSR** site (React 19,
 Hono, bilingual: `/` en · `/pt` pt-BR) and the reference consumer of the
-[**Virtus**](https://github.com/ZauJulio/virtus) content engines.
+[**Muttum**](https://github.com/ZauJulio/muttum) content engines.
 
 ## Summary
 
@@ -37,10 +37,10 @@ Hono, bilingual: `/` en · `/pt` pt-BR) and the reference consumer of the
   global `prerender: { partial: true }`; the `articles`/`cooking` **listings opt out**
   (`prerender: false`) so full-text search runs live on the server; **detail pages are
   prerendered** to static HTML.
-- [`@virtus/hyper-down`](https://www.npmjs.com/package/@virtus/hyper-down) — Markdown/MDX →
+- [`@muttum/hyper-down`](https://www.npmjs.com/package/@muttum/hyper-down) — Markdown/MDX →
   SQLite (contentless FTS5), queried server-side in `+data` loaders. Powers the searchable
   `articles` and `cooking` sections.
-- [`@virtus/hyper-json`](https://www.npmjs.com/package/@virtus/hyper-json) — JSON Schema →
+- [`@muttum/hyper-json`](https://www.npmjs.com/package/@muttum/hyper-json) — JSON Schema →
   validated, typed JSON imports. Powers `profile`, `projects`, `skills`, `education`,
   `languages`, `music`, and `photography`.
 - **React 19** · **Tailwind v4** · **i18next** · MDX pipeline with
@@ -126,7 +126,7 @@ prefix survives search/filter/sort navigation.
   `.vercel/output/` (Build Output API); SSR runs on `node:sqlite`, reading the content
   databases from `dist/metadata/`.
 - **Docker / any Bun host** — `docker compose up --build`, or `bun run build && bun run
-  start` (Hono SSR server on `:3000`).
+start` (Hono SSR server on `:3000`).
 
 ## License
 

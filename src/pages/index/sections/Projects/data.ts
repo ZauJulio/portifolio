@@ -1,8 +1,8 @@
 import projectsJson from "@content/projects/en/projects.json";
 import skillsJson from "@content/skills/skills.json";
-import { useComposed } from "@virtus/hyper-json/hooks";
+import { useComposed } from "@muttum/hyper-json/hooks";
 
-import type { SkillCluster } from "@virtus/hyper-json";
+import type { SkillCluster } from "@muttum/hyper-json";
 
 export const SKILL_CLUSTERS: SkillCluster[] = skillsJson.clusters ?? [];
 

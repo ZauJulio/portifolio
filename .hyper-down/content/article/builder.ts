@@ -12,9 +12,9 @@
  * --------------------------------------------------------
  */
 
-import { createLazyRepository } from "@virtus/hyper-down/server";
+import { createLazyRepository } from "@muttum/hyper-down/server";
 
-import type { ArticleMeta } from "@virtus/hyper-down";
+import type { ArticleMeta } from "@muttum/hyper-down";
 
 // Server-only DAO for the `article` collection — imported by `+data.ts`
 // loaders (SSR-only), never by browser code. Lazily instantiated.

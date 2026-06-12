@@ -17,15 +17,11 @@
     "customGroups": [
       {
         "groupName": "node",
-        "elementNamePattern": [
-          "node:**"
-        ]
+        "elementNamePattern": ["node:**"]
       },
       {
         "groupName": "bun",
-        "elementNamePattern": [
-          "bun:**"
-        ]
+        "elementNamePattern": ["bun:**"]
       },
       {
         "groupName": "react",
@@ -39,27 +35,19 @@
       },
       {
         "groupName": "value-external",
-        "elementNamePattern": [
-          "**"
-        ]
+        "elementNamePattern": ["**"]
       },
       {
         "groupName": "scoped",
-        "elementNamePattern": [
-          "@**"
-        ]
+        "elementNamePattern": ["@**"]
       },
       {
         "groupName": "local",
-        "elementNamePattern": [
-          "@/**"
-        ]
+        "elementNamePattern": ["@/**"]
       },
       {
         "groupName": "css",
-        "elementNamePattern": [
-          "**.css"
-        ]
+        "elementNamePattern": ["**.css"]
       }
     ],
     "groups": [
@@ -69,11 +57,7 @@
       "value-external",
       "scoped",
       "local",
-      [
-        "value-parent",
-        "value-sibling",
-        "value-index"
-      ],
+      ["value-parent", "value-sibling", "value-index"],
       "css"
     ]
   }

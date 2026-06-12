@@ -12,7 +12,7 @@
  * --------------------------------------------------------
  */
 
-declare module "@virtus/hyper-json" {
+declare module "@muttum/hyper-json" {
   interface MusicDataStore {
     items: (Playlist | Favorite)[];
   }

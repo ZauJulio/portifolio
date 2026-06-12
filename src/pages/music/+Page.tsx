@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useComposed } from "@virtus/hyper-json/hooks";
+import { useComposed } from "@muttum/hyper-json/hooks";
 import {
   ArrowLeftIcon,
   ChevronLeftIcon,
@@ -21,8 +21,8 @@ import { PlaylistCard } from "./components/PlaylistCard";
 import { PlaylistModal } from "./components/PlaylistModal";
 import { enFavorites, enPlaylists, genres, ptBRFavorites, ptBRPlaylists } from "./data";
 
-import type { Playlist } from "@virtus/hyper-json";
-import type { Favorite } from "@virtus/hyper-json";
+import type { Playlist } from "@muttum/hyper-json";
+import type { Favorite } from "@muttum/hyper-json";
 
 const PAGE_SIZE = 6;
 

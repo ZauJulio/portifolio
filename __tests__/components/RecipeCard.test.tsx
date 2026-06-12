@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { RecipeCard } from "@/pages/cooking/components/RecipeCard";
 
-import type { RecipeMeta } from "@virtus/hyper-down";
+import type { RecipeMeta } from "@muttum/hyper-down";
 
 // The card reads `setFilter` from CookingContext (facet badges patch the query);
 // stub it so the card renders without the Vike-backed provider.

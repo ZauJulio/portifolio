@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useComposed } from "@virtus/hyper-json/hooks";
+import { useComposed } from "@muttum/hyper-json/hooks";
 import { CameraIcon, ChevronLeftIcon, ChevronRightIcon, SearchIcon, XIcon } from "lucide-react";
 
 import { useLocale } from "@/i18n";
 
 import { PhotoGrid } from "./PhotoGrid";
 
-import type { Album } from "@virtus/hyper-json";
+import type { Album } from "@muttum/hyper-json";
 
 interface AlbumModalProps {
   album: Album | null;

@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import type { RefObject } from "react";
 
-import tailwindConfig from "../../tailwind.config";
-
 import { useDomMirror } from "@/hooks/use-dom-mirror";
 import { useScrollMetrics } from "@/hooks/use-scroll-metrics";
 import { useScrollbarControl } from "@/hooks/use-scrollbar-control";
+
+import tailwindConfig from "../../tailwind.config";
 
 const brand500 = tailwindConfig.theme.extend.colors.brand[500];
 

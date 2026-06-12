@@ -5,7 +5,7 @@ import educationPtBRJson from "@content/education/pt-BR/education.json";
 
 import { useLocale } from "@/i18n";
 
-import type { EducationContentSchema } from "@virtus/hyper-json";
+import type { EducationContentSchema } from "@muttum/hyper-json";
 
 const enEducation = educationJson as EducationContentSchema;
 const ptBREducation = educationPtBRJson as EducationContentSchema;

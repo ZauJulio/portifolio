@@ -6,7 +6,7 @@ import { BookOpenIcon, EarIcon, GlobeIcon, MicIcon } from "lucide-react";
 
 import { SubSectionHeader } from "./SubSectionHeader";
 
-import type { Language, LanguageProficiency } from "@virtus/hyper-json";
+import type { Language, LanguageProficiency } from "@muttum/hyper-json";
 
 const LANGUAGES = (languagesJson.items ?? []).map((lang) => ({
   ...lang,

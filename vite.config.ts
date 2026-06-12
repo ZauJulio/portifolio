@@ -1,12 +1,12 @@
 import { fileURLToPath } from "node:url";
 
-import tailwindcss from "@tailwindcss/vite";
 import {
   hyperdownMdxPlugin,
   hyperdownPlugin,
   hyperdownSitemapPlugin,
-} from "@virtus/hyper-down/plugins";
-import { hyperjsonValidationPlugin } from "@virtus/hyper-json/plugins";
+} from "@muttum/hyper-down/plugins";
+import { hyperjsonValidationPlugin } from "@muttum/hyper-json/plugins";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { common } from "lowlight";
 import rehypeHighlight from "rehype-highlight";
@@ -66,10 +66,10 @@ export default defineConfig(({ mode }) => ({
     }),
   ],
   ssr: {
-    // Bundle @virtus/hyper-down server-side so its virtual:* imports are transformed
+    // Bundle @muttum/hyper-down server-side so its virtual:* imports are transformed
     // by the hyperdown plugin. Keep SQLite builtins external (lazy SSR search path).
     external: ["pino", "pino-pretty", "bun:sqlite", "node:sqlite"],
-    noExternal: ["tw-animate-css", "@virtus/hyper-down"],
+    noExternal: ["tw-animate-css", "@muttum/hyper-down"],
   },
   optimizeDeps: {
     exclude: [
@@ -77,7 +77,7 @@ export default defineConfig(({ mode }) => ({
       "pino-abstract-transport",
       "sonic-boom",
       "split2",
-      "@virtus/hyper-down",
+      "@muttum/hyper-down",
     ],
   },
   build: {

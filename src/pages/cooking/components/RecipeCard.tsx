@@ -4,7 +4,7 @@ import { Link } from "@/components/Link";
 
 import { useCooking } from "../CookingContext";
 
-import type { RecipeMeta } from "@virtus/hyper-down";
+import type { RecipeMeta } from "@muttum/hyper-down";
 
 export function RecipeCard({ recipe }: { recipe: RecipeMeta }) {
   const meta = recipe;

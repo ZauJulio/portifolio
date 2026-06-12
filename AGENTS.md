@@ -6,9 +6,9 @@ in **[CLAUDE.md](./CLAUDE.md)** — mandatory checks, architecture notes, i18n g
 ## Stack
 
 Flat single-package Bun repo. **Vike** hybrid SSG + SSR (React 19, Hono, bilingual `/` en,
-`/pt`). Content engines consumed from npm: `@virtus/hyper-down` (Markdown/MDX → SQLite
-FTS5, SSR-only) and `@virtus/hyper-json` (JSON Schema → typed content) — source at
-[ZauJulio/virtus](https://github.com/ZauJulio/virtus); each installed package ships a
+`/pt`). Content engines consumed from npm: `@muttum/hyper-down` (Markdown/MDX → SQLite
+FTS5, SSR-only) and `@muttum/hyper-json` (JSON Schema → typed content) — source at
+[ZauJulio/muttum](https://github.com/ZauJulio/muttum); each installed package ships a
 `.agents/` reference tree. Linting/formatting via **OXC** (`oxlint` + `oxfmt`) — **not**
 Biome/ESLint/Prettier.
 

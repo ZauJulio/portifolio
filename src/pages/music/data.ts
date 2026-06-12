@@ -2,7 +2,7 @@ import enFavoritesJson from "@content/music/en/favorites.json";
 import enPlaylistsJson from "@content/music/en/playlists.json";
 import ptBRPlaylistsJson from "@content/music/pt-BR/playlists.json";
 
-import type { Favorite, Playlist } from "@virtus/hyper-json";
+import type { Favorite, Playlist } from "@muttum/hyper-json";
 
 type MusicData<T> = { $schema: string; items: T[] };
 

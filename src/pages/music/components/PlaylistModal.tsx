@@ -5,7 +5,7 @@ import { Loader2Icon, Music2Icon, PlayIcon, XIcon } from "lucide-react";
 
 import { useYouTubePlaylist } from "../hooks/useYouTubePlaylist";
 
-import type { Playlist } from "@virtus/hyper-json";
+import type { Playlist } from "@muttum/hyper-json";
 
 interface PlaylistModalProps {
   playlist: Playlist | null;
