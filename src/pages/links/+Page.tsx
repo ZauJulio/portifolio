@@ -122,6 +122,8 @@ export default function LinksPage() {
           <img
             src={`${import.meta.env.BASE_URL}avatar.png`}
             alt="@ZauJulio"
+            width={96}
+            height={96}
             className="size-24 mx-auto rounded-full object-cover border-[3px] border-[#801336] shadow-[0_0_30px_rgba(199,44,65,0.2)] transition-[transform,box-shadow] duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(199,44,65,0.4)]"
           />
           <h1 className="text-2xl font-bold text-white mt-4 mb-1 tracking-tight">@ZauJulio</h1>

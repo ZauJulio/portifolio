@@ -57,7 +57,30 @@ export default defineConfig(({ mode }) => ({
     hyperdownPlugin(),
     hyperdownSitemapPlugin(),
     hyperjsonValidationPlugin(),
-    ...(isVercel ? [vercel()] : []),
+    ...(isVercel
+      ? [
+          vercel({
+            // Build Output API serves everything with `max-age=0, must-revalidate`
+            // by default. Hashed bundles are immutable by construction; public/
+            // images get a day with a week of stale-while-revalidate.
+            headers: [
+              {
+                source: "/assets/(.*)",
+                headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+              },
+              {
+                source: "/(.*)\\.(avif|webp|png|jpg|jpeg|svg|ico|woff2)",
+                headers: [
+                  {
+                    key: "Cache-Control",
+                    value: "public, max-age=86400, stale-while-revalidate=604800",
+                  },
+                ],
+              },
+            ],
+          }),
+        ]
+      : []),
     visualizer({
       filename: "dist/stats.html",
       gzipSize: true,

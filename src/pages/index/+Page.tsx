@@ -72,8 +72,15 @@ export default function Home() {
       >
         <div className="absolute inset-0 z-0">
           <img
-            src={`${import.meta.env.BASE_URL}glitch-effect-black-background.webp`}
-            alt="Glitch Background"
+            src={`${import.meta.env.BASE_URL}glitch-bg-1920.avif`}
+            srcSet={`${import.meta.env.BASE_URL}glitch-bg-1280.avif 1280w, ${import.meta.env.BASE_URL}glitch-bg-1920.avif 1920w`}
+            sizes="100vw"
+            width={1920}
+            height={2880}
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+            decoding="async"
             className="w-full h-full object-cover opacity-50"
           />
           <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-black" />

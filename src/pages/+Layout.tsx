@@ -11,8 +11,6 @@ import "@fontsource/geist-sans/400.css";
 import "@fontsource/geist-sans/500.css";
 import "@fontsource/geist-sans/600.css";
 import "@fontsource/geist-sans/700.css";
-import "highlight.js/styles/github-dark.css";
-import "katex/dist/katex.min.css";
 
 import "@/root.css";
 

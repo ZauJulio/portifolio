@@ -21,6 +21,11 @@ import { useLocale } from "@/i18n";
 
 import { getArticleContent } from "../data";
 
+// Code/math styling is only needed where MDX bodies render — importing it here
+// (not in +Layout) keeps both stylesheets off every other page's critical path.
+import "highlight.js/styles/github-dark.css";
+import "katex/dist/katex.min.css";
+
 import type { Data } from "./+data";
 import type { TFunction } from "i18next";
 
