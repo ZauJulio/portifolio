@@ -66,21 +66,48 @@ bun run check      # oxlint + oxfmt (OXC — not ESLint/Prettier/Biome)
 ## Project structure
 
 ```text
-src/pages/            Vike pages (+Page/+data/+config), filesystem-routed
-  +onBeforeRoute.ts   i18n locale-stripping (/pt → urlLogical, sets pageContext.locale)
-  +Layout.tsx         shared shell; applies the URL-derived locale to i18next
-  articles/ cooking/  HyperDown listings (live SSR search) + @slug/ details (SSG)
-  music/ photography/ links/   HyperJson-backed pages
-src/components/       shared UI (Link, PageHeader, PageMinimap, Breadcrumbs, …)
-src/hooks/            use-search-params-nav, use-search-debounce
-content/<type>/       source content (.mdx for article/recipe, .json for the rest)
-frontmatter.json      content-type definitions (FrontMatter CMS format)
-hyperdown.config.json / hyperjson.config.json   engine configs
-.hyper-down/          HyperDown codegen output (builders, MDX module maps) — generated
-.hyper-json/          HyperJson codegen output (ambient types) — generated
-__tests__/            vitest component/unit tests
-e2e/                  Playwright specs
+portifolio/
+├── src/
+│   ├── pages/                  Vike pages (+Page / +data / +config), filesystem-routed
+│   │   ├── +onBeforeRoute.ts   i18n locale-stripping (/pt → urlLogical → pageContext.locale)
+│   │   ├── +Layout.tsx         shared shell; applies the URL-derived locale to i18next
+│   │   ├── articles/           HyperDown listing (live SSR search) + @slug/ detail (SSG)
+│   │   ├── cooking/            HyperDown recipes listing + @slug/ detail
+│   │   ├── index/ · links/     landing + link-in-bio pages
+│   │   └── music/ · photography/   HyperJson-backed pages
+│   ├── components/             shared UI (Link, PageHeader, PageMinimap, Breadcrumbs, …)
+│   ├── hooks/                  useSearchParamsNav, useSearchDebounce
+│   ├── i18n/                   i18next setup + locale resources
+│   ├── lib/ · utils/           helpers
+│   └── server/                 Hono SSR entry / middleware
+├── content/
+│   ├── article/<lang>/*.mdx    prose       → HyperDown (SQLite FTS5)
+│   ├── recipe/<lang>/*.mdx     recipes     → HyperDown
+│   └── <type>/*.json           profile · projects · skills · education · languages ·
+│                               music · photography → HyperJson (typed)
+├── .hyper-down/                HyperDown codegen output (builders, MDX maps) — generated
+├── .hyper-json/                HyperJson codegen output (ambient types) — generated
+├── frontmatter.json            content-type definitions (FrontMatter CMS format)
+├── hyperdown.config.json       HyperDown engine config
+├── hyperjson.config.json       HyperJson engine config
+├── __tests__/                  vitest component/unit tests
+└── e2e/                        Playwright specs
 ```
+
+### Content engines
+
+Both engines are developed in the [**Indago**](https://github.com/ZauJulio/indago) monorepo
+and installed from npm — this portfolio is their reference consumer:
+
+- **[`@indago/hyper-down`](https://github.com/ZauJulio/indago/tree/main/packages/HyperDown)**
+  ([npm](https://www.npmjs.com/package/@indago/hyper-down)) — Markdown/MDX → a contentless
+  **SQLite FTS5** index, queried **server-side** in Vike `+data` loaders. Powers the
+  full-text-searchable **articles** and **cooking** sections.
+- **[`@indago/hyper-json`](https://github.com/ZauJulio/indago/tree/main/packages/HyperJson)**
+  ([npm](https://www.npmjs.com/package/@indago/hyper-json)) — JSON Schema → strict build-time
+  validation + generated **TypeScript types** for fully-typed `.json` imports. Powers
+  **profile**, **projects**, **skills**, **education**, **languages**, **music**, and
+  **photography**.
 
 ## How content is loaded
 
