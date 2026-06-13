@@ -1,6 +1,6 @@
 import { ExternalLinkIcon, StarIcon } from "lucide-react";
 
-import type { ProjectContent } from "@muttum/hyper-json";
+import type { ProjectContent } from "@indago/hyper-json";
 
 export function ProjectCard({ project }: { project: ProjectContent }) {
   return (

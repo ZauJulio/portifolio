@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 
-import { MdxRender } from "@muttum/hyper-down";
+import { MdxRender } from "@indago/hyper-down";
 import { ArrowLeftIcon, CalendarIcon, ClockIcon, CookingPotIcon, UsersIcon } from "lucide-react";
 import { useData } from "vike-react/useData";
 

@@ -4,8 +4,8 @@ import {
   hyperdownMdxPlugin,
   hyperdownPlugin,
   hyperdownSitemapPlugin,
-} from "@muttum/hyper-down/plugins";
-import { hyperjsonValidationPlugin } from "@muttum/hyper-json/plugins";
+} from "@indago/hyper-down/plugins";
+import { hyperjsonValidationPlugin } from "@indago/hyper-json/plugins";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { common } from "lowlight";
@@ -89,20 +89,20 @@ export default defineConfig(({ mode }) => ({
     }),
   ],
   ssr: {
-    // Bundle @muttum/hyper-down server-side so its virtual:* imports are transformed
+    // Bundle @indago/hyper-down server-side so its virtual:* imports are transformed
     // by the hyperdown plugin. Keep SQLite builtins external (lazy SSR search path).
     external: ["pino", "pino-pretty", "bun:sqlite", "node:sqlite"],
-    noExternal: ["tw-animate-css", "@muttum/hyper-down"],
+    noExternal: ["tw-animate-css", "@indago/hyper-down"],
   },
   environments: {
     // `ssr:` above only configures the "ssr" environment. vite-plugin-vercel builds
     // the serverless function in its own "vercel_node" environment, which otherwise
-    // externalizes @muttum/hyper-down — its virtual:* imports then reach the final
+    // externalizes @indago/hyper-down — its virtual:* imports then reach the final
     // plugin-less bundling step unresolved and crash the lambda at request time.
     vercel_node: {
       resolve: {
         external: ["pino", "pino-pretty", "bun:sqlite", "node:sqlite"],
-        noExternal: ["tw-animate-css", "@muttum/hyper-down"],
+        noExternal: ["tw-animate-css", "@indago/hyper-down"],
       },
     },
   },
@@ -112,7 +112,7 @@ export default defineConfig(({ mode }) => ({
       "pino-abstract-transport",
       "sonic-boom",
       "split2",
-      "@muttum/hyper-down",
+      "@indago/hyper-down",
     ],
   },
   build: {

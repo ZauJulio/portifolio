@@ -12,7 +12,7 @@
  * --------------------------------------------------------
  */
 
-declare module "@muttum/hyper-json" {
+declare module "@indago/hyper-json" {
   interface MusicDataStore {
     items: (Playlist | Favorite)[];
   }

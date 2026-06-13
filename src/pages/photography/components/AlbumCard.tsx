@@ -4,7 +4,7 @@ import { ImageIcon } from "lucide-react";
 
 import { useLocale } from "@/i18n";
 
-import type { Album } from "@muttum/hyper-json";
+import type { Album } from "@indago/hyper-json";
 
 interface AlbumCardProps {
   album: Album;

@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { defaultMdxComponents } from "@muttum/hyper-down";
+import { defaultMdxComponents } from "@indago/hyper-down";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 

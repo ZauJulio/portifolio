@@ -1,5 +1,5 @@
 import { contentModules } from "@hyper-down/default";
-import { createContentResolver } from "@muttum/hyper-down";
+import { createContentResolver } from "@indago/hyper-down";
 
 // Server-side: run in `+data.ts` using `recipeRepository`
 

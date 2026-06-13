@@ -12,9 +12,9 @@
  * --------------------------------------------------------
  */
 
-import { createLazyRepository } from "@muttum/hyper-down/server";
+import { createLazyRepository } from "@indago/hyper-down/server";
 
-import type { RecipeMeta } from "@muttum/hyper-down";
+import type { RecipeMeta } from "@indago/hyper-down";
 
 // Server-only DAO for the `recipe` collection — imported by `+data.ts`
 // loaders (SSR-only), never by browser code. Lazily instantiated.

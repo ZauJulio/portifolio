@@ -12,62 +12,62 @@
  * --------------------------------------------------------
  */
 declare module "@content/education/en/education.json" {
-  import type { EducationContentSchema } from "@muttum/hyper-json";
+  import type { EducationContentSchema } from "@indago/hyper-json";
   const value: EducationContentSchema;
   export default value;
 }
 declare module "@content/education/pt-BR/education.json" {
-  import type { EducationContentSchema } from "@muttum/hyper-json";
+  import type { EducationContentSchema } from "@indago/hyper-json";
   const value: EducationContentSchema;
   export default value;
 }
 declare module "@content/languages/languages.json" {
-  import type { LanguageContentSchema } from "@muttum/hyper-json";
+  import type { LanguageContentSchema } from "@indago/hyper-json";
   const value: LanguageContentSchema;
   export default value;
 }
 declare module "@content/music/en/favorites.json" {
-  import type { MusicDataStore } from "@muttum/hyper-json";
+  import type { MusicDataStore } from "@indago/hyper-json";
   const value: MusicDataStore;
   export default value;
 }
 declare module "@content/music/en/playlists.json" {
-  import type { MusicDataStore } from "@muttum/hyper-json";
+  import type { MusicDataStore } from "@indago/hyper-json";
   const value: MusicDataStore;
   export default value;
 }
 declare module "@content/music/pt-BR/playlists.json" {
-  import type { MusicDataStore } from "@muttum/hyper-json";
+  import type { MusicDataStore } from "@indago/hyper-json";
   const value: MusicDataStore;
   export default value;
 }
 declare module "@content/photography/en/photography.json" {
-  import type { PhotographyContentSchema } from "@muttum/hyper-json";
+  import type { PhotographyContentSchema } from "@indago/hyper-json";
   const value: PhotographyContentSchema;
   export default value;
 }
 declare module "@content/photography/pt-BR/photography.json" {
-  import type { PhotographyContentSchema } from "@muttum/hyper-json";
+  import type { PhotographyContentSchema } from "@indago/hyper-json";
   const value: PhotographyContentSchema;
   export default value;
 }
 declare module "@content/profile/en/profile.json" {
-  import type { ProfileContentSchema } from "@muttum/hyper-json";
+  import type { ProfileContentSchema } from "@indago/hyper-json";
   const value: ProfileContentSchema;
   export default value;
 }
 declare module "@content/profile/pt-BR/profile.json" {
-  import type { ProfileContentSchema } from "@muttum/hyper-json";
+  import type { ProfileContentSchema } from "@indago/hyper-json";
   const value: ProfileContentSchema;
   export default value;
 }
 declare module "@content/projects/en/projects.json" {
-  import type { Projects } from "@muttum/hyper-json";
+  import type { Projects } from "@indago/hyper-json";
   const value: Projects;
   export default value;
 }
 declare module "@content/skills/skills.json" {
-  import type { SkillsContentSchema } from "@muttum/hyper-json";
+  import type { SkillsContentSchema } from "@indago/hyper-json";
   const value: SkillsContentSchema;
   export default value;
 }

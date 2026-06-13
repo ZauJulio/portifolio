@@ -2,7 +2,7 @@ import { PlayCircleIcon } from "lucide-react";
 
 import { PlatformLinks } from "./PlatformLinks";
 
-import type { Playlist } from "@muttum/hyper-json";
+import type { Playlist } from "@indago/hyper-json";
 
 export function PlaylistCard({ playlist, onClick }: { playlist: Playlist; onClick?: () => void }) {
   return (

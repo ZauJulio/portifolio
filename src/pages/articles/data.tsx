@@ -1,5 +1,5 @@
 import { contentModules } from "@hyper-down/default";
-import { createContentResolver, type ArticleMeta } from "@muttum/hyper-down";
+import { createContentResolver, type ArticleMeta } from "@indago/hyper-down";
 
 export type { ArticleMeta };
 

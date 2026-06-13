@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { ImageIcon } from "lucide-react";
 
-import type { Photo } from "@muttum/hyper-json";
+import type { Photo } from "@indago/hyper-json";
 
 export function PhotoGrid({ photos }: { photos: Photo[] }) {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);

@@ -1,4 +1,4 @@
-import type { ArticleMeta } from "@muttum/hyper-down";
+import type { ArticleMeta } from "@indago/hyper-down";
 import type { PageContext } from "vike/types";
 
 export default function description(pageContext: PageContext<ArticleMeta>): string {

@@ -12,6 +12,6 @@
  * --------------------------------------------------------
  */
 
-import type { ContentModuleMap } from "@muttum/hyper-down/types";
+import type { ContentModuleMap } from "@indago/hyper-down/types";
 
 export default import.meta.glob("/content/recipe/**/*.mdx", { eager: true }) as ContentModuleMap;

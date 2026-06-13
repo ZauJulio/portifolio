@@ -2,7 +2,7 @@ import { Disc3Icon } from "lucide-react";
 
 import { PlatformLinks } from "./PlatformLinks";
 
-import type { Favorite } from "@muttum/hyper-json";
+import type { Favorite } from "@indago/hyper-json";
 
 export function FavoriteTrack({ track }: { track: Favorite }) {
   return (

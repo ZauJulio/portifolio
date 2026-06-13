@@ -3,11 +3,11 @@ import type { ReactNode } from "react";
 
 import photographyJson from "@content/photography/en/photography.json";
 import photographyPtBRJson from "@content/photography/pt-BR/photography.json";
-import { useSort } from "@muttum/hyper-json/hooks";
+import { useSort } from "@indago/hyper-json/hooks";
 
 import { useLocale } from "@/i18n";
 
-import type { Album } from "@muttum/hyper-json";
+import type { Album } from "@indago/hyper-json";
 
 const enAlbums = photographyJson.albums as Album[];
 const ptBRAlbums = photographyPtBRJson.albums as Album[];

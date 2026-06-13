@@ -17,7 +17,7 @@ If **any** command fails or produces **ANY** warnings or errors, fix them before
 
 Flat single-package Bun repo (no workspaces, no turbo). The app lives at the root: Vike hybrid SSG + SSR (React 19, Hono, bilingual `/` en, `/pt`).
 
-The content engines are consumed **from npm** — [`@muttum/hyper-down`](https://www.npmjs.com/package/@muttum/hyper-down) (Markdown/MDX → SQLite FTS5, SSR-only) and [`@muttum/hyper-json`](https://www.npmjs.com/package/@muttum/hyper-json) (JSON Schema → typed content). Their source lives in the [muttum](https://github.com/ZauJulio/muttum) repo; each ships a `.agents/` reference tree inside the installed package.
+The content engines are consumed **from npm** — [`@indago/hyper-down`](https://www.npmjs.com/package/@indago/hyper-down) (Markdown/MDX → SQLite FTS5, SSR-only) and [`@indago/hyper-json`](https://www.npmjs.com/package/@indago/hyper-json) (JSON Schema → typed content). Their source lives in the [indago](https://github.com/ZauJulio/indago) repo; each ships a `.agents/` reference tree inside the installed package.
 
 ---
 

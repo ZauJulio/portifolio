@@ -12,9 +12,9 @@
  * --------------------------------------------------------
  */
 
-import type { ContentMeta } from "@muttum/hyper-down/types";
+import type { ContentMeta } from "@indago/hyper-down/types";
 
-declare module "@muttum/hyper-down" {
+declare module "@indago/hyper-down" {
   export interface ArticleMeta extends ContentMeta {
     title: string;
     description?: string;
