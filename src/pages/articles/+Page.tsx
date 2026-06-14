@@ -60,7 +60,7 @@ function ArticlesView() {
       <section className="pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           {results.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {results.map((article) => (
                 <ArticleCard key={article.slug} article={article} />
               ))}

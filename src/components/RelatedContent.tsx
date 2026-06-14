@@ -33,6 +33,8 @@ export function RelatedContent({ title, basePath, items }: RelatedContentProps) 
 
   if (items.length === 0) return null;
 
+  const placeholderCount = Math.max(0, 3 - items.length);
+
   return (
     <section className="mt-16 pt-10 border-t border-gray-800">
       <h2 className="text-xl font-semibold text-white mb-6">{title}</h2>
@@ -100,6 +102,22 @@ export function RelatedContent({ title, basePath, items }: RelatedContentProps) 
               )}
             </div>
           </Link>
+        ))}
+
+        {Array.from({ length: placeholderCount }, (_, index) => (
+          <div
+            key={`related-placeholder-${index}`}
+            aria-hidden="true"
+            className="flex flex-col rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden"
+          >
+            <div className="aspect-video bg-gray-800" />
+            <div className="p-5 flex flex-col gap-3">
+              <div className="h-3 w-24 rounded bg-gray-800" />
+              <div className="h-4 w-3/4 rounded bg-gray-800" />
+              <div className="h-3 w-full rounded bg-gray-800" />
+              <div className="h-3 w-5/6 rounded bg-gray-800" />
+            </div>
+          </div>
         ))}
       </div>
     </section>
