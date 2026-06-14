@@ -62,6 +62,16 @@
           "title": "Cover",
           "name": "cover",
           "type": "string"
+        },
+        {
+          "title": "Series — previous slug",
+          "name": "prev",
+          "type": "string"
+        },
+        {
+          "title": "Series — next slug",
+          "name": "next",
+          "type": "string"
         }
       ]
     },

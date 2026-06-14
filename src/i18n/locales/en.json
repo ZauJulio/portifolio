@@ -68,7 +68,10 @@
     "noArticles": "No articles yet",
     "noArticlesTagged": "No articles tagged \"{{tag}}\"",
     "addArticlesHint": "Try adjusting the filters above or the search to find something different.",
-    "contentNotFound": "Content not available"
+    "contentNotFound": "Content not available",
+    "relatedTitle": "You might also like",
+    "seriesPrevious": "Previous in series",
+    "seriesNext": "Next in series"
   },
   "hobbies": {
     "title": "Hobbies & Interests",
@@ -128,7 +131,8 @@
     "tryAdjusting": "Try adjusting the filters above or the search to find something different.",
     "prevPage": "Previous",
     "nextPage": "Next",
-    "contentNotFound": "Content not available"
+    "contentNotFound": "Content not available",
+    "relatedTitle": "You might also like"
   },
   "music": {
     "title": "Music",

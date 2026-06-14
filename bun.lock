@@ -6,7 +6,7 @@
       "name": "portifolio",
       "dependencies": {
         "@fontsource/geist-sans": "^5.2.5",
-        "@indago/hyper-down": "^1.0.0",
+        "@indago/hyper-down": "^1.1.0",
         "@indago/hyper-json": "^1.0.0",
         "@radix-ui/react-avatar": "^1.1.11",
         "@radix-ui/react-icons": "^1.3.2",
@@ -195,7 +195,7 @@
 
     "@iconify/utils": ["@iconify/utils@3.1.3", "", { "dependencies": { "@antfu/install-pkg": "^1.1.0", "@iconify/types": "^2.0.0", "import-meta-resolve": "^4.2.0" } }, "sha512-LPKOXPn/zV+zis1oOfGWogaXVpqUybF3ZS6SCZIsz8vg0ivVp9+fVqyYB7xq0aiST/VhUQYGO1qo6uoYSiEJqw=="],
 
-    "@indago/hyper-down": ["@indago/hyper-down@1.0.0", "", { "dependencies": { "@clack/prompts": "^1.4.0", "@mdx-js/rollup": "^3.1.1", "@modelcontextprotocol/sdk": "^1.29.0", "ajv": "^8.20.0", "ajv-formats": "^3.0.1", "commander": "^14.0.3", "drizzle-orm": "^0.45.2", "json-schema-to-typescript": "^15.0.4", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "yaml": "^2.9.0" }, "peerDependencies": { "mermaid": ">=10", "react": "^19.2.6", "react-dom": "^19.2.6", "react-i18next": "^16.5.4 || ^17.0.0", "vite": "^8.0.14" }, "optionalPeers": ["mermaid"], "bin": { "hyper-down": "dist/bin/hyperdown.js", "hyperdown": "dist/bin/hyperdown.js", "hyperdown-mcp": "dist/bin/hyperdown-mcp.js" } }, "sha512-IctzEkDuijw0CF3ZoWmsBCURKvnHo6t9G3999qtEWNw1PfN+m7rp0voyG73xja0SaRmXBpgG/QV8cQMjjbSOtQ=="],
+    "@indago/hyper-down": ["@indago/hyper-down@1.1.0", "", { "dependencies": { "@clack/prompts": "^1.4.0", "@mdx-js/rollup": "^3.1.1", "@modelcontextprotocol/sdk": "^1.29.0", "ajv": "^8.20.0", "ajv-formats": "^3.0.1", "commander": "^14.0.3", "drizzle-orm": "^0.45.2", "json-schema-to-typescript": "^15.0.4", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "yaml": "^2.9.0" }, "peerDependencies": { "mermaid": ">=10", "react": "^19.2.6", "react-dom": "^19.2.6", "react-i18next": "^16.5.4 || ^17.0.0", "vite": "^8.0.14" }, "optionalPeers": ["mermaid"], "bin": { "hyper-down": "dist/bin/hyperdown.js", "hyperdown": "dist/bin/hyperdown.js", "hyperdown-mcp": "dist/bin/hyperdown-mcp.js" } }, "sha512-q76R7MpPFNqJQ7JSu4+Fch97vl6j+jBktMy1skeyzCgm5AIwelBQIXPO8k4r5CToInEh482tFKeWwx0QdAQk2w=="],
 
     "@indago/hyper-json": ["@indago/hyper-json@1.0.0", "", { "dependencies": { "@clack/prompts": "^1.4.0", "@modelcontextprotocol/sdk": "^1.29.0", "ajv": "^8.20.0", "ajv-formats": "^3.0.1", "commander": "^14.0.3", "json-schema-to-typescript": "^15.0.4", "pino": "^10.3.1", "pino-pretty": "^13.1.3" }, "peerDependencies": { "react": "^19.2.6", "react-dom": "^19.2.6", "vite": "^8.0.14" }, "bin": { "hyperjson": "dist/bin/hyperjson.js", "hyper-json": "dist/bin/hyperjson.js", "hyperjson-mcp": "dist/bin/hyperjson-mcp.js" } }, "sha512-jA6no2uFl+JEoJyNuwk1J2Pyx0oWFP7yVNvELpQ9380IsM2N402vbo2fyM72Y8nRa8MiYCcF0WUHk6+seLeUZQ=="],
 

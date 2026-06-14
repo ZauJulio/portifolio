@@ -16,6 +16,8 @@ import { CoverImage } from "@/components/CoverImage";
 import { Link } from "@/components/Link";
 import { PageHeader } from "@/components/PageHeader";
 import { PageMinimap } from "@/components/PageMinimap";
+import { RelatedContent } from "@/components/RelatedContent";
+import { SeriesNav } from "@/components/SeriesNav";
 import { useHashScroll } from "@/hooks/use-hash-scroll";
 import { useLocale } from "@/i18n";
 
@@ -146,6 +148,31 @@ export default function ArticlePage() {
           </div>
         )}
       </article>
+
+      {/* Series pager + suggested content — kept outside <article> so the
+          PageMinimap mirror (a clone of the article element) never duplicates them. */}
+      <div className="max-w-4xl mx-auto px-6 pb-16">
+        <SeriesNav
+          basePath="articles"
+          prev={
+            article.prevMeta
+              ? { slug: article.prevMeta.slug, title: article.prevMeta.title }
+              : undefined
+          }
+          next={
+            article.nextMeta
+              ? { slug: article.nextMeta.slug, title: article.nextMeta.title }
+              : undefined
+          }
+          prevLabel={t(($) => $.articles.seriesPrevious)}
+          nextLabel={t(($) => $.articles.seriesNext)}
+        />
+        <RelatedContent
+          title={t(($) => $.articles.relatedTitle)}
+          basePath="articles"
+          items={article.related}
+        />
+      </div>
     </div>
   );
 }

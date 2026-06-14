@@ -1,0 +1,447 @@
+---
+draft: false
+title: "Construindo Este Portfólio: Vike, um SQLite no build e dois motores de conteúdo"
+description: "Um tour recurso a recurso por este portfólio: uma aplicação Vike híbrida SSG + SSR sobre React 19 e Hono, i18n bilíngue com remoção de prefixo de locale, um banco SQLite que vai dentro do build, dados estruturados via HyperJson e Markdown/MDX via HyperDown, busca full-text ao vivo, minimapa de TOC, navegação em série de artigos, sugestões ranqueadas por tag, sitemap/SEO e o deploy em Vercel + Docker."
+date: "2026-06-12"
+tags:
+  [
+    "Vike",
+    "React",
+    "TypeScript",
+    "Vite",
+    "SSR",
+    "SQLite",
+    "Headless CMS",
+    "i18n",
+    "Tailwind CSS",
+    "Desenvolvimento Web",
+  ]
+categories: ["Engenharia"]
+author: "Zau Julio"
+readingTime: "16 min de leitura"
+canonical: ""
+cover: "https://zaujulio.vercel.app/glitch-bg-1920.avif"
+next: "what-is-hyperdown"
+---
+
+# Construindo Este Portfólio
+
+A maioria dos portfólios de desenvolvedor é uma de duas coisas: um site estático
+com conteúdo hardcoded, ou uma aplicação pesada com CMS, banco de dados, API e uma
+conta de hospedagem à altura. Este aqui não é nenhum dos dois. É uma **aplicação
+híbrida SSG + SSR** que serve um site rico em conteúdo, totalmente pesquisável e
+bilíngue — e o único "banco de dados" que ele tem é um **arquivo SQLite gerado em
+tempo de build e enviado dentro do bundle**. Não há serviço de backend para rodar,
+nada para manter acordado e nada a pagar além de uma hospedagem quase estática.
+
+<br />
+
+Este post é o primeiro de uma série de três partes. É a **visão geral** — um
+passeio recurso a recurso por todo o site e pelas decisões por trás dele. Os dois
+posts seguintes mergulham nos dois motores de conteúdo que eu construí para fazer
+tudo funcionar: [HyperDown](/pt/articles/what-is-hyperdown) (Markdown/MDX → SQLite)
+e [HyperJson](/pt/articles/what-is-hyperjson) (JSON Schema → conteúdo tipado).
+
+<br />
+
+- [Construindo Este Portfólio](#construindo-este-portfólio)
+  - [A grande ideia: um banco de dados que vai junto no build](#a-grande-ideia-um-banco-de-dados-que-vai-junto-no-build)
+  - [A stack num relance](#a-stack-num-relance)
+  - [Roteamento e i18n bilíngue](#roteamento-e-i18n-bilíngue)
+  - [Dois motores de conteúdo, uma pasta de conteúdo](#dois-motores-de-conteúdo-uma-pasta-de-conteúdo)
+  - [Conteúdo estruturado com o HyperJson](#conteúdo-estruturado-com-o-hyperjson)
+  - [Prosa e receitas com o HyperDown](#prosa-e-receitas-com-o-hyperdown)
+  - [A experiência de Artigos](#a-experiência-de-artigos)
+  - [Auxílios de leitura: minimapa de TOC e hash scroll](#auxílios-de-leitura-minimapa-de-toc-e-hash-scroll)
+  - [Navegação em série e conteúdo sugerido](#navegação-em-série-e-conteúdo-sugerido)
+  - [Cozinha, Fotografia, Música e Links](#cozinha-fotografia-música-e-links)
+  - [O pipeline de renderização MDX](#o-pipeline-de-renderização-mdx)
+  - [SEO, Open Graph e o sitemap](#seo-open-graph-e-o-sitemap)
+  - [Estratégia de prerender: o que é estático, o que é ao vivo](#estratégia-de-prerender-o-que-é-estático-o-que-é-ao-vivo)
+  - [Deploy: Vercel e Docker](#deploy-vercel-e-docker)
+  - [Portões de qualidade](#portões-de-qualidade)
+  - [O que eu mandaria você copiar](#o-que-eu-mandaria-você-copiar)
+
+<br />
+
+## A grande ideia: um banco de dados que vai junto no build
+
+O truque central é este: **o conteúdo vive como arquivos comuns no repositório** —
+Markdown/MDX para prosa, JSON para dados estruturados — e o **build compila esses
+arquivos em um banco SQLite e num conjunto de módulos tipados**. Em tempo de
+execução, os loaders do servidor consultam esse arquivo SQLite diretamente com
+`bun:sqlite` (ou `node:sqlite` no Node 22+, que é o que a Vercel roda). Nada é
+buscado de um serviço externo.
+
+Por que se dar ao trabalho de usar SQLite, em vez de só importar JSON? Porque os
+artigos e receitas precisam de **busca full-text**, filtragem por facetas,
+ordenação e paginação — e fazer isso sobre um array em memória não escala nem
+continua rápido. O **FTS5** do SQLite me dá um índice invertido de verdade de
+graça, e como o índice é _contentless_ (sem conteúdo), o banco fica pequeno: ele
+guarda os tokens pesquisáveis e os metadados do frontmatter, mas **nunca o corpo do
+artigo**. O corpo é carregado à parte, em tempo de renderização, a partir de um
+mapa de módulos gerado pelo Vite.
+
+O resultado é um site que parece ter um backend — busca ao vivo que responde a cada
+tecla no servidor — com o perfil operacional de um site estático.
+
+## A stack num relance
+
+| Camada             | Escolha                                                            |
+| ------------------ | ------------------------------------------------------------------ |
+| Framework          | **Vike** (`vike` + `vike-react` + `vike-server`) — híbrido SSG/SSR |
+| UI                 | **React 19**                                                       |
+| Servidor           | **Hono** via `@vikejs/hono`                                        |
+| Runtime            | **Bun** em dev/Docker; **Node 22** na Vercel                       |
+| Estilo             | **Tailwind CSS v4** + componentes estilo shadcn + ícones lucide    |
+| Conteúdo em prosa  | **`@indago/hyper-down`** — MDX → SQLite FTS5 (apenas SSR)          |
+| Dados estruturados | **`@indago/hyper-json`** — JSON Schema → imports tipados           |
+| i18n               | `i18next` + `react-i18next`, roteamento que remove o prefixo       |
+| Lint / format      | **OXC** (`oxlint` + `oxfmt`) — não é ESLint nem Biome              |
+| Testes             | **Vitest** (unit + integridade de conteúdo) e **Playwright** (e2e) |
+| Deploy             | **Vercel** (Build Output API) ou **Docker** (SSR self-hosted)      |
+
+Duas coisas nessa lista são minhas: os motores de conteúdo. Todo o resto é
+de prateleira, conectado de propósito.
+
+## Roteamento e i18n bilíngue
+
+O site é totalmente bilíngue — inglês e português do Brasil — e a estratégia de
+i18n é **remoção de prefixo de locale**. O locale padrão (`en`) não tem prefixo,
+então a home é `/`, os artigos ficam em `/articles`, e assim por diante. O português
+vive sob `/pt`: `/pt/articles`, `/pt/cooking`, etc.
+
+Um hook `+onBeforeRoute` do Vike remove o prefixo `/pt` antes do roteamento, define
+`pageContext.locale` e calcula um `urlLogical` contra o qual o resto da aplicação
+roteia. A parte sutil — e a origem de um bug que só peguei com um teste e2e — é que
+o `urlLogical` **precisa manter a query string e o hash**. O Vike reparseia a URL a
+partir desse valor lógico, então uma versão só com o pathname esvazia silenciosamente
+todo loader baseado em busca. A correção é montá-lo como
+`pathnameSemLocale + search + hash`.
+
+```ts
+// +onBeforeRoute.ts (essência)
+const { urlWithoutLocale, locale } = extractLocale(pageContext.urlParsed);
+return {
+  pageContext: {
+    locale,
+    // search + hash são essenciais — sem eles, ?q=… desaparece
+    urlLogical: urlWithoutLocale + searchOriginal + hashOriginal,
+  },
+};
+```
+
+Há um detalhe equivalente no cliente: o helper de navegação por search params tem
+que montar o destino a partir de `window.location.pathname` (que _tem_ o prefixo de
+locale), não do `pageContext.urlPathname` (que já teve o locale removido) — senão um
+visitante de `/pt` é jogado de volta para a versão em inglês no primeiro clique de
+filtro.
+
+## Dois motores de conteúdo, uma pasta de conteúdo
+
+Todo o conteúdo vive sob `content/`, dividido por tipo, depois por locale:
+
+```text
+content/
+├── article/                 HyperDown (MDX)
+│   ├── en/*.mdx
+│   └── pt-BR/*.mdx
+├── recipe/                  HyperDown (MDX)
+│   ├── en/*.mdx
+│   └── pt-BR/*.mdx
+├── projects/                HyperJson (JSON + schema)
+│   ├── schema.json
+│   └── en/projects.json
+├── profile/  skills/  education/  languages/
+├── music/    photography/
+```
+
+Dois motores dividem o trabalho de forma limpa. O **HyperJson** cuida dos dados
+estruturados — qualquer coisa que seja uma lista de registros com formato fixo
+(projetos, skills, playlists, álbuns de fotos). O **HyperDown** cuida da prosa —
+qualquer coisa com um corpo que você queira ler e pesquisar (artigos, receitas).
+Eles não compartilham código nem dependem um do outro; a única coisa que
+compartilham é o diretório `content/` e a convenção de subpastas por locale.
+
+Escrevi os dois como pacotes npm publicados e independentes, então o portfólio os
+consome como qualquer outra dependência. Os dois posts seguintes são os mergulhos
+profundos, então aqui eu só mostro como o site os _usa_.
+
+## Conteúdo estruturado com o HyperJson
+
+Um tipo de conteúdo do HyperJson é uma pasta com um `schema.json` (um JSON Schema) e
+arquivos de dados por locale. Em tempo de build, cada arquivo de dados é validado
+contra seu schema com o Ajv em modo estrito — uma chave desconhecida ou um tipo
+errado **quebra o build** — e tipos TypeScript são gerados a partir do schema para
+que todo import seja totalmente tipado:
+
+```ts
+// Totalmente tipado — o tipo é gerado a partir de projects/schema.json
+import projects from "@content/projects/en/projects.json";
+```
+
+Essa única garantia — _conteúdo inválido não pode ir para produção, e conteúdo
+válido chega tipado_ — é o que sustenta toda a metade estática do site: a seção
+Sobre, as grades de Projetos e Skills, os blocos de Educação e Idiomas, as playlists
+de Música e os álbuns de Fotografia leem direto de JSON tipado.
+
+Por cima dos imports tipados, o HyperJson traz **hooks headless** para moldar dados
+no React — `useFilter`, `useSearch`, `useSort`, `usePaginate` e um `useComposed` que
+encadeia os quatro. A página de Música os usa para filtrar playlists por gênero e
+buscar por título/artista inteiramente no cliente, sem impor nenhuma UI:
+
+```tsx
+const { paginated } = useComposed(playlists, {
+  filters: [{ key: "genre", value: selectedGenre }],
+  searchQuery,
+  searchFields: ["title", "artist"],
+  sort: { key: "title", dir: "asc" },
+  page,
+  perPage: 12,
+});
+```
+
+## Prosa e receitas com o HyperDown
+
+O HyperDown segue o caminho oposto: compila cada arquivo Markdown/MDX em um banco
+SQLite com um índice FTS5 contentless. O frontmatter vira colunas consultáveis; o
+corpo é tokenizado no índice de busca, mas guardado à parte e carregado de forma
+preguiçosa em tempo de renderização.
+
+Os tipos de conteúdo são declarados uma vez em `frontmatter.json` (o formato do
+FrontMatter CMS, então o site é editável pelo painel do FrontMatter no VS Code).
+Esse único arquivo é a fonte da verdade tanto para o schema do SQLite quanto para os
+tipos TypeScript gerados. O tipo `article`, por exemplo, declara `title`,
+`description`, `date`, `tags`, `categories`, `cover`, `readingTime` — e, a partir
+desta série, dois novos campos opcionais, `prev` e `next`, aos quais eu volto já já.
+
+Cada tipo de conteúdo ganha um repositório gerado, exclusivo do servidor, com uma
+API tipada:
+
+```ts
+// articles/+data.ts — roda só no servidor (SSR/SSG)
+const { results, totalCount, totalPages } = await articleRepository.search({
+  locale,
+  searchQuery, // FTS5 entre todos os locales
+  filters: activeTag ? { tag: activeTag } : {},
+  sort: { sortBy: "date", sortDir: "desc" },
+  pagination: { page, pageSize: 9 },
+});
+```
+
+## A experiência de Artigos
+
+A lista de artigos é a vitrine de toda a arquitetura, porque é **busca ao vivo no
+servidor**. A página de listagem define `prerender: false`, então sob o servidor
+Hono cada mudança de URL roda o loader de novo no servidor e devolve uma página
+recém-consultada. Todo o estado vive na URL — `q`, `tag`, `page`, `sort`, `dir` — o
+que significa que todo conjunto de resultados é compartilhável e favoritável, e o
+botão "voltar" simplesmente funciona.
+
+Recursos da listagem:
+
+- **Busca full-text** sobre títulos, descrições e corpos dos artigos, com casamento
+  por prefixo (digitar `hyper` casa com `HyperDown`). A query é debounced no cliente
+  e empurrada para a URL; o servidor faz o FTS de fato.
+- **Facetas de tags** construídas a partir da distribuição real de tags no banco
+  (`distinctValues`, ordenadas por frequência), com um "ver mais".
+- **Ordenação** por data ou título, ascendente ou descendente.
+- **Paginação** com uma contagem total exata, calculada na mesma query.
+
+A página de detalhe (`/articles/@slug`) é o oposto — totalmente **pré-renderizada
+para HTML estático**. Todo slug é enumerado em tempo de build e renderizado,
+incluindo seu gêmeo `/pt`. Ela mostra a capa, a barra de meta (autor, data, tempo de
+leitura, um link canônico se a peça foi publicada em outro lugar), o corpo MDX
+renderizado e os chips de tag que linkam de volta para a lista filtrada.
+
+## Auxílios de leitura: minimapa de TOC e hash scroll
+
+Posts técnicos longos precisam de navegação, então a página de detalhe tem dois
+auxílios de leitura que deram mais trabalho do que parecem.
+
+O **PageMinimap** renderiza um espelho clicável e reduzido do artigo na lateral — um
+índice cujo formato você consegue enxergar. O detalhe: ele é um clone literal do DOM
+do artigo, então duplicaria todo `id` de cabeçalho. A navegação por hash então
+pularia para a cópia _espelho_. A correção é remover todo `id` descendente do clone,
+deixando os ids únicos no artigo real.
+
+O comportamento de **hash scroll** trata os links `#secao` no índice. O Vike
+intercepta cliques em `<a href="#…">` via `pushState`, então um handler normal nunca
+os vê. A solução é um listener de clique em **fase de captura** que pega os cliques
+do índice antes do Vike e rola suavemente até o alvo.
+
+Os dois comportamentos são cobertos por specs do Playwright, justamente por serem o
+tipo de coisa que quebra silenciosamente num upgrade de framework.
+
+## Navegação em série e conteúdo sugerido
+
+Este é o recurso mais novo, e a razão de este artigo existir como parte de uma
+_série_.
+
+A **navegação em série** transforma artigos relacionados num caminho de leitura
+explícito e ordenado — uma lista duplamente encadeada expressa inteiramente no
+frontmatter. Cada artigo pode declarar um `prev` e um `next` opcionais:
+
+```yaml
+# building-this-portfolio.mdx
+next: "what-is-hyperdown"
+
+# what-is-hyperdown.mdx
+prev: "building-this-portfolio"
+next: "what-is-hyperjson"
+
+# what-is-hyperjson.mdx
+prev: "what-is-hyperdown"
+```
+
+O loader de detalhe resolve esses slugs nos seus metadados e renderiza um paginador
+anterior/próximo no rodapé do artigo. É totalmente opt-in: um artigo sem `prev`/`next`
+(como o meu mergulho sobre SOM) simplesmente não mostra paginador.
+
+O **conteúdo sugerido** é a contraparte automática. No rodapé de todo artigo e
+receita, o site mostra até três itens relacionados — e o ranqueamento é feito **pela
+ordem das tags**. As tags do item atual são tratadas como uma lista de prioridade:
+candidatos que compartilham a _primeira_ tag preenchem as vagas primeiro, depois a
+segunda tag complementa até três, depois a terceira, e assim por diante. Adicionei
+isso como um método `related()` de primeira classe no HyperDown, então ele roda como
+uma única query SQL indexada contra a bridge de tags, ranqueada com um
+`MIN(CASE …)` sobre as posições das tags casadas:
+
+```ts
+const suggestions = await articleRepository.related({
+  slug,
+  tags: article.tags, // ordem de prioridade
+  locale,
+  limit: 3,
+});
+```
+
+No desktop as três sugestões ficam lado a lado; no mobile elas empilham em três
+linhas. Como o ranqueamento se ancora no artigo que você está lendo, as sugestões
+permanecem genuinamente relevantes, em vez de serem uma faixa genérica de "posts
+recentes".
+
+## Cozinha, Fotografia, Música e Links
+
+A mesma maquinaria sustenta o resto do site, e esse é o ponto — uma vez que os
+motores existem, cada seção sai barata.
+
+- **Cozinha** espelha Artigos, mas para receitas: a listagem tem facetas de
+  culinária, tipo de refeição e tipo de prato (cada uma uma coluna real no SQLite),
+  além de busca e paginação. As páginas de detalhe de receita renderizam o modo de
+  preparo e as listas de ingredientes em MDX, e ganham a mesma faixa de conteúdo
+  sugerido ranqueado por tag no rodapé.
+- **Fotografia** lê álbuns de JSON tipado (HyperJson) e os dispõe como uma galeria;
+  as imagens vivem em `public/photos`.
+- **Música** é a melhor vitrine dos hooks headless — playlists e favoritos de JSON,
+  filtrados por gênero e buscados ao vivo no cliente com `useComposed`.
+- **Links** é uma página compacta estilo linktree para links sociais e de contato,
+  também movida a conteúdo em vez de markup hardcoded.
+
+## O pipeline de renderização MDX
+
+Os corpos de artigo e receita são MDX de verdade, então podem conter JSX, e o
+pipeline de renderização é afinado para escrita técnica. O componente `MdxRender`
+(do HyperDown) renderiza o corpo carregado preguiçosamente com um fallback de
+Suspense, e a cadeia de plugins adiciona:
+
+- **`rehype-highlight`** (highlight.js) para blocos de código com realce de
+  sintaxe — carregado só nas páginas que de fato renderizam MDX, para mantê-lo fora
+  do caminho crítico de toda outra página.
+- **`rehype-katex`** + **`remark-math`** para matemática em LaTeX, para que eu possa
+  escrever `argmin`/`Σ`/integrais no post sobre SOM.
+- **`remark-gfm`** para tabelas, listas de tarefas e texto riscado.
+- **mermaid** para diagramas inline (fluxogramas e afins) renderizados a partir de
+  blocos de código cercados.
+
+O CSS de código e matemática (`github-dark` e `katex.min.css`) é importado no nível
+da página de detalhe, e não globalmente, então a home nunca paga por ele.
+
+## SEO, Open Graph e o sitemap
+
+Como as páginas de detalhe são pré-renderizadas, elas são HTML estático totalmente
+rastreável com metadados de verdade. Cada artigo emite suas próprias tags de Open
+Graph e Twitter card — `og:title`, `og:description`, `og:image` (a capa),
+`article:published_time` e uma `article:tag` por tag — além dos links canônicos e
+`hreflang` cientes de locale vindos do head raiz.
+
+O **sitemap** é gerado em tempo de build pelo plugin de sitemap do HyperDown a partir
+de um bloco declarativo no `hyperdown.config.json`: rotas estáticas com suas
+prioridades, mais uma entrada por item de conteúdo nos dois locales. Ele escreve
+direto em `public/sitemap.xml`, então os buscadores recebem um mapa preciso a cada
+build sem que eu o mantenha à mão.
+
+## Estratégia de prerender: o que é estático, o que é ao vivo
+
+A divisão híbrida SSG/SSR é deliberada e por rota:
+
+| Rota                                | Modo                             | Por quê                                            |
+| ----------------------------------- | -------------------------------- | -------------------------------------------------- |
+| `/`, seções                         | Pré-renderizada (SSG)            | Conteúdo é estático; entregue HTML puro.           |
+| listagens `/articles`, `/cooking`   | SSR ao vivo (`prerender: false`) | Busca/filtro precisam rodar por requisição.        |
+| `/articles/@slug`, `/cooking/@slug` | Pré-renderizada (SSG)            | Todo slug é conhecido no build; renderize uma vez. |
+
+Globalmente a aplicação roda com `prerender: { partial: true }`, então a maior parte
+do site é HTML estático, enquanto as duas rotas de listagem voltam para SSR. Manter
+as listagens como SSR também é o que mantém um bundle de servidor real na saída, que
+o adaptador Hono então serve.
+
+## Deploy: Vercel e Docker
+
+O mesmo build mira dois lares bem diferentes.
+
+Na **Vercel**, um plugin (`vite-plugin-vercel`, habilitado só quando a Vercel define
+`VERCEL=1`) reescreve o build no layout da **Build Output API** sob `.vercel/output/`.
+As funções SSR rodam no Node 22, que é exatamente a razão de o cliente SQLite ser
+escrito para cair de `bun:sqlite` para `node:sqlite` — mesmo código, dois runtimes.
+Os arquivos `.db` gerados são copiados para o bundle da função para que os loaders
+consigam lê-los na borda da requisição.
+
+Para **self-hosting**, um build comum produz um servidor SSR Hono executável, e o
+`Dockerfile` / `docker-compose.yml` incluídos o empacotam para que `bun run start`
+sirva tudo a partir de um único container. Sem banco de dados externo, porque o banco
+já está dentro da imagem.
+
+## Portões de qualidade
+
+Nada vai para produção sem passar por quatro portões, nesta ordem:
+
+1. **`oxlint` + `oxfmt`** — o projeto está no **OXC**, não no ESLint nem no Biome.
+   Rápido o bastante para rodar a cada save.
+2. **`tsc --noEmit`** — TypeScript estrito por toda a aplicação, incluindo os tipos
+   de conteúdo _gerados_, então uma mudança de schema que quebra um consumidor falha
+   aqui.
+3. **Vitest** — testes unitários mais uma suíte de **integridade de conteúdo** que
+   parseia cada arquivo de conteúdo e garante que as coleções não estão vazias e
+   estão bem tipadas.
+4. **Playwright e2e** — os comportamentos que quebram silenciosamente: busca ciente
+   de locale, hash scroll, preservação da posição de scroll, a remoção de ids do
+   minimapa.
+
+Os testes de integridade de conteúdo e e2e são os que valem o seu peso: pegam os
+modos de falha que os tipos sozinhos não pegam, como um loader de busca que devolve
+nada porque uma URL foi parseada sem a query string.
+
+## O que eu mandaria você copiar
+
+Se você levar uma ideia disto: **você provavelmente não precisa de um backend para
+um site de conteúdo.** Compile seu conteúdo em um artefato indexado em tempo de
+build, consulte-o a partir dos loaders do servidor, e você ganha busca e filtragem
+de verdade sem nenhum peso operacional. Os motores que tornam isso ergonômico —
+transformar uma pasta de MDX num banco SQLite tipado e pesquisável, e uma pasta de
+JSON em imports tipados e validados — são o tema dos dois próximos posts.
+
+<br />
+
+A seguir: **HyperDown**, o motor que transforma esta pasta de Markdown num banco
+SQLite pesquisável por full-text que vai dentro do build.
+
+<br />
+
+---
+
+<br />
+
+> Este portfólio é open source. Os dois motores de conteúdo, HyperDown e HyperJson,
+> estão publicados no npm como `@indago/hyper-down` e `@indago/hyper-json`. Se algo
+> disto for útil para você, pegue — e me conte o que você construir.

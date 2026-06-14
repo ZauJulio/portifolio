@@ -9,6 +9,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Link } from "@/components/Link";
 import { PageHeader } from "@/components/PageHeader";
 import { PageMinimap } from "@/components/PageMinimap";
+import { RelatedContent } from "@/components/RelatedContent";
 import { useLocale } from "@/i18n";
 
 import { getRecipeContent } from "../data";
@@ -182,6 +183,16 @@ export default function RecipePage() {
           </div>
         )}
       </article>
+
+      {/* Suggested content — outside <article> so the PageMinimap mirror
+          (a clone of the article element) never duplicates it. */}
+      <div className="max-w-4xl mx-auto px-6 pb-16">
+        <RelatedContent
+          title={t(($) => $.cooking.relatedTitle)}
+          basePath="cooking"
+          items={recipe.related}
+        />
+      </div>
     </div>
   );
 }
