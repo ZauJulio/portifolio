@@ -20,6 +20,11 @@ Personal portfolio — a [Vike](https://vike.dev/) **hybrid SSG + SSR** site (Re
 Hono, bilingual: `/` en · `/pt` pt-BR) and the reference consumer of the
 [**Indago**](https://github.com/ZauJulio/indago) content engines.
 
+> **Origins.** This repository supersedes my previous portfolio at
+> [`ZauJulio/zaujulio.github.io`](https://github.com/ZauJulio/zaujulio.github.io) (a GitHub
+> Pages site). The codebase was rebuilt here from the ground up; the migration is marked by
+> the annotated `migrated-from-zaujulio.github.io` git tag on the initial commit.
+
 ## Summary
 
 - [Stack](#stack)
