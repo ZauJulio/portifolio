@@ -14,6 +14,7 @@
     "lint": "oxlint .",
     "format": "oxfmt . --write",
     "check": "bun run lint && bun run format",
+    "check:ci": "oxlint . && oxfmt . --check",
     "typecheck": "tsc -p tsconfig.json --pretty --noEmit",
     "prepare": "husky"
   },

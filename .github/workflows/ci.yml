@@ -35,11 +35,8 @@ jobs:
         run: bun run typecheck
 
       - name: Lint & format
-        run: |
-          bun run check
-          # `format` runs oxfmt --write; fail the build if it changed anything,
-          # so unformatted code can't slip through.
-          git diff --exit-status
+        # oxlint + oxfmt --check (no --write); fails if anything is unformatted.
+        run: bun run check:ci
 
   release:
     needs: verify
