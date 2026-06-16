@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "Building This Portfolio: Vike, an In-Build SQLite, and Two Content Engines"
-description: "A feature-by-feature tour of this portfolio: a hybrid SSG + SSR Vike app on React 19 and Hono, bilingual locale-stripping i18n, a SQLite database that ships inside the build, structured JSON via HyperJson and Markdown/MDX via HyperDown, live full-text search, a TOC minimap, article series navigation, tag-ranked suggestions, sitemap/SEO, and the Vercel + Docker deploy."
+description: "How this portfolio runs a fully searchable, bilingual, content-rich site with no backend — just a SQLite database generated at build time and shipped inside the bundle. A feature-by-feature tour, plus the two open-source content engines (HyperDown + HyperJson) you can reuse to build the same thing."
 date: "2026-06-12"
 tags:
   [
@@ -25,6 +25,11 @@ next: "what-is-hyperdown"
 ---
 
 # Building This Portfolio
+
+**No backend. No database service. No CMS bill.** This site runs a fully searchable,
+bilingual, content-rich experience from a SQLite file generated at build time and shipped
+inside the bundle — and the two engines that make it work are open source, so you can build
+the same way.
 
 Most developer portfolios are one of two things: a static site with hardcoded
 content, or a heavyweight CMS-backed app with a database, an API, and a hosting
@@ -416,9 +421,18 @@ nothing because a URL was parsed without its query string.
 If you take one idea from this: **you probably do not need a backend for a
 content site.** Compile your content into an indexed artifact at build time, query
 it from server loaders, and you get real search and filtering with none of the
-operational weight. The engines that make it ergonomic — turning a folder of MDX
-into a typed, searchable SQLite database, and a folder of JSON into validated typed
-imports — are the subject of the next two posts.
+operational weight.
+
+And you do not have to rebuild any of it from scratch. The two engines that make this
+ergonomic are published, documented, and scaffolded — one command gives you this exact
+architecture (Vike, React Router v7, TanStack Start, or Next.js), already wired and tested:
+
+```bash
+bun create @indago/app
+```
+
+The deep dives on each engine — turning a folder of MDX into a typed, searchable SQLite
+database, and a folder of JSON into validated typed imports — are the next two posts.
 
 <br />
 
@@ -431,6 +445,7 @@ full-text-searchable SQLite database that ships in the build.
 
 <br />
 
-> This portfolio is open source. The two content engines, HyperDown and HyperJson,
-> are published on npm as `@indago/hyper-down` and `@indago/hyper-json`. If any of
-> this is useful to you, take it — and tell me what you build.
+> This portfolio is open source, and so are its engines. HyperDown and HyperJson are on npm
+> as `@indago/hyper-down` and `@indago/hyper-json` (source on
+> [GitHub](https://github.com/ZauJulio/indago)). If any of this is useful to you, take it —
+> and tell me what you build.

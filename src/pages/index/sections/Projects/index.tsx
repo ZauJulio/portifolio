@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 
 import { ExternalLinkIcon, SearchIcon } from "lucide-react";
 
+import { MobileCarousel } from "@/components/MobileCarousel";
+
 import { ProjectCard } from "./components/ProjectCard";
 import { SkillsSection } from "./components/SkillsSection";
 import { SoftSkillsSection } from "./components/SoftSkillsSection";
@@ -69,11 +71,19 @@ export function ProjectsSection() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Desktop: grid */}
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project) => (
             <ProjectCard key={project.name} project={project} />
           ))}
         </div>
+
+        {/* Mobile: carousel */}
+        <MobileCarousel ariaLabel={t(($) => $.projects.title)} itemClassName="w-[82%]">
+          {filteredProjects.map((project) => (
+            <ProjectCard key={project.name} project={project} />
+          ))}
+        </MobileCarousel>
 
         {filteredProjects.length === 0 && (
           <div className="text-center py-12">

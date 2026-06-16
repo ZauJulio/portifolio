@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "Construindo Este Portfólio: Vike, um SQLite no build e dois motores de conteúdo"
-description: "Um tour recurso a recurso por este portfólio: uma aplicação Vike híbrida SSG + SSR sobre React 19 e Hono, i18n bilíngue com remoção de prefixo de locale, um banco SQLite que vai dentro do build, dados estruturados via HyperJson e Markdown/MDX via HyperDown, busca full-text ao vivo, minimapa de TOC, navegação em série de artigos, sugestões ranqueadas por tag, sitemap/SEO e o deploy em Vercel + Docker."
+description: "Como este portfólio roda um site rico em conteúdo, totalmente pesquisável e bilíngue sem backend — só um banco SQLite gerado no build e enviado dentro do bundle. Um tour recurso a recurso, mais os dois motores de conteúdo open source (HyperDown + HyperJson) que você pode reutilizar para construir a mesma coisa."
 date: "2026-06-12"
 tags:
   [
@@ -25,6 +25,11 @@ next: "what-is-hyperdown"
 ---
 
 # Construindo Este Portfólio
+
+**Sem backend. Sem serviço de banco de dados. Sem conta de CMS.** Este site roda uma
+experiência rica em conteúdo, totalmente pesquisável e bilíngue a partir de um arquivo SQLite
+gerado em tempo de build e enviado dentro do bundle — e os dois motores que fazem isso
+funcionar são open source, então você pode construir do mesmo jeito.
 
 A maioria dos portfólios de desenvolvedor é uma de duas coisas: um site estático
 com conteúdo hardcoded, ou uma aplicação pesada com CMS, banco de dados, API e uma
@@ -427,9 +432,18 @@ nada porque uma URL foi parseada sem a query string.
 Se você levar uma ideia disto: **você provavelmente não precisa de um backend para
 um site de conteúdo.** Compile seu conteúdo em um artefato indexado em tempo de
 build, consulte-o a partir dos loaders do servidor, e você ganha busca e filtragem
-de verdade sem nenhum peso operacional. Os motores que tornam isso ergonômico —
-transformar uma pasta de MDX num banco SQLite tipado e pesquisável, e uma pasta de
-JSON em imports tipados e validados — são o tema dos dois próximos posts.
+de verdade sem nenhum peso operacional.
+
+E você não precisa reconstruir nada disso do zero. Os dois motores que tornam isso ergonômico
+são publicados, documentados e com scaffold pronto — um comando te dá exatamente esta
+arquitetura (Vike, React Router v7, TanStack Start ou Next.js), já montada e testada:
+
+```bash
+bun create @indago/app
+```
+
+Os mergulhos em cada motor — transformar uma pasta de MDX num banco SQLite tipado e
+pesquisável, e uma pasta de JSON em imports tipados e validados — são os dois próximos posts.
 
 <br />
 
@@ -442,6 +456,7 @@ SQLite pesquisável por full-text que vai dentro do build.
 
 <br />
 
-> Este portfólio é open source. Os dois motores de conteúdo, HyperDown e HyperJson,
-> estão publicados no npm como `@indago/hyper-down` e `@indago/hyper-json`. Se algo
-> disto for útil para você, pegue — e me conte o que você construir.
+> Este portfólio é open source, e os motores também. HyperDown e HyperJson estão no npm como
+> `@indago/hyper-down` e `@indago/hyper-json` (código no
+> [GitHub](https://github.com/ZauJulio/indago)). Se algo disto for útil para você, pegue — e
+> me conte o que você construir.

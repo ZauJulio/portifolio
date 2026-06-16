@@ -2,6 +2,8 @@ import { useTranslation } from "react-i18next";
 
 import { CodeIcon } from "lucide-react";
 
+import { MobileCarousel } from "@/components/MobileCarousel";
+
 import { SKILL_CLUSTERS } from "../data";
 import { BubbleCluster } from "./BubbleCluster";
 
@@ -17,11 +19,19 @@ export function SkillsSection() {
         <h3 className="text-2xl font-bold text-white">{t(($) => $.about.skills)}</h3>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Desktop: grid */}
+      <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8">
         {SKILL_CLUSTERS.map((cluster) => (
           <BubbleCluster key={cluster.label} cluster={cluster} />
         ))}
       </div>
+
+      {/* Mobile: carousel */}
+      <MobileCarousel ariaLabel={t(($) => $.about.skills)} itemClassName="w-[72%]">
+        {SKILL_CLUSTERS.map((cluster) => (
+          <BubbleCluster key={cluster.label} cluster={cluster} />
+        ))}
+      </MobileCarousel>
     </div>
   );
 }

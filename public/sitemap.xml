@@ -2,73 +2,73 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://zaujulio.vercel.app/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://zaujulio.vercel.app/pt</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://zaujulio.vercel.app/cooking</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://zaujulio.vercel.app/pt/cooking</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://zaujulio.vercel.app/articles</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://zaujulio.vercel.app/pt/articles</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://zaujulio.vercel.app/photography</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://zaujulio.vercel.app/pt/photography</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://zaujulio.vercel.app/music</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://zaujulio.vercel.app/pt/music</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://zaujulio.vercel.app/links</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://zaujulio.vercel.app/pt/links</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -85,14 +85,8 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://zaujulio.vercel.app/articles/building-this-portfolio</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://zaujulio.vercel.app/articles/what-is-hyperjson</loc>
-    <lastmod>2026-05-30</lastmod>
+    <loc>https://zaujulio.vercel.app/articles/building-a-som-from-scratch</loc>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -103,20 +97,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zaujulio.vercel.app/articles/building-a-som-from-scratch</loc>
-    <lastmod>2026-06-13</lastmod>
+    <loc>https://zaujulio.vercel.app/articles/what-is-hyperjson</loc>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zaujulio.vercel.app/pt/articles/building-this-portfolio</loc>
+    <loc>https://zaujulio.vercel.app/articles/building-this-portfolio</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zaujulio.vercel.app/pt/articles/what-is-hyperjson</loc>
-    <lastmod>2026-05-30</lastmod>
+    <loc>https://zaujulio.vercel.app/pt/articles/building-a-som-from-scratch</loc>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -127,8 +121,14 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zaujulio.vercel.app/pt/articles/building-a-som-from-scratch</loc>
-    <lastmod>2026-06-13</lastmod>
+    <loc>https://zaujulio.vercel.app/pt/articles/what-is-hyperjson</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://zaujulio.vercel.app/pt/articles/building-this-portfolio</loc>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
