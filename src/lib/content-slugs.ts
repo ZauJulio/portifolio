@@ -1,43 +1,20 @@
-import { readdirSync } from "node:fs";
-import { resolve } from "node:path";
+import { contentModules, type ContentType } from "@hyper-down/default";
 
-import type { ContentType } from "@hyper-down/default";
-
-// Build-time helper: enumerate the slugs of an MD/MDX content collection
-// (mirrors the React Router `getMarkdownSlugs`). Used by the @slug pages'
-// onBeforePrerenderStart hooks to list the detail URLs to statically render.
+// Build-time helper: enumerate the slugs of an MD/MDX content collection from
+// the generated module map, used by the @slug pages' onBeforePrerenderStart
+// hooks to list the detail URLs to statically render.
 //
-// Resolve from `process.cwd()` (the app dir during `vike build`) rather than
-// `import.meta.url`: Vike bundles these hooks into `dist/server/`, so a path
-// relative to the module would point inside the build output, not `content/`.
-const contentDir = resolve(process.cwd(), "content");
-
+// Deriving from `contentModules` (rather than scanning `content/` on disk) is
+// load-bearing for drafts: codegen negates draft files out of this exact glob,
+// so a draft is never enumerated — no prerendered detail page, no leaked URL.
 export function getSlugs(type: ContentType): string[] {
-  const dir = resolve(contentDir, type);
+  const modules = contentModules[type] as Record<string, unknown> | undefined;
+  if (!modules) return [];
+
   const slugs = new Set<string>();
-
-  let locales: string[];
-
-  try {
-    locales = readdirSync(dir, { withFileTypes: true })
-      .filter((d) => d.isDirectory())
-      .map((d) => d.name);
-  } catch {
-    return [];
-  }
-
-  for (const locale of locales) {
-    let files: string[];
-
-    try {
-      files = readdirSync(resolve(dir, locale));
-    } catch {
-      continue;
-    }
-
-    for (const file of files) {
-      if (/\.mdx?$/i.test(file)) slugs.add(file.replace(/\.mdx?$/i, ""));
-    }
+  for (const path of Object.keys(modules)) {
+    const match = path.match(/([^/]+)\.mdx?$/i);
+    if (match) slugs.add(match[1]);
   }
 
   return Array.from(slugs);
