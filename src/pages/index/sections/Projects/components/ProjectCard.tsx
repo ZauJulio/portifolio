@@ -8,7 +8,7 @@ export function ProjectCard({ project }: { project: ProjectContent }) {
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block rounded-xl border border-gray-800 bg-gray-950/15 p-6 transition-all duration-300 hover:border-brand-500/50 hover:bg-gray-800/30 hover:shadow-lg hover:shadow-brand-500/5"
+      className="group flex h-full flex-col rounded-xl border border-gray-800 bg-gray-950/15 p-6 transition-all duration-300 hover:border-brand-500/50 hover:bg-gray-800/30 hover:shadow-lg hover:shadow-brand-500/5"
     >
       <div className="flex items-start justify-between mb-3">
         <h3 className="text-lg font-semibold text-white group-hover:text-brand-300 transition-colors">
@@ -21,7 +21,7 @@ export function ProjectCard({ project }: { project: ProjectContent }) {
         {project.description}
       </p>
 
-      <div className="flex flex-wrap gap-1.5 mb-4">
+      <div className="flex flex-wrap gap-1.5 mb-4 mt-auto">
         {project.topics.map((topic) => (
           <span
             key={topic}
