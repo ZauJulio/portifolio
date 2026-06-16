@@ -1,4 +1,5 @@
 import { articleRepository } from "@hyper-down/content/article/builder";
+import { render } from "vike/abort";
 
 import type { PageContextServer } from "vike/types";
 
@@ -13,7 +14,11 @@ export async function data({ canonical: locale, routeParams: { slug } }: PageCon
   // `canonical` is the DB tag (`en`/`pt-BR`); the app `locale` (`en`/`pt`) never
   // matches `pt-BR` rows -- it would always fall back to English on /pt.
   const article = await articleRepository.getMetaBySlug(slug, locale);
-  if (!article) return undefined;
+  // A missing slug — including a draft, which is excluded from the DB — must
+  // return a real 404, not a soft 200 "not found" view. A 200 would emit a
+  // self-referential canonical + JSON-LD for an unpublished URL, leaving it
+  // indexable; `render(404)` renders the _error page with the right status.
+  if (!article) throw render(404);
 
   const [related, prevMeta, nextMeta] = await Promise.all([
     article.tags?.length

@@ -31,6 +31,13 @@ export default function HeadDefault() {
   const pageContext = usePageContext();
   const locale = (pageContext.locale ?? I18N.defaultLocale) as Locale;
 
+  // A 404 — including any draft slug, which resolves here via `render(404)` —
+  // must not advertise itself as an indexable, canonical URL. Mark it `noindex`
+  // and drop the self-referential canonical + hreflang alternates so an
+  // unpublished URL carries no positive indexing signal (belt-and-suspenders
+  // on top of the 404 status itself).
+  const isNotFound = pageContext.is404 === true;
+
   // Locale-free logical pathname (no query) — the base for every alternate URL.
   const logicalPath = stripLocale(pageContext.urlPathname);
   const canonical = absoluteUrl(locale, logicalPath);
@@ -38,7 +45,7 @@ export default function HeadDefault() {
   return (
     <>
       <meta name="author" content="Zau Julio" />
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content={isNotFound ? "noindex, follow" : "index, follow"} />
       <meta name="theme-color" content="#000000" />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={canonical} />
@@ -56,21 +63,26 @@ export default function HeadDefault() {
       <meta name="google-site-verification" content="5C13FbkQmK0v7ZlaO_Q0UBHyFpFAGR_3V4Stn_7yVF0" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-      {/* Per-page canonical + hreflang alternates (region tags via I18N.canonical). */}
-      <link rel="canonical" href={canonical} />
-      {LOCALES.map((l) => (
-        <link
-          key={l}
-          rel="alternate"
-          hrefLang={I18N.locales[l].canonical}
-          href={absoluteUrl(l, logicalPath)}
-        />
-      ))}
-      <link
-        rel="alternate"
-        hrefLang="x-default"
-        href={absoluteUrl(I18N.defaultLocale, logicalPath)}
-      />
+      {/* Per-page canonical + hreflang alternates (region tags via I18N.canonical).
+          Skipped on 404s so an unpublished/missing URL never claims a canonical. */}
+      {!isNotFound && (
+        <>
+          <link rel="canonical" href={canonical} />
+          {LOCALES.map((l) => (
+            <link
+              key={l}
+              rel="alternate"
+              hrefLang={I18N.locales[l].canonical}
+              href={absoluteUrl(l, logicalPath)}
+            />
+          ))}
+          <link
+            rel="alternate"
+            hrefLang="x-default"
+            href={absoluteUrl(I18N.defaultLocale, logicalPath)}
+          />
+        </>
+      )}
 
       <script
         type="application/ld+json"
