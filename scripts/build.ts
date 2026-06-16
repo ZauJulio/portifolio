@@ -1,5 +1,5 @@
 import { cpSync, existsSync, readdirSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 
 import { build } from "vike/api";
 
@@ -10,6 +10,20 @@ import { build } from "vike/api";
 // since prerendering leaves live handles (pino worker, SQLite) that would
 // otherwise hang the process.
 await build();
+
+// Reconcile the served sitemap with the freshly generated one. The HyperDown
+// sitemap plugin regenerates `public/sitemap.xml` (draft-aware) in `closeBundle`,
+// but Vite copies `public/` into the client output at the START of the client
+// build — before `closeBundle` runs. So the emitted `dist/client/sitemap.xml`
+// (and the Vercel static mirror) is one build stale and can still list a page
+// that was just flipped to `draft: true`. Overwrite the copies with the fresh
+// one now that the build (and its closeBundle) has completed.
+const freshSitemap = "public/sitemap.xml";
+if (existsSync(freshSitemap)) {
+  for (const dest of ["dist/client/sitemap.xml", ".vercel/output/static/sitemap.xml"]) {
+    if (existsSync(dirname(dest))) cpSync(freshSitemap, dest);
+  }
+}
 
 // Ship the HyperDown SQLite metadata DBs inside each serverless function: the
 // lambda filesystem is the `.func` directory (cwd = /var/task), and the engine's
