@@ -47,7 +47,7 @@ The content engines are consumed **from npm** — [`@indago/hyper-down`](https:/
 ### Deploy (Vercel)
 
 - `vite-plugin-vercel` is enabled only when `VERCEL=1` (Vercel sets it); it rewrites the build into `.vercel/output/` (Build Output API). Locally/Docker, a plain build yields a runnable SSR server (`bun run start`).
-- The Vercel project alias is **zaujulio.vercel.app**; `.vercel/project.json` (gitignored, local) links the checkout to it.
+- The production domain is **zaujulio.com.br** (custom domain on Vercel; the project keeps its default `*.vercel.app` alias too). `.vercel/project.json` (gitignored, local) links the checkout to the Vercel project. Site URLs come from `VITE_SITE_URL` (canonical/OG/hreflang in `+Head.tsx`) and `hyperdown.config.json` `siteUrl` (sitemap) — keep both on the production domain.
 
 ### Auto-generated — Do Not Edit Manually
 

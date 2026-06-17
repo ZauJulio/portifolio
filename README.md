@@ -1,7 +1,7 @@
 # Zaú Júlio — Portfolio
 
 <p align="center">
-  <a href="https://zaujulio.vercel.app"><img alt="Live" src="https://img.shields.io/badge/live-zaujulio.vercel.app-black?logo=vercel" /></a>
+  <a href="https://zaujulio.com.br"><img alt="Live" src="https://img.shields.io/badge/live-zaujulio.com.br-black?logo=vercel" /></a>
   <a href="https://github.com/ZauJulio/indago"><img alt="Powered by Indago" src="https://img.shields.io/badge/powered%20by-Indago-801336" /></a>
   <a href="./LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-green" /></a>
 </p>

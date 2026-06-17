@@ -5,7 +5,7 @@
     "frontmatterJsonPath": "frontmatter.json"
   },
   "sitemap": {
-    "siteUrl": "https://zaujulio.vercel.app",
+    "siteUrl": "https://zaujulio.com.br",
     "outputPath": "./public/sitemap.xml",
     "staticRoutes": [
       { "path": "/", "priority": "1.0", "changefreq": "weekly" },
