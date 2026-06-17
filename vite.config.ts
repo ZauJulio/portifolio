@@ -41,6 +41,11 @@ export default defineConfig(({ mode }) => ({
       "@hyper-down": r("./.hyper-down"),
       "@hyper-json": r("./.hyper-json"),
     },
+    // Force a single React instance. Needed when an engine (e.g. @indago/hyper-down,
+    // which renders hooks-based components like <Sidebar/>) is `bun link`-ed during
+    // local dev: the symlinked package would otherwise resolve its own React copy,
+    // triggering "Invalid hook call". A no-op for a normal hoisted npm install.
+    dedupe: ["react", "react-dom"],
   },
   plugins: [
     // MUST run before Vike/React so *.mdx?raw bypass + MDX compile happen first.
