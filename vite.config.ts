@@ -60,6 +60,12 @@ export default defineConfig(({ mode }) => ({
     ...(isVercel
       ? [
           vercel({
+            // Keep `.html` URLs literal. Vercel's default cleanUrls 308-redirects
+            // `/x.html` → `/x`, which breaks the Google Search Console file
+            // (`public/google*.html`): Google fetches the exact `.html` URL and
+            // the redirect lands on the SSR 404. Every app page is directory-index
+            // (`<route>/index.html`), so cleanUrls is otherwise a no-op here.
+            cleanUrls: false,
             // Build Output API serves everything with `max-age=0, must-revalidate`
             // by default. Hashed bundles are immutable by construction; public/
             // images get a day with a week of stale-while-revalidate.
