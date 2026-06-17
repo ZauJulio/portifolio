@@ -5,3 +5,7 @@
 .hyper-down/
 .hyper-json/
 dist/
+
+# Google Search Console verification file — its content must stay byte-exact
+# (Google reads it verbatim); oxfmt parses it as HTML and rejects the format.
+public/google*.html
