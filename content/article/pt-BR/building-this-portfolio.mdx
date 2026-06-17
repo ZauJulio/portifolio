@@ -21,7 +21,7 @@ author: "Zau Julio"
 readingTime: "16 min de leitura"
 canonical: ""
 cover: "https://zaujulio.com.br/glitch-bg-1920.avif"
-next: "what-is-hyperdown"
+next: "what-is-indago"
 ---
 
 # Construindo Este Portfólio
@@ -41,11 +41,12 @@ nada para manter acordado e nada a pagar além de uma hospedagem quase estática
 
 <br />
 
-Este post é o primeiro de uma série de três partes. É a **visão geral** — um
-passeio recurso a recurso por todo o site e pelas decisões por trás dele. Os dois
-posts seguintes mergulham nos dois motores de conteúdo que eu construí para fazer
-tudo funcionar: [HyperDown](/pt/articles/what-is-hyperdown) (Markdown/MDX → SQLite)
-e [HyperJson](/pt/articles/what-is-hyperjson) (JSON Schema → conteúdo tipado).
+Este post é o primeiro de uma série. É a **visão geral** — um passeio recurso a
+recurso por todo o site e pelas decisões por trás dele. Os posts seguintes cobrem o
+**Indago**, o conjunto de dois motores de conteúdo que construí para fazer tudo
+funcionar — [O que é o Indago?](/pt/articles/what-is-indago) (HyperDown: Markdown/MDX
+→ SQLite, e HyperJson: JSON Schema → conteúdo tipado) — seguido de um
+[Começando com o Indago](/pt/articles/getting-started-with-indago) prático.
 
 <br />
 
@@ -289,14 +290,14 @@ frontmatter. Cada artigo pode declarar um `prev` e um `next` opcionais:
 
 ```yaml
 # building-this-portfolio.mdx
-next: "what-is-hyperdown"
+next: "what-is-indago"
 
-# what-is-hyperdown.mdx
+# what-is-indago.mdx
 prev: "building-this-portfolio"
-next: "what-is-hyperjson"
+next: "getting-started-with-indago"
 
-# what-is-hyperjson.mdx
-prev: "what-is-hyperdown"
+# getting-started-with-indago.mdx
+prev: "what-is-indago"
 ```
 
 O loader de detalhe resolve esses slugs nos seus metadados e renderiza um paginador

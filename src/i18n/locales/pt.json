@@ -72,7 +72,17 @@
     "contentNotFound": "Conteúdo não disponível",
     "relatedTitle": "Você também pode gostar",
     "seriesPrevious": "Anterior na série",
-    "seriesNext": "Próximo na série"
+    "seriesNext": "Próximo na série",
+    "searchPlaceholder": "Buscar artigos…",
+    "searchPlaceholderCurrent": "Buscar nesta página…",
+    "searchHint": "Digite # para buscar apenas nesta página",
+    "searchArticles": "Artigos",
+    "searchSections": "Seções",
+    "searchInThisPage": "Nesta página",
+    "searchNoResults": "Nenhum resultado",
+    "sectionsTitle": "Seções",
+    "openSections": "Abrir seções",
+    "closeSections": "Fechar seções"
   },
   "hobbies": {
     "title": "Hobbies e Interesses",

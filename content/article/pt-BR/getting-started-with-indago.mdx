@@ -1,0 +1,151 @@
+---
+draft: false
+title: "Começando com o Indago: um tutorial prático"
+description: "Um tutorial passo a passo do Indago — crie um projeto com um comando, defina seu primeiro tipo de conteúdo pesquisável com o HyperDown, valide dados estruturados com o HyperJson, consulte tudo de um loader no servidor e renderize MDX. Do zero a uma camada de conteúdo tipada e sem backend."
+date: "2026-06-16"
+tags:
+  [
+    "tutorial",
+    "Indago",
+    "HyperDown",
+    "HyperJson",
+    "Getting Started",
+    "Vite",
+    "SQLite",
+    "MDX",
+    "TypeScript",
+  ]
+categories: ["Engineering"]
+author: "Zau Julio"
+readingTime: "11 min de leitura"
+canonical: ""
+cover: "https://raw.githubusercontent.com/ZauJulio/indago/refs/heads/main/packages/HyperDown/assets/cover.webp"
+prev: "what-is-indago"
+---
+
+import { ScaffoldBox } from "@/components/mdx/ScaffoldBox";
+
+# Começando com o Indago
+
+Este é um tutorial prático. No fim, você terá um app rodando com um **tipo de conteúdo Markdown
+pesquisável** e um **tipo de conteúdo JSON tipado** — sem backend, sem serviço de banco de dados.
+Use a barra lateral à esquerda para pular entre as seções.
+
+## Pré-requisitos
+
+Você vai precisar do **Bun** (recomendado) ou Node ≥ 22, e de um terminal. Todo o resto é gerado
+para você. Sem banco de dados, sem chaves de API, sem contas.
+
+## Crie um projeto
+
+O Indago traz um scaffolder que conecta os dois motores em um app pronto para rodar. Escolha o seu
+framework e copie o comando:
+
+<ScaffoldBox projectName="my-app" />
+
+Ele cria o projeto, instala as dependências e te deixa a um comando do servidor de dev. Todos os
+templates trazem as mesmas rotas e pastas de conteúdo, então o resto deste tutorial vale para
+qualquer framework escolhido.
+
+## O que você recebeu
+
+### Estrutura do projeto
+
+O app gerado já vem com os plugins do Vite conectados e um `hyperdown.config.json` ao lado da sua
+config. As duas coisas que você vai mexer são a **pasta de conteúdo** e os seus **loaders de rota**.
+
+### As pastas de conteúdo
+
+O Markdown/MDX fica na pasta de conteúdo do HyperDown (uma pasta por tipo de conteúdo, com
+subpastas de locale). O JSON estruturado fica ao lado do seu `schema.json`. Ambos são apenas
+arquivos no seu repositório — versione como código.
+
+## Seu primeiro tipo de conteúdo #[tutorial/#a855f7]
+
+Vamos adicionar um tipo `post` ao HyperDown. (A pílula ao lado deste título é um **badge de
+título** do HyperDown — `#[label/#color]` — renderizado na barra lateral.)
+
+### Defina o tipo
+
+Rode o CLI para registrar o tipo e criar o primeiro item:
+
+```bash
+bunx @indago/hyper-down create-content --name post --folder Posts --fields "title:string:req,tags:tags:opt"
+bunx @indago/hyper-down create-item --type post --slug hello-world --lang en
+```
+
+### Adicione um item
+
+Abra o MDX gerado e escreva um texto. O front-matter é tipado a partir das suas definições de
+campo; o corpo nunca é armazenado no SQLite — ele carrega sob demanda na renderização.
+
+```mdx
+---
+title: "Olá, mundo"
+tags: ["intro"]
+---
+
+Bem-vindo ao **Indago**. Este corpo é pesquisável por full-text, mas nunca duplicado no armazenamento.
+```
+
+## Consultando em um loader
+
+O codegen do build escreve um `postRepository` tipado e exclusivo de servidor na árvore
+`.hyper-down/` do seu app. Importe-o **apenas de um loader** e rode uma busca:
+
+```ts
+import { postRepository } from "@hyper-down/content/post/builder";
+
+export async function data() {
+  const { results } = await postRepository.search({
+    searchQuery: "olá",
+    locale: "pt-BR",
+    pagination: { page: 1, pageSize: 10 },
+  });
+
+  return { results };
+}
+```
+
+## Renderizando o corpo
+
+Na view, resolva o módulo MDX e renderize com o `MdxRender`:
+
+```tsx
+import { MdxRender } from "@indago/hyper-down";
+
+import { getPostContent } from "./data";
+
+export function Post({ slug, locale }: { slug: string; locale: string }) {
+  return <MdxRender content={getPostContent(slug, locale)} />;
+}
+```
+
+## Adicionando JSON tipado com o HyperJson
+
+Para dados estruturados — uma lista de projetos, suas skills, uma playlist — use o HyperJson.
+Descreva o formato uma vez como `schema.json`, coloque arquivos JSON ao lado, e cada import é
+validado em tempo de build e **totalmente tipado** automaticamente. Dado inválido quebra o build.
+
+## **Indo além**
+
+Este título está em **negrito**, e a barra lateral sempre o mantém expandido — útil para as partes
+que você mais quer que os leitores alcancem.
+
+### Indexação composta & sidebars
+
+Defina `indexByCollection: { "post": "composed" }` no `hyperdown.config.json` para indexar cada
+seção de título. As buscas então linkam direto para `#âncoras`, e o `meta.sections` de cada item
+te dá uma árvore de seções para alimentar o `<Sidebar/>` padrão — exatamente o que renderiza esta
+página.
+
+### Deploy
+
+Não há nada para hospedar além de um app estático/SSR: os arquivos `.db` de conteúdo são artefatos
+de build copiados para o seu `dist/`. Faça o deploy como qualquer app Vite — o conteúdo viaja junto.
+
+## Para onde ir agora
+
+Agora você tem uma camada de conteúdo tipada, pesquisável e sem backend. Leia
+**[O que é o Indago?](/pt/articles/what-is-indago)** para o panorama, ou mergulhe nos READMEs dos
+pacotes no npm para a API completa.

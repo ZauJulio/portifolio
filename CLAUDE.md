@@ -32,6 +32,13 @@ The content engines are consumed **from npm** — [`@indago/hyper-down`](https:/
 - Listing pages are URL-driven (`q`/`tag`/`cuisine`/`page`/`sort`/`dir` from `pageContext.urlParsed.search`); detail pages use `getMetaBySlug` + the resolver.
 - Content `.db` files are build artifacts — regenerated every build, never committed.
 - Content types are defined in `frontmatter.json` (root, FrontMatter CMS format); `hyperdown.config.json` points at it and at `./content`.
+- **Articles are `index: "composed"`** (`hyperdown.config.json#database.indexByCollection.article`): the writer also builds an `article_sections` table + per-section FTS and stores the heading tree on each row's `sections` column. `getMetaBySlug` returns `meta.sections` (a `SectionNode[]`); `searchSections()` powers section-level search. `remarkHeadingBadges` (in `vite.config.ts` remark plugins) strips `#[label/#color]` heading badges from the body so `rehype-slug` anchors stay clean — they re-surface as sidebar pills.
+
+### Tutorials, search & reading state
+
+- **Tutorial articles** (frontmatter `tags` includes `"tutorial"`) render `TutorialSidebar` (`src/components/TutorialSidebar.tsx`) — it wraps the lib's `<Sidebar/>` (`@indago/hyper-down` + `sidebar.css`) fed `article.sections`, with brand theming, scroll-spy active highlight (`use-active-section.ts`), viewport-height compression, a desktop left panel + a mobile hamburger drawer. The article container gets `lg:pl-72` only when tutorial.
+- **`ArticleSearch`** (`src/components/ArticleSearch.tsx`) shows on every article detail page. Plain text → all-articles search; a leading `#` → current-page sections only (dashed border, reduced contrast). Detail pages are prerendered, so it fetches the **Hono `/api/search`** JSON route (`src/server/hono.ts`, registered before `vike(app)`) → `{ pages, sections }` via `articleRepository.search` + `searchSections`.
+- **Reading state** (`use-reading-state.ts`): opened articles/recipes are recorded in `localStorage` (`portifolio:reading`); detail pages call `markRead` on mount, listing cards (`ArticleCard`/`RecipeCard`) dim when read. SSR starts empty and hydrates post-mount (no hydration mismatch).
 
 ### The Vike app
 

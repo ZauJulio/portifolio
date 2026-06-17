@@ -1,0 +1,87 @@
+---
+draft: false
+title: "What is Indago? Two Content Engines for a Backend-Free Site"
+description: "Indago is a small toolkit of two independent content engines — HyperDown (Markdown/MDX → SQLite full-text search) and HyperJson (JSON Schema → typed content). Together they give you a searchable, typed, internationalised content layer that ships inside your build, with no backend and no CMS bill. Here is the big picture — and where to start."
+date: "2026-06-16"
+tags:
+  [
+    "Indago",
+    "HyperDown",
+    "HyperJson",
+    "SQLite",
+    "JSON Schema",
+    "MDX",
+    "Vite",
+    "Headless CMS",
+    "Full-Text Search",
+    "TypeScript",
+  ]
+categories: ["Engineering"]
+author: "Zau Julio"
+readingTime: "7 min read"
+canonical: ""
+cover: "https://raw.githubusercontent.com/ZauJulio/indago/refs/heads/main/packages/HyperDown/assets/cover.webp"
+prev: "building-this-portfolio"
+next: "getting-started-with-indago"
+---
+
+# What is Indago?
+
+**A searchable, typed, bilingual content layer — with no backend, no database service, and no
+CMS bill.** Indago is a tiny toolkit of two _independent_ content engines that turn a folder of
+files into a content layer that ships **inside your build**. This very site runs on them.
+
+<br />
+
+- [The idea](#the-idea)
+- [HyperDown — Markdown/MDX → SQLite search](#hyperdown--markdownmdx--sqlite-search)
+- [HyperJson — JSON Schema → typed content](#hyperjson--json-schema--typed-content)
+- [Why two engines?](#why-two-engines)
+- [Where to start](#where-to-start)
+
+## The idea
+
+Most "headless CMS" setups ask you to run a service, pay for it, and reach across the network on
+every request. Indago takes the opposite bet: **do everything at build time**. Your content is
+just files in your repo; a Vite plugin reads them, validates them, and emits artifacts your
+server-side loaders query locally. There is **no client-side database** and **no runtime API**.
+
+The result is a content layer that is fast, typed end-to-end, internationalised, and completely
+yours — versioned in git alongside your code.
+
+## HyperDown — Markdown/MDX → SQLite search
+
+[HyperDown](https://www.npmjs.com/package/@indago/hyper-down) (`@indago/hyper-down`) owns
+**prose**. Point it at a folder of Markdown/MDX and at build time it writes a compact **SQLite**
+database holding only the front-matter metadata, plus a **contentless FTS5** index of the body —
+so full-text search reaches your content, but the original text is never duplicated into storage.
+
+At request time, a typed `ContentRepository` runs full-text search, faceted filters, sorting,
+pagination, by-slug lookups and tag-ranked "related" suggestions — straight from the `.db`, on
+the server. The MDX body loads lazily and renders as a React component. It even ships **composed
+(section) indexing**: opt in and every heading becomes searchable and deep-linkable, with a ready
+heading tree for tutorial sidebars (the one on the left of the tutorial powered by exactly this).
+
+## HyperJson — JSON Schema → typed content
+
+[HyperJson](https://www.npmjs.com/package/@indago/hyper-json) (`@indago/hyper-json`) owns
+**structured data** — project lists, skills, playlists, photo albums. Describe a content type
+once as a `schema.json`, drop locale-aware JSON files next to it, and HyperJson **validates every
+file at build time** with Ajv and **generates ambient TypeScript types** for you. Invalid content
+fails the build; valid content arrives fully typed, with no backend and no runtime cost.
+
+## Why two engines?
+
+Prose and structured data have different shapes, so Indago keeps them as **two independent
+packages** that share no code. HyperDown has the full Markdown/SQLite/FTS machinery; HyperJson is
+a lean schema-validation-and-codegen tool with no front-matter concept at all. Use one, the other,
+or both — they compose, but neither depends on the other.
+
+Both ship a Vite plugin, a CLI, bundled JSON Schemas, an MCP server for AI agents, and an
+`.agents/` reference tree inside the installed package.
+
+## Where to start
+
+If this sounds like the content layer you want, the next article is a hands-on
+**[Getting Started with Indago](/articles/getting-started-with-indago)** — it scaffolds a project
+in one command and walks you through your first searchable content type, end to end.

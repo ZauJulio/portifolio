@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import { MdxRender } from "@indago/hyper-down";
@@ -10,6 +10,7 @@ import { Link } from "@/components/Link";
 import { PageHeader } from "@/components/PageHeader";
 import { PageMinimap } from "@/components/PageMinimap";
 import { RelatedContent } from "@/components/RelatedContent";
+import { useReadingState } from "@/hooks/use-reading-state";
 import { useLocale } from "@/i18n";
 
 import { getRecipeContent } from "../data";
@@ -27,6 +28,12 @@ export default function RecipePage() {
   const recipeRef = useRef<HTMLElement>(null);
 
   const recipe = useData<Data>();
+  const { markRead } = useReadingState();
+
+  // Mark the recipe read once opened (dims its card in the listing).
+  useEffect(() => {
+    if (recipe?.slug) markRead("recipe", recipe.slug);
+  }, [markRead, recipe?.slug]);
 
   if (!recipe) {
     return (

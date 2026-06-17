@@ -16,13 +16,13 @@ test.describe("Live search", () => {
     await expect(page).toHaveURL(/\/articles\?q=hyperdown$/);
 
     // The matching article stays; the non-matching ZSOM article is filtered out.
-    await expect(page.locator('a[href*="/articles/what-is-hyperdown"]')).toBeVisible();
+    await expect(page.locator('a[href*="/articles/what-is-indago"]')).toBeVisible();
     await expect(page.locator('a[href*="/articles/building-a-som-from-scratch"]')).toHaveCount(0);
   });
 
   test("articles: clearing the query restores the full listing", async ({ page }) => {
     await page.goto("/articles?q=hyperdown");
-    await expect(page.locator('a[href*="/articles/what-is-hyperdown"]')).toBeVisible();
+    await expect(page.locator('a[href*="/articles/what-is-indago"]')).toBeVisible();
     await expect(page.locator('a[href*="/articles/building-a-som-from-scratch"]')).toHaveCount(0);
 
     await page.getByRole("textbox").first().fill("");

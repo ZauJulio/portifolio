@@ -1,6 +1,7 @@
 import { CalendarIcon, ClockIcon } from "lucide-react";
 
 import { Link } from "@/components/Link";
+import { useReadingState } from "@/hooks/use-reading-state";
 import { useLocale } from "@/i18n";
 
 import { useArticles } from "../ArticlesContext";
@@ -10,9 +11,17 @@ import type { ArticleMeta } from "../data";
 export function ArticleCard({ article }: { article: ArticleMeta }) {
   const { displayLocale } = useLocale();
   const { setTag } = useArticles();
+  const { isRead } = useReadingState();
+
+  // Already-read articles are dimmed (and recover full opacity on hover).
+  const read = isRead("article", article.slug);
 
   return (
-    <div className="block rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden group hover:border-brand-500/50 transition-all duration-300 relative">
+    <div
+      className={`block rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden group hover:border-brand-500/50 transition-all duration-300 relative hover:opacity-100 ${
+        read ? "opacity-55" : ""
+      }`}
+    >
       <Link
         to={`${import.meta.env.BASE_URL}articles/${article.slug}`}
         className="absolute inset-0 z-0"

@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@indago/hyper-down/schemas/hyperdown.config.schema.json",
   "database": {
     "contentDir": "./content",
-    "frontmatterJsonPath": "frontmatter.json"
+    "frontmatterJsonPath": "frontmatter.json",
+    "indexByCollection": { "article": "composed" }
   },
   "sitemap": {
     "siteUrl": "https://zaujulio.com.br",

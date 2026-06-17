@@ -72,7 +72,17 @@
     "contentNotFound": "Content not available",
     "relatedTitle": "You might also like",
     "seriesPrevious": "Previous in series",
-    "seriesNext": "Next in series"
+    "seriesNext": "Next in series",
+    "searchPlaceholder": "Search articles…",
+    "searchPlaceholderCurrent": "Search this page…",
+    "searchHint": "Type # to search only this page",
+    "searchArticles": "Articles",
+    "searchSections": "Sections",
+    "searchInThisPage": "In this page",
+    "searchNoResults": "No results",
+    "sectionsTitle": "Sections",
+    "openSections": "Open sections",
+    "closeSections": "Close sections"
   },
   "hobbies": {
     "title": "Hobbies & Interests",

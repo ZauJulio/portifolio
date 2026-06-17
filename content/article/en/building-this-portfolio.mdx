@@ -21,7 +21,7 @@ author: "Zau Julio"
 readingTime: "16 min read"
 canonical: ""
 cover: "https://zaujulio.com.br/glitch-bg-1920.avif"
-next: "what-is-hyperdown"
+next: "what-is-indago"
 ---
 
 # Building This Portfolio
@@ -41,11 +41,12 @@ beyond static-ish hosting.
 
 <br />
 
-This post is the first in a three-part series. It is the **overview** — a
-feature-by-feature walk through the whole site and the decisions behind it. The
-next two posts drill into the two content engines I built to make it work:
-[HyperDown](/articles/what-is-hyperdown) (Markdown/MDX → SQLite) and
-[HyperJson](/articles/what-is-hyperjson) (JSON Schema → typed content).
+This post is the first in a series. It is the **overview** — a feature-by-feature
+walk through the whole site and the decisions behind it. The next posts cover
+**Indago**, the toolkit of two content engines I built to make it work —
+[What is Indago?](/articles/what-is-indago) (HyperDown: Markdown/MDX → SQLite, and
+HyperJson: JSON Schema → typed content) — followed by a hands-on
+[Getting Started](/articles/getting-started-with-indago).
 
 <br />
 
@@ -285,14 +286,14 @@ declare an optional `prev` and `next` slug:
 
 ```yaml
 # building-this-portfolio.mdx
-next: "what-is-hyperdown"
+next: "what-is-indago"
 
-# what-is-hyperdown.mdx
+# what-is-indago.mdx
 prev: "building-this-portfolio"
-next: "what-is-hyperjson"
+next: "getting-started-with-indago"
 
-# what-is-hyperjson.mdx
-prev: "what-is-hyperdown"
+# getting-started-with-indago.mdx
+prev: "what-is-indago"
 ```
 
 The detail loader resolves those slugs to their metadata and renders a previous/

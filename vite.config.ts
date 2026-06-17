@@ -4,6 +4,7 @@ import {
   hyperdownMdxPlugin,
   hyperdownPlugin,
   hyperdownSitemapPlugin,
+  remarkHeadingBadges,
 } from "@indago/hyper-down/plugins";
 import { hyperjsonValidationPlugin } from "@indago/hyper-json/plugins";
 import tailwindcss from "@tailwindcss/vite";
@@ -44,7 +45,9 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     // MUST run before Vike/React so *.mdx?raw bypass + MDX compile happen first.
     hyperdownMdxPlugin({
-      remarkPlugins: [remarkMath, remarkFrontmatter, remarkGfm],
+      // remarkHeadingBadges strips `#[label/#color]` tutorial badges from headings
+      // (surfaced as sidebar pills) before rehypeSlug computes the anchor.
+      remarkPlugins: [remarkMath, remarkFrontmatter, remarkGfm, remarkHeadingBadges],
       rehypePlugins: [
         rehypeSlug,
         [rehypeKatex, { output: "html" }],

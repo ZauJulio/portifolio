@@ -1,6 +1,7 @@
 import { ClockIcon, UsersIcon } from "lucide-react";
 
 import { Link } from "@/components/Link";
+import { useReadingState } from "@/hooks/use-reading-state";
 
 import { useCooking } from "../CookingContext";
 
@@ -9,9 +10,17 @@ import type { RecipeMeta } from "@indago/hyper-down";
 export function RecipeCard({ recipe }: { recipe: RecipeMeta }) {
   const meta = recipe;
   const { setFilter } = useCooking();
+  const { isRead } = useReadingState();
+
+  // Already-read recipes are dimmed (and recover full opacity on hover).
+  const read = isRead("recipe", meta.slug);
 
   return (
-    <div className="block rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden group hover:border-brand-500/50 transition-all duration-300 relative">
+    <div
+      className={`block rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden group hover:border-brand-500/50 transition-all duration-300 relative hover:opacity-100 ${
+        read ? "opacity-55" : ""
+      }`}
+    >
       <Link
         to={`${import.meta.env.BASE_URL}cooking/${meta.slug}`}
         className="absolute inset-0 z-0"
