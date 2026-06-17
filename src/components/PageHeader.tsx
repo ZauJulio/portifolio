@@ -35,7 +35,9 @@ export function PageHeader({ backToUrl, backToLabel, rightElement }: PageHeaderP
           </Link>
         </div>
 
-        {rightElement && <div className="flex items-center gap-2">{rightElement}</div>}
+        {/* The fixed locale switcher (top-right) overlaps this corner, so the
+            content-type badge only appears on screens wide enough to clear it. */}
+        {rightElement && <div className="hidden 2xl:flex items-center gap-2">{rightElement}</div>}
       </div>
     </header>
   );

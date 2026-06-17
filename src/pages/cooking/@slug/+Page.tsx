@@ -52,7 +52,16 @@ export default function RecipePage() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       {/* Header */}
-      <PageHeader backToUrl="/cooking" backToLabel={t(($) => $.cooking.backTo)} />
+      <PageHeader
+        backToUrl="/cooking"
+        backToLabel={t(($) => $.cooking.backTo)}
+        rightElement={
+          <>
+            <CookingPotIcon className="size-5 text-brand-400" />
+            <span className="font-semibold text-white">{t(($) => $.cooking.recipe)}</span>
+          </>
+        }
+      />
 
       {/* Breadcrumbs */}
       <div className="max-w-4xl mx-auto px-6">
@@ -67,12 +76,15 @@ export default function RecipePage() {
 
       <PageMinimap contentRef={recipeRef} />
 
-      {/* Cover Image */}
-      {recipe.cover && (
-        <div className="w-full max-h-100 overflow-hidden">
-          <img src={recipe.cover} alt={recipe.title} className="w-full h-full object-cover" />
-        </div>
-      )}
+      {/* Cover Image — falls back to a branded placeholder when none is set. */}
+      <div className="w-full max-h-100 overflow-hidden">
+        <img
+          src={recipe.cover || `${import.meta.env.BASE_URL}covers/recipe-fallback.svg`}
+          alt={recipe.cover ? recipe.title : ""}
+          aria-hidden={recipe.cover ? undefined : "true"}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
       {/* Article Content */}
       <article ref={recipeRef} className="max-w-4xl mx-auto px-6 py-12">

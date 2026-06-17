@@ -72,8 +72,19 @@ export default function ArticlePage() {
 
       <PageMinimap contentRef={articleRef} />
 
-      {/* Cover Image */}
-      {article.cover && <CoverImage src={article.cover} alt={article.title} />}
+      {/* Cover Image — real covers are zoomable; otherwise a branded fallback. */}
+      {article.cover ? (
+        <CoverImage src={article.cover} alt={article.title} />
+      ) : (
+        <div className="w-full max-h-100 overflow-hidden rounded-xl bg-black/40">
+          <img
+            src={`${import.meta.env.BASE_URL}covers/article-fallback.svg`}
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
 
       {/* Article Content */}
       <article ref={articleRef} className="max-w-4xl mx-auto px-6 py-12">
