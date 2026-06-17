@@ -132,10 +132,20 @@ export default defineConfig(({ mode }) => ({
     // grouping, keeping mermaid's 75+ sub-modules in one stable lazy chunk.
     rolldownOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes("mermaid")) return "mermaid-vendor";
-          if (id.includes("katex")) return "markdown-math";
-          return undefined;
+        // rolldown-native chunking (manualChunks couldn't relocate the virtual
+        // preload helper — rolldown merged the tiny chunk back). `priority` makes
+        // the helper win over the mermaid group, and `minSize: 0` stops rolldown
+        // from folding it back into a vendor chunk.
+        advancedChunks: {
+          groups: [
+            // Vite's dynamic-import preload helper. Left in the mermaid vendor
+            // chunk, every page that does a dynamic import (the home page
+            // included) statically imports it — pulling all ~780 KiB of mermaid
+            // onto the initial load path. Isolate it into its own ~1 KiB chunk.
+            { name: "vite-preload", test: "preload-helper", priority: 100, minSize: 0 },
+            { name: "mermaid-vendor", test: "mermaid", priority: 10 },
+            { name: "markdown-math", test: "katex", priority: 10 },
+          ],
         },
       },
     },
