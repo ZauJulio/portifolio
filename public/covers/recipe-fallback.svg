@@ -40,6 +40,4 @@
     <!-- pot body -->
     <path d="M-86 -28 H86 l-12 106 a16 16 0 0 1 -16 14 H-58 a16 16 0 0 1 -16 -14 Z" fill="#0b0608" stroke="#ee4540" stroke-width="5"/>
   </g>
-
-  <text x="600" y="342" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" font-weight="600" letter-spacing="6" fill="#ffffff" fill-opacity="0.55">ZAU JULIO</text>
 </svg>
