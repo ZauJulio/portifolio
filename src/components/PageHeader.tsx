@@ -35,9 +35,11 @@ export function PageHeader({ backToUrl, backToLabel, rightElement }: PageHeaderP
           </Link>
         </div>
 
-        {/* The fixed locale switcher (top-right) overlaps this corner, so the
-            content-type badge only appears on screens wide enough to clear it. */}
-        {rightElement && <div className="hidden 2xl:flex items-center gap-2">{rightElement}</div>}
+        {/* Hidden on mobile (the fixed locale switcher owns this corner there);
+            on desktop, lg:mr-36 keeps the badge clear of that switcher. */}
+        {rightElement && (
+          <div className="hidden lg:flex items-center gap-2 lg:mr-36">{rightElement}</div>
+        )}
       </div>
     </header>
   );
