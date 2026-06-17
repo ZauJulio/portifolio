@@ -8,9 +8,16 @@ interface PageHeaderProps {
   backToUrl: string;
   backToLabel: string;
   rightElement?: React.ReactNode;
+  /** Optional element rendered in the centre of the bar (e.g. the article search). */
+  centerElement?: React.ReactNode;
 }
 
-export function PageHeader({ backToUrl, backToLabel, rightElement }: PageHeaderProps) {
+export function PageHeader({
+  backToUrl,
+  backToLabel,
+  rightElement,
+  centerElement,
+}: PageHeaderProps) {
   return (
     <header className="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-b border-gray-800/50">
       <Link
@@ -24,21 +31,23 @@ export function PageHeader({ backToUrl, backToLabel, rightElement }: PageHeaderP
           className="h-8 w-auto"
         />
       </Link>
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="lg:ml-16 flex-1">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center gap-4">
+        <div className={`lg:ml-16 ${centerElement ? "flex-none" : "flex-1"}`}>
           <Link
             to={backToUrl}
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-brand-300 transition-colors no-underline text-sm"
+            className="inline-flex items-center gap-2 text-gray-400 hover:text-brand-300 transition-colors no-underline text-sm whitespace-nowrap"
           >
             <ArrowLeftIcon className="size-4" />
-            {backToLabel}
+            <span className="hidden sm:inline">{backToLabel}</span>
           </Link>
         </div>
+
+        {centerElement && <div className="flex-1 min-w-0">{centerElement}</div>}
 
         {/* Hidden on mobile (the fixed locale switcher owns this corner there);
             on desktop, lg:mr-36 keeps the badge clear of that switcher. */}
         {rightElement && (
-          <div className="hidden lg:flex items-center gap-2 lg:mr-36">{rightElement}</div>
+          <div className="hidden lg:flex items-center gap-2 lg:mr-36 flex-none">{rightElement}</div>
         )}
       </div>
     </header>

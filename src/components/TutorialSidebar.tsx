@@ -17,24 +17,27 @@ import "@indago/hyper-down/sidebar.css";
 
 const brand = tailwindConfig.theme.extend.colors.brand;
 
-// Recolour the lib sidebar to the brand palette (hover/active accent + muted text).
+// Recolour the lib sidebar to the brand palette (hover accent + muted text).
+// Active rows use a very-low-contrast gray (see `activeLinkClassName`).
 const brandTheme = {
   "--hd-sidebar-accent": brand[400],
   "--hd-sidebar-muted": "rgb(156 163 175)", // gray-400
-  "--hd-sidebar-hover": `${brand[500]}1a`,
+  "--hd-sidebar-hover": "rgb(255 255 255 / 0.04)",
 } as CSSProperties;
 
 /**
  * Tutorial section navigator (only rendered for `tutorial`-tagged articles).
  *
- * Wraps the engine `<Sidebar/>` (collapse/expand, bold/active auto-expand, badge
- * pills, anchor deep-links) with the portfolio chrome:
- *  - a fixed left panel on desktop, with a pretty scrollbar; bold branches stay
- *    expanded even when they overflow the panel width (horizontal scroll);
+ * Wraps the engine `<Sidebar/>` (whole-row collapse/expand with a chevron icon,
+ * bold/active auto-expand, badge pills, ellipsis on long titles, anchor links)
+ * with the portfolio chrome:
+ *  - a borderless sticky desktop panel (placed after the cover in the page flow,
+ *    so it starts below the cover and then sticks under the top bar);
  *  - **compression** — when the tree is taller than the viewport, non-bold/inactive
  *    branches collapse by default;
- *  - active-section tracking (scroll spy) to highlight the current heading;
- *  - a mobile hamburger (below the header's back arrow) opening a drawer.
+ *  - active-section tracking (scroll spy) highlighting the current heading in a
+ *    faint gray;
+ *  - a mobile hamburger (below the top bar) opening a full-width drawer.
  */
 export function TutorialSidebar({ sections }: { sections: SectionNode[] }) {
   const { t } = useTranslation();
@@ -53,6 +56,17 @@ export function TutorialSidebar({ sections }: { sections: SectionNode[] }) {
     return () => window.removeEventListener("resize", check);
   }, [ids.length]);
 
+  // Lock background scroll while the mobile drawer is open (also removes the
+  // scrollbar gutter, so the drawer truly fills the width).
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [mobileOpen]);
+
   const onSelect = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     history.pushState(null, "", `#${id}`);
@@ -67,48 +81,46 @@ export function TutorialSidebar({ sections }: { sections: SectionNode[] }) {
       activeId={activeId}
       compress={compress}
       onSelect={onSelect}
-      linkClassName="rounded-md"
-      activeLinkClassName="bg-brand-500/10 text-brand-400"
+      activeLinkClassName="bg-white/[0.04]"
     />
+  );
+
+  const heading = (
+    <p className="px-2 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
+      {t(($) => $.articles.sectionsTitle)}
+    </p>
   );
 
   return (
     <>
-      {/* Desktop: fixed left panel */}
-      <nav
+      {/* Desktop: borderless sticky panel. In page flow after the cover, so it
+          starts below the cover, then sticks under the top bar while scrolling. */}
+      <aside
         aria-label={t(($) => $.articles.sectionsTitle)}
-        className="hidden lg:flex fixed left-3 top-24 bottom-8 z-30 w-64 flex-col rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl shadow-2xl shadow-black/50"
+        style={brandTheme}
+        className="hidden lg:block shrink-0 w-60 self-start sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden tutorial-scroll pr-2"
       >
-        <p className="px-4 pt-4 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
-          {t(($) => $.articles.sectionsTitle)}
-        </p>
-        <div className="tutorial-scroll flex-1 overflow-auto px-2 pb-4" style={brandTheme}>
-          {tree}
-        </div>
-      </nav>
+        {heading}
+        {tree}
+      </aside>
 
-      {/* Mobile: hamburger just below the header's back arrow */}
+      {/* Mobile: hamburger just below the top bar */}
       <button
         type="button"
         onClick={() => setMobileOpen(true)}
         aria-label={t(($) => $.articles.openSections)}
-        className="lg:hidden fixed left-4 top-[4.5rem] z-40 inline-flex items-center justify-center size-10 rounded-lg border border-gray-800 bg-black/70 backdrop-blur-md text-gray-300 hover:text-brand-400 hover:border-brand-500/50 transition-colors"
+        className="lg:hidden fixed left-4 top-18 z-40 inline-flex items-center justify-center size-10 rounded-lg border border-gray-800 bg-black/70 backdrop-blur-md text-gray-300 hover:text-brand-400 hover:border-brand-500/50 transition-colors"
       >
         <ListTreeIcon className="size-5" />
       </button>
 
-      {/* Mobile: drawer */}
+      {/* Mobile: full-width drawer */}
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 flex">
-          <button
-            type="button"
-            aria-label={t(($) => $.articles.closeSections)}
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() => setMobileOpen(false)}
-          />
+        <div className="lg:hidden fixed inset-0 z-50">
           <nav
             aria-label={t(($) => $.articles.sectionsTitle)}
-            className="relative w-72 max-w-[80vw] h-full bg-gray-950 border-r border-gray-800 flex flex-col"
+            style={brandTheme}
+            className="absolute inset-0 w-full bg-gray-950 flex flex-col"
           >
             <div className="flex items-center justify-between px-4 py-4 border-b border-gray-800">
               <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
@@ -123,7 +135,7 @@ export function TutorialSidebar({ sections }: { sections: SectionNode[] }) {
                 <XIcon className="size-5" />
               </button>
             </div>
-            <div className="tutorial-scroll flex-1 overflow-auto px-2 py-3" style={brandTheme}>
+            <div className="tutorial-scroll flex-1 overflow-y-auto overflow-x-hidden px-2 py-3">
               {tree}
             </div>
           </nav>

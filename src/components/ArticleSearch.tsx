@@ -82,7 +82,7 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
   const showDropdown = open && query.length > 0;
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-2xl mx-auto">
+    <div ref={containerRef} className="relative w-full max-w-md mx-auto">
       <div className="relative">
         {isCurrentMode ? (
           <HashIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-brand-400/90" />
@@ -92,11 +92,7 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
         <input
           type="text"
           aria-label={t(($) => $.articles.searchPlaceholder)}
-          placeholder={
-            isCurrentMode
-              ? t(($) => $.articles.searchPlaceholderCurrent)
-              : t(($) => $.articles.searchPlaceholder)
-          }
+          placeholder={t(($) => $.articles.searchPlaceholder)}
           value={value}
           onChange={(e) => {
             setValue(e.target.value);
@@ -107,19 +103,13 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
             if (e.key === "Escape") setOpen(false);
           }}
           // `#` mode: dashed border + ~5% less contrast than the solid focus border.
-          className={`w-full bg-gray-900/50 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:outline-none transition-colors border ${
+          className={`w-full bg-gray-900/50 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none transition-colors border ${
             isCurrentMode
               ? "border-dashed border-brand-500/45 text-white/95"
               : "border-gray-800 focus:border-brand-500/50"
           }`}
         />
       </div>
-
-      {!isCurrentMode && (
-        <p className="mt-1.5 text-xs text-gray-600 text-center">
-          {t(($) => $.articles.searchHint)}
-        </p>
-      )}
 
       {showDropdown && (
         <div

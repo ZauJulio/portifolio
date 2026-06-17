@@ -1,0 +1,128 @@
+---
+draft: false
+title: "Começando com o HyperJson: conteúdo JSON tipado, passo a passo"
+description: "Um tutorial prático de HyperJson — descreva um tipo de conteúdo uma vez como JSON Schema, coloque arquivos JSON com locale ao lado, e ganhe validação em tempo de build mais tipos TypeScript gerados automaticamente. Depois filtre, ordene, busque e pagine em memória com os hooks headless. Sem backend, sem custo em runtime."
+date: "2026-06-16"
+tags:
+  [
+    "tutorial",
+    "HyperJson",
+    "Indago",
+    "JSON Schema",
+    "TypeScript",
+    "Getting Started",
+    "Vite",
+    "Codegen",
+    "Validation",
+  ]
+categories: ["Engineering"]
+author: "Zau Julio"
+readingTime: "9 min de leitura"
+canonical: ""
+cover: "https://raw.githubusercontent.com/ZauJulio/indago/refs/heads/main/packages/HyperJson/assets/cover.webp"
+prev: "getting-started-with-indago"
+---
+
+import { ScaffoldBox } from "@/components/mdx/ScaffoldBox";
+
+# Começando com o HyperJson
+
+Este tutorial leva dados estruturados em JSON — uma lista de projetos, suas skills, uma playlist —
+de uma pasta solta de arquivos a um tipo de conteúdo **validado e totalmente tipado**, sem backend
+e sem custo em runtime. Use a barra lateral à esquerda para pular entre as seções.
+
+## Pré-requisitos
+
+Você precisa do **Bun** (recomendado) ou Node ≥ 22, um projeto Vite e um terminal. Se está
+começando do zero, o scaffolder do Indago já entrega o HyperJson conectado:
+
+<ScaffoldBox projectName="my-app" />
+
+## Como o HyperJson pensa #[conceito/#0ea5e9]
+
+O HyperJson é **schema-first**. Você descreve um tipo de conteúdo uma vez como `schema.json`; cada
+arquivo JSON daquela pasta precisa satisfazê-lo. Em tempo de build, um plugin do Vite valida os
+arquivos (com Ajv) e um passo de codegen transforma o schema em **tipos TypeScript ambientes**.
+Então:
+
+- conteúdo inválido **quebra o build** — nunca os seus usuários;
+- conteúdo válido chega **totalmente tipado** em cada import — sem interfaces escritas à mão;
+- nada roda em tempo de requisição — é tudo em tempo de build.
+
+## Defina um schema
+
+Crie uma pasta para o tipo de conteúdo com um `schema.json` descrevendo um item:
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "level"],
+  "properties": {
+    "name": { "type": "string" },
+    "level": { "type": "integer", "minimum": 0, "maximum": 100 }
+  }
+}
+```
+
+## Adicione conteúdo JSON
+
+Coloque arquivos de dados ao lado do schema (pastas com locale funcionam como no HyperDown). Cada
+arquivo é validado contra o schema acima:
+
+```json
+{ "name": "TypeScript", "level": 95 }
+```
+
+Um erro como `"level": "95"` ou uma propriedade desconhecida é pego em tempo de build — com
+`strict`, propriedades desconhecidas são rejeitadas; com `failOnError`, o build sai com erro.
+
+## Conecte o plugin
+
+Adicione o plugin de validação à sua config do Vite para que o build valide + gere os tipos:
+
+```ts
+import { hyperjsonValidationPlugin } from "@indago/hyper-json/plugins";
+
+export default defineConfig({
+  plugins: [hyperjsonValidationPlugin({ strict: true, failOnError: true })],
+});
+```
+
+O codegen escreve os tipos gerados na árvore `.hyper-json/` do seu app — nunca edite à mão; eles
+são regerados a cada build.
+
+## Consulte com os hooks
+
+O HyperJson traz utilitários headless, em memória — **filter, sort, search, paginate, compose** —
+sobre o seu JSON já tipado. Sem banco de dados, sem async:
+
+```ts
+import { search, sortBy, paginate } from "@indago/hyper-json/hooks";
+
+const matches = search(skills, "type", { fields: ["name"] });
+const ranked = sortBy(matches, "level", "desc");
+const page = paginate(ranked, { page: 1, pageSize: 10 });
+```
+
+## **HyperDown ou HyperJson?**
+
+Este título está em **negrito**, então a barra lateral sempre o mantém expandido — é a decisão que
+mais leitores vêm buscar.
+
+### Use o HyperJson quando…
+
+…seu conteúdo é **dado estruturado** com formato fixo: listas, registros, coleções tipo config.
+Você quer validação + tipos, não prosa nem busca full-text.
+
+### Use o HyperDown quando…
+
+…seu conteúdo é **prosa** — artigos, docs, receitas — que precisa de renderização Markdown/MDX e
+busca full-text em SQLite. Os dois motores são independentes; use um ou os dois.
+
+## Para onde ir agora
+
+Agora você tem um tipo de conteúdo JSON tipado e validado. Releia
+**[O que é o Indago?](/pt/articles/what-is-indago)** para o panorama, ou o
+**[tutorial do Indago](/pt/articles/getting-started-with-indago)** para a metade do HyperDown.

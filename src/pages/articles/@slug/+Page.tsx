@@ -60,10 +60,11 @@ export default function ArticlePage() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
-      {/* Header */}
+      {/* Header — the article search lives in the top bar (all articles). */}
       <PageHeader
         backToUrl={`${import.meta.env.BASE_URL}articles`}
         backToLabel={t(($) => $.articles.backTo)}
+        centerElement={<ArticleSearch currentSlug={article.slug} locale={article.locale} />}
         rightElement={
           <>
             <NewspaperIcon className="size-5 text-brand-400" />
@@ -72,139 +73,146 @@ export default function ArticlePage() {
         }
       />
 
-      {/* Section sidebar — tutorials only (left panel + mobile drawer). */}
-      {isTutorial && <TutorialSidebar sections={article.sections ?? []} />}
+      {/* Breadcrumbs */}
+      <div className="max-w-4xl mx-auto px-6">
+        <Breadcrumbs
+          items={[
+            { label: t(($) => $.common.home), href: "/" },
+            { label: t(($) => $.articles.title), href: "/articles" },
+            { label: article.title },
+          ]}
+        />
+      </div>
 
-      <div className={isTutorial ? "lg:pl-72 transition-[padding]" : undefined}>
-        {/* Breadcrumbs */}
-        <div className="max-w-4xl mx-auto px-6">
-          <Breadcrumbs
-            items={[
-              { label: t(($) => $.common.home), href: "/" },
-              { label: t(($) => $.articles.title), href: "/articles" },
-              { label: article.title },
-            ]}
+      {/* Cover Image — real covers are zoomable; otherwise a branded fallback. */}
+      {article.cover ? (
+        <CoverImage src={article.cover} alt={article.title} />
+      ) : (
+        <div className="w-full max-h-100 overflow-hidden rounded-xl bg-black/40">
+          <img
+            src={`${import.meta.env.BASE_URL}covers/article-fallback.svg`}
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover"
           />
         </div>
+      )}
 
-        {/* Search — shown on every article (global + `#` this-page section search). */}
-        <div className="max-w-4xl mx-auto px-6 mt-2 mb-4">
-          <ArticleSearch currentSlug={article.slug} locale={article.locale} />
-        </div>
-
-        <PageMinimap contentRef={articleRef} />
-
-        {/* Cover Image — real covers are zoomable; otherwise a branded fallback. */}
-        {article.cover ? (
-          <CoverImage src={article.cover} alt={article.title} />
+      {/* Content region (begins below the cover). Tutorials get the section
+          sidebar as a sticky left column; other articles get the right minimap. */}
+      <div
+        className={
+          isTutorial ? "max-w-6xl mx-auto px-6 lg:flex lg:items-start lg:gap-8" : undefined
+        }
+      >
+        {isTutorial ? (
+          <TutorialSidebar sections={article.sections ?? []} />
         ) : (
-          <div className="w-full max-h-100 overflow-hidden rounded-xl bg-black/40">
-            <img
-              src={`${import.meta.env.BASE_URL}covers/article-fallback.svg`}
-              alt=""
-              aria-hidden="true"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <PageMinimap contentRef={articleRef} />
         )}
 
-        {/* Article Content */}
-        <article ref={articleRef} className="max-w-4xl mx-auto px-6 py-12">
-          {/* Meta Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{article.title}</h1>
+        <div className={isTutorial ? "min-w-0 flex-1" : undefined}>
+          {/* Article Content */}
+          <article
+            ref={articleRef}
+            className={`${isTutorial ? "py-12" : "max-w-4xl mx-auto px-6 py-12"} [&_:where(h1,h2,h3,h4,h5,h6)]:scroll-mt-24`}
+          >
+            {/* Meta Header */}
+            <div className="mb-8">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{article.title}</h1>
 
-            <p className="text-lg text-gray-400 leading-relaxed mb-6">{article.description}</p>
+              <p className="text-lg text-gray-400 leading-relaxed mb-6">{article.description}</p>
 
-            <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500 pb-6 border-b border-gray-800">
-              {article.author && (
-                <span className="text-gray-400">
-                  by <strong className="text-white">{article.author}</strong>
+              <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500 pb-6 border-b border-gray-800">
+                {article.author && (
+                  <span className="text-gray-400">
+                    by <strong className="text-white">{article.author}</strong>
+                  </span>
+                )}
+                {article.date && (
+                  <span className="inline-flex items-center gap-1.5" suppressHydrationWarning>
+                    <CalendarIcon className="size-4" />
+                    {new Date(article.date).toLocaleDateString(displayLocale, {
+                      timeZone: "UTC",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                )}
+                <span className="inline-flex items-center gap-1.5">
+                  <ClockIcon className="size-4" />
+                  {readTime}
                 </span>
-              )}
-              {article.date && (
-                <span className="inline-flex items-center gap-1.5" suppressHydrationWarning>
-                  <CalendarIcon className="size-4" />
-                  {new Date(article.date).toLocaleDateString(displayLocale, {
-                    timeZone: "UTC",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </span>
-              )}
-              <span className="inline-flex items-center gap-1.5">
-                <ClockIcon className="size-4" />
-                {readTime}
-              </span>
-              {article.canonical && (
-                <a
-                  href={article.canonical}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-brand-300 hover:text-brand-500 transition-colors no-underline"
-                >
-                  <ExternalLinkIcon className="size-4" />
-                  {t(($) => $.articles.originallyPublished)}
-                </a>
-              )}
-            </div>
-          </div>
-
-          {/* MDX Body */}
-          <div className="prose prose-invert prose-ul:list-disc prose-ol:list-decimal prose-li:marker:text-brand-400 max-w-none">
-            <MdxRender
-              content={Content}
-              fallback={<ContentSkeleton />}
-              empty={
-                <div className="text-gray-400">
-                  {t(($) => $.articles.contentNotFound) || "Content not available"}
-                </div>
-              }
-            />
-          </div>
-
-          {/* Tags */}
-          {article.tags && article.tags.length > 0 && (
-            <div className="mt-12 pt-6 border-t border-gray-800">
-              <div className="flex flex-wrap gap-2">
-                {article.tags.map((tag) => (
-                  <Link
-                    key={tag}
-                    to={`${import.meta.env.BASE_URL}articles?tag=${encodeURIComponent(tag)}`}
-                    className="text-xs px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 hover:bg-brand-500/20 transition-colors no-underline"
+                {article.canonical && (
+                  <a
+                    href={article.canonical}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-brand-300 hover:text-brand-500 transition-colors no-underline"
                   >
-                    {tag}
-                  </Link>
-                ))}
+                    <ExternalLinkIcon className="size-4" />
+                    {t(($) => $.articles.originallyPublished)}
+                  </a>
+                )}
               </div>
             </div>
-          )}
-        </article>
 
-        {/* Series pager + suggested content — kept outside <article> so the
-          PageMinimap mirror (a clone of the article element) never duplicates them. */}
-        <div className="max-w-4xl mx-auto px-6 pb-16">
-          <SeriesNav
-            basePath="articles"
-            prev={
-              article.prevMeta
-                ? { slug: article.prevMeta.slug, title: article.prevMeta.title }
-                : undefined
-            }
-            next={
-              article.nextMeta
-                ? { slug: article.nextMeta.slug, title: article.nextMeta.title }
-                : undefined
-            }
-            prevLabel={t(($) => $.articles.seriesPrevious)}
-            nextLabel={t(($) => $.articles.seriesNext)}
-          />
-          <RelatedContent
-            title={t(($) => $.articles.relatedTitle)}
-            basePath="articles"
-            items={article.related}
-          />
+            {/* MDX Body */}
+            <div className="prose prose-invert prose-ul:list-disc prose-ol:list-decimal prose-li:marker:text-brand-400 max-w-none">
+              <MdxRender
+                content={Content}
+                fallback={<ContentSkeleton />}
+                empty={
+                  <div className="text-gray-400">
+                    {t(($) => $.articles.contentNotFound) || "Content not available"}
+                  </div>
+                }
+              />
+            </div>
+
+            {/* Tags */}
+            {article.tags && article.tags.length > 0 && (
+              <div className="mt-12 pt-6 border-t border-gray-800">
+                <div className="flex flex-wrap gap-2">
+                  {article.tags.map((tag) => (
+                    <Link
+                      key={tag}
+                      to={`${import.meta.env.BASE_URL}articles?tag=${encodeURIComponent(tag)}`}
+                      className="text-xs px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 hover:bg-brand-500/20 transition-colors no-underline"
+                    >
+                      {tag}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </article>
+
+          {/* Series pager + suggested content — kept outside <article> so the
+            PageMinimap mirror (a clone of the article element) never duplicates them. */}
+          <div className={`${isTutorial ? "" : "max-w-4xl mx-auto px-6"} pb-16`}>
+            <SeriesNav
+              basePath="articles"
+              prev={
+                article.prevMeta
+                  ? { slug: article.prevMeta.slug, title: article.prevMeta.title }
+                  : undefined
+              }
+              next={
+                article.nextMeta
+                  ? { slug: article.nextMeta.slug, title: article.nextMeta.title }
+                  : undefined
+              }
+              prevLabel={t(($) => $.articles.seriesPrevious)}
+              nextLabel={t(($) => $.articles.seriesNext)}
+            />
+            <RelatedContent
+              title={t(($) => $.articles.relatedTitle)}
+              basePath="articles"
+              items={article.related}
+            />
+          </div>
         </div>
       </div>
     </div>

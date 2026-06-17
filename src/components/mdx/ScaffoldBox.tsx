@@ -2,14 +2,21 @@ import { useState } from "react";
 
 import { CheckIcon, CopyIcon, TerminalIcon } from "lucide-react";
 
-// Used inside the @indago tutorial MDX. The classic "pick a framework" box:
-// a top tab bar (Vike / React Router / TanStack / Next.js) over a copyable
-// `bun create @indago/app` command that reflects the selected template flag.
+// Used inside the @indago tutorial MDX. The classic "pick your stack" box:
+// a top tab bar (framework + package manager) over a copyable
+// `<pm> create @indago/app` command that reflects both selections.
 
 interface Template {
   id: string;
   label: string;
   flag: string;
+}
+
+interface PackageManager {
+  id: string;
+  label: string;
+  /** Builds the full create command for a template flag. */
+  command: (project: string, flag: string) => string;
 }
 
 const TEMPLATES: Template[] = [
@@ -19,12 +26,22 @@ const TEMPLATES: Template[] = [
   { id: "next", label: "Next.js", flag: "--next" },
 ];
 
+const PACKAGE_MANAGERS: PackageManager[] = [
+  { id: "bun", label: "bun", command: (p, f) => `bun create @indago/app ${p} ${f}` },
+  // npm forwards flags to the create binary only after a `--` separator.
+  { id: "npm", label: "npm", command: (p, f) => `npm create @indago/app ${p} -- ${f}` },
+  { id: "pnpm", label: "pnpm", command: (p, f) => `pnpm create @indago/app ${p} ${f}` },
+  { id: "yarn", label: "yarn", command: (p, f) => `yarn create @indago/app ${p} ${f}` },
+];
+
 export function ScaffoldBox({ projectName = "my-app" }: { projectName?: string }) {
-  const [activeId, setActiveId] = useState(TEMPLATES[0].id);
+  const [templateId, setTemplateId] = useState(TEMPLATES[0].id);
+  const [pmId, setPmId] = useState(PACKAGE_MANAGERS[0].id);
   const [copied, setCopied] = useState(false);
 
-  const active = TEMPLATES.find((t) => t.id === activeId) ?? TEMPLATES[0];
-  const command = `bun create @indago/app ${projectName} ${active.flag}`;
+  const template = TEMPLATES.find((t) => t.id === templateId) ?? TEMPLATES[0];
+  const pm = PACKAGE_MANAGERS.find((p) => p.id === pmId) ?? PACKAGE_MANAGERS[0];
+  const command = pm.command(projectName, template.flag);
 
   const copy = async () => {
     try {
@@ -38,31 +55,30 @@ export function ScaffoldBox({ projectName = "my-app" }: { projectName?: string }
 
   return (
     <div className="not-prose my-6 overflow-hidden rounded-xl border border-gray-800 bg-gray-950">
-      {/* Top bar: framework tabs */}
+      {/* Framework tabs */}
       <div
         role="tablist"
         aria-label="Framework template"
         className="flex flex-wrap gap-1 border-b border-gray-800 bg-gray-900/60 p-1.5"
       >
-        {TEMPLATES.map((t) => {
-          const selected = t.id === activeId;
-          return (
-            <button
-              key={t.id}
-              type="button"
-              role="tab"
-              aria-selected={selected}
-              onClick={() => setActiveId(t.id)}
-              className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                selected
-                  ? "bg-brand-500/15 text-brand-300"
-                  : "text-gray-400 hover:text-white hover:bg-white/5"
-              }`}
-            >
-              {t.label}
-            </button>
-          );
-        })}
+        {TEMPLATES.map((t) => (
+          <Tab key={t.id} selected={t.id === templateId} onClick={() => setTemplateId(t.id)}>
+            {t.label}
+          </Tab>
+        ))}
+      </div>
+
+      {/* Package-manager tabs */}
+      <div
+        role="tablist"
+        aria-label="Package manager"
+        className="flex flex-wrap gap-1 border-b border-gray-800 bg-gray-900/30 p-1.5"
+      >
+        {PACKAGE_MANAGERS.map((p) => (
+          <Tab key={p.id} selected={p.id === pmId} onClick={() => setPmId(p.id)} small>
+            {p.label}
+          </Tab>
+        ))}
       </div>
 
       {/* Copyable command */}
@@ -83,5 +99,33 @@ export function ScaffoldBox({ projectName = "my-app" }: { projectName?: string }
         </button>
       </div>
     </div>
+  );
+}
+
+function Tab({
+  selected,
+  onClick,
+  small,
+  children,
+}: {
+  selected: boolean;
+  onClick: () => void;
+  small?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      role="tab"
+      aria-selected={selected}
+      onClick={onClick}
+      className={`rounded-md font-medium transition-colors ${small ? "px-2.5 py-1 text-xs" : "px-3 py-1.5 text-sm"} ${
+        selected
+          ? "bg-brand-500/15 text-brand-300"
+          : "text-gray-400 hover:bg-white/5 hover:text-white"
+      }`}
+    >
+      {children}
+    </button>
   );
 }

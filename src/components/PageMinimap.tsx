@@ -36,7 +36,10 @@ export function PageMinimap({ contentRef }: { contentRef: RefObject<HTMLElement 
 
   return (
     <nav
-      className={`fixed right-4 top-1/2 -translate-y-1/2 h-[70vh] z-40 hidden xl:block transition-opacity duration-300 ${contentReady ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+      // Anchored below the header/cover (top-28) and only as tall as the scaled
+      // article (capped to the viewport) — short articles leave no empty track.
+      style={{ height: contentHeight > 0 ? `${scaledHeight}px` : undefined }}
+      className={`fixed right-4 top-28 max-h-[calc(100vh-9rem)] z-40 hidden xl:block transition-opacity duration-300 ${contentReady ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       aria-label="Article minimap"
     >
       <div
