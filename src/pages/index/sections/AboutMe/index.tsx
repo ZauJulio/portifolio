@@ -42,7 +42,7 @@ export function AboutMeSection() {
           {/* Experience Timeline */}
           <div id="experience" className="scroll-mt-8">
             <SubSectionHeader icon={BriefcaseIcon} title={t(($) => $.about.experience)} />
-            <div className="relative border-l-2 border-brand-700/50 space-y-8">
+            <div className="relative border-l-2 border-brand-700/40 space-y-8">
               {experience.map((exp) => (
                 <TimelineItem
                   key={exp.id}
@@ -61,7 +61,7 @@ export function AboutMeSection() {
           <div>
             <div id="education" className="scroll-mt-8">
               <SubSectionHeader icon={GraduationCapIcon} title={t(($) => $.about.education)} />
-              <div className="relative border-l-2 border-brand-700/50 space-y-8">
+              <div className="relative border-l-2 border-brand-700/40 space-y-8">
                 {(education.items ?? []).map((edu) => (
                   <TimelineItem
                     key={edu.id}

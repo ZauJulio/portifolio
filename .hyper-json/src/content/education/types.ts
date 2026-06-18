@@ -13,6 +13,7 @@
  */
 
 declare module "@indago/hyper-json" {
+
   interface EducationContentSchema {
     items?: EducationItem[];
   }

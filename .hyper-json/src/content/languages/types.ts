@@ -13,6 +13,7 @@
  */
 
 declare module "@indago/hyper-json" {
+
   interface LanguageContentSchema {
     items?: Language[];
   }
@@ -22,13 +23,7 @@ declare module "@indago/hyper-json" {
     nativeName: string;
     flag: string;
     emojiFlag: string;
-    proficiency:
-      | "Native"
-      | "Advanced"
-      | "Upper Intermediate"
-      | "Intermediate"
-      | "Basic"
-      | "Beginner";
+    proficiency: "Native" | "Advanced" | "Upper Intermediate" | "Intermediate" | "Basic" | "Beginner";
     color: string;
     levels: LanguageProficiency;
   }

@@ -13,6 +13,7 @@
  */
 
 declare module "@indago/hyper-json" {
+
   interface MusicDataStore {
     items: (Playlist | Favorite)[];
   }

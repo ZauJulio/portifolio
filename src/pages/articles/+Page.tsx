@@ -25,9 +25,11 @@ function ArticlesView() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
-      <PageHeader backToUrl="/" backToLabel={t(($) => $.common.backToPortfolio)} />
+      <PageHeader backToUrl="/" />
 
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Match the detail page's breadcrumb width (max-w-4xl) so the trail keeps
+          the same left position when navigating from the listing into an article. */}
+      <div className="max-w-4xl mx-auto px-6">
         <Breadcrumbs
           items={[
             { label: t(($) => $.common.home), href: "/" },

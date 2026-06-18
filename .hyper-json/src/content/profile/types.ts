@@ -13,6 +13,7 @@
  */
 
 declare module "@indago/hyper-json" {
+
   interface ProfileContentSchema {
     name: string;
     title: string;

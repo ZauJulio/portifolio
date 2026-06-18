@@ -20,4 +20,5 @@ import type { ArticleMeta } from "@indago/hyper-down";
 // loaders (SSR-only), never by browser code. Lazily instantiated.
 export const articleRepository = createLazyRepository<ArticleMeta>({
   contentName: "article",
+  composed: true,
 });

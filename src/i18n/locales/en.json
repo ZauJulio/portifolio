@@ -1,7 +1,5 @@
 {
   "common": {
-    "backToPortfolio": "Back to Portfolio",
-    "backToAlbums": "Back to Albums",
     "home": "Home",
     "close": "Close",
     "loading": "Loading...",
@@ -55,7 +53,6 @@
     "readMore": "Read More",
     "seeAll": "See all articles",
     "publishedOn": "Published on",
-    "backTo": "Back to Articles",
     "article": "Article",
     "notFound": "Article not found",
     "notFoundDesc": "The article you're looking for doesn't exist.",
@@ -73,11 +70,11 @@
     "relatedTitle": "You might also like",
     "seriesPrevious": "Previous in series",
     "seriesNext": "Next in series",
-    "searchPlaceholder": "Search articles... #use for this page",
+    "searchPlaceholder": "Search articles...",
     "searchArticles": "Articles",
     "searchSections": "Sections",
     "searchInThisPage": "In this page",
-    "searchNoResults": "No results",
+    "searchNoResults": "No results. Try use # to search only on this articles",
     "sectionsTitle": "Sections",
     "openSections": "Open sections",
     "closeSections": "Close sections"
@@ -132,7 +129,6 @@
     "allMealTypes": "All Meal Types",
     "allCourseTypes": "All Course Types",
     "all": "All",
-    "backTo": "Back to Cooking",
     "recipe": "Recipe",
     "notFound": "Recipe not found",
     "notFoundDesc": "The recipe you're looking for doesn't exist.",

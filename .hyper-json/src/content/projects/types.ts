@@ -13,6 +13,7 @@
  */
 
 declare module "@indago/hyper-json" {
+
   interface Projects {
     projects: ProjectContent[];
   }

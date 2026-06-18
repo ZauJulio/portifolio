@@ -24,10 +24,7 @@ function CookingView() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
-      <PageHeader
-        backToUrl={`${import.meta.env.BASE_URL}`}
-        backToLabel={t(($) => $.common.backToPortfolio)}
-      />
+      <PageHeader />
 
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs

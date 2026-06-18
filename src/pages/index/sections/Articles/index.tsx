@@ -15,7 +15,8 @@ function ArticleCard({ article }: { article: ArticleMeta }) {
       className="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-800 bg-gray-900/30 transition-all duration-300 hover:border-brand-500/50 hover:bg-gray-800/35 hover:shadow-lg hover:shadow-brand-500/5"
     >
       {meta.cover && (
-        <div className="aspect-video w-full overflow-hidden">
+        // Half-height cover (aspect-video is 16/9; 32/9 halves the height at full width).
+        <div className="aspect-32/9 w-full overflow-hidden">
           <img
             src={meta.cover}
             alt={meta.title}

@@ -1,7 +1,5 @@
 {
   "common": {
-    "backToPortfolio": "Voltar ao Portfólio",
-    "backToAlbums": "Voltar aos Álbuns",
     "home": "Início",
     "close": "Fechar",
     "loading": "Carregando...",
@@ -55,7 +53,6 @@
     "readMore": "Ler Mais",
     "seeAll": "Ver todos os artigos",
     "publishedOn": "Publicado em",
-    "backTo": "Voltar para Artigos",
     "article": "Artigo",
     "notFound": "Artigo não encontrado",
     "notFoundDesc": "O artigo que você está procurando não existe.",
@@ -73,11 +70,11 @@
     "relatedTitle": "Você também pode gostar",
     "seriesPrevious": "Anterior na série",
     "seriesNext": "Próximo na série",
-    "searchPlaceholder": "Buscar artigos... #use nesta página",
+    "searchPlaceholder": "Buscar artigos...",
     "searchArticles": "Artigos",
     "searchSections": "Seções",
     "searchInThisPage": "Nesta página",
-    "searchNoResults": "Nenhum resultado",
+    "searchNoResults": "Nenhum resultado. Tente usar # para buscar apenas neste artigo",
     "sectionsTitle": "Seções",
     "openSections": "Abrir seções",
     "closeSections": "Fechar seções"
@@ -132,7 +129,6 @@
     "allMealTypes": "Todos os Tipos de Refeição",
     "allCourseTypes": "Todos os Pratos",
     "all": "Todos",
-    "backTo": "Voltar para Culinária",
     "recipe": "Receita",
     "notFound": "Receita não encontrada",
     "notFoundDesc": "A receita que você está procurando não existe.",

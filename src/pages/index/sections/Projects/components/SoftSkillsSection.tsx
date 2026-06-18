@@ -16,8 +16,8 @@ function SoftSkillCard({
 
   return (
     <div
-      className="group relative h-full bg-gray-900/25 rounded-lg border border-gray-800/60 p-4 transition-all duration-300 hover:border-brand-500/40 hover:bg-gray-800/30"
-      style={{ borderLeftWidth: "3px", borderLeftColor: accent }}
+      className="group relative h-full bg-gray-900/25 rounded-lg border border-gray-800/60 p-4 transition-all duration-300 hover:border-brand-700/40 hover:bg-gray-800/30"
+      style={{ borderLeftWidth: "1px", borderLeftColor: accent }}
     >
       <h4 className="text-sm font-semibold text-white mb-1.5 group-hover:text-brand-300 transition-colors">
         {name}

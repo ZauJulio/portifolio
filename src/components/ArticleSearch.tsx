@@ -38,10 +38,52 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
   const [value, setValue] = useState("");
   const [results, setResults] = useState<SearchResponse>(EMPTY);
   const [open, setOpen] = useState(false);
+  // Index of the keyboard-highlighted row across the flat [pages, sections] list
+  // (-1 = nothing highlighted). Arrow keys move it; Enter activates it.
+  const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const isCurrentMode = value.startsWith("#");
   const query = (isCurrentMode ? value.slice(1) : value).trim();
+
+  const resultCount = results.pages.length + results.sections.length;
+
+  // Reset the highlight whenever the result set changes.
+  useEffect(() => {
+    setActiveIndex(-1);
+  }, [resultCount, query]);
+
+  // Move the keyboard highlight and keep the active row in view.
+  const move = (delta: number) => {
+    if (resultCount === 0) return;
+    setActiveIndex((prev) => {
+      const next = (prev + delta + resultCount) % resultCount;
+      containerRef.current
+        ?.querySelector(`[data-index="${next}"]`)
+        ?.scrollIntoView({ block: "nearest" });
+      return next;
+    });
+  };
+
+  // Enter activates the highlighted row by clicking it — reusing the row's own
+  // Link/anchor handler (SPA nav for pages, in-place hash scroll for sections).
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Escape") {
+      setOpen(false);
+      return;
+    }
+    if (!open || resultCount === 0) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      move(1);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      move(-1);
+    } else if (e.key === "Enter" && activeIndex >= 0) {
+      e.preventDefault();
+      containerRef.current?.querySelector<HTMLElement>(`[data-index="${activeIndex}"]`)?.click();
+    }
+  };
 
   // Debounced fetch; aborts the in-flight request when the query changes.
   useEffect(() => {
@@ -82,7 +124,10 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
   const showDropdown = open && query.length > 0;
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-md mx-auto">
+    <div
+      ref={containerRef}
+      className="w-full overflow-visible absolute inset-x-0 top-1/2 -translate-y-1/2 lg:static lg:max-w-md lg:translate-y-0"
+    >
       <div className="relative">
         {isCurrentMode ? (
           <HashIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-brand-400/90" />
@@ -99,9 +144,7 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
             setOpen(true);
           }}
           onFocus={() => setOpen(true)}
-          onKeyDown={(e) => {
-            if (e.key === "Escape") setOpen(false);
-          }}
+          onKeyDown={onKeyDown}
           // `#` mode: dashed border + ~5% less contrast than the solid focus border.
           className={`w-full bg-gray-900/50 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none transition-colors border ${
             isCurrentMode
@@ -124,11 +167,17 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
             <>
               {results.pages.length > 0 && (
                 <SearchGroup label={t(($) => $.articles.searchArticles)}>
-                  {results.pages.map((p) => (
+                  {results.pages.map((p, i) => (
                     <Link
                       key={p.slug}
+                      id={`${listId}-${i}`}
+                      data-index={i}
                       to={`${import.meta.env.BASE_URL}articles/${p.slug}`}
-                      className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-300 hover:bg-brand-500/10 hover:text-white transition-colors no-underline"
+                      className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors no-underline ${
+                        activeIndex === i
+                          ? "bg-brand-500/10 text-white"
+                          : "text-gray-300 hover:bg-brand-500/10 hover:text-white"
+                      }`}
                       onClick={() => setOpen(false)}
                     >
                       <FileTextIcon className="size-4 text-gray-500 shrink-0" />
@@ -146,14 +195,20 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
                       : t(($) => $.articles.searchSections)
                   }
                 >
-                  {results.sections.map((s) => (
-                    <SectionResult
-                      key={`${s.slug}#${s.headingId}`}
-                      hit={s}
-                      currentSlug={currentSlug}
-                      onNavigate={() => setOpen(false)}
-                    />
-                  ))}
+                  {results.sections.map((s, i) => {
+                    const index = results.pages.length + i;
+                    return (
+                      <SectionResult
+                        key={`${s.slug}#${s.headingId}`}
+                        hit={s}
+                        currentSlug={currentSlug}
+                        index={index}
+                        domId={`${listId}-${index}`}
+                        active={activeIndex === index}
+                        onNavigate={() => setOpen(false)}
+                      />
+                    );
+                  })}
                 </SearchGroup>
               )}
             </>
@@ -177,10 +232,16 @@ function SearchGroup({ label, children }: { label: string; children: React.React
 function SectionResult({
   hit,
   currentSlug,
+  index,
+  domId,
+  active,
   onNavigate,
 }: {
   hit: SectionHit;
   currentSlug: string;
+  index: number;
+  domId: string;
+  active: boolean;
   onNavigate: () => void;
 }) {
   const indent = { paddingLeft: `${1 + (hit.level - 1) * 0.75}rem` };
@@ -190,12 +251,20 @@ function SectionResult({
       <span className="truncate">{hit.title}</span>
     </>
   );
-  const className =
-    "flex items-center gap-2 pr-4 py-2 text-sm text-gray-400 hover:bg-brand-500/10 hover:text-white transition-colors no-underline";
+  const className = `flex items-center gap-2 pr-4 py-2 text-sm transition-colors no-underline ${
+    active ? "bg-brand-500/10 text-white" : "text-gray-400 hover:bg-brand-500/10 hover:text-white"
+  }`;
 
   if (hit.slug === currentSlug) {
     return (
-      <a href={`#${hit.headingId}`} className={className} style={indent} onClick={onNavigate}>
+      <a
+        id={domId}
+        data-index={index}
+        href={`#${hit.headingId}`}
+        className={className}
+        style={indent}
+        onClick={onNavigate}
+      >
         {inner}
       </a>
     );
@@ -203,6 +272,8 @@ function SectionResult({
 
   return (
     <Link
+      id={domId}
+      data-index={index}
       to={`${import.meta.env.BASE_URL}articles/${hit.slug}#${hit.headingId}`}
       className={className}
       style={indent}

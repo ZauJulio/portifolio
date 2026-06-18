@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -43,9 +43,26 @@ export function TutorialSidebar({ sections }: { sections: SectionNode[] }) {
   const { t } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [compress, setCompress] = useState(false);
+  // The hamburger only appears once the cover has scrolled away. This component
+  // renders in page flow right below the cover, so a sentinel at its top crossing
+  // the top bar means the cover is gone.
+  const [pastCover, setPastCover] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   const ids = useMemo(() => flattenSectionIds(sections), [sections]);
   const activeId = useActiveSection(ids);
+
+  // Reveal the hamburger when the sentinel is scrolled above the top bar (80px).
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setPastCover(entry.boundingClientRect.top < 80),
+      { rootMargin: "-80px 0px 0px 0px", threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // Compress when the (roughly) measured tree height would exceed the viewport.
   useEffect(() => {
@@ -86,13 +103,16 @@ export function TutorialSidebar({ sections }: { sections: SectionNode[] }) {
   );
 
   const heading = (
-    <p className="px-2 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
+    <p className="px-2 py-4 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
       {t(($) => $.articles.sectionsTitle)}
     </p>
   );
 
   return (
     <>
+      {/* Sentinel at the top of the content region — drives the hamburger reveal. */}
+      <div ref={sentinelRef} aria-hidden="true" className="absolute h-0 w-0" />
+
       {/* Desktop: borderless sticky panel. In page flow after the cover, so it
           starts below the cover, then sticks under the top bar while scrolling. */}
       <aside
@@ -104,19 +124,23 @@ export function TutorialSidebar({ sections }: { sections: SectionNode[] }) {
         {tree}
       </aside>
 
-      {/* Mobile: hamburger just below the top bar */}
+      {/* Mobile: hamburger just below the top bar — only after the cover scrolls away. */}
       <button
         type="button"
         onClick={() => setMobileOpen(true)}
         aria-label={t(($) => $.articles.openSections)}
-        className="lg:hidden fixed left-4 top-18 z-40 inline-flex items-center justify-center size-10 rounded-lg border border-gray-800 bg-black/70 backdrop-blur-md text-gray-300 hover:text-brand-400 hover:border-brand-500/50 transition-colors"
+        aria-hidden={!pastCover}
+        tabIndex={pastCover ? 0 : -1}
+        className={`lg:hidden fixed left-4 top-20 z-30 inline-flex items-center justify-center size-10 rounded-lg border border-gray-800 bg-black/70 backdrop-blur-md text-gray-300 hover:text-brand-400 hover:border-brand-500/50 transition-all ${
+          pastCover ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
       >
         <ListTreeIcon className="size-5" />
       </button>
 
       {/* Mobile: full-width drawer */}
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-50">
+        <div className="lg:hidden fixed inset-0 z-50 opacity-98">
           <nav
             aria-label={t(($) => $.articles.sectionsTitle)}
             style={brandTheme}

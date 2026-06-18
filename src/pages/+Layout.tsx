@@ -11,6 +11,9 @@ import "@fontsource/geist-sans/400.css";
 import "@fontsource/geist-sans/500.css";
 import "@fontsource/geist-sans/600.css";
 import "@fontsource/geist-sans/700.css";
+// Geist Mono powers code blocks + inline code (Tailwind `font-mono`).
+import "@fontsource/geist-mono/400.css";
+import "@fontsource/geist-mono/500.css";
 
 import "@/root.css";
 

@@ -72,7 +72,6 @@ export default function MusicPage() {
             className="inline-flex items-center gap-2 text-gray-400 hover:text-brand-300 transition-colors no-underline text-sm"
           >
             <ArrowLeftIcon className="size-4" />
-            {t(($) => $.common.backToPortfolio)}
           </Link>
 
           <div className="flex items-center gap-2">

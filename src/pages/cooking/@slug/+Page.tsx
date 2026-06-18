@@ -47,7 +47,6 @@ export default function RecipePage() {
             className="inline-flex items-center gap-2 text-brand-300 hover:text-brand-500 transition-colors no-underline"
           >
             <ArrowLeftIcon className="size-4" />
-            {t(($) => $.cooking.backTo)}
           </Link>
         </div>
       </div>
@@ -59,16 +58,7 @@ export default function RecipePage() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       {/* Header */}
-      <PageHeader
-        backToUrl="/cooking"
-        backToLabel={t(($) => $.cooking.backTo)}
-        rightElement={
-          <>
-            <CookingPotIcon className="size-5 text-brand-400" />
-            <span className="font-semibold text-white">{t(($) => $.cooking.recipe)}</span>
-          </>
-        }
-      />
+      <PageHeader backToUrl="/cooking" />
 
       {/* Breadcrumbs */}
       <div className="max-w-4xl mx-auto px-6">

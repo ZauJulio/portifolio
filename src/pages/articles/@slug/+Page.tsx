@@ -63,14 +63,7 @@ export default function ArticlePage() {
       {/* Header — the article search lives in the top bar (all articles). */}
       <PageHeader
         backToUrl={`${import.meta.env.BASE_URL}articles`}
-        backToLabel={t(($) => $.articles.backTo)}
         centerElement={<ArticleSearch currentSlug={article.slug} locale={article.locale} />}
-        rightElement={
-          <>
-            <NewspaperIcon className="size-5 text-brand-400" />
-            <span className="font-semibold text-white">{t(($) => $.articles.article)}</span>
-          </>
-        }
       />
 
       {/* Breadcrumbs */}
@@ -196,12 +189,20 @@ export default function ArticlePage() {
               basePath="articles"
               prev={
                 article.prevMeta
-                  ? { slug: article.prevMeta.slug, title: article.prevMeta.title }
+                  ? {
+                      slug: article.prevMeta.slug,
+                      title: article.prevMeta.title,
+                      cover: article.prevMeta.cover,
+                    }
                   : undefined
               }
               next={
                 article.nextMeta
-                  ? { slug: article.nextMeta.slug, title: article.nextMeta.title }
+                  ? {
+                      slug: article.nextMeta.slug,
+                      title: article.nextMeta.title,
+                      cover: article.nextMeta.cover,
+                    }
                   : undefined
               }
               prevLabel={t(($) => $.articles.seriesPrevious)}
@@ -239,7 +240,6 @@ const ArticleNotFound = ({ t }: { t: TFunction }) => (
         className="inline-flex items-center gap-2 text-brand-300 hover:text-brand-500 transition-colors no-underline"
       >
         <ArrowLeftIcon className="size-4" />
-        {t(($) => $.articles.backTo)}
       </Link>
     </div>
   </div>
