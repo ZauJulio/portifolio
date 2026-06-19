@@ -15,6 +15,7 @@ import { ArticleSearch } from "@/components/ArticleSearch";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CoverImage } from "@/components/CoverImage";
 import { Link } from "@/components/Link";
+import { mdxComponents } from "@/components/mdx/mdx-components";
 import { PageHeader } from "@/components/PageHeader";
 import { PageMinimap } from "@/components/PageMinimap";
 import { RelatedContent } from "@/components/RelatedContent";
@@ -155,6 +156,7 @@ export default function ArticlePage() {
             <div className="prose prose-invert prose-ul:list-disc prose-ol:list-decimal prose-li:marker:text-brand-400 max-w-none">
               <MdxRender
                 content={Content}
+                components={[mdxComponents]}
                 fallback={<ContentSkeleton />}
                 empty={
                   <div className="text-gray-400">

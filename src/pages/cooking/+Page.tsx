@@ -24,7 +24,7 @@ function CookingView() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
-      <PageHeader />
+      <PageHeader backToUrl="/" />
 
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs

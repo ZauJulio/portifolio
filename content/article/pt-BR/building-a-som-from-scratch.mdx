@@ -75,9 +75,71 @@ ZSOM é minha implementação completa do SOM de Kohonen do zero. NumPy puro no 
 
 Um SOM pega `n` pontos em um espaço `d`-dimensional e os mapeia para uma grade 2D de `w × h` vetores protótipo chamados **pesos**. Pense nisso como esticar uma rede de malha sobre a variedade dos dados: a rede aprende a cobrir os dados, regiões de alta densidade atraem mais nós, e nós que são vizinhos na grade acabam representando entradas semelhantes.
 
-Essa última propriedade — preservação de topologia — é o que separa SOMs de qualquer outro algoritmo de clusterização. O k-means produz k centróides desconectados sem relação espacial entre si. Um SOM produz um _mapa_ onde proximidade na grade reflete proximidade no espaço dos dados. Primeiro vamos percorrer o algoritmo passo a passo, depois mergulhar na matemática por trás de cada escolha de design.
+Essa última propriedade — preservação de topologia — é o que separa SOMs de qualquer outro algoritmo de clusterização. O k-means produz k centróides desconectados sem relação espacial entre si. Um SOM produz um _mapa_ onde proximidade na grade reflete proximidade no espaço dos dados.
+
+```mermaid
+flowchart LR
+  subgraph IN["Espaço de entrada · ℝᵈ (alta dim.)"]
+    direction TB
+    d1(("x"))
+    d2(("x"))
+    d3(("x"))
+  end
+
+  subgraph GRID["Grade SOM · w×h protótipos (2D)"]
+    direction TB
+    g11["W"] --- g12["W"] --- g13["W"]
+    g21["W"] --- g22["W"] --- g23["W"]
+    g11 --- g21
+    g12 --- g22
+    g13 --- g23
+  end
+
+  IN ==>|"aprende um mapa que preserva a topologia"| GRID
+  GRID -.-> note["Vizinhos na grade ⇒ entradas semelhantes<br/>a proximidade é preservada"]
+
+  classDef data fill:#0f766e,stroke:#2dd4bf,color:#ccfbf1;
+  classDef cell fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  classDef note fill:#312e81,stroke:#818cf8,color:#e0e7ff;
+  class d1,d2,d3 data;
+  class g11,g12,g13,g21,g22,g23 cell;
+  class note note;
+```
+
+Cada ponto de entrada em `ℝᵈ` é mapeado para o protótipo mais próximo na grade plana e, como os nós vizinhos são puxados juntos durante o treinamento, o layout 2D acaba espelhando a estrutura dos dados. Primeiro vamos percorrer o algoritmo passo a passo, depois mergulhar na matemática por trás de cada escolha de design.
 
 ## O algoritmo, passo a passo
+
+Todo o treinamento é um laço enxuto: escolha um vencedor, puxe sua vizinhança em direção à
+amostra e então resfrie. Todo o resto deste post é uma variação de um destes cinco passos.
+
+```mermaid
+flowchart TD
+  Start(["Dados de treino X · n pontos em ℝᵈ"]) --> Init["1 · Inicializar pesos W<br/>aleatório ou PCA"]
+  Init --> BMU
+
+  subgraph epoch["Uma época · para cada amostra x"]
+    direction TB
+    BMU["2 · Seleção do BMU — winner-takes-all<br/>bmu = argmin dist(W, x)"]
+    Nbr["3 · Vizinhança<br/>h(i,j,t) = exp(−d_grid² / 2σ²)"]
+    Upd["4 · Atualização dos pesos<br/>W += η·h·(x − W)"]
+    BMU -->|"vencedor"| Nbr -->|"puxa vizinhos"| Upd
+  end
+
+  Upd --> More{"Mais amostras<br/>nesta época?"}
+  More -->|"sim · próximo x"| BMU
+  More -->|"não"| Decay["5 · Cronograma de decaimento<br/>η(t) ↓   σ(t) ↓"]
+  Decay --> Done{"t = T?"}
+  Done -->|"não · próxima época"| BMU
+  Done -->|"sim"| Map(["Mapa que preserva a topologia"])
+
+  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  classDef decision fill:#312e81,stroke:#818cf8,color:#e0e7ff;
+  classDef terminal fill:#4338ca,stroke:#a5b4fc,color:#ffffff;
+  class Init,BMU,Nbr,Upd,Decay step;
+  class More,Done decision;
+  class Start,Map terminal;
+```
 
 ### 1. Inicialização
 
@@ -317,11 +379,21 @@ A inicialização aleatória espalha pesos uniformemente dentro do intervalo obs
 ### A matemática
 
 ```mermaid
-flowchart TD
-  A[Centralizar X] --> B[SVD]
-  B --> C[Projetar em PC1/PC2]
-  C --> D[Construir grade]
-  D --> E[Mapear de volta para R^d]
+flowchart LR
+  X(["Dados X"]) --> A["Centralizar X<br/>subtrair a média"]
+  A --> B["SVD<br/>da covariância"]
+  B --> C["Tomar PC1, PC2<br/>2 maiores autovetores"]
+  C --> D["Construir grade w×h<br/>cobrindo ±2σ ao longo de PC1/PC2"]
+  D --> E(["Mapear de volta para ℝᵈ<br/>pesos iniciais W"])
+
+  E -.->|"já sobre a<br/>variedade dos dados"| Fast["≈ a época 0 parece<br/>a época 20–40 do aleatório"]
+
+  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  classDef terminal fill:#4338ca,stroke:#a5b4fc,color:#ffffff;
+  classDef good fill:#166534,stroke:#4ade80,color:#dcfce7;
+  class A,B,C,D step;
+  class X,E terminal;
+  class Fast good;
 ```
 
 A superfície de pesos resultante é um plano no espaço `d`-dimensional, alinhado com as duas direções de maior variância:
@@ -361,6 +433,31 @@ if delta_qe < -eps:       # queda acentuada — o momento está funcionando
 
 elif abs(delta_qe) < eps: # platô — preso em região plana
     decay *= 1.05         # força mais para escapar
+```
+
+Leia como uma ramificação por época sobre como o erro se moveu:
+
+```mermaid
+flowchart TD
+  E["Calcular ΔQE = MQE(t) − MQE(t−1)"] --> Q{"comparar ΔQE com ε"}
+  Q -->|"ΔQE &lt; −ε<br/>queda acentuada"| Slow["decay × 0.95<br/>aproveita o momento por mais tempo"]
+  Q -->|"abs(ΔQE) &lt; ε<br/>platô"| Push["decay × 1.05<br/>força para escapar do plano"]
+  Q -->|"caso contrário<br/>progresso normal"| Keep["mantém o cronograma"]
+  Slow --> Next(["próxima época"])
+  Push --> Next
+  Keep --> Next
+
+  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  classDef decision fill:#312e81,stroke:#818cf8,color:#e0e7ff;
+  classDef terminal fill:#4338ca,stroke:#a5b4fc,color:#ffffff;
+  classDef good fill:#166534,stroke:#4ade80,color:#dcfce7;
+  classDef warn fill:#7c2d12,stroke:#fb923c,color:#ffedd5;
+  class E step;
+  class Q decision;
+  class Slow good;
+  class Push warn;
+  class Keep step;
+  class Next terminal;
 ```
 
 A intuição: quando o MQE cai rápido, você está em uma região produtiva do espaço de pesos — preserve esse momento desacelerando o decaimento. Quando o MQE achata, a taxa atual não basta para sair da região plana — aumente temporariamente.
@@ -504,6 +601,21 @@ plot_static(som, pts, labels, dataset_name="bunny")
 ani = plot_animated(snapshots, pts, labels, epochs=100, snapshot_every=5)
 ```
 
+Os quatro painéis leem o mesmo mapa treinado por quatro lentes complementares:
+
+```mermaid
+flowchart TB
+  SOM(["SOM treinado"]) --> P1["Painel 1 · Dados + projeções do BMU<br/>vetores de erro, encurtando no treino"]
+  SOM --> P2["Painel 2 · Grade de pesos + U-Matrix<br/>geometria e estrutura de clusters juntas"]
+  SOM --> P3["Painel 3 · Mapa de ativação<br/>frequência de BMU → nós mortos e cobertura"]
+  SOM --> P4["Painel 4 · Vista 3D / superfície da U-Matrix<br/>malha sobre a nuvem, ou topologia em relevo"]
+
+  classDef terminal fill:#4338ca,stroke:#a5b4fc,color:#ffffff;
+  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  class SOM terminal;
+  class P1,P2,P3,P4 step;
+```
+
 **Painel 1 — Dados de entrada + projeções do BMU:** Cada ponto é conectado ao seu BMU com uma linha cinza. Essas linhas são os vetores de erro tornados visíveis. À medida que o treinamento avança, elas encurtam. Na época final, cada linha fica tão curta que mal aparece — os pesos convergiram para a variedade dos dados.
 
 **Painel 2 — Grade de pesos + U-Matrix:** Os nós do SOM renderizados no espaço dos dados, coloridos pelo valor da U-Matrix. Você vê a geometria da grade de pesos e a estrutura dos clusters ao mesmo tempo.
@@ -535,7 +647,22 @@ som = SOM(..., use_numba=False)  # force NumPy path for profiling
 | Matriz de dist. | Broadcast + `linalg.norm` | `@njit(parallel=True)`  | ~2–4×   |
 | Update em lote  | Acúmulo vetorizado        | Kernel paralelo fundido | ~2–5×   |
 
-O caminho JIT ativa apenas para topologia quadrada + métrica Euclidiana. Todas as outras combinações fazem fallback de forma transparente.
+O caminho JIT ativa apenas para topologia quadrada + métrica Euclidiana. Todas as outras combinações fazem fallback de forma transparente:
+
+```mermaid
+flowchart TD
+  Op["Op crítica por época<br/>matriz de distâncias · update de pesos em lote"] --> C1{"use_numba E topologia<br/>quadrada E Euclidiana?"}
+  C1 -->|"sim"| JIT["@njit(parallel=True)<br/>kernel paralelo fundido · ~2–5×"]
+  C1 -->|"não · ex.: hex ou cosseno"| NP["broadcast NumPy + linalg.norm<br/>fallback transparente"]
+
+  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  classDef decision fill:#312e81,stroke:#818cf8,color:#e0e7ff;
+  classDef good fill:#166534,stroke:#4ade80,color:#dcfce7;
+  class Op step;
+  class C1 decision;
+  class JIT good;
+  class NP step;
+```
 
 ```bash
 pip install -e ".[numba]"
@@ -577,7 +704,7 @@ Renderiza wireframe + nuvem de pontos para qualquer número de modelos. O wirefr
 
 ## Aplicações práticas
 
-**Segmentação de clientes** — mapeie vetores de comportamento na grade. Nós adjacentes representam clientes similares; as cristas da U-Matrix são os limites dos clusters. Diferente do k-means, você não escolhe k заранее — a estrutura das cristas indica quantos clusters existem.
+**Segmentação de clientes** — mapeie vetores de comportamento na grade. Nós adjacentes representam clientes similares; as cristas da U-Matrix são os limites dos clusters. Diferente do k-means, você não escolhe k de antemão — a estrutura das cristas indica quantos clusters existem.
 
 **Detecção de anomalias** — treine com dados normais. Pontue novas amostras pela distância ao BMU mais próximo. O mapa de ativação mostra como o "normal" se parece; pontos que caem longe de qualquer nó bem ativado são anomalias.
 

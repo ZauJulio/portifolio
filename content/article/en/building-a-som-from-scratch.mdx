@@ -75,9 +75,72 @@ ZSOM is my full implementation of Kohonen's SOM from scratch. Pure NumPy at the 
 
 A SOM takes `n` points in `d`-dimensional space and maps them onto a 2D grid of `w × h` prototype vectors called **weights**. Think of it as stretching a mesh net over the data manifold: the net learns to cover the data, regions of high density attract more nodes, and nodes that are neighbors on the grid end up representing similar inputs.
 
-This last property — topology preservation — is what separates SOMs from every other clustering algorithm. k-means produces k disconnected centroids with no spatial relationship between them. A SOM produces a _map_ where proximity on the grid reflects proximity in data space. First, let's walk through the algorithm step by step, then we'll dive into the math behind each design choice.
+This last property — topology preservation — is what separates SOMs from every other clustering algorithm. k-means produces k disconnected centroids with no spatial relationship between them. A SOM produces a _map_ where proximity on the grid reflects proximity in data space.
+
+```mermaid
+flowchart LR
+  subgraph IN["Input space · ℝᵈ (high-dim)"]
+    direction TB
+    d1(("x"))
+    d2(("x"))
+    d3(("x"))
+  end
+
+  subgraph GRID["SOM grid · w×h prototypes (2D)"]
+    direction TB
+    g11["W"] --- g12["W"] --- g13["W"]
+    g21["W"] --- g22["W"] --- g23["W"]
+    g11 --- g21
+    g12 --- g22
+    g13 --- g23
+  end
+
+  IN ==>|"learn a topology-preserving map"| GRID
+  GRID -.-> note["Neighbours on the grid ⇒ similar inputs<br/>proximity is preserved"]
+
+  classDef data fill:#0f766e,stroke:#2dd4bf,color:#ccfbf1;
+  classDef cell fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  classDef note fill:#312e81,stroke:#818cf8,color:#e0e7ff;
+  class d1,d2,d3 data;
+  class g11,g12,g13,g21,g22,g23 cell;
+  class note note;
+```
+
+Each input point in `ℝᵈ` is mapped to its closest prototype on the flat grid, and because neighbouring nodes are pulled together during training, the 2D layout ends up mirroring the structure of the data. First, let's walk through the algorithm step by step, then we'll dive into the math behind each design choice.
 
 ## The Algorithm, Step by Step
+
+The whole training procedure is a tight loop: pick a winner, pull its neighborhood toward
+the sample, then cool down. Everything else in this post is a variation on one of these five
+steps.
+
+```mermaid
+flowchart TD
+  Start(["Training data X · n points in ℝᵈ"]) --> Init["1 · Initialize weights W<br/>random or PCA"]
+  Init --> BMU
+
+  subgraph epoch["One epoch · for every sample x"]
+    direction TB
+    BMU["2 · BMU selection — winner-takes-all<br/>bmu = argmin dist(W, x)"]
+    Nbr["3 · Neighbourhood<br/>h(i,j,t) = <br/>exp(−d_grid² / 2σ²)"]
+    Upd["4 · Weight update<br/>W += η·h·(x − W)"]
+    BMU -->|"winner"| Nbr -->|"pull neighbours"| Upd
+  end
+
+  Upd --> More{"More samples<br/>this epoch?"}
+  More -->|"yes · next x"| BMU
+  More -->|"no"| Decay["5 · Decay schedule<br/>η(t) ↓   σ(t) ↓"]
+  Decay --> Done{"t = T?"}
+  Done -->|"no · next epoch"| BMU
+  Done -->|"yes"| Map(["Topology-preserving map"])
+
+  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  classDef decision fill:#312e81,stroke:#818cf8,color:#e0e7ff;
+  classDef terminal fill:#4338ca,stroke:#a5b4fc,color:#ffffff;
+  class Init,BMU,Nbr,Upd,Decay step;
+  class More,Done decision;
+  class Start,Map terminal;
+```
 
 ### 1. Initialization
 
@@ -325,11 +388,21 @@ Random initialization scatters weights uniformly within the observed range of ea
 ### The Math
 
 ```mermaid
-flowchart TD
-  A[Center X] --> B[SVD]
-  B --> C[Project to PC1/PC2]
-  C --> D[Build lattice]
-  D --> E[Map back to R^d]
+flowchart LR
+  X(["Data X"]) --> A["Center X<br/>subtract the mean"]
+  A --> B["SVD<br/>of the covariance"]
+  B --> C["Take PC1, PC2<br/>top-2 eigenvectors"]
+  C --> D["Build w×h lattice<br/>spanning ±2σ along PC1/PC2"]
+  D --> E(["Map back to ℝᵈ<br/>initial weights W"])
+
+  E -.->|"already on the<br/>data manifold"| Fast["≈ epoch 0 looks like<br/>random's epoch 20–40"]
+
+  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  classDef terminal fill:#4338ca,stroke:#a5b4fc,color:#ffffff;
+  classDef good fill:#166534,stroke:#4ade80,color:#dcfce7;
+  class A,B,C,D step;
+  class X,E terminal;
+  class Fast good;
 ```
 
 The resulting weight surface is a flat plane in `d`-dimensional space, aligned with the two directions of maximum variance:
@@ -369,6 +442,31 @@ if delta_qe < -eps:       # steep drop — momentum is working
 
 elif abs(delta_qe) < eps: # plateau — stuck in flat region
     decay *= 1.05         # push harder to escape
+```
+
+Read as a per-epoch branch on how the error moved:
+
+```mermaid
+flowchart TD
+  E["Compute ΔQE = MQE(t) − MQE(t−1)"] --> Q{"compare ΔQE to ε"}
+  Q -->|"ΔQE &lt; −ε<br/>steep drop"| Slow["decay × 0.95<br/>ride the momentum longer"]
+  Q -->|"abs(ΔQE) &lt; ε<br/>plateau"| Push["decay × 1.05<br/>push to escape the flat"]
+  Q -->|"otherwise<br/>normal progress"| Keep["keep the schedule"]
+  Slow --> Next(["next epoch"])
+  Push --> Next
+  Keep --> Next
+
+  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  classDef decision fill:#312e81,stroke:#818cf8,color:#e0e7ff;
+  classDef terminal fill:#4338ca,stroke:#a5b4fc,color:#ffffff;
+  classDef good fill:#166534,stroke:#4ade80,color:#dcfce7;
+  classDef warn fill:#7c2d12,stroke:#fb923c,color:#ffedd5;
+  class E step;
+  class Q decision;
+  class Slow good;
+  class Push warn;
+  class Keep step;
+  class Next terminal;
 ```
 
 The intuition: when the MQE is dropping fast, you're in a productive region of weight space — preserve that momentum by decaying more slowly. When the MQE flat lines, the current learning rate isn't enough to escape a flat region — temporarily increase it.
@@ -512,6 +610,21 @@ plot_static(som, pts, labels, dataset_name="bunny")
 ani = plot_animated(snapshots, pts, labels, epochs=100, snapshot_every=5)
 ```
 
+The four panels read the same trained map through four complementary lenses:
+
+```mermaid
+flowchart TB
+  SOM(["Trained SOM"]) --> P1["Panel 1 · Input data + BMU projections<br/>error vectors, shrinking over training"]
+  SOM --> P2["Panel 2 · Weight grid + U-Matrix<br/>geometry and cluster structure together"]
+  SOM --> P3["Panel 3 · Activation heatmap<br/>BMU frequency → dead nodes & coverage"]
+  SOM --> P4["Panel 4 · 3D view / U-Matrix surface<br/>mesh draped on cloud, or topology as relief"]
+
+  classDef terminal fill:#4338ca,stroke:#a5b4fc,color:#ffffff;
+  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  class SOM terminal;
+  class P1,P2,P3,P4 step;
+```
+
 **Panel 1 — Input data + BMU projections:** Each point is connected to its BMU with a grey line. These lines are the error vectors made visible. As training progresses, they shorten. By the final epoch, each line is so short it barely registers — the weights have converged onto the data manifold.
 
 **Panel 2 — Weight grid + U-Matrix:** The SOM nodes rendered in data space, colored by U-Matrix value. You see both the geometry of the weight grid and the cluster structure simultaneously.
@@ -543,7 +656,22 @@ som = SOM(..., use_numba=False)  # force NumPy path for profiling
 | Distance matrix | Broadcast + `linalg.norm` | `@njit(parallel=True)` | ~2–4×   |
 | Batch update    | Vectorized accumulation   | Fused parallel kernel  | ~2–5×   |
 
-JIT path activates only for square topology + Euclidean metric. All other combinations fall back transparently.
+JIT path activates only for square topology + Euclidean metric. All other combinations fall back transparently:
+
+```mermaid
+flowchart TD
+  Op["Hot op per epoch<br/>distance matrix · batch weight update"] --> C1{"use_numba AND square<br/>topology AND Euclidean?"}
+  C1 -->|"yes"| JIT["@njit(parallel=True)<br/>fused parallel kernel · ~2–5×"]
+  C1 -->|"no · e.g. hex or cosine"| NP["NumPy broadcast + linalg.norm<br/>transparent fallback"]
+
+  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
+  classDef decision fill:#312e81,stroke:#818cf8,color:#e0e7ff;
+  classDef good fill:#166534,stroke:#4ade80,color:#dcfce7;
+  class Op step;
+  class C1 decision;
+  class JIT good;
+  class NP step;
+```
 
 ```bash
 pip install -e ".[numba]"

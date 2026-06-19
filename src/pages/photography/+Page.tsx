@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 
-import { ArrowLeftIcon, CameraIcon, ImageIcon } from "lucide-react";
+import { CameraIcon, ImageIcon } from "lucide-react";
 
-import { Link } from "@/components/Link";
+import { PageHeader } from "@/components/PageHeader";
 
 import { AlbumCard } from "./components/AlbumCard";
 import { AlbumModal } from "./components/AlbumModal";
@@ -22,16 +22,7 @@ function PhotographyView() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
-      <header className="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-b border-gray-800/50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center flex-start">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-brand-300 transition-colors no-underline text-sm"
-          >
-            <ArrowLeftIcon className="size-4" />
-          </Link>
-        </div>
-      </header>
+      <PageHeader backToUrl="/" />
 
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">

@@ -7,6 +7,7 @@ import { useData } from "vike-react/useData";
 
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Link } from "@/components/Link";
+import { mdxComponents } from "@/components/mdx/mdx-components";
 import { PageHeader } from "@/components/PageHeader";
 import { PageMinimap } from "@/components/PageMinimap";
 import { RelatedContent } from "@/components/RelatedContent";
@@ -160,6 +161,7 @@ export default function RecipePage() {
         <div className="prose prose-invert max-w-none">
           <MdxRender
             content={Content}
+            components={[mdxComponents]}
             fallback={
               <div className="animate-pulse space-y-4 my-8">
                 <div className="h-4 bg-gray-800 rounded w-3/4" />

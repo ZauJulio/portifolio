@@ -6,7 +6,7 @@
     "indexByCollection": { "article": "composed" }
   },
   "sitemap": {
-    "siteUrl": "https://zaujulio.com.br",
+    "siteUrl": "https://zaujulio.com",
     "outputPath": "./public/sitemap.xml",
     "staticRoutes": [
       { "path": "/", "priority": "1.0", "changefreq": "weekly" },

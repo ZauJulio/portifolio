@@ -1,13 +1,23 @@
 import { usePageContext } from "vike-react/usePageContext";
 
+import { I18N, type Locale, stripLocale } from "@/i18n";
+import { absoluteUrl, SITE_URL } from "@/lib/seo";
+
 import type { Data } from "./+data";
 
-// Per-article Open Graph / Twitter tags (ported from the React Router `meta`).
+// Per-article Open Graph / Twitter tags + BlogPosting structured data.
+// The structured data gives each (otherwise low-priority, sitemap-only) detail
+// page a strong machine-readable "this is a substantial article" signal, which
+// is what nudges Google to index them rather than leaving them "Discovered –
+// currently not indexed". (ported from the React Router `meta`).
 export default function Head() {
   const pageContext = usePageContext();
   const article = pageContext.data as Data;
 
   if (!article) return null;
+
+  const locale = (pageContext.locale ?? I18N.defaultLocale) as Locale;
+  const pageUrl = absoluteUrl(locale, stripLocale(pageContext.urlPathname));
 
   return (
     <>
@@ -30,6 +40,25 @@ export default function Head() {
       <meta name="twitter:description" content={article.description} />
       <meta name="twitter:creator" content="@zaujulio" />
       {article.cover && <meta name="twitter:image" content={article.cover} />}
+      <script
+        type="application/ld+json"
+        // biome-ignore lint: structured data
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: article.title,
+            description: article.description,
+            ...(article.date && { datePublished: article.date, dateModified: article.date }),
+            author: { "@type": "Person", name: article.author || "Zau Julio", url: SITE_URL },
+            publisher: { "@type": "Person", name: "Zau Julio", url: SITE_URL },
+            ...(article.cover && { image: article.cover }),
+            ...(article.tags?.length && { keywords: article.tags.join(", ") }),
+            inLanguage: I18N.locales[locale].canonical,
+            mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
+          }),
+        }}
+      />
     </>
   );
 }

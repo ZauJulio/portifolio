@@ -128,6 +128,13 @@ export default defineConfig(({ mode }) => ({
       "split2",
       "@indago/hyper-down",
     ],
+    // `mermaid` is only ever reached through `@indago/hyper-down`'s client-side
+    // `import("mermaid")` (MermaidBlock). Because the importer is excluded above,
+    // Vite never discovers mermaid during dep scanning, so it isn't pre-bundled —
+    // and its lazy diagram-loader sub-imports then fail at runtime with
+    // `Could not resolve "mermaid"`. Force it into the optimized deps so every
+    // diagram renders. (mermaid is a direct dependency in package.json.)
+    include: ["mermaid"],
   },
   build: {
     minify: mode === "production" ? "oxc" : false,

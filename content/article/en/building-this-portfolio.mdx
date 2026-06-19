@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "Building This Portfolio: Vike, an In-Build SQLite, and Two Content Engines"
-description: "How this portfolio runs a fully searchable, bilingual, content-rich site with no backend — just a SQLite database generated at build time and shipped inside the bundle. A feature-by-feature tour, plus the two open-source content engines (HyperDown + HyperJson) you can reuse to build the same thing."
+description: "How this portfolio runs a fully searchable, bilingual, content-rich site with no backend — just a SQLite database generated at build time and shipped inside the bundle. A feature-by-feature tour of the site, and the story of why making it work meant building Indago, the two open-source content engines underneath."
 date: "2026-06-12"
 tags:
   [
@@ -18,35 +18,34 @@ tags:
   ]
 categories: ["Engineering"]
 author: "Zau Julio"
-readingTime: "16 min read"
+readingTime: "15 min read"
 canonical: ""
-cover: "https://zaujulio.com.br/glitch-bg-1920.avif"
-next: "what-is-indago"
+cover: "https://zaujulio.com/glitch-bg-1920.avif"
+next: "getting-started-with-indago"
 ---
 
 # Building This Portfolio
 
 **No backend. No database service. No CMS bill.** This site runs a fully searchable,
 bilingual, content-rich experience from a SQLite file generated at build time and shipped
-inside the bundle — and the two engines that make it work are open source, so you can build
-the same way.
+inside the bundle. There is nothing to keep awake, nothing to scale, and nothing to pay for
+beyond static-ish hosting — and yet it behaves like it has a server.
 
-Most developer portfolios are one of two things: a static site with hardcoded
-content, or a heavyweight CMS-backed app with a database, an API, and a hosting
-bill to match. This one is neither. It is a **hybrid SSG + SSR application** that
-serves a fully searchable, bilingual, content-rich site — and the only "database"
-it has is a **SQLite file generated at build time and shipped inside the bundle**.
-There is no backend service to run, nothing to keep awake, and nothing to pay for
-beyond static-ish hosting.
+That last sentence is the whole pitch, and it cuts two ways. For a **business**, it means a
+content-rich marketing-and-portfolio site with the running cost of a static page, no vendor
+lock-in, and content that lives in git instead of someone else's dashboard. For an **engineer**,
+it means real full-text search, faceted filtering, and i18n with no API to operate. This post is
+the tour: a feature-by-feature walk through the site, and the story of the piece I had to build to
+make it possible.
 
 <br />
 
-This post is the first in a series. It is the **overview** — a feature-by-feature
-walk through the whole site and the decisions behind it. The next posts cover
-**Indago**, the toolkit of two content engines I built to make it work —
-[What is Indago?](/articles/what-is-indago) (HyperDown: Markdown/MDX → SQLite, and
-HyperJson: JSON Schema → typed content) — followed by a hands-on
-[Getting Started](/articles/getting-started-with-indago).
+Because here is the honest part: this architecture did not exist off the shelf. To get a database
+that ships in the build, I had to write the engines that produce it. That toolkit is **Indago**,
+and it is now open source. This article explains the _portfolio_; the companion piece,
+[Getting Started with Indago](/articles/getting-started-with-indago), explains the _engines_ — what
+they are and how they work under the hood. I will link into its sections as they come up, rather
+than repeat them here.
 
 <br />
 
@@ -78,16 +77,39 @@ files into a SQLite database and a set of typed modules**. At runtime, server
 loaders query that SQLite file directly with `bun:sqlite` (or `node:sqlite` on
 Node 22+, which is what Vercel runs). Nothing is fetched from an external service.
 
-Why bother with SQLite at all, instead of just importing JSON? Because the
-articles and recipes need **full-text search**, faceted filtering, sorting, and
-pagination — and doing that over an in-memory array does not scale or stay fast.
-SQLite's **FTS5** gives me a real inverted index for free, and because the index
-is _contentless_, the database stays small: it stores the searchable tokens and
-the frontmatter metadata, but **never the article body**. The body is loaded
-separately, at render time, from a Vite-generated module map.
+Why a database at all, instead of just importing JSON? Because the articles and
+recipes need **full-text search**, faceted filtering, sorting, and pagination — and
+doing that over an in-memory array does not stay fast as content grows. SQLite's
+**FTS5** gives me a real inverted index, and because the index is _contentless_, the
+database stays small: it stores the searchable tokens and the frontmatter metadata,
+but **never the article body**. (That storage model is the deep dive of the engine
+post — see
+[the contentless inverted index](/articles/getting-started-with-indago#how-it-works-the-contentless-inverted-index).)
 
 The result is a site that feels like it has a backend — live search that responds
-to every keystroke server-side — with the operational profile of a static site.
+to every keystroke server-side — with the operational profile, and the bill, of a
+static site.
+
+```mermaid
+flowchart LR
+  subgraph Repo["content/ · in git"]
+    MD["article · recipe<br/>(MDX)"]
+    JS["projects · skills · music<br/>(JSON + schema)"]
+  end
+  subgraph Build["Vite build"]
+    HD["HyperDown →<br/>SQLite + FTS5 .db"]
+    HJ["HyperJson →<br/>typed imports"]
+    MD --> HD
+    JS --> HJ
+  end
+  subgraph Runtime["Vike · hybrid SSG + SSR"]
+    L["+data loaders<br/>bun:sqlite / node:sqlite"]
+    Page["Rendered page<br/>search · i18n · MDX"]
+    HD --> L
+    L --> Page
+    HJ --> Page
+  end
+```
 
 ## The stack at a glance
 
@@ -159,24 +181,21 @@ content/
 ├── music/    photography/
 ```
 
-Two engines split the work cleanly. **HyperJson** owns structured data — anything
-that is a list of records with a fixed shape (projects, skills, playlists, photo
-albums). **HyperDown** owns prose — anything with a body you want to read and
-search (articles, recipes). They share no code and have no dependency on each
-other; the only thing they share is the `content/` directory and the convention of
-locale subfolders.
-
-I wrote both as standalone, published npm packages so the portfolio consumes them
-like any other dependency. The two follow-up posts are the deep dives, so here I
-will only show how the site _uses_ them.
+The split is by the _shape_ of the content. **HyperJson** owns structured data —
+anything that is a list of records with a fixed shape (projects, skills, playlists,
+photo albums). **HyperDown** owns prose — anything with a body you want to read and
+search (articles, recipes). They share no code and no dependency; the only thing
+they share is the `content/` directory and the locale-subfolder convention. The
+engine post covers
+[why two engines](/articles/getting-started-with-indago#hyperdown-or-hyperjson) in
+full; here I will only show how the _site_ uses each.
 
 ## Structured content with HyperJson
 
-A HyperJson content type is a folder with a `schema.json` (a JSON Schema) and
-per-locale data files. At build time, every data file is validated against its
-schema with Ajv in strict mode — an unknown key or a wrong type **fails the
-build** — and TypeScript types are generated from the schema so every import is
-fully typed:
+A HyperJson content type is a folder with a `schema.json` and per-locale data files.
+At build time every data file is validated against its schema — an unknown key or a
+wrong type **fails the build** — and TypeScript types are generated from the schema,
+so every import is fully typed:
 
 ```ts
 // Fully typed — the type is generated from projects/schema.json
@@ -185,40 +204,19 @@ import projects from "@content/projects/en/projects.json";
 
 That single guarantee — _invalid content cannot ship, and valid content arrives
 typed_ — is what powers the entire static half of the site: the About section, the
-Projects and Skills grids, the Education and Languages blocks, the Music
-playlists, and the Photography albums all read straight from typed JSON.
-
-On top of the typed imports, HyperJson ships **headless hooks** for shaping data in
-React — `useFilter`, `useSearch`, `useSort`, `usePaginate`, and a `useComposed`
-that chains all four. The Music page uses them to filter playlists by genre and
-search by title/artist entirely on the client, with zero UI imposed:
-
-```tsx
-const { paginated } = useComposed(playlists, {
-  filters: [{ key: "genre", value: selectedGenre }],
-  searchQuery,
-  searchFields: ["title", "artist"],
-  sort: { key: "title", dir: "asc" },
-  page,
-  perPage: 12,
-});
-```
+Projects and Skills grids, the Education and Languages blocks, the Music playlists,
+and the Photography albums all read straight from typed JSON. On top of the typed
+imports, HyperJson ships **headless hooks** (`useFilter`, `useSearch`, `useSort`,
+`usePaginate`, and a `useComposed` that chains all four) for shaping that data in
+React — the Music page uses them to filter playlists by genre and search by
+title/artist entirely on the client, with zero UI imposed.
 
 ## Prose and recipes with HyperDown
 
-HyperDown takes the opposite path: it compiles every Markdown/MDX file into a
-SQLite database with a contentless FTS5 index. The frontmatter becomes queryable
-columns; the body is tokenized into the search index but stored separately and
-loaded lazily at render time.
-
-Content types are declared once in `frontmatter.json` (the FrontMatter CMS format,
-so the site is editable from VS Code's FrontMatter panel). That single file is the
-source of truth for both the SQLite schema and the generated TypeScript types. The
-`article` type, for example, declares `title`, `description`, `date`, `tags`,
-`categories`, `cover`, `readingTime` — and, as of this series, two new optional
-fields, `prev` and `next`, which I will come back to.
-
-Each content type gets a generated, server-only repository with a typed API:
+HyperDown takes the opposite path: it compiles every Markdown/MDX file into a SQLite
+database with a contentless FTS5 index, queried only on the server. For the site,
+the important surface is the generated, typed, server-only repository each content
+type gets:
 
 ```ts
 // articles/+data.ts — runs only on the server (SSR/SSG)
@@ -230,6 +228,17 @@ const { results, totalCount, totalPages } = await articleRepository.search({
   pagination: { page, pageSize: 9 },
 });
 ```
+
+Content types are declared once in `frontmatter.json` (the FrontMatter CMS format,
+so the site is editable from VS Code's FrontMatter panel), which is the single
+source of truth for both the SQLite schema and the generated TypeScript types. Two
+optional fields I added there — `prev` and `next` — drive the article series, and a
+`related()` method drives suggested content; both come up below. The mechanics of
+how that body never reaches storage, and how the FTS index is tuned to stay small,
+are the heart of the engine post — see
+[the request lifecycle](/articles/getting-started-with-indago#the-request-lifecycle)
+and the index deep dive there. What matters for the site is the payoff in the next
+section.
 
 ## The Articles experience
 
@@ -277,8 +286,7 @@ of thing that breaks silently on a framework upgrade.
 
 ## Series navigation and suggested content
 
-This is the newest feature, and the reason this article exists as part of a
-_series_.
+Two features turn a pile of articles into a guided reading experience.
 
 **Series navigation** turns related articles into an explicit, ordered reading
 path — a doubly-linked list expressed entirely in frontmatter. Each article can
@@ -286,14 +294,10 @@ declare an optional `prev` and `next` slug:
 
 ```yaml
 # building-this-portfolio.mdx
-next: "what-is-indago"
-
-# what-is-indago.mdx
-prev: "building-this-portfolio"
 next: "getting-started-with-indago"
 
 # getting-started-with-indago.mdx
-prev: "what-is-indago"
+prev: "building-this-portfolio"
 ```
 
 The detail loader resolves those slugs to their metadata and renders a previous/
@@ -304,9 +308,9 @@ next pager at the foot of the article. It is entirely opt-in: an article with no
 and recipe, the site shows up to three related items — and the ranking is done **by
 tag order**. The current item's tags are treated as a priority list: candidates
 sharing the _first_ tag fill the slots first, then the second tag complements up to
-three, then the third, and so on. I added this as a first-class `related()` method
-to HyperDown so it runs as a single indexed SQL query against the tags bridge,
-ranked with a `MIN(CASE …)` over the matched tag positions:
+three, and so on. I added this as a first-class `related()` method to HyperDown so
+it runs as a single indexed SQL query against the tags bridge, ranked with a
+`MIN(CASE …)` over the matched tag positions:
 
 ```ts
 const suggestions = await articleRepository.related({
@@ -317,9 +321,8 @@ const suggestions = await articleRepository.related({
 });
 ```
 
-On desktop the three suggestions sit side by side; on mobile they stack into three
-rows. Because the ranking keys off the article you are reading, the suggestions
-stay genuinely relevant instead of being a generic "latest posts" strip.
+Because the ranking keys off the article you are reading, the suggestions stay
+genuinely relevant instead of being a generic "latest posts" strip.
 
 ## Cooking, Photography, Music, and Links
 
@@ -349,8 +352,8 @@ renders the lazily-loaded body with a Suspense fallback, and the plugin chain ad
 - **`rehype-katex`** + **`remark-math`** for LaTeX math, so I can write
   `argmin`/`Σ`/integrals in the SOM post.
 - **`remark-gfm`** for tables, task lists, and strikethrough.
-- **mermaid** for inline diagrams (flowcharts and the like) rendered from fenced
-  code blocks.
+- **mermaid** for inline diagrams (the flowcharts and sequence diagrams in these
+  posts) rendered from fenced code blocks.
 
 The CSS for code and math (`github-dark` and `katex.min.css`) is imported at the
 detail-page level rather than globally, so the homepage never pays for it.
@@ -422,7 +425,9 @@ nothing because a URL was parsed without its query string.
 If you take one idea from this: **you probably do not need a backend for a
 content site.** Compile your content into an indexed artifact at build time, query
 it from server loaders, and you get real search and filtering with none of the
-operational weight.
+operational weight — and none of the recurring cost or vendor lock-in that comes
+with a hosted CMS. The content stays in git, owned and versioned, and the site
+deploys anywhere static-ish.
 
 And you do not have to rebuild any of it from scratch. The two engines that make this
 ergonomic are published, documented, and scaffolded — one command gives you this exact
@@ -432,13 +437,15 @@ architecture (Vike, React Router v7, TanStack Start, or Next.js), already wired 
 bun create @indago/app
 ```
 
-The deep dives on each engine — turning a folder of MDX into a typed, searchable SQLite
-database, and a folder of JSON into validated typed imports — are the next two posts.
+The companion post is the deep dive on the engines themselves — what Indago is, how
+HyperDown's contentless index and request lifecycle work, and how HyperJson validates
+and types your data.
 
 <br />
 
-Next up: **HyperDown**, the engine that turns this folder of Markdown into a
-full-text-searchable SQLite database that ships in the build.
+Next up: **[Getting Started with Indago](/articles/getting-started-with-indago)** — the
+engines that turn this folder of Markdown and JSON into a searchable, typed content layer
+that ships in the build.
 
 <br />
 

@@ -2,17 +2,10 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useComposed } from "@indago/hyper-json/hooks";
-import {
-  ArrowLeftIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  Disc3Icon,
-  Music2Icon,
-  SearchIcon,
-} from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, Disc3Icon, Music2Icon, SearchIcon } from "lucide-react";
 
 import { YouTubeMusicIcon } from "@/components/icons/YouTubeMusicIcon";
-import { Link } from "@/components/Link";
+import { PageHeader } from "@/components/PageHeader";
 import { useLocale } from "@/i18n";
 
 import { FavoriteTrack } from "./components/FavoriteTrack";
@@ -65,21 +58,7 @@ export default function MusicPage() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
-      <header className="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-b border-gray-800/50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-brand-300 transition-colors no-underline text-sm"
-          >
-            <ArrowLeftIcon className="size-4" />
-          </Link>
-
-          <div className="flex items-center gap-2">
-            <Music2Icon className="size-5 text-violet-400" />
-            <span className="font-semibold text-white">{t(($) => $.music.title)}</span>
-          </div>
-        </div>
-      </header>
+      <PageHeader backToUrl="/" />
 
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">

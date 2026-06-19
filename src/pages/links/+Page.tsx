@@ -195,7 +195,7 @@ export default function LinksPage() {
             to={`${import.meta.env.BASE_URL}`}
             className="text-xs text-[#F47370] no-underline opacity-60 tracking-[0.02em] transition-opacity duration-200 hover:opacity-100"
           >
-            zaujulio.com.br
+            zaujulio.com
           </Link>
         </div>
       </div>

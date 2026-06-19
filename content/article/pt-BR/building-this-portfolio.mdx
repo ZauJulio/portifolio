@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "Construindo Este Portfólio: Vike, um SQLite no build e dois motores de conteúdo"
-description: "Como este portfólio roda um site rico em conteúdo, totalmente pesquisável e bilíngue sem backend — só um banco SQLite gerado no build e enviado dentro do bundle. Um tour recurso a recurso, mais os dois motores de conteúdo open source (HyperDown + HyperJson) que você pode reutilizar para construir a mesma coisa."
+description: "Como este portfólio roda um site rico em conteúdo, totalmente pesquisável e bilíngue sem backend — só um banco SQLite gerado no build e enviado dentro do bundle. Um tour recurso a recurso pelo site, e a história de por que fazê-lo funcionar significou construir o Indago, os dois motores de conteúdo open source por baixo."
 date: "2026-06-12"
 tags:
   [
@@ -18,35 +18,35 @@ tags:
   ]
 categories: ["Engenharia"]
 author: "Zau Julio"
-readingTime: "16 min de leitura"
+readingTime: "15 min de leitura"
 canonical: ""
-cover: "https://zaujulio.com.br/glitch-bg-1920.avif"
-next: "what-is-indago"
+cover: "https://zaujulio.com/glitch-bg-1920.avif"
+next: "getting-started-with-indago"
 ---
 
 # Construindo Este Portfólio
 
 **Sem backend. Sem serviço de banco de dados. Sem conta de CMS.** Este site roda uma
 experiência rica em conteúdo, totalmente pesquisável e bilíngue a partir de um arquivo SQLite
-gerado em tempo de build e enviado dentro do bundle — e os dois motores que fazem isso
-funcionar são open source, então você pode construir do mesmo jeito.
+gerado em tempo de build e enviado dentro do bundle. Não há nada para manter acordado, nada
+para escalar e nada a pagar além de uma hospedagem quase estática — e ainda assim ele se
+comporta como se tivesse um servidor.
 
-A maioria dos portfólios de desenvolvedor é uma de duas coisas: um site estático
-com conteúdo hardcoded, ou uma aplicação pesada com CMS, banco de dados, API e uma
-conta de hospedagem à altura. Este aqui não é nenhum dos dois. É uma **aplicação
-híbrida SSG + SSR** que serve um site rico em conteúdo, totalmente pesquisável e
-bilíngue — e o único "banco de dados" que ele tem é um **arquivo SQLite gerado em
-tempo de build e enviado dentro do bundle**. Não há serviço de backend para rodar,
-nada para manter acordado e nada a pagar além de uma hospedagem quase estática.
+Essa última frase é o pitch inteiro, e ela corta para os dois lados. Para um **negócio**,
+significa um site de marketing-e-portfólio rico em conteúdo com o custo de operação de uma
+página estática, sem lock-in de fornecedor e com o conteúdo vivendo no git em vez do dashboard
+de outra pessoa. Para um **engenheiro**, significa busca full-text de verdade, filtragem por
+facetas e i18n sem nenhuma API para operar. Este post é o tour: um passeio recurso a recurso
+pelo site, e a história da peça que precisei construir para tornar tudo possível.
 
 <br />
 
-Este post é o primeiro de uma série. É a **visão geral** — um passeio recurso a
-recurso por todo o site e pelas decisões por trás dele. Os posts seguintes cobrem o
-**Indago**, o conjunto de dois motores de conteúdo que construí para fazer tudo
-funcionar — [O que é o Indago?](/pt/articles/what-is-indago) (HyperDown: Markdown/MDX
-→ SQLite, e HyperJson: JSON Schema → conteúdo tipado) — seguido de um
-[Começando com o Indago](/pt/articles/getting-started-with-indago) prático.
+Porque aqui está a parte honesta: esta arquitetura não existia de prateleira. Para ter um banco
+que vai junto no build, eu tive que escrever os motores que o produzem. Esse toolkit é o
+**Indago**, e agora é open source. Este artigo explica o _portfólio_; o post companheiro,
+[Começando com o Indago](/pt/articles/getting-started-with-indago), explica os _motores_ — o que
+são e como funcionam por baixo dos panos. Vou linkar para as seções dele conforme aparecem, em
+vez de repeti-las aqui.
 
 <br />
 
@@ -79,17 +79,38 @@ execução, os loaders do servidor consultam esse arquivo SQLite diretamente com
 `bun:sqlite` (ou `node:sqlite` no Node 22+, que é o que a Vercel roda). Nada é
 buscado de um serviço externo.
 
-Por que se dar ao trabalho de usar SQLite, em vez de só importar JSON? Porque os
-artigos e receitas precisam de **busca full-text**, filtragem por facetas,
-ordenação e paginação — e fazer isso sobre um array em memória não escala nem
-continua rápido. O **FTS5** do SQLite me dá um índice invertido de verdade de
-graça, e como o índice é _contentless_ (sem conteúdo), o banco fica pequeno: ele
-guarda os tokens pesquisáveis e os metadados do frontmatter, mas **nunca o corpo do
-artigo**. O corpo é carregado à parte, em tempo de renderização, a partir de um
-mapa de módulos gerado pelo Vite.
+Por que usar um banco, em vez de só importar JSON? Porque os artigos e receitas
+precisam de **busca full-text**, filtragem por facetas, ordenação e paginação — e
+fazer isso sobre um array em memória não continua rápido conforme o conteúdo cresce.
+O **FTS5** do SQLite me dá um índice invertido de verdade, e como o índice é
+_contentless_ (sem conteúdo), o banco fica pequeno: ele guarda os tokens pesquisáveis
+e os metadados do frontmatter, mas **nunca o corpo do artigo**. (Esse modelo de
+armazenamento é o mergulho profundo do post do motor — veja
+[o índice invertido contentless](/pt/articles/getting-started-with-indago#como-funciona-o-índice-invertido-contentless).)
 
 O resultado é um site que parece ter um backend — busca ao vivo que responde a cada
-tecla no servidor — com o perfil operacional de um site estático.
+tecla no servidor — com o perfil operacional, e a conta, de um site estático.
+
+```mermaid
+flowchart LR
+  subgraph Repo["content/ · no git"]
+    MD["article · recipe<br/>(MDX)"]
+    JS["projects · skills · music<br/>(JSON + schema)"]
+  end
+  subgraph Build["Build do Vite"]
+    HD["HyperDown →<br/>SQLite + FTS5 .db"]
+    HJ["HyperJson →<br/>imports tipados"]
+    MD --> HD
+    JS --> HJ
+  end
+  subgraph Runtime["Vike · SSG + SSR híbrido"]
+    L["loaders +data<br/>bun:sqlite / node:sqlite"]
+    Page["Página renderizada<br/>busca · i18n · MDX"]
+    HD --> L
+    L --> Page
+    HJ --> Page
+  end
+```
 
 ## A stack num relance
 
@@ -162,24 +183,21 @@ content/
 ├── music/    photography/
 ```
 
-Dois motores dividem o trabalho de forma limpa. O **HyperJson** cuida dos dados
+A divisão é pelo _formato_ do conteúdo. O **HyperJson** cuida dos dados
 estruturados — qualquer coisa que seja uma lista de registros com formato fixo
 (projetos, skills, playlists, álbuns de fotos). O **HyperDown** cuida da prosa —
 qualquer coisa com um corpo que você queira ler e pesquisar (artigos, receitas).
-Eles não compartilham código nem dependem um do outro; a única coisa que
-compartilham é o diretório `content/` e a convenção de subpastas por locale.
-
-Escrevi os dois como pacotes npm publicados e independentes, então o portfólio os
-consome como qualquer outra dependência. Os dois posts seguintes são os mergulhos
-profundos, então aqui eu só mostro como o site os _usa_.
+Eles não compartilham código nem dependência; a única coisa que compartilham é o
+diretório `content/` e a convenção de subpastas por locale. O post do motor cobre
+[por que dois motores](/pt/articles/getting-started-with-indago#hyperdown-ou-hyperjson)
+por completo; aqui eu só mostro como o _site_ usa cada um.
 
 ## Conteúdo estruturado com o HyperJson
 
-Um tipo de conteúdo do HyperJson é uma pasta com um `schema.json` (um JSON Schema) e
-arquivos de dados por locale. Em tempo de build, cada arquivo de dados é validado
-contra seu schema com o Ajv em modo estrito — uma chave desconhecida ou um tipo
-errado **quebra o build** — e tipos TypeScript são gerados a partir do schema para
-que todo import seja totalmente tipado:
+Um tipo de conteúdo do HyperJson é uma pasta com um `schema.json` e arquivos de dados
+por locale. Em tempo de build, cada arquivo de dados é validado contra seu schema —
+uma chave desconhecida ou um tipo errado **quebra o build** — e tipos TypeScript são
+gerados a partir do schema, para que todo import seja totalmente tipado:
 
 ```ts
 // Totalmente tipado — o tipo é gerado a partir de projects/schema.json
@@ -189,40 +207,18 @@ import projects from "@content/projects/en/projects.json";
 Essa única garantia — _conteúdo inválido não pode ir para produção, e conteúdo
 válido chega tipado_ — é o que sustenta toda a metade estática do site: a seção
 Sobre, as grades de Projetos e Skills, os blocos de Educação e Idiomas, as playlists
-de Música e os álbuns de Fotografia leem direto de JSON tipado.
-
-Por cima dos imports tipados, o HyperJson traz **hooks headless** para moldar dados
-no React — `useFilter`, `useSearch`, `useSort`, `usePaginate` e um `useComposed` que
-encadeia os quatro. A página de Música os usa para filtrar playlists por gênero e
-buscar por título/artista inteiramente no cliente, sem impor nenhuma UI:
-
-```tsx
-const { paginated } = useComposed(playlists, {
-  filters: [{ key: "genre", value: selectedGenre }],
-  searchQuery,
-  searchFields: ["title", "artist"],
-  sort: { key: "title", dir: "asc" },
-  page,
-  perPage: 12,
-});
-```
+de Música e os álbuns de Fotografia leem direto de JSON tipado. Por cima dos imports
+tipados, o HyperJson traz **hooks headless** (`useFilter`, `useSearch`, `useSort`,
+`usePaginate` e um `useComposed` que encadeia os quatro) para moldar esses dados no
+React — a página de Música os usa para filtrar playlists por gênero e buscar por
+título/artista inteiramente no cliente, sem impor nenhuma UI.
 
 ## Prosa e receitas com o HyperDown
 
 O HyperDown segue o caminho oposto: compila cada arquivo Markdown/MDX em um banco
-SQLite com um índice FTS5 contentless. O frontmatter vira colunas consultáveis; o
-corpo é tokenizado no índice de busca, mas guardado à parte e carregado de forma
-preguiçosa em tempo de renderização.
-
-Os tipos de conteúdo são declarados uma vez em `frontmatter.json` (o formato do
-FrontMatter CMS, então o site é editável pelo painel do FrontMatter no VS Code).
-Esse único arquivo é a fonte da verdade tanto para o schema do SQLite quanto para os
-tipos TypeScript gerados. O tipo `article`, por exemplo, declara `title`,
-`description`, `date`, `tags`, `categories`, `cover`, `readingTime` — e, a partir
-desta série, dois novos campos opcionais, `prev` e `next`, aos quais eu volto já já.
-
-Cada tipo de conteúdo ganha um repositório gerado, exclusivo do servidor, com uma
-API tipada:
+SQLite com um índice FTS5 contentless, consultado apenas no servidor. Para o site, a
+superfície importante é o repositório gerado, tipado e exclusivo de servidor que cada
+tipo de conteúdo ganha:
 
 ```ts
 // articles/+data.ts — roda só no servidor (SSR/SSG)
@@ -234,6 +230,16 @@ const { results, totalCount, totalPages } = await articleRepository.search({
   pagination: { page, pageSize: 9 },
 });
 ```
+
+Os tipos de conteúdo são declarados uma vez em `frontmatter.json` (o formato do
+FrontMatter CMS, então o site é editável pelo painel do FrontMatter no VS Code), que é
+a fonte única da verdade tanto para o schema do SQLite quanto para os tipos TypeScript
+gerados. Dois campos opcionais que adicionei ali — `prev` e `next` — movem a série de
+artigos, e um método `related()` move o conteúdo sugerido; os dois aparecem abaixo. A
+mecânica de como esse corpo nunca chega ao armazenamento, e de como o índice FTS é
+ajustado para ficar pequeno, é o coração do post do motor — veja
+[o ciclo de vida de uma requisição](/pt/articles/getting-started-with-indago#o-ciclo-de-vida-de-uma-requisição)
+e o mergulho no índice por lá. O que importa para o site é o retorno na próxima seção.
 
 ## A experiência de Artigos
 
@@ -281,8 +287,7 @@ tipo de coisa que quebra silenciosamente num upgrade de framework.
 
 ## Navegação em série e conteúdo sugerido
 
-Este é o recurso mais novo, e a razão de este artigo existir como parte de uma
-_série_.
+Dois recursos transformam uma pilha de artigos numa experiência de leitura guiada.
 
 A **navegação em série** transforma artigos relacionados num caminho de leitura
 explícito e ordenado — uma lista duplamente encadeada expressa inteiramente no
@@ -290,14 +295,10 @@ frontmatter. Cada artigo pode declarar um `prev` e um `next` opcionais:
 
 ```yaml
 # building-this-portfolio.mdx
-next: "what-is-indago"
-
-# what-is-indago.mdx
-prev: "building-this-portfolio"
 next: "getting-started-with-indago"
 
 # getting-started-with-indago.mdx
-prev: "what-is-indago"
+prev: "building-this-portfolio"
 ```
 
 O loader de detalhe resolve esses slugs nos seus metadados e renderiza um paginador
@@ -308,10 +309,10 @@ O **conteúdo sugerido** é a contraparte automática. No rodapé de todo artigo
 receita, o site mostra até três itens relacionados — e o ranqueamento é feito **pela
 ordem das tags**. As tags do item atual são tratadas como uma lista de prioridade:
 candidatos que compartilham a _primeira_ tag preenchem as vagas primeiro, depois a
-segunda tag complementa até três, depois a terceira, e assim por diante. Adicionei
-isso como um método `related()` de primeira classe no HyperDown, então ele roda como
-uma única query SQL indexada contra a bridge de tags, ranqueada com um
-`MIN(CASE …)` sobre as posições das tags casadas:
+segunda tag complementa até três, e assim por diante. Adicionei isso como um método
+`related()` de primeira classe no HyperDown, então ele roda como uma única query SQL
+indexada contra a bridge de tags, ranqueada com um `MIN(CASE …)` sobre as posições
+das tags casadas:
 
 ```ts
 const suggestions = await articleRepository.related({
@@ -322,10 +323,8 @@ const suggestions = await articleRepository.related({
 });
 ```
 
-No desktop as três sugestões ficam lado a lado; no mobile elas empilham em três
-linhas. Como o ranqueamento se ancora no artigo que você está lendo, as sugestões
-permanecem genuinamente relevantes, em vez de serem uma faixa genérica de "posts
-recentes".
+Como o ranqueamento se ancora no artigo que você está lendo, as sugestões permanecem
+genuinamente relevantes, em vez de serem uma faixa genérica de "posts recentes".
 
 ## Cozinha, Fotografia, Música e Links
 
@@ -357,8 +356,8 @@ Suspense, e a cadeia de plugins adiciona:
 - **`rehype-katex`** + **`remark-math`** para matemática em LaTeX, para que eu possa
   escrever `argmin`/`Σ`/integrais no post sobre SOM.
 - **`remark-gfm`** para tabelas, listas de tarefas e texto riscado.
-- **mermaid** para diagramas inline (fluxogramas e afins) renderizados a partir de
-  blocos de código cercados.
+- **mermaid** para diagramas inline (os fluxogramas e diagramas de sequência destes
+  posts) renderizados a partir de blocos de código cercados.
 
 O CSS de código e matemática (`github-dark` e `katex.min.css`) é importado no nível
 da página de detalhe, e não globalmente, então a home nunca paga por ele.
@@ -433,23 +432,28 @@ nada porque uma URL foi parseada sem a query string.
 Se você levar uma ideia disto: **você provavelmente não precisa de um backend para
 um site de conteúdo.** Compile seu conteúdo em um artefato indexado em tempo de
 build, consulte-o a partir dos loaders do servidor, e você ganha busca e filtragem
-de verdade sem nenhum peso operacional.
+de verdade sem nenhum peso operacional — e sem o custo recorrente ou o lock-in de
+fornecedor que vêm com um CMS hospedado. O conteúdo fica no git, próprio e
+versionado, e o site faz deploy em qualquer lugar quase estático.
 
-E você não precisa reconstruir nada disso do zero. Os dois motores que tornam isso ergonômico
-são publicados, documentados e com scaffold pronto — um comando te dá exatamente esta
-arquitetura (Vike, React Router v7, TanStack Start ou Next.js), já montada e testada:
+E você não precisa reconstruir nada disso do zero. Os dois motores que tornam isso
+ergonômico são publicados, documentados e com scaffold pronto — um comando te dá
+exatamente esta arquitetura (Vike, React Router v7, TanStack Start ou Next.js), já
+montada e testada:
 
 ```bash
 bun create @indago/app
 ```
 
-Os mergulhos em cada motor — transformar uma pasta de MDX num banco SQLite tipado e
-pesquisável, e uma pasta de JSON em imports tipados e validados — são os dois próximos posts.
+O post companheiro é o mergulho nos próprios motores — o que é o Indago, como o
+índice contentless e o ciclo de vida de requisição do HyperDown funcionam, e como o
+HyperJson valida e tipa os seus dados.
 
 <br />
 
-A seguir: **HyperDown**, o motor que transforma esta pasta de Markdown num banco
-SQLite pesquisável por full-text que vai dentro do build.
+A seguir: **[Começando com o Indago](/pt/articles/getting-started-with-indago)** — os
+motores que transformam esta pasta de Markdown e JSON numa camada de conteúdo
+pesquisável e tipada que vai dentro do build.
 
 <br />
 

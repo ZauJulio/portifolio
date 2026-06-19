@@ -107,7 +107,10 @@ and installed from npm — this portfolio is their reference consumer:
 - **[`@indago/hyper-down`](https://github.com/ZauJulio/indago/tree/main/packages/HyperDown)**
   ([npm](https://www.npmjs.com/package/@indago/hyper-down)) — Markdown/MDX → a contentless
   **SQLite FTS5** index, queried **server-side** in Vike `+data` loaders. Powers the
-  full-text-searchable **articles** and **cooking** sections.
+  full-text-searchable **articles** and **cooking** sections. The FTS index is kept compact
+  with `detail="column"` (drops per-token offsets we never query — search here is prefix +
+  boolean membership, never phrase/`bm25`) plus a build-time `'optimize'` pass that merges
+  the index segments; together ~40% smaller `.db` than the FTS5 default.
 - **[`@indago/hyper-json`](https://github.com/ZauJulio/indago/tree/main/packages/HyperJson)**
   ([npm](https://www.npmjs.com/package/@indago/hyper-json)) — JSON Schema → strict build-time
   validation + generated **TypeScript types** for fully-typed `.json` imports. Powers

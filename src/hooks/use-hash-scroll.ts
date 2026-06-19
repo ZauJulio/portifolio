@@ -11,22 +11,53 @@ function scrollToId(id: string): boolean {
   return true;
 }
 
-/** Scrolls to the current `window.location.hash`, retrying until the target mounts. */
+/**
+ * Scrolls to the current `window.location.hash`, retrying until the target
+ * mounts and re-pinning while late-loading content settles.
+ *
+ * The MDX body is lazy and contains content that resizes *after* it mounts —
+ * most notably mermaid diagrams, which show a tiny "Rendering diagram…"
+ * placeholder and only swap in the (much taller) SVG once `import("mermaid")`
+ * resolves. When such content sits above the anchor, that growth pushes the
+ * heading down and drifts the scroll. So rather than disconnecting after the
+ * first hit, we keep re-pinning (instantly) on DOM mutations until the user
+ * scrolls or a timeout elapses.
+ */
 function scrollToCurrentHash(): () => void {
   const initialId = decodeURIComponent(window.location.hash.slice(1));
-  if (!initialId || scrollToId(initialId)) return () => {};
+  if (!initialId) return () => {};
 
-  // The MDX body is lazy, so the anchor may not exist yet — watch for it.
-  const observer = new MutationObserver(() => {
-    if (scrollToId(initialId)) observer.disconnect();
-  });
+  // Genuine user input cancels re-pinning so we never fight a manual scroll.
+  // Programmatic scrolling fires none of these, so the smooth scroll is safe.
+  let cancelled = false;
+  const stop = () => {
+    cancelled = true;
+  };
 
+  // First scroll is smooth; later re-pins are instant (no animation to fight).
+  scrollToId(initialId);
+
+  const repin = () => {
+    if (cancelled) return;
+    document.getElementById(initialId)?.scrollIntoView({ block: "start" });
+  };
+
+  const observer = new MutationObserver(repin);
   observer.observe(document.body, { childList: true, subtree: true });
-  const timer = setTimeout(() => observer.disconnect(), 3000);
+
+  const timer = setTimeout(() => observer.disconnect(), 5000);
+
+  const opts = { passive: true } as const;
+  window.addEventListener("wheel", stop, opts);
+  window.addEventListener("touchmove", stop, opts);
+  window.addEventListener("keydown", stop);
 
   return () => {
     clearTimeout(timer);
     observer.disconnect();
+    window.removeEventListener("wheel", stop);
+    window.removeEventListener("touchmove", stop);
+    window.removeEventListener("keydown", stop);
   };
 }
 

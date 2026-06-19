@@ -1,7 +1,7 @@
 ---
 draft: false
-title: "Começando com o Indago: um tutorial prático"
-description: "Um tutorial passo a passo do Indago — crie um projeto com um comando, defina seu primeiro tipo de conteúdo pesquisável com o HyperDown, valide dados estruturados com o HyperJson, consulte tudo de um loader no servidor e renderize MDX. Do zero a uma camada de conteúdo tipada e sem backend."
+title: "Começando com o Indago: dois motores de conteúdo, zero backend"
+description: 'O guia completo do Indago — o que é e como seus dois motores independentes funcionam. O HyperDown compila Markdown/MDX num índice FTS5 contentless do SQLite (e nós nos aprofundamos: índice invertido, content="", detail=full/column/none, a bridge de tags e o optimize em tempo de build), e o HyperJson transforma JSON Schema em conteúdo validado e totalmente tipado. Com diagramas, do scaffold a uma camada de conteúdo pesquisável, tipada e sem backend.'
 date: "2026-06-16"
 tags:
   [
@@ -10,88 +10,292 @@ tags:
     "HyperDown",
     "HyperJson",
     "Getting Started",
-    "Vite",
     "SQLite",
+    "Full-Text Search",
+    "JSON Schema",
     "MDX",
     "TypeScript",
   ]
 categories: ["Engineering"]
 author: "Zau Julio"
-readingTime: "11 min de leitura"
+readingTime: "15 min de leitura"
 canonical: ""
 cover: "https://raw.githubusercontent.com/ZauJulio/indago/refs/heads/main/packages/HyperDown/assets/cover.webp"
-prev: "what-is-indago"
-next: "getting-started-with-hyperjson"
+prev: "building-this-portfolio"
 ---
 
 import { ScaffoldBox } from "@/components/mdx/ScaffoldBox";
 
 # Começando com o Indago
 
-Este é um tutorial prático. No fim, você terá um app rodando com um **tipo de conteúdo Markdown
-pesquisável** e um **tipo de conteúdo JSON tipado** — sem backend, sem serviço de banco de dados.
-Use a barra lateral à esquerda para pular entre as seções.
+Este é o guia completo do **Indago** — tanto o _porquê_ quanto o _como_. No fim, você vai entender o
+que é o toolkit, como cada um dos seus dois motores funciona por baixo dos panos, e como ir de um
+único comando a uma camada de conteúdo tipada, pesquisável e sem backend. Use a barra lateral à
+esquerda para pular entre as seções; o mergulho no modelo de armazenamento do HyperDown é o coração
+de tudo.
 
-## Pré-requisitos
+## O que é o Indago? #[start/#a855f7]
 
-Você vai precisar do **Bun** (recomendado) ou Node ≥ 22, e de um terminal. Todo o resto é gerado
-para você. Sem banco de dados, sem chaves de API, sem contas.
+A maioria dos setups de "headless CMS" pede sempre as mesmas três coisas: rodar um serviço, pagar por
+ele e ir até a rede a cada requisição. O Indago faz a aposta oposta — **fazer tudo em tempo de
+build**. Seu conteúdo é só arquivos no seu repositório. Um plugin do Vite os lê, valida e emite
+artefatos que os seus loaders no servidor consultam localmente. Não há **banco de dados no cliente**
+nem **API em runtime** para manter acordada.
 
-## Crie um projeto
+O retorno é uma camada de conteúdo rápida, tipada de ponta a ponta, internacionalizada e
+inteiramente sua — versionada no git, ao lado do seu código. O Indago entrega isso por meio de **dois
+motores independentes** que dividem o trabalho pelo _formato_ do seu conteúdo:
 
-O Indago traz um scaffolder que conecta os dois motores em um app pronto para rodar. Escolha o seu
-framework e copie o comando:
+- O **[HyperDown](https://www.npmjs.com/package/@indago/hyper-down)** cuida da **prosa** — artigos,
+  docs, receitas: qualquer coisa com um corpo que você queira ler e pesquisar.
+- O **[HyperJson](https://www.npmjs.com/package/@indago/hyper-json)** cuida dos **dados
+  estruturados** — projetos, skills, playlists: qualquer coisa que seja uma lista de registros com
+  formato fixo.
+
+Eles não compartilham código nem dependem um do outro. A única coisa em comum é a pasta `content/` e
+a convenção de subpastas por locale. Use um, o outro, ou os dois.
+
+```mermaid
+flowchart TD
+  Files["Arquivos no seu repo · versionados como código"]
+  Files --> MD["Markdown / MDX<br/>(prosa)"]
+  Files --> JSON["JSON + schema.json<br/>(dados estruturados)"]
+  MD --> HD["HyperDown<br/>SQLite + FTS5 contentless · apenas SSR"]
+  JSON --> HJ["HyperJson<br/>validação Ajv + imports tipados"]
+  HD --> Build["Build do Vite"]
+  HJ --> Build
+  Build --> Site["Seu site<br/>pesquisável · tipado · bilíngue<br/>sem backend, sem conta de CMS"]
+```
+
+O diagrama se lê de cima para baixo: arquivos entram, um motor para cada, um build, um site sai. Tudo
+abaixo é só uma expansão dessa única linha — primeiro o comando que conecta tudo, depois cada motor
+em profundidade.
+
+## Crie um projeto com um comando
+
+Você não monta o Indago na mão. O scaffolder conecta os dois motores em um app pronto para rodar, com
+os plugins do Vite registrados, um `hyperdown.config.json` no lugar e conteúdo de exemplo já
+presente. Escolha o seu framework e copie o comando:
 
 <ScaffoldBox projectName="my-app" />
 
 Ele cria o projeto, instala as dependências e te deixa a um comando do servidor de dev. Todos os
-templates trazem as mesmas rotas e pastas de conteúdo, então o resto deste tutorial vale para
-qualquer framework escolhido.
+templates trazem as mesmas rotas e pastas de conteúdo, então o resto deste guia vale para qualquer
+framework escolhido.
 
-## O que você recebeu
+```mermaid
+flowchart LR
+  CLI["bun create @indago/app"] --> App["App gerado<br/>(plugins do Vite conectados)"]
+  App --> C1["content/ · MDX<br/>HyperDown"]
+  App --> C2["content/ · JSON<br/>HyperJson"]
+  C1 --> Loader["loader no servidor<br/>postRepository.search()"]
+  Loader --> Render["MdxRender → página"]
+  C2 --> Typed["import tipado + hooks"]
+```
 
-### Estrutura do projeto
+Com o projeto no lugar, vamos abrir o motor que faz o trabalho pesado.
 
-O app gerado já vem com os plugins do Vite conectados e um `hyperdown.config.json` ao lado da sua
-config. As duas coisas que você vai mexer são a **pasta de conteúdo** e os seus **loaders de rota**.
+## @indago/HyperDown — prosa em SQLite pesquisável #[deep dive/#0ea5e9]
 
-### As pastas de conteúdo
+O HyperDown é o maior dos dois motores, e o mais interessante, porque resolve um problema que a
+maioria dos sites estáticos silenciosamente abandona: **busca full-text de verdade sobre prosa, sem
+backend**. Esta é a parte que vale entender a fundo, então vamos de _o que ele faz_ a _como ele
+armazena as coisas_ e _o que acontece numa requisição_ antes de escrever uma linha de código do app.
 
-O Markdown/MDX fica na pasta de conteúdo do HyperDown (uma pasta por tipo de conteúdo, com
-subpastas de locale). O JSON estruturado fica ao lado do seu `schema.json`. Ambos são apenas
-arquivos no seu repositório — versione como código.
+### O que ele faz
 
-## Seu primeiro tipo de conteúdo #[start/#a855f7]
+Aponte o HyperDown para uma pasta de Markdown/MDX e, em tempo de build, ele escreve um banco
+**SQLite** compacto. Esse banco guarda **apenas os metadados do front-matter** — título, tags, datas,
+slug, locale. O corpo de cada arquivo nunca é armazenado; em vez disso, ele é tokenizado num índice
+full-text e, para renderização, carregado sob demanda a partir de um mapa de módulos do Vite à parte.
+Em tempo de requisição, um `ContentRepository` tipado consulta o banco no servidor — busca full-text,
+filtros por facetas, ordenação, paginação, busca por slug e sugestões "relacionadas" ranqueadas por
+tag — e o corpo MDX correspondente é resolvido e renderizado como um componente React.
 
-Vamos adicionar um tipo `post` ao HyperDown. (A pílula ao lado deste título é um **badge de
-título** do HyperDown — `#[label/#color]` — renderizado na barra lateral.)
+### Como funciona: o índice invertido contentless
 
-### Defina o tipo
+Aqui está o modelo de armazenamento, e o diagrama ao qual toda outra afirmação desta seção se refere:
 
-Rode o CLI para registrar o tipo e criar o primeiro item:
+```mermaid
+flowchart TD
+  MDX["article.mdx<br/>frontmatter + corpo"]
+  MDX -->|"parseia o frontmatter"| COL["tabela article<br/>id · slug · lang · title · date · tags(JSON)"]
+  MDX -->|"achata tags/categories"| BR["bridge article_tags<br/>(slug ↔ tag, indexada)"]
+  MDX -->|"tokeniza corpo + colunas"| FTS["article_fts · FTS5 contentless<br/>content=&quot;&quot; · detail=column"]
+  MDX -->|"compila o corpo para React"| GLOB["mapa import.meta.glob<br/>(módulo MDX, carregado na renderização)"]
+  FTS -.->|"termo → slugs (postings)"| IDX["índice invertido"]
+```
+
+Leia-o como quatro destinos para um único arquivo. O front-matter vira **colunas** numa tabela SQLite
+comum. `tags` e `categories` são, adicionalmente, achatadas numa **bridge indexada** para que filtros
+de tag e contagens de facetas sejam sargáveis (um join indexado, nunca um scan com `LIKE`). O corpo e
+as colunas são **tokenizados numa tabela virtual FTS5**. E o corpo, à parte, é compilado num
+componente React acessível por um mapa estático `import.meta.glob` — nunca pelo SQLite. Vamos pegar
+as três ideias de armazenamento, uma a uma.
+
+**O índice invertido.** Uma tabela comum responde "dada esta linha, quais são suas palavras?" Um
+índice _invertido_ responde à pergunta que a busca de fato faz: "dada esta palavra, quais linhas a
+contêm?" É a inversão clássica — em vez de `documento → termos`, ele guarda `termo → lista de
+documentos` (a lista de cada termo é sua **postings list**). É isso que transforma "encontre todo
+artigo que mencione `hyperdown`" numa busca de dicionário mais uma leitura de postings — `O(casos)` —
+em vez de um scan completo sobre todos os corpos. O **FTS5** do SQLite te dá esse índice invertido de
+graça, e o `ContentRepository` o usa como um filtro puro de pertinência:
+`id IN (SELECT rowid FROM article_fts WHERE article_fts MATCH '"hyper"*')`.
+
+**Contentless (`content=""`).** Por padrão, uma tabela FTS5 guarda uma cópia do texto original para
+poder devolvê-lo. O HyperDown declara a tabela como **contentless** — `fts5(..., content="")` — o que
+mantém o índice invertido mas **joga fora o texto original**. Você ainda pode buscar cada palavra; só
+não consegue reconstruir o corpo _a partir do índice_. E você não precisa: o HyperDown já carrega o
+corpo do mapa de módulos MDX em tempo de renderização. O resultado é um `.db` que carrega o poder de
+busca de todo o corpus sem carregar o corpus, então ele fica pequeno o bastante para ir dentro do
+build.
+
+**O modo `detail` — `full` vs `column` vs `none`.** Dentro de um índice contentless ainda há uma
+escolha sobre _quanta informação posicional_ cada ocorrência de token registra, e é a maior alavanca
+sobre o tamanho do índice:
+
+| `detail`         | guarda por token       | ainda suporta                           | tamanho do índice¹ |
+| ---------------- | ---------------------- | --------------------------------------- | ------------------ |
+| `full`           | doc + coluna + posição | tudo (frase, `NEAR`, `bm25` posicional) | **100%**           |
+| `column` (nosso) | doc + coluna           | termo, prefixo, booleano, `column:term` | ~58%               |
+| `none`           | só o doc               | termo, prefixo, booleano apenas         | ~46%               |
+
+> ¹ Razões medidas no corpus de artigos deste projeto, pós-`optimize`. Os números absolutos variam
+> com o conteúdo; a ordem se mantém.
+
+O padrão, `detail=full`, registra _onde dentro da coluna_ cada token fica — as posições que viabilizam
+busca por frase (`"getting started"` como sequência adjacente), `NEAR` e o ranking posicional do
+`bm25`. O HyperDown não faz nada disso: ele só emite queries de prefixo + booleanas e nunca chama
+`bm25()`. Então ele cai para **`detail="column"`**, que ainda registra _em qual coluna_ um token vive
+— suficiente para suportar um futuro "buscar só nos títulos" (`title:term`) — mas descarta as
+posições. Paramos de propósito em `column` em vez do ainda menor `none`: `none` proibiria queries
+`column:term` para sempre sem uma migração de schema e um rebuild completo, então `column` é o
+meio-termo frugal-mas-sem-se-encurralar. Trocar é uma mudança de uma linha no motor.
+
+**`optimize` em tempo de build e segmentos.** Inserir as linhas uma a uma deixa o índice FTS
+espalhado em vários **segmentos** no disco, cada um repetindo o próprio dicionário de termos — as
+postings do mesmo termo acabam fragmentadas entre todos eles. Depois das inserções, o writer roda o
+`'optimize'` do FTS5, que mescla todos os segmentos em um só e colapsa a sobrecarga duplicada. Isso é
+**distinto do `VACUUM`**, que só recupera páginas livres do _arquivo_ e nunca toca nos segmentos do
+FTS — então o writer roda os dois, em sequência. Como o `.db` é gerado uma vez no build e só leitura
+depois, esse passo `O(tamanho do índice)` é pago uma única vez e todo visitante lê o resultado
+compactado de graça. Juntos, `detail="column"` mais `optimize` cortam o índice em cerca de **40%**
+frente ao padrão sem ajuste — uma mudança minúscula no motor, custo zero em runtime.
+
+**O caminho de escrita, de ponta a ponta.** O mapa acima é um arquivo se ramificando em quatro
+destinos; aqui está o mesmo modelo _em movimento_ — exatamente o que o writer de build faz, em ordem,
+para transformar uma pasta de MDX no `.db` contentless e compactado que é embarcado. Veja o índice
+invertido sendo construído uma posting por vez, o que `content=""` e `detail="column"` descartam na
+inserção, e onde o `optimize` e o `VACUUM` entram no final:
+
+```mermaid
+sequenceDiagram
+  actor BUILD as bun run build
+  participant W as writer do HyperDown
+  participant P as parser MDX
+  participant COL as tabela article
+  participant BR as bridge article_tags
+  participant FTS as article_fts · contentless
+  participant SEG as segmentos FTS5
+  participant GLOB as mapa import.meta.glob
+
+  BUILD->>W: gerar article.db
+  activate W
+
+  loop cada article.mdx em content/article/**
+    W->>P: lê o arquivo, separa frontmatter e corpo
+    activate P
+    P-->>W: frontmatter + corpo + lang
+    deactivate P
+
+    Note over W,COL: 1 — o frontmatter vira colunas
+    W->>COL: INSERT (id, slug, lang, title, date, tags JSON)
+    COL-->>W: rowid
+
+    Note over W,BR: 2 — achata tags + categories numa bridge sargável
+    loop cada tag em tags + categories
+      W->>BR: INSERT (slug, tag) · indexada, nunca um LIKE scan
+    end
+
+    Note over W,SEG: 3 — tokeniza corpo + colunas no índice contentless
+    W->>FTS: INSERT (rowid, title, body)
+    activate FTS
+    loop cada token · unicode61, em minúsculas
+      FTS->>SEG: anexa posting · termo → (rowid, column)
+    end
+    Note right of SEG: detail=column → doc + column, offsets descartados<br/>content='' → texto original jogado fora
+    FTS-->>W: indexado (texto do corpo não é retido)
+    deactivate FTS
+
+    Note over W,GLOB: 4 — o corpo compila para React, nunca no SQLite
+    W-->>GLOB: corpo acessível como módulo MDX lazy
+  end
+
+  Note over W,SEG: compactação no build — paga uma vez, só leitura depois
+  W->>FTS: roda 'optimize' · mescla todos os segmentos num só
+  FTS->>SEG: segmento único, dicionários de termos duplicados colapsados
+  W->>FTS: VACUUM · recupera páginas livres (distinto do optimize)
+
+  W-->>BUILD: article.db · ~40% menor (detail=column + optimize)
+  deactivate W
+  Note over BUILD,GLOB: embarcado dentro do build — poder de busca sem o corpus
+```
+
+As quatro notas numeradas batem uma a uma com as quatro setas do mapa de armazenamento: as colunas, a
+bridge de tags, a inserção no FTS contentless e o módulo React. Os dois loops internos são a parte que
+um diagrama estático não mostra — a bridge ganha uma linha indexada _por tag_, e o índice cresce uma
+posting _por token_, que é exatamente onde `content=""` descarta o texto-fonte e `detail="column"`
+descarta os offsets. Tudo depois do loop de arquivos é a compactação única que rende os ~40%.
+
+### O ciclo de vida de uma requisição
+
+O armazenamento é metade da história; a outra metade é o que acontece quando um visitante acessa uma
+rota. Como o SQLite é consultado **apenas no servidor**, todo toque no banco vive num loader de rota.
+Aqui está o caminho completo, tanto para uma busca na listagem quanto para uma página de detalhe:
+
+```mermaid
+sequenceDiagram
+  participant B as Navegador
+  participant L as Loader no servidor (+data)
+  participant R as ContentRepository
+  participant DB as SQLite .db (FTS5)
+  participant M as Mapa de módulos MDX
+
+  Note over B,M: Listagem — busca full-text ao vivo
+  B->>L: GET /articles?q=hyper
+  L->>R: search({ q, locale, page })
+  R->>DB: id IN (SELECT rowid FROM fts WHERE fts MATCH '"hyper"*')
+  DB-->>R: linhas casadas (só metadados)
+  R-->>L: { results, totalCount, totalPages }
+  L-->>B: HTML SSR (listagem filtrada)
+
+  Note over B,M: Detalhe — um artigo + sugestões
+  B->>L: GET /articles/hello-world
+  L->>R: getMetaBySlug(slug, locale) + related()
+  R->>DB: metadados + sugestões ranqueadas por tag
+  DB-->>R: meta + até N slugs relacionados
+  R-->>L: metadados serializáveis
+  L->>M: getContent(slug, lang)
+  M-->>L: componente MDX lazy
+  L-->>B: HTML SSR (artigo + MdxRender)
+```
+
+Duas coisas para notar. Primeiro, os metadados e o corpo viajam por **caminhos separados** — o loader
+recebe metadados serializáveis em JSON do SQLite, enquanto o corpo é resolvido do mapa de módulos no
+componente. Essa separação é exatamente o que o índice contentless te compra. Segundo, o match do FTS
+roda entre **todos os locales** e mapeia de volta para slugs, então "slow" e "lenta" trazem o mesmo
+artigo; o filtro de `locale` então devolve uma linha por slug no idioma pedido.
+
+### Como usar
+
+Com o modelo claro, a API é pequena. Registre um tipo de conteúdo e crie um item com o CLI:
 
 ```bash
 bunx @indago/hyper-down create-content --name post --folder Posts --fields "title:string:req,tags:tags:opt"
-bunx @indago/hyper-down create-item --type post --slug hello-world --lang en
+bunx @indago/hyper-down create-item --type post --slug hello-world --lang pt-BR
 ```
 
-### Adicione um item
-
-Abra o MDX gerado e escreva um texto. O front-matter é tipado a partir das suas definições de
-campo; o corpo nunca é armazenado no SQLite — ele carrega sob demanda na renderização.
-
-```mdx
----
-title: "Olá, mundo"
-tags: ["intro"]
----
-
-Bem-vindo ao **Indago**. Este corpo é pesquisável por full-text, mas nunca duplicado no armazenamento.
-```
-
-## Consultando em um loader
-
-O codegen do build escreve um `postRepository` tipado e exclusivo de servidor na árvore
+O codegen do build escreve um `postRepository` tipado e **exclusivo de servidor** na árvore
 `.hyper-down/` do seu app. Importe-o **apenas de um loader** e rode uma busca:
 
 ```ts
@@ -99,7 +303,7 @@ import { postRepository } from "@hyper-down/content/post/builder";
 
 export async function data() {
   const { results } = await postRepository.search({
-    searchQuery: "olá",
+    searchQuery: "olá", // FTS5 entre todos os locales
     locale: "pt-BR",
     pagination: { page: 1, pageSize: 10 },
   });
@@ -108,9 +312,7 @@ export async function data() {
 }
 ```
 
-## Renderizando o corpo
-
-Na view, resolva o módulo MDX e renderize com o `MdxRender`:
+Depois, na view, resolva o módulo MDX e renderize com o `MdxRender`:
 
 ```tsx
 import { MdxRender } from "@indago/hyper-down";
@@ -122,31 +324,126 @@ export function Post({ slug, locale }: { slug: string; locale: string }) {
 }
 ```
 
-## Adicionando JSON tipado com o HyperJson
-
-Para dados estruturados — uma lista de projetos, suas skills, uma playlist — use o HyperJson.
-Descreva o formato uma vez como `schema.json`, coloque arquivos JSON ao lado, e cada import é
-validado em tempo de build e **totalmente tipado** automaticamente. Dado inválido quebra o build.
-
-## **Indo além**
-
-Este título está em **negrito**, e a barra lateral sempre o mantém expandido — útil para as partes
-que você mais quer que os leitores alcancem.
+Esse é o loop inteiro: defina um tipo, consulte-o no servidor, renderize o corpo no componente.
 
 ### Indexação composta & sidebars
 
-Defina `indexByCollection: { "post": "composed" }` no `hyperdown.config.json` para indexar cada
-seção de título. As buscas então linkam direto para `#âncoras`, e o `meta.sections` de cada item
-te dá uma árvore de seções para alimentar o `<Sidebar/>` padrão — exatamente o que renderiza esta
-página.
+Por padrão, uma coleção é indexada **por página** — o corpo inteiro vira um único documento
+pesquisável. Habilite a indexação **composta** numa coleção e o HyperDown _também_ indexa cada seção
+de título:
 
-### Deploy
+```jsonc
+// hyperdown.config.json
+{
+  "database": {
+    "indexByCollection": { "post": "composed" },
+  },
+}
+```
 
-Não há nada para hospedar além de um app estático/SSR: os arquivos `.db` de conteúdo são artefatos
-de build copiados para o seu `dist/`. Faça o deploy como qualquer app Vite — o conteúdo viaja junto.
+Uma coleção composta ganha uma tabela `<type>_sections` com seu próprio índice FTS por seção, e uma
+coluna `sections` que guarda a **árvore de títulos**. As buscas então linkam direto para `#âncoras`, e
+o `meta.sections` de cada item alimenta o `<Sidebar/>` que já vem pronto — exatamente o que renderiza
+a navegação à esquerda desta página. Os títulos podem até declarar uma pílula de sidebar inline com a
+sintaxe de badge `#[label/#color]` (as pílulas ao lado dos títulos acima são precisamente isso).
+
+## @indago/HyperJson — JSON Schema em conteúdo tipado
+
+A prosa é só metade da maioria dos sites. A outra metade — sua lista de projetos, suas skills, uma
+playlist — são **dados estruturados**, e forçá-los por um motor de Markdown seria a ferramenta
+errada. É por isso que o HyperJson existe como um pacote separado e mais enxuto.
+
+### O que ele faz
+
+O HyperJson é **schema-first**. Você descreve um tipo de conteúdo uma vez como um `schema.json`; todo
+arquivo JSON naquela pasta precisa satisfazê-lo. Em tempo de build, um plugin do Vite valida os
+arquivos com o Ajv e um passo de codegen transforma o schema em **tipos TypeScript ambientes**. Não
+há front-matter, não há SQLite e nada em tempo de requisição — é validação e geração de código puras,
+em tempo de build.
+
+### Como funciona
+
+```mermaid
+flowchart LR
+  S["schema.json"] --> V["plugin do Vite<br/>validação Ajv"]
+  J["arquivos *.json"] --> V
+  S --> G["codegen<br/>tipos TS ambientes"]
+  V -->|"válido"| OK["build passa"]
+  V -->|"inválido"| Fail["build quebra ✗"]
+  G --> Use["import tipado +<br/>filter · sort · search · paginate"]
+```
+
+O diagrama captura o contrato inteiro, e ele se apoia em duas garantias. **Conteúdo inválido quebra o
+build, não os seus usuários** — uma chave desconhecida (com `strict`) ou um tipo errado encerra o
+build com código não-zero (com `failOnError`), então dados quebrados nunca chegam à produção. E
+**conteúdo válido chega totalmente tipado** em cada import — sem interfaces escritas à mão para
+dessincronizar dos dados.
+
+### Como usar
+
+Descreva um item como schema:
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "level"],
+  "properties": {
+    "name": { "type": "string" },
+    "level": { "type": "integer", "minimum": 0, "maximum": 100 }
+  }
+}
+```
+
+Coloque arquivos de dados ao lado dele (pastas de locale funcionam igual ao HyperDown); cada um é
+validado contra o schema acima. Um erro de digitação como `"level": "95"` ou uma propriedade
+desconhecida é pego em tempo de build:
+
+```json
+{ "name": "TypeScript", "level": 95 }
+```
+
+Conecte o plugin ao Vite para que o build valide e gere os tipos:
+
+```ts
+import { hyperjsonValidationPlugin } from "@indago/hyper-json/plugins";
+
+export default defineConfig({
+  plugins: [hyperjsonValidationPlugin({ strict: true, failOnError: true })],
+});
+```
+
+Depois, molde os dados já tipados com os hooks headless e em memória — **filter, sort, search,
+paginate, compose** — sem banco de dados e sem async:
+
+```ts
+import { paginate, search, sortBy } from "@indago/hyper-json/hooks";
+
+const matches = search(skills, "type", { fields: ["name"] });
+const ranked = sortBy(matches, "level", "desc");
+const page = paginate(ranked, { page: 1, pageSize: 10 });
+```
+
+## **HyperDown ou HyperJson?**
+
+Este título está em **negrito**, então a barra lateral o mantém expandido — é a decisão que a maioria
+dos leitores vem buscar. A regra de bolso segue o formato do seu conteúdo:
+
+- **Use o HyperDown** quando seu conteúdo for **prosa** — artigos, docs, receitas — que precise de
+  renderização Markdown/MDX e busca full-text com SQLite.
+- **Use o HyperJson** quando seu conteúdo for **dados estruturados** com formato fixo — listas,
+  registros, coleções tipo config — onde você quer validação e tipos, não um corpo para pesquisar.
+
+Os dois motores são independentes, então isso nunca é exclusivo: a maioria dos sites reais (este
+portfólio incluído) roda os dois lado a lado, prosa por um e dados estruturados pelo outro.
 
 ## Para onde ir agora
 
-Agora você tem uma camada de conteúdo tipada, pesquisável e sem backend. Leia
-**[O que é o Indago?](/pt/articles/what-is-indago)** para o panorama, ou mergulhe nos READMEs dos
-pacotes no npm para a API completa.
+Agora você entende o Indago de ponta a ponta — a aposta no tempo de build, o índice contentless e o
+ciclo de vida de requisição do HyperDown, e a validação schema-first do HyperJson. Para ver tudo
+isso conectado num site real e em produção, leia
+**[Construindo Este Portfólio](/pt/articles/building-this-portfolio)**, que usa os dois motores para
+rodar um site totalmente pesquisável e bilíngue, sem backend. Para a API exaustiva, os READMEs dos
+pacotes no npm (`@indago/hyper-down`, `@indago/hyper-json`) são a referência — e o jeito mais rápido
+de sentir na prática ainda é `bun create @indago/app`.

@@ -6,23 +6,13 @@
 import { usePageContext } from "vike-react/usePageContext";
 
 import { I18N, stripLocale, type Locale } from "@/i18n";
+import { absoluteUrl, SITE_URL } from "@/lib/seo";
 
-// Origin without a trailing slash. Driven by `VITE_SITE_URL`; falls back to the
-// production origin so prerendered canonical/hreflang URLs stay absolute even
-// when the env var is unset at build time (relative hreflang hurts SEO).
-const SITE_URL = (import.meta.env.VITE_SITE_URL || "https://zaujulio.com.br").replace(/\/$/, "");
 const SITE_TITLE = "Zau Julio | Software Engineer";
 const SITE_DESCRIPTION =
   "Software Engineer specializing in full-stack development, machine learning, and creative side projects. Explore my work, articles, and hobbies.";
 
 const LOCALES = Object.keys(I18N.locales) as Locale[];
-
-/** Absolute URL for `path` (locale-free logical path) in `locale`. */
-function absoluteUrl(locale: Locale, path: string): string {
-  const prefix = I18N.locales[locale].routePrefix;
-  const localized = path === "/" ? prefix || "/" : `${prefix}${path}`;
-  return `${SITE_URL}${localized}`;
-}
 
 export default function HeadDefault() {
   const pageContext = usePageContext();
@@ -50,7 +40,7 @@ export default function HeadDefault() {
       <meta property="og:description" content={SITE_DESCRIPTION} />
       <meta property="og:site_name" content="Zau Julio" />
       <meta property="og:locale" content={locale === "pt" ? "pt_BR" : "en_US"} />
-      <meta property="og:image" content="https://zaujulio.com.br/avatar.png" />
+      <meta property="og:image" content="https://zaujulio.com/avatar.png" />
       <meta property="og:image:width" content="400" />
       <meta property="og:image:height" content="400" />
       <meta name="twitter:card" content="summary_large_image" />
