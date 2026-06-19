@@ -30,7 +30,7 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <div className="fixed top-[1.15rem] right-4 z-50 flex items-center gap-1 bg-black/10 backdrop-blur-md border border-gray-800 rounded-lg px-1 py-1">
+    <div className="fixed top-[1.30rem] right-4 z-50 flex items-center gap-1 bg-black/10 backdrop-blur-md border border-gray-800 rounded-lg px-1 py-1">
       {languages.map((lang) => (
         <button
           key={lang.code}
