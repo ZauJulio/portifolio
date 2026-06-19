@@ -19,7 +19,7 @@ tags:
 author: "Zau Julio"
 readingTime: "50 min read"
 canonical: ""
-cover: "https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/cover.webp"
+cover: "https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/cover.webp"
 ---
 
 # ZSOM: A Production-Ready Self-Organizing Map in Pure NumPy
@@ -148,7 +148,7 @@ Every node `(i, j)` in the `w × h` grid holds a weight vector `W_{i,j} ∈ ℝ�
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/som_grid.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/som_grid.png"
     style={{ height: "30%" }}
     alt="SOM grid schematic"
   />
@@ -180,7 +180,7 @@ This is a Gaussian centered on the BMU. Nodes close to the BMU on the grid move 
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/neighborhood_gaussian.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/neighborhood_gaussian.png"
     alt="Neighborhood kernel profiles"
   />
 </p>
@@ -201,7 +201,7 @@ The term `(x − W_{i,j})` is the **error vector** — it points from the curren
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/bmu_update_vectors.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/bmu_update_vectors.png"
     alt="BMU and neighbor update vectors"
   />
 </p>
@@ -229,7 +229,7 @@ in the decay curves:
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/decay_schedule.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/decay_schedule.png"
     alt="Linear vs exponential decay"
   />
 </p>
@@ -287,7 +287,7 @@ The straight-line distance. Treats all dimensions equally and all directions sym
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/metrics/euclidean_metric.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/metrics/euclidean_metric.png"
     alt="Euclidean metric geometry"
   />
 </p>
@@ -306,7 +306,7 @@ Sum of absolute differences along each axis independently. Voronoi cells are dia
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/metrics/manhattan_metric.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/metrics/manhattan_metric.png"
     alt="Manhattan metric geometry"
   />
 </p>
@@ -325,7 +325,7 @@ Only the single largest per-dimension difference counts. Voronoi cells are hyper
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/metrics/chebyshev_metric.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/metrics/chebyshev_metric.png"
     alt="Chebyshev metric geometry"
   />
 </p>
@@ -344,7 +344,7 @@ Angular distance. Two vectors pointing in the same direction have distance 0 reg
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/metrics/cosine_metric.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/metrics/cosine_metric.png"
     alt="Cosine metric geometry"
   />
 </p>
@@ -357,12 +357,12 @@ dist(w, x) = \left( \sum_i |w_i - x_i|^p \right)^{1/p}
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/lp_unit_balls.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/lp_unit_balls.png"
     width="25%"
     alt="Lp unit balls"
   />
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/metrics/minkowski_metric.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/metrics/minkowski_metric.png"
     width="28.5%"
     alt="Minkowski metric geometry (p=3)"
   />
@@ -409,7 +409,7 @@ The resulting weight surface is a flat plane in `d`-dimensional space, aligned w
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/pca_init_vs_random.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/pca_init_vs_random.png"
     alt="Random vs PCA initialization"
   />
 </p>
@@ -475,7 +475,7 @@ The intuition: when the MQE is dropping fast, you're in a productive region of w
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/mqe_curve.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/mqe_curve.png"
     alt="MQE convergence curve"
   />
 </p>
@@ -496,7 +496,7 @@ Each node has 6 equidistant neighbors. The tiling is more isotropic:
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/hex_topology.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/hex_topology.png"
     alt="Hex topology"
   />
 </p>
@@ -532,7 +532,7 @@ U(i,j) = \text{mean}\bigl\{\, \|W_{i,j} - W_{\text{n}}\| \;\big|\; n \in \mathca
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/umatrix_example.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/umatrix_example.png"
     alt="U-Matrix example grid"
   />
 </p>
@@ -546,7 +546,7 @@ Rendered as a heatmap (higher = darker ridge):
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/umatrix_heatmap.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/umatrix_heatmap.png"
     alt="U-Matrix heatmap ridge"
   />
 </p>
@@ -559,7 +559,7 @@ For 2D datasets, the fourth panel renders the U-Matrix as a height map:
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/umatrix_surface.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/umatrix_surface.png"
     alt="U-Matrix surface"
   />
 </p>
@@ -583,7 +583,7 @@ Dead nodes are a diagnostic signal:
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/activation_heatmap.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/activation_heatmap.png"
     alt="Activation heatmap"
   />
 </p>
@@ -605,18 +605,12 @@ ani = plot_animated(snapshots, pts, labels, epochs=100, snapshot_every=5)
 
 The four panels read the same trained map through four complementary lenses:
 
-```mermaid
-flowchart TB
-  SOM(["Trained SOM"]) --> P1["Panel 1 · Input data + BMU projections<br/>error vectors, shrinking over training"]
-  SOM --> P2["Panel 2 · Weight grid + U-Matrix<br/>geometry and cluster structure together"]
-  SOM --> P3["Panel 3 · Activation heatmap<br/>BMU frequency → dead nodes & coverage"]
-  SOM --> P4["Panel 4 · 3D view / U-Matrix surface<br/>mesh draped on cloud, or topology as relief"]
-
-  classDef terminal fill:#4338ca,stroke:#a5b4fc,color:#ffffff;
-  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
-  class SOM terminal;
-  class P1,P2,P3,P4 step;
-```
+<p align="center">
+  <img
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/four_panel.png"
+    alt="The 4-panel figure: input data with BMU projections, the weight grid colored by U-Matrix, the activation heatmap, and the U-Matrix surface"
+  />
+</p>
 
 **Panel 1 — Input data + BMU projections:** Each point is connected to its BMU with a grey line. These lines are the error vectors made visible. As training progresses, they shorten. By the final epoch, each line is so short it barely registers — the weights have converged onto the data manifold.
 

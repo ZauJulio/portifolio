@@ -19,7 +19,7 @@ tags:
 author: "Zau Julio"
 readingTime: "50 min de leitura"
 canonical: ""
-cover: "https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/cover.webp"
+cover: "https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/cover.webp"
 ---
 
 # ZSOM: Um Mapa Auto-Organizável pronto para produção em NumPy puro
@@ -147,7 +147,7 @@ Cada nó `(i, j)` da grade `w × h` mantém um vetor de pesos `W_{i,j} ∈ ℝ�
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/som_grid.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/som_grid.png"
     alt="Esquema da grade SOM"
   />
 </p>
@@ -178,7 +178,7 @@ Isso é uma Gaussiana centrada no BMU. Nós próximos ao BMU na grade se movem b
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/neighborhood_gaussian.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/neighborhood_gaussian.png"
     alt="Perfis do kernel de vizinhança"
   />
 </p>
@@ -199,7 +199,7 @@ O termo `(x − W_{i,j})` é o **vetor de erro** — ele aponta do peso atual em
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/bmu_update_vectors.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/bmu_update_vectors.png"
     alt="Vetores de atualização do BMU e vizinhos"
   />
 </p>
@@ -226,7 +226,7 @@ Os dois cronogramas produzem dinâmicas de treinamento significativamente difere
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/decay_schedule.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/decay_schedule.png"
     alt="Decaimento linear vs exponencial"
   />
 </p>
@@ -278,7 +278,7 @@ A distância em linha reta. Trata todas as dimensões de forma igual e todas as 
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/metrics/euclidean_metric.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/metrics/euclidean_metric.png"
     alt="Geometria da métrica Euclidiana"
   />
 </p>
@@ -297,7 +297,7 @@ Soma das diferenças absolutas ao longo de cada eixo, de forma independente. As 
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/metrics/manhattan_metric.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/metrics/manhattan_metric.png"
     alt="Geometria da métrica Manhattan"
   />
 </p>
@@ -316,7 +316,7 @@ Apenas a maior diferença por dimensão conta. As células de Voronoi são hiper
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/metrics/chebyshev_metric.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/metrics/chebyshev_metric.png"
     alt="Geometria da métrica Chebyshev"
   />
 </p>
@@ -335,7 +335,7 @@ Distância angular. Dois vetores apontando na mesma direção têm distância 0 
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/metrics/cosine_metric.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/metrics/cosine_metric.png"
     alt="Geometria da métrica de Cosseno"
   />
 </p>
@@ -348,12 +348,12 @@ dist(w, x) = \left( \sum_i |w_i - x_i|^p \right)^{1/p}
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/lp_unit_balls.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/lp_unit_balls.png"
     width="25%"
     alt="Bolas unitárias Lp"
   />
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/metrics/minkowski_metric.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/metrics/minkowski_metric.png"
     width="28.5%"
     alt="Geometria da métrica Minkowski (p=3)"
   />
@@ -400,7 +400,7 @@ A superfície de pesos resultante é um plano no espaço `d`-dimensional, alinha
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/pca_init_vs_random.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/pca_init_vs_random.png"
     alt="Inicialização aleatória vs PCA"
   />
 </p>
@@ -466,7 +466,7 @@ A intuição: quando o MQE cai rápido, você está em uma região produtiva do 
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/mqe_curve.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/mqe_curve.png"
     alt="Curva de convergência do MQE"
   />
 </p>
@@ -487,7 +487,7 @@ Cada nó tem 6 vizinhos equidistantes. O mosaico é mais isotrópico:
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/hex_topology.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/hex_topology.png"
     alt="Topologia hexagonal"
   />
 </p>
@@ -523,7 +523,7 @@ U(i,j) = \text{mean}\bigl\{\, \|W_{i,j} - W_{\text{n}}\| \;\big|\; n \in \mathca
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/umatrix_example.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/umatrix_example.png"
     alt="Exemplo de grade U-Matrix"
   />
 </p>
@@ -537,7 +537,7 @@ Renderizada como mapa de calor (mais alto = crista mais escura):
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/umatrix_heatmap.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/umatrix_heatmap.png"
     alt="U-Matrix heatmap ridge"
   />
 </p>
@@ -550,7 +550,7 @@ Para datasets 2D, o quarto painel renderiza a U-Matrix como mapa de altura:
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/umatrix_surface.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/umatrix_surface.png"
     alt="U-Matrix surface"
   />
 </p>
@@ -574,7 +574,7 @@ Nós mortos são um sinal de diagnóstico:
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/activation_heatmap.png"
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/activation_heatmap.png"
     alt="Activation heatmap"
   />
 </p>
@@ -596,18 +596,12 @@ ani = plot_animated(snapshots, pts, labels, epochs=100, snapshot_every=5)
 
 Os quatro painéis leem o mesmo mapa treinado por quatro lentes complementares:
 
-```mermaid
-flowchart TB
-  SOM(["SOM treinado"]) --> P1["Painel 1 · Dados + projeções do BMU<br/>vetores de erro, encurtando no treino"]
-  SOM --> P2["Painel 2 · Grade de pesos + U-Matrix<br/>geometria e estrutura de clusters juntas"]
-  SOM --> P3["Painel 3 · Mapa de ativação<br/>frequência de BMU → nós mortos e cobertura"]
-  SOM --> P4["Painel 4 · Vista 3D / superfície da U-Matrix<br/>malha sobre a nuvem, ou topologia em relevo"]
-
-  classDef terminal fill:#4338ca,stroke:#a5b4fc,color:#ffffff;
-  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
-  class SOM terminal;
-  class P1,P2,P3,P4 step;
-```
+<p align="center">
+  <img
+    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/four_panel.png"
+    alt="A figura de 4 painéis: dados de entrada com projeções do BMU, a grade de pesos colorida pela U-Matrix, o mapa de ativação e a superfície da U-Matrix"
+  />
+</p>
 
 **Painel 1 — Dados de entrada + projeções do BMU:** Cada ponto é conectado ao seu BMU com uma linha cinza. Essas linhas são os vetores de erro tornados visíveis. À medida que o treinamento avança, elas encurtam. Na época final, cada linha fica tão curta que mal aparece — os pesos convergiram para a variedade dos dados.
 
