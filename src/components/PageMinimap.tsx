@@ -5,9 +5,9 @@ import { useDomMirror } from "@/hooks/use-dom-mirror";
 import { useScrollMetrics } from "@/hooks/use-scroll-metrics";
 import { useScrollbarControl } from "@/hooks/use-scrollbar-control";
 
-import tailwindConfig from "../../tailwind.config";
-
-const brand500 = tailwindConfig.theme.extend.colors.brand[500];
+/** The brand accent (`--color-brand-500`, defined in `root.css`) mixed with
+ *  transparent at the given percentage. */
+const brand500 = (pct: number) => `color-mix(in srgb, var(--color-brand-500) ${pct}%, transparent)`;
 
 /** Width of the minimap track in pixels. */
 const TRACK_WIDTH = 120;
@@ -123,10 +123,10 @@ function ViewportSlider({
       style={{
         top: `${topPercent}%`,
         height: `${heightPercent}%`,
-        background: isDragging ? `${brand500}2e` : `${brand500}1a`,
-        borderLeft: `2px solid ${brand500}99`,
-        borderRight: `1px solid ${brand500}26`,
-        boxShadow: `0 0 8px ${brand500}14`,
+        background: isDragging ? brand500(18) : brand500(10),
+        borderLeft: `2px solid ${brand500(60)}`,
+        borderRight: `1px solid ${brand500(15)}`,
+        boxShadow: `0 0 8px ${brand500(8)}`,
         transitionDuration: isDragging ? "0ms" : "60ms",
       }}
     />

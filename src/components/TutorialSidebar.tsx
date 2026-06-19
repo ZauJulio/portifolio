@@ -7,20 +7,17 @@ import { ListTreeIcon, XIcon } from "lucide-react";
 
 import { flattenSectionIds, useActiveSection } from "@/hooks/use-active-section";
 
-import tailwindConfig from "../../tailwind.config";
-
 import type { SectionNode } from "@indago/hyper-down";
 
 // The lib's default <Sidebar/> ships the structural CSS + a `--hd-sidebar-*`
 // variable API; we import it and recolour it to the brand palette.
 import "@indago/hyper-down/sidebar.css";
 
-const brand = tailwindConfig.theme.extend.colors.brand;
-
 // Recolour the lib sidebar to the brand palette (hover accent + muted text).
-// Active rows use a very-low-contrast gray (see `activeLinkClassName`).
+// `--color-brand-400` is defined in `root.css`. Active rows use a very-low-
+// contrast gray (see `activeLinkClassName`).
 const brandTheme = {
-  "--hd-sidebar-accent": brand[400],
+  "--hd-sidebar-accent": "var(--color-brand-400)",
   "--hd-sidebar-muted": "rgb(156 163 175)", // gray-400
   "--hd-sidebar-hover": "rgb(255 255 255 / 0.04)",
 } as CSSProperties;
@@ -140,11 +137,11 @@ export function TutorialSidebar({ sections }: { sections: SectionNode[] }) {
 
       {/* Mobile: full-width drawer */}
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 opacity-98">
+        <div className="lg:hidden fixed inset-0 z-50">
           <nav
             aria-label={t(($) => $.articles.sectionsTitle)}
             style={brandTheme}
-            className="absolute inset-0 w-full bg-gray-950 flex flex-col"
+            className="absolute inset-0 w-full bg-neutral-950 flex flex-col"
           >
             <div className="flex items-center justify-between px-4 py-4 border-b border-gray-800">
               <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">

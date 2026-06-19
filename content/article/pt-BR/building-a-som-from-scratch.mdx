@@ -30,7 +30,7 @@ Mapas Auto-Organizáveis (SOMs) são uma das ferramentas mais subestimadas do ap
 
 ZSOM é minha implementação completa do SOM de Kohonen do zero. NumPy puro no núcleo, Numba JIT opcional no caminho crítico e uma camada de visualização que produz figuras 4-painéis em nível de publicação e animações de treinamento. Este artigo percorre tudo — o algoritmo passo a passo, a matemática por trás de cada decisão de design, os datasets de malhas 3D e as partes que considero genuinamente novas.
 
-<br />
+<nav className="article-toc" aria-label="Sumário">
 
 - [ZSOM: Um Mapa Auto-Organizável pronto para produção em NumPy puro](#zsom-um-mapa-auto-organizável-pronto-para-produção-em-numpy-puro)
   - [O que um SOM realmente faz](#o-que-um-som-realmente-faz)
@@ -69,7 +69,7 @@ ZSOM é minha implementação completa do SOM de Kohonen do zero. NumPy puro no 
   - [Aplicações práticas](#aplicações-práticas)
   - [O que torna isto diferente](#o-que-torna-isto-diferente)
 
-<br />
+</nav>
 
 ## O que um SOM realmente faz
 
@@ -479,13 +479,6 @@ A topologia da grade define como os nós se conectam aos vizinhos. As duas escol
 
 Cada nó tem 4 vizinhos (N, S, E, W). As distâncias de grade são armazenadas em uma tabela pré-computada — sem geometria em tempo de execução. Elegível para Numba.
 
-<p align="center">
-  <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/square_topology.png"
-    alt="Topologia quadrada"
-  />
-</p>
-
 O problema: vizinhos diagonais estão a distância √2, não 1. A grade é levemente anisotrópica — a função de vizinhança não é perfeitamente circular.
 
 ### Topologia hexagonal
@@ -647,22 +640,7 @@ som = SOM(..., use_numba=False)  # force NumPy path for profiling
 | Matriz de dist. | Broadcast + `linalg.norm` | `@njit(parallel=True)`  | ~2–4×   |
 | Update em lote  | Acúmulo vetorizado        | Kernel paralelo fundido | ~2–5×   |
 
-O caminho JIT ativa apenas para topologia quadrada + métrica Euclidiana. Todas as outras combinações fazem fallback de forma transparente:
-
-```mermaid
-flowchart TD
-  Op["Op crítica por época<br/>matriz de distâncias · update de pesos em lote"] --> C1{"use_numba E topologia<br/>quadrada E Euclidiana?"}
-  C1 -->|"sim"| JIT["@njit(parallel=True)<br/>kernel paralelo fundido · ~2–5×"]
-  C1 -->|"não · ex.: hex ou cosseno"| NP["broadcast NumPy + linalg.norm<br/>fallback transparente"]
-
-  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
-  classDef decision fill:#312e81,stroke:#818cf8,color:#e0e7ff;
-  classDef good fill:#166534,stroke:#4ade80,color:#dcfce7;
-  class Op step;
-  class C1 decision;
-  class JIT good;
-  class NP step;
-```
+O caminho JIT ativa apenas para topologia quadrada + métrica Euclidiana. Todas as outras combinações fazem fallback de forma transparente.
 
 ```bash
 pip install -e ".[numba]"

@@ -30,7 +30,7 @@ Self-Organizing Maps are one of the most underrated tools in unsupervised learni
 
 ZSOM is my full implementation of Kohonen's SOM from scratch. Pure NumPy at the core, optional Numba JIT on the hot path, and a visualization layer that produces publication-quality 4-panel figures and training animations. This post walks through everything — the algorithm step by step, the math behind each design decision, the 3D mesh datasets, and the parts I think are genuinely novel.
 
-<br />
+<nav className="article-toc" aria-label="Contents">
 
 - [ZSOM: A Production-Ready Self-Organizing Map in Pure NumPy](#zsom-a-production-ready-self-organizing-map-in-pure-numpy)
   - [What a SOM Actually Does](#what-a-som-actually-does)
@@ -69,7 +69,7 @@ ZSOM is my full implementation of Kohonen's SOM from scratch. Pure NumPy at the 
   - [Practical Applications](#practical-applications)
   - [What Makes This Different](#what-makes-this-different)
 
-<br />
+</nav>
 
 ## What a SOM Actually Does
 
@@ -488,13 +488,6 @@ The grid topology defines how nodes are connected to their neighbors. The two mo
 
 Each node has 4 neighbors (N, S, E, W). Grid distances are stored in a precomputed lookup table — no runtime geometry. Numba-eligible.
 
-<p align="center">
-  <img
-    src="https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.0/__docs__/article/square_topology.png"
-    alt="Square topology"
-  />
-</p>
-
 The problem: diagonal neighbors are at distance √2, not 1. The grid is slightly anisotropic — the neighborhood function is not perfectly circular.
 
 ### Hexagonal Topology
@@ -656,22 +649,7 @@ som = SOM(..., use_numba=False)  # force NumPy path for profiling
 | Distance matrix | Broadcast + `linalg.norm` | `@njit(parallel=True)` | ~2–4×   |
 | Batch update    | Vectorized accumulation   | Fused parallel kernel  | ~2–5×   |
 
-JIT path activates only for square topology + Euclidean metric. All other combinations fall back transparently:
-
-```mermaid
-flowchart TD
-  Op["Hot op per epoch<br/>distance matrix · batch weight update"] --> C1{"use_numba AND square<br/>topology AND Euclidean?"}
-  C1 -->|"yes"| JIT["@njit(parallel=True)<br/>fused parallel kernel · ~2–5×"]
-  C1 -->|"no · e.g. hex or cosine"| NP["NumPy broadcast + linalg.norm<br/>transparent fallback"]
-
-  classDef step fill:#1e293b,stroke:#6366f1,stroke-width:1px,color:#e2e8f0;
-  classDef decision fill:#312e81,stroke:#818cf8,color:#e0e7ff;
-  classDef good fill:#166534,stroke:#4ade80,color:#dcfce7;
-  class Op step;
-  class C1 decision;
-  class JIT good;
-  class NP step;
-```
+JIT path activates only for square topology + Euclidean metric. All other combinations fall back transparently.
 
 ```bash
 pip install -e ".[numba]"

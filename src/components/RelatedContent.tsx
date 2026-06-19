@@ -36,7 +36,7 @@ export function RelatedContent({ title, basePath, items }: RelatedContentProps) 
   const placeholderCount = Math.max(0, 3 - items.length);
 
   return (
-    <section className="mt-16 pt-10 border-t border-gray-800">
+    <section>
       <h2 className="text-xl font-semibold text-white mb-6">{title}</h2>
 
       {/* 3-up on desktop; stacked (1 per row → 3 rows) on mobile. */}

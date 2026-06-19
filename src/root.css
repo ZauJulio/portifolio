@@ -61,6 +61,11 @@
   --color-brand-400: #ee4540;
   --color-brand-300: #f47370;
 
+  /* Body (Tailwind `font-sans`) → Geist Sans, imported in +Layout.tsx. */
+  --font-sans:
+    "Geist Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+
   /* Code (Tailwind `font-mono`) → Geist Mono, imported in +Layout.tsx. */
   --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
@@ -71,7 +76,7 @@
   }
 
   html {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: "Geist Sans", system-ui, sans-serif;
     scroll-behavior: smooth;
     font-size: 18px;
   }
@@ -145,6 +150,46 @@
   .hd-sidebar-badge {
     padding: 0.25rem 0.5rem !important;
   }
+}
+
+/* Article table of contents ("summary"). Rendered as a plain prose list it
+   inherits the body's generous vertical rhythm and sprawls down the page; this
+   collapses it into a compact, bordered card with a branded accent rail. */
+.article-toc {
+  margin: 2rem 0;
+  padding: 1.1rem 1.4rem;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-brand-500);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-card) 55%, transparent);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+.article-toc ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  list-style: none;
+}
+.article-toc > ul {
+  padding-left: 0;
+}
+.article-toc li {
+  margin: 0.1rem 0;
+}
+.article-toc li::marker {
+  content: "";
+}
+.article-toc a {
+  color: var(--color-muted-foreground);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.article-toc a:hover {
+  color: var(--color-brand-300);
+}
+.article-toc > ul > li > a {
+  color: var(--foreground);
+  font-weight: 600;
 }
 
 /* HyperDown code blocks. The highlight.js theme (github-dark) ships its own

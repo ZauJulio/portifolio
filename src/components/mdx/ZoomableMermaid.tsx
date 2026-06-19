@@ -26,6 +26,10 @@ const PAD = 16;
 // Fit may upscale a small diagram to fill the viewport, but not past this — a
 // 3-node graph blown up edge-to-edge looks worse than one with some margin.
 const FIT_MAX = 2;
+// How far the pointer must travel from where it went down before a press turns
+// into a pan. Below it, the gesture stays a click/double-click (so the SVG's
+// text can still be selected) instead of being swallowed by a drag.
+const PAN_THRESHOLD = 3;
 
 let mermaidInitialized = false;
 
@@ -58,6 +62,10 @@ function MermaidPanZoom({
   // (images loading above, a scrollbar toggling the viewport width) can't yank
   // their view back to the fitted scale.
   const interacted = useRef(false);
+  // A press only becomes a pan after crossing PAN_THRESHOLD; until then it is
+  // left alone so clicks, double-clicks and text selection keep working.
+  const panning = useRef(false);
+  const downPoint = useRef<{ x: number; y: number } | null>(null);
 
   const [view, setView] = useState<View>({ scale: 1, x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
@@ -173,10 +181,13 @@ function MermaidPanZoom({
 
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
-    e.currentTarget.setPointerCapture(e.pointerId);
 
+    // Record the pointer but DON'T capture it or start dragging yet — capturing
+    // on every press is what stole single/double clicks (the click landed on the
+    // viewport, not the button or the SVG word). Panning is armed in
+    // onPointerMove, once the pointer has actually travelled.
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    if (pointers.current.size === 1) setDragging(true);
+    if (pointers.current.size === 1) downPoint.current = { x: e.clientX, y: e.clientY };
   };
 
   const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
@@ -186,10 +197,21 @@ function MermaidPanZoom({
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
     if (pointers.current.size === 1) {
-      interacted.current = true;
       const dx = e.clientX - prev.x;
       const dy = e.clientY - prev.y;
 
+      if (!panning.current) {
+        const start = downPoint.current;
+        if (!start || Math.hypot(e.clientX - start.x, e.clientY - start.y) < PAN_THRESHOLD) return;
+
+        panning.current = true;
+        interacted.current = true;
+        setDragging(true);
+        e.currentTarget.setPointerCapture(e.pointerId);
+      }
+
+      // A live pan must not paint a text selection across the diagram.
+      window.getSelection()?.removeAllRanges();
       setView((v) => ({ ...v, x: v.x + dx, y: v.y + dy }));
 
       return;
@@ -214,12 +236,11 @@ function MermaidPanZoom({
   const endPointer = (e: ReactPointerEvent<HTMLDivElement>) => {
     pointers.current.delete(e.pointerId);
     if (pointers.current.size < 2) pinchDist.current = 0;
-    if (pointers.current.size === 0) setDragging(false);
-  };
-
-  const onDoubleClick = (e: ReactPointerEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    zoomAt(1.6, e.clientX - rect.left, e.clientY - rect.top);
+    if (pointers.current.size === 0) {
+      panning.current = false;
+      downPoint.current = null;
+      setDragging(false);
+    }
   };
 
   // Touch gestures only own the surface once zoomed in, so an un-zoomed inline
@@ -241,7 +262,6 @@ function MermaidPanZoom({
       onPointerMove={onPointerMove}
       onPointerUp={endPointer}
       onPointerCancel={endPointer}
-      onDoubleClick={onDoubleClick}
     >
       <div
         ref={contentRef}
@@ -255,7 +275,9 @@ function MermaidPanZoom({
         dangerouslySetInnerHTML={{ __html: svg }}
       />
 
-      <div className="absolute right-2 top-2 flex gap-1">
+      {/* Stop pointer events here from reaching the pan surface, so the
+          controls always take the click instead of arming a drag. */}
+      <div className="absolute right-2 top-2 flex gap-1" onPointerDown={(e) => e.stopPropagation()}>
         <button
           type="button"
           aria-label="Zoom in"

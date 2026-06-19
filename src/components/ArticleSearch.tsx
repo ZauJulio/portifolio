@@ -146,7 +146,7 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
           onFocus={() => setOpen(true)}
           onKeyDown={onKeyDown}
           // `#` mode: dashed border + ~5% less contrast than the solid focus border.
-          className={`w-full bg-gray-900/50 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none transition-colors border ${
+          className={`w-full bg-gray-900/50 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder:text-gray-500/40 focus:outline-none transition-colors border ${
             isCurrentMode
               ? "border-dashed border-brand-500/45 text-white/95"
               : "border-gray-800 focus:border-brand-500/50"

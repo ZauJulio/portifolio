@@ -46,7 +46,7 @@ export function SeriesNav({ basePath, prev, next, prevLabel, nextLabel }: Series
   if (!prev && !next) return null;
 
   return (
-    <nav className="pt-6 border-t border-gray-800 grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <nav className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {prev ? (
         <Link
           to={`${import.meta.env.BASE_URL}${basePath}/${prev.slug}`}

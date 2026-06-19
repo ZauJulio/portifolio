@@ -85,7 +85,7 @@ export default function RecipePage() {
       </div>
 
       {/* Article Content */}
-      <article ref={recipeRef} className="max-w-4xl mx-auto px-6 py-12">
+      <article ref={recipeRef} className="max-w-4xl mx-auto px-6 py-12 bg-gray-[#262626]">
         {/* Meta Header */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-4 flex-wrap">

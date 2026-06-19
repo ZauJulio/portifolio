@@ -95,9 +95,9 @@ export default function ArticlePage() {
       {/* Content region (begins below the cover). Tutorials get the section
           sidebar as a sticky left column; other articles get the right minimap. */}
       <div
-        className={
+        className={`py-4 ${
           isTutorial ? "max-w-6xl mx-auto px-6 lg:flex lg:items-start lg:gap-8" : undefined
-        }
+        }`}
       >
         {isTutorial ? (
           <TutorialSidebar sections={article.sections ?? []} />
@@ -109,7 +109,7 @@ export default function ArticlePage() {
           {/* Article Content */}
           <article
             ref={articleRef}
-            className={`${isTutorial ? "py-12" : "max-w-4xl mx-auto px-6 py-12"} [&_:where(h1,h2,h3,h4,h5,h6)]:scroll-mt-24`}
+            className={`bg-[#101010]/35 border border-[#101010] shadow-[0_8px_30px_rgb(255_255_255/0.05)] rounded-2xl ${isTutorial ? "py-12 px-6" : "max-w-4xl mx-auto px-6 py-12"} [&_:where(h1,h2,h3,h4,h5,h6)]:scroll-mt-24`}
           >
             {/* Meta Header */}
             <div className="mb-8">
@@ -186,7 +186,9 @@ export default function ArticlePage() {
 
           {/* Series pager + suggested content — kept outside <article> so the
             PageMinimap mirror (a clone of the article element) never duplicates them. */}
-          <div className={`${isTutorial ? "" : "max-w-4xl mx-auto px-6"} pb-16`}>
+          <div
+            className={`flex flex-col gap-y-8 mt-8 ${isTutorial ? "" : "max-w-4xl mx-auto px-6"} pb-16`}
+          >
             <SeriesNav
               basePath="articles"
               prev={
@@ -210,6 +212,9 @@ export default function ArticlePage() {
               prevLabel={t(($) => $.articles.seriesPrevious)}
               nextLabel={t(($) => $.articles.seriesNext)}
             />
+
+            {article.related.length > 0 && <div className="border-t border-gray-800 w-full" />}
+
             <RelatedContent
               title={t(($) => $.articles.relatedTitle)}
               basePath="articles"
