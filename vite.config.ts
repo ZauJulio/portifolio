@@ -143,7 +143,7 @@ export default defineConfig(({ mode }) => ({
     assetsInlineLimit: (filePath: string) => (filePath.endsWith(".db") ? false : undefined),
     // rollupOptions is deprecated in Vite 8 — use rolldownOptions.
     // Note: Vike overrides chunkFileNames to always produce chunk-[hash].js, so
-    // manualChunks names don't appear in filenames. They still control module
+    // group names don't appear in filenames. They still control module
     // grouping, keeping mermaid's 75+ sub-modules in one stable lazy chunk.
     rolldownOptions: {
       output: {
@@ -151,7 +151,8 @@ export default defineConfig(({ mode }) => ({
         // preload helper — rolldown merged the tiny chunk back). `priority` makes
         // the helper win over the mermaid group, and `minSize: 0` stops rolldown
         // from folding it back into a vendor chunk.
-        advancedChunks: {
+        // `codeSplitting` is the current name; `advancedChunks` is deprecated.
+        codeSplitting: {
           groups: [
             // Vite's dynamic-import preload helper. Left in the mermaid vendor
             // chunk, every page that does a dynamic import (the home page
