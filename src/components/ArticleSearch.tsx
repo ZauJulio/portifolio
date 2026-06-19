@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { FileTextIcon, HashIcon, SearchIcon } from "lucide-react";
 
 import { Link } from "@/components/Link";
+import { SearchHint } from "@/components/SearchHint";
 
 import type { SectionHit } from "@indago/hyper-down";
 
@@ -42,6 +43,7 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
   // (-1 = nothing highlighted). Arrow keys move it; Enter activates it.
   const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const isCurrentMode = value.startsWith("#");
   const query = (isCurrentMode ? value.slice(1) : value).trim();
@@ -135,6 +137,7 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-500" />
         )}
         <input
+          ref={inputRef}
           type="text"
           aria-label={t(($) => $.articles.searchPlaceholder)}
           placeholder={t(($) => $.articles.searchPlaceholder)}
@@ -146,12 +149,13 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
           onFocus={() => setOpen(true)}
           onKeyDown={onKeyDown}
           // `#` mode: dashed border + ~5% less contrast than the solid focus border.
-          className={`w-full bg-gray-900/50 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder:text-gray-500/40 focus:outline-none transition-colors border ${
+          className={`w-full bg-gray-900/50 rounded-lg pl-10 pr-4 lg:pr-20 py-2 text-sm text-white placeholder:text-gray-500/40 focus:outline-none transition-colors border ${
             isCurrentMode
               ? "border-dashed border-brand-500/45 text-white/95"
               : "border-gray-800 focus:border-brand-500/50"
           }`}
         />
+        <SearchHint inputRef={inputRef} />
       </div>
 
       {showDropdown && (

@@ -96,7 +96,7 @@ export default function ArticlePage() {
           sidebar as a sticky left column; other articles get the right minimap. */}
       <div
         className={`py-4 ${
-          isTutorial ? "max-w-6xl mx-auto px-6 lg:flex lg:items-start lg:gap-8" : undefined
+          isTutorial ? "max-w-6xl mx-auto px-2 lg:flex lg:items-start lg:gap-8" : undefined
         }`}
       >
         {isTutorial ? (

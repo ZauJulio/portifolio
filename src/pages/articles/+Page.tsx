@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NewspaperIcon, SearchIcon } from "lucide-react";
@@ -6,6 +7,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Link } from "@/components/Link";
 import { PageHeader } from "@/components/PageHeader";
 import { Pagination } from "@/components/Pagination";
+import { SearchHint } from "@/components/SearchHint";
 
 import { ArticlesProvider, useArticles } from "./ArticlesContext";
 import { ArticleCard } from "./components/ArticleCard";
@@ -81,18 +83,21 @@ function ArticlesView() {
 function SearchBox() {
   const { t } = useTranslation();
   const { searchInput, setSearchInput } = useArticles();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="relative w-full max-w-md">
       <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-500" />
       <input
+        ref={inputRef}
         type="text"
         aria-label={`${t(($) => $.articles.title)}...`}
         placeholder={`${t(($) => $.articles.title)}...`}
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
-        className="w-full bg-gray-900/50 border border-gray-800 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:border-brand-500/50 transition-colors"
+        className="w-full bg-gray-900/50 border border-gray-800 rounded-lg pl-10 pr-4 lg:pr-20 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:border-brand-500/50 transition-colors"
       />
+      <SearchHint inputRef={inputRef} />
     </div>
   );
 }

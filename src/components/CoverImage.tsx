@@ -36,7 +36,7 @@ export function CoverImage({ src, alt, maxHeightClass }: CoverImageProps) {
     };
   }, [isOpen]);
 
-  const containerClass = `group relative w-full overflow-hidden rounded-xl bg-black/40 transition-[max-height] duration-300 ${
+  const containerClass = `group relative w-full px-2  rounded-2xl overflow-hidden bg-black/40 transition-[max-height] duration-300 ${
     maxHeightClass || "max-h-[400px]"
   } hover:max-h-[70vh]`;
 
@@ -55,7 +55,7 @@ export function CoverImage({ src, alt, maxHeightClass }: CoverImageProps) {
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-cover transition-all duration-300 group-hover:object-contain cursor-zoom-in"
+          className="w-full h-full rounded-2xl object-cover transition-all duration-300 group-hover:object-contain cursor-zoom-in"
         />
       </button>
 
