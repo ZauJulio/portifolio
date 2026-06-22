@@ -109,7 +109,7 @@ export default function ArticlePage() {
           {/* Article Content */}
           <article
             ref={articleRef}
-            className={`bg-[#101010]/35 border border-[#101010] shadow-[0_8px_30px_rgb(255_255_255/0.05)] rounded-2xl ${isTutorial ? "py-12 px-6" : "max-w-4xl mx-auto px-6 py-12"} [&_:where(h1,h2,h3,h4,h5,h6)]:scroll-mt-24`}
+            className={`bg-[#101010]/35 border border-[#101010] rounded-2xl ${isTutorial ? "py-12 px-6" : "max-w-4xl mx-auto px-6 py-12"} [&_:where(h1,h2,h3,h4,h5,h6)]:scroll-mt-24`}
           >
             {/* Meta Header */}
             <div className="mb-8">
