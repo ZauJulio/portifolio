@@ -8,11 +8,13 @@ import { YouTubeMusicIcon } from "@/components/icons/YouTubeMusicIcon";
 import { PageHeader } from "@/components/PageHeader";
 import { useLocale } from "@/i18n";
 
+import { ChannelCard } from "./components/ChannelCard";
 import { FavoriteTrack } from "./components/FavoriteTrack";
 import { FilterRow } from "./components/FilterRow";
 import { PlaylistCard } from "./components/PlaylistCard";
 import { PlaylistModal } from "./components/PlaylistModal";
-import { enFavorites, enPlaylists, genres, ptBRFavorites, ptBRPlaylists } from "./data";
+import { channels, enFavorites, enPlaylists, genres, ptBRFavorites, ptBRPlaylists } from "./data";
+import { useYouTubeChannels } from "./hooks/useYouTubeChannels";
 
 import type { Playlist } from "@indago/hyper-json";
 import type { Favorite } from "@indago/hyper-json";
@@ -52,6 +54,11 @@ export default function MusicPage() {
     page: page,
     perPage: PAGE_SIZE,
   });
+
+  const { channels: resolvedChannels, loading: channelsLoading } = useYouTubeChannels(
+    channels,
+    locale,
+  );
 
   const handlePrev = () => setPage((p) => Math.max(1, p - 1));
   const handleNext = () => setPage((p) => Math.min(favPages, p + 1));
@@ -201,6 +208,22 @@ export default function MusicPage() {
               <Disc3Icon className="size-8 text-gray-600" />
             </div>
             <p className="text-gray-500 text-lg mb-2">{t(($) => $.music.empty)}</p>
+          </div>
+        </section>
+      )}
+
+      {resolvedChannels.length > 0 && (
+        <section className="pb-24 px-6 border-t border-gray-900/80 pt-16">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-2xl font-bold mb-2">{t(($) => $.music.channels)}</h2>
+            <p className="text-gray-400 text-sm mb-8 max-w-2xl">
+              {t(($) => $.music.channelsDescription)}
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+              {resolvedChannels.map((channel) => (
+                <ChannelCard key={channel.id} channel={channel} loading={channelsLoading} />
+              ))}
+            </div>
           </div>
         </section>
       )}

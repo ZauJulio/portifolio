@@ -14,9 +14,4 @@
 
 import type { ContentModuleMap } from "@indago/hyper-down/types";
 
-// Draft items are excluded so their MD/MDX is never compiled or shipped.
-export default import.meta.glob([
-  "/content/recipe/**/*.mdx",
-  "!/content/recipe/en/chicken-catupiry-pancakes.mdx",
-  "!/content/recipe/pt-BR/chicken-catupiry-pancakes.mdx",
-], { eager: true }) as ContentModuleMap;
+export default import.meta.glob("/content/recipe/**/*.mdx", { eager: true }) as ContentModuleMap;

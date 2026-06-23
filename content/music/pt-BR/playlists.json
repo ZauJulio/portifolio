@@ -9,6 +9,30 @@
       "trackCount": 11,
       "cover": "https://i.ytimg.com/vi/QvinYZfnPAs/maxresdefault.jpg",
       "youtubeId": "PLSremB3M0yVm535-gt3BB2xyouBG6gwJp"
+    },
+    {
+      "id": "2",
+      "title": "Tô Com Fome",
+      "description": "An master of classical rock, 70sm 80s and 90s legends, and a few modern hits thrown in for good measure",
+      "genre": "Mix",
+      "cover": "https://i.ytimg.com/vi/pAgnJDJN4VA/maxresdefault.jpg",
+      "youtubeId": "PLSremB3M0yVkPRDuxaseH1610tSA8J-Jd"
+    },
+    {
+      "id": "3",
+      "title": "Mi Fuente Eres Tu",
+      "description": "An Spanish latin indie music playlist",
+      "genre": "Mix",
+      "cover": "https://i.ytimg.com/vi/bwt5rEZKoJE/maxresdefault.jpg",
+      "youtubeId": "PLSremB3M0yVmeHiXfutXhHZgSRxTQAzvu"
+    },
+    {
+      "id": "4",
+      "title": "Nameless World",
+      "description": "An eclectic personal mix — rock, indie, latin and whatever else hits the spot",
+      "genre": "Mix",
+      "cover": "https://i.ytimg.com/vi/OHXf7wEpBPI/maxresdefault.jpg",
+      "youtubeId": "PLSremB3M0yVmpqM8CiG1RdBU4OtEpg8C_"
     }
   ]
 }

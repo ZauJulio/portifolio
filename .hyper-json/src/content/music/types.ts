@@ -15,7 +15,7 @@
 declare module "@indago/hyper-json" {
 
   interface MusicDataStore {
-    items: (Playlist | Favorite)[];
+    items: (Playlist | Favorite | Channel)[];
   }
   interface Playlist {
     id: string;
@@ -34,5 +34,9 @@ declare module "@indago/hyper-json" {
     cover?: string;
     genre?: string;
     youtubeId: string;
+  }
+  interface Channel {
+    id: string;
+    url: string;
   }
 }

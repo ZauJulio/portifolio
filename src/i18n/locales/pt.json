@@ -146,6 +146,9 @@
     "genre": "Gênero",
     "playlists": "Playlists",
     "favorites": "Favoritos",
+    "channels": "Canais Favoritos",
+    "channelsDescription": "Criadores em que eu sempre volto — ciência, tecnologia, cultura nerd e culinária.",
+    "subscribers": "inscritos",
     "all": "Todos",
     "empty": "Playlists em breve",
     "noResults": "Nenhuma música corresponde a este gênero"

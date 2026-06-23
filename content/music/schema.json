@@ -6,7 +6,11 @@
     "items": {
       "type": "array",
       "items": {
-        "oneOf": [{ "$ref": "#/definitions/playlist" }, { "$ref": "#/definitions/favorite" }]
+        "oneOf": [
+          { "$ref": "#/definitions/playlist" },
+          { "$ref": "#/definitions/favorite" },
+          { "$ref": "#/definitions/channel" }
+        ]
       }
     }
   },
@@ -38,6 +42,15 @@
         "cover": { "type": "string", "format": "uri" },
         "genre": { "type": "string" },
         "youtubeId": { "type": "string" }
+      }
+    },
+    "channel": {
+      "type": "object",
+      "required": ["id", "url"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "url": { "type": "string", "format": "uri" }
       }
     }
   }

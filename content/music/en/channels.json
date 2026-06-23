@@ -1,0 +1,11 @@
+{
+  "$schema": "../schema.json",
+  "items": [
+    { "id": "1", "url": "https://www.youtube.com/@cadeachave" },
+    { "id": "2", "url": "https://www.youtube.com/@CoisaDeNerd" },
+    { "id": "3", "url": "https://www.youtube.com/@3blue1brown" },
+    { "id": "4", "url": "https://www.youtube.com/@CienciaTodoDia" },
+    { "id": "5", "url": "https://www.youtube.com/@LinusTechTips" },
+    { "id": "6", "url": "https://www.youtube.com/@paolacarosella" }
+  ]
+}

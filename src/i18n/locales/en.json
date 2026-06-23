@@ -146,6 +146,9 @@
     "genre": "Genre",
     "playlists": "Playlists",
     "favorites": "Favorites",
+    "channels": "Favorite Channels",
+    "channelsDescription": "Creators I keep coming back to — science, tech, nerd culture and cooking.",
+    "subscribers": "subscribers",
     "all": "All",
     "empty": "Playlists coming soon",
     "noResults": "No music matches this genre"

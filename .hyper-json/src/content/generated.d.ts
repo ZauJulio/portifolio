@@ -36,6 +36,11 @@ declare module "@content/music/en/playlists.json" {
   const value: MusicDataStore;
   export default value;
 }
+declare module "@content/music/en/channels.json" {
+  import type { MusicDataStore } from "@indago/hyper-json";
+  const value: MusicDataStore;
+  export default value;
+}
 declare module "@content/music/pt-BR/playlists.json" {
   import type { MusicDataStore } from "@indago/hyper-json";
   const value: MusicDataStore;
