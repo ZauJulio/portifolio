@@ -254,7 +254,7 @@
           "src": "/photos/ab-02-rio-tinto-arrival/179372 (1)(1).jpg",
           "alt": "Two cats curled up asleep on a brick wall ledge",
           "title": "Cats Napping on the Wall",
-          "tags": ["lightroom", "mobile", "processed"]
+          "tags": ["mobile"]
         }
       ]
     },
@@ -341,7 +341,7 @@
           "src": "/photos/ab-03-rio-tinto/179361(1).jpg",
           "alt": "Town skyline with the old factory chimneys on the horizon",
           "title": "Skyline and Chimneys",
-          "tags": ["lightroom", "mobile", "processed"]
+          "tags": ["mobile"]
         },
         {
           "id": "ab-03-09",
@@ -372,6 +372,16 @@
           "timeOfDay": "23:29",
           "occasion": "Rio Tinto night",
           "tags": ["samsung", "galaxy s24+", "ultrawide", "night", "high iso"]
+        },
+        {
+          "id": "ab-03-12",
+          "src": "/photos/ab-03-rio-tinto/_MG_0024.jpg",
+          "alt": "Starry night sky with a glow from the city lights",
+          "title": "Starry Sky Over Rio Tinto",
+          "date": "2026-06-24",
+          "timeOfDay": "00:10",
+          "occasion": "Rio Tinto night",
+          "tags": ["canon", "rebel t6", "18mm", "night", "high iso"]
         }
       ]
     }

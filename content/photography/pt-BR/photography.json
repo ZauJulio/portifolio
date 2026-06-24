@@ -372,6 +372,16 @@
           "timeOfDay": "23:29",
           "occasion": "Noite em Rio Tinto",
           "tags": ["samsung", "galaxy s24+", "ultrawide", "noturno", "iso alto"]
+        },
+        {
+          "id": "ab-03-12",
+          "src": "/photos/ab-03-rio-tinto/_MG_0024.jpg",
+          "alt": "Céu noturno estrelado e um glow da luz da cidade",
+          "title": "Céu Estrelado Sobre Rio Tinto",
+          "date": "2026-06-24",
+          "timeOfDay": "00:10",
+          "occasion": "Rio Tinto night",
+          "tags": ["canon", "rebel t6", "18mm", "night", "high iso"]
         }
       ]
     }
