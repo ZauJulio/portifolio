@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { ImageIcon } from "lucide-react";
 
@@ -6,6 +7,9 @@ import type { Photo } from "@indago/hyper-json";
 
 export function PhotoGrid({ photos }: { photos: Photo[] }) {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   if (photos.length === 0) {
     return (
@@ -13,6 +17,7 @@ export function PhotoGrid({ photos }: { photos: Photo[] }) {
         <div className="inline-flex p-4 rounded-2xl bg-gray-900/50 mb-4">
           <ImageIcon className="size-8 text-gray-600" />
         </div>
+
         <p className="text-gray-500 text-lg mb-2">No photos in this album</p>
       </div>
     );
@@ -61,49 +66,60 @@ export function PhotoGrid({ photos }: { photos: Photo[] }) {
         ))}
       </div>
 
-      {selectedPhoto && (
-        // biome-ignore lint/a11y/noStaticElementInteractions: Modal backdrop
-        <div
-          role="presentation"
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-          onClick={() => setSelectedPhoto(null)}
-          onKeyDown={(e) => e.key === "Escape" && setSelectedPhoto(null)}
-        >
-          <button
-            type="button"
-            className="absolute top-4 right-4 text-white hover:text-gray-300"
+      {selectedPhoto &&
+        mounted &&
+        createPortal(
+          // biome-ignore lint/a11y/noStaticElementInteractions: Modal backdrop
+          <div
+            role="presentation"
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
             onClick={() => setSelectedPhoto(null)}
-            aria-label="Close"
+            onKeyDown={(e) => e.key === "Escape" && setSelectedPhoto(null)}
           >
-            <svg className="size-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
+            <button
+              type="button"
+              className="absolute p-1 backdrop-blur-md rounded-full top-4 right-4 z-10 text-white hover:text-gray-300"
+              onClick={() => setSelectedPhoto(null)}
+              aria-label="Close"
+            >
+              <svg className="size-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            <div
+              className="relative rounded-sm"
+              onClick={(e) => e.stopPropagation()}
+              aria-hidden="true"
+            >
+              <img
+                src={selectedPhoto.src}
+                alt={selectedPhoto.alt}
+                className="max-w-[90vw] rounded-sm max-h-[90dvh] w-auto h-auto object-contain"
               />
-            </svg>
-          </button>
-          <div onClick={(e) => e.stopPropagation()} aria-hidden="true">
-            <img
-              src={selectedPhoto.src}
-              alt={selectedPhoto.alt}
-              className="max-w-full max-h-full object-contain rounded-lg"
-            />
-          </div>
-          <div className="absolute bottom-4 left-4 right-4 text-center">
-            {selectedPhoto.title && (
-              <p className="text-white font-medium text-lg">{selectedPhoto.title}</p>
-            )}
-            {selectedPhoto.description && (
-              <p className="text-gray-400 text-sm mt-1">{selectedPhoto.description}</p>
-            )}
-            {selectedPhoto.location && (
-              <p className="text-gray-500 text-sm mt-1">{selectedPhoto.location}</p>
-            )}
-          </div>
-        </div>
-      )}
+
+              {(selectedPhoto.title || selectedPhoto.description || selectedPhoto.location) && (
+                <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center gap-1 p-4 text-center bg-linear-to-t from-black/80 to-transparent">
+                  {selectedPhoto.title && (
+                    <p className="text-white font-medium text-lg">{selectedPhoto.title}</p>
+                  )}
+                  {selectedPhoto.description && (
+                    <p className="text-gray-300 text-sm">{selectedPhoto.description}</p>
+                  )}
+                  {selectedPhoto.location && (
+                    <p className="text-gray-400 text-sm">{selectedPhoto.location}</p>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

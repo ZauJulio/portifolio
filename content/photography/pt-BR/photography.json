@@ -1,4 +1,379 @@
 {
   "$schema": "../schema.json",
-  "albums": []
+  "albums": [
+    {
+      "id": "ab-01",
+      "name": "UFPB Rio Tinto",
+      "description": "Uma visita ao campus da UFPB em Rio Tinto, Paraíba. Todas as fotos foram tiradas em 21 de fevereiro de 2026, principalmente com uma Canon EOS Rebel T6.",
+      "date": "2026-02-21",
+      "location": "UFPB, Rio Tinto, Paraíba, Brasil",
+      "cover": "/photos/ab-01-UFPB/1-_MG_0335.jpg",
+      "photos": [
+        {
+          "id": "ab-01-01",
+          "src": "/photos/ab-01-UFPB/12-20260221_090002.jpg",
+          "alt": "Vista ampla do campus da UFPB em Rio Tinto com lente ultrawide",
+          "title": "Céu Sobre o Pátio",
+          "date": "2026-02-21",
+          "timeOfDay": "09:00",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["samsung", "galaxy s24+", "ultrawide", "ufpb"]
+        },
+        {
+          "id": "ab-01-02",
+          "src": "/photos/ab-01-UFPB/11-_MG_0309.jpg",
+          "alt": "Prédios antigos de fábrica com pátio de pedras e palmeira",
+          "title": "Pátio da Antiga Fábrica",
+          "date": "2026-02-21",
+          "timeOfDay": "09:48",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-03",
+          "src": "/photos/ab-01-UFPB/10-_MG_0310.jpg",
+          "alt": "Galpão de tijolos com varanda coberta e caixa d'água",
+          "title": "O Galpão Longo",
+          "date": "2026-02-21",
+          "timeOfDay": "09:48",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-04",
+          "src": "/photos/ab-01-UFPB/9-_MG_0311.jpg",
+          "alt": "Grade de ferro com pontas em lança e chaminés antigas da fábrica ao fundo",
+          "title": "Chaminés Atrás da Grade",
+          "date": "2026-02-21",
+          "timeOfDay": "09:48",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "55mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-05",
+          "src": "/photos/ab-01-UFPB/8-_MG_0317.jpg",
+          "alt": "Bicicleta estacionada em um caminho sombreado por palmeiras",
+          "title": "Bicicleta Sob as Palmeiras",
+          "date": "2026-02-21",
+          "timeOfDay": "09:51",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-06",
+          "src": "/photos/ab-01-UFPB/7-_MG_0318.jpg",
+          "alt": "Bromélias e bandejas de mudas em um pequeno jardim sombreado",
+          "title": "Viveiro de Mudas",
+          "date": "2026-02-21",
+          "timeOfDay": "09:51",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-07",
+          "src": "/photos/ab-01-UFPB/6-_MG_0319.jpg",
+          "alt": "Chaminé de tijolos atrás de uma fileira de bromélias amarelas e palmeiras",
+          "title": "Chaminé Antiga, Jardim Novo",
+          "date": "2026-02-21",
+          "timeOfDay": "09:51",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-08",
+          "src": "/photos/ab-01-UFPB/5-_MG_0324.jpg",
+          "alt": "Prédio de dois andares com pilares de azulejo azul visto entre árvores jovens",
+          "title": "Atrás dos Azulejos Azuis",
+          "date": "2026-02-21",
+          "timeOfDay": "09:52",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-09",
+          "src": "/photos/ab-01-UFPB/4-_MG_0326.jpg",
+          "alt": "Praça de pedras sombreada por árvores com uma torre de telecomunicações ao fundo",
+          "title": "Sombra das Árvores na Praça",
+          "date": "2026-02-21",
+          "timeOfDay": "09:53",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-10",
+          "src": "/photos/ab-01-UFPB/3-_MG_0327.jpg",
+          "alt": "UFPB escrito com pedras pintadas sob uma árvore sombreada",
+          "title": "UFPB em Pedras",
+          "date": "2026-02-21",
+          "timeOfDay": "09:54",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "42mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-11",
+          "src": "/photos/ab-01-UFPB/2-_MG_0330.jpg",
+          "alt": "Prédio de salas de aula de dois andares visto entre árvores em sombra intensa",
+          "title": "Salas de Aula na Sombra",
+          "date": "2026-02-21",
+          "timeOfDay": "09:55",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-12",
+          "src": "/photos/ab-01-UFPB/_MG_0332.jpg",
+          "alt": "Árvores projetando sombras intensas sobre um caminho ensolarado do campus",
+          "title": "Luz do Sol Entre as Árvores",
+          "date": "2026-02-21",
+          "timeOfDay": "09:56",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-13",
+          "src": "/photos/ab-01-UFPB/_MG_0333_01.jpg",
+          "alt": "Versão editada de foto do campus da UFPB com tons realçados",
+          "title": "A Fábrica em Tons Mais Quentes",
+          "date": "2026-02-21",
+          "timeOfDay": "09:56",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "18mm", "darktable", "editado"]
+        },
+        {
+          "id": "ab-01-14",
+          "src": "/photos/ab-01-UFPB/1-_MG_0335.jpg",
+          "alt": "Mural de avisos dos estudantes em parede de tijolos com panfletos e aviso de Wi-Fi",
+          "title": "Mural de Avisos",
+          "date": "2026-02-21",
+          "timeOfDay": "09:57",
+          "occasion": "Visita ao campus da UFPB",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        }
+      ]
+    },
+    {
+      "id": "ab-02",
+      "name": "Chegada em Rio Tinto",
+      "description": "Fotografias da jornada até Rio Tinto, capturando a paisagem ao longo do caminho. Uma mistura de fotos da Canon EOS Rebel T6 e Samsung Galaxy S24+, entre fevereiro e junho de 2026.",
+      "date": "2026-02-21",
+      "location": "Rio Tinto, Paraíba, Brasil",
+      "cover": "/photos/ab-02-rio-tinto-arrival/1-20260228_092244.jpg",
+      "photos": [
+        {
+          "id": "ab-02-01",
+          "src": "/photos/ab-02-rio-tinto-arrival/133338.jpg",
+          "alt": "Aparelho de ar-condicionado e vasos de plantas em uma varanda de azulejos",
+          "title": "Plantas na Varanda",
+          "date": "2026-02-14",
+          "timeOfDay": "14:29",
+          "occasion": "Viagem para Rio Tinto",
+          "tags": ["canon", "rebel t6", "55mm"]
+        },
+        {
+          "id": "ab-02-02",
+          "src": "/photos/ab-02-rio-tinto-arrival/6-20260221_073811.jpg",
+          "alt": "Altar de capela iluminado pelo sol, com vitral e lustre, visto através de um portão de ferro",
+          "title": "Luz na Capela",
+          "date": "2026-02-21",
+          "timeOfDay": "07:38",
+          "occasion": "Viagem para Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide"]
+        },
+        {
+          "id": "ab-02-03",
+          "src": "/photos/ab-02-rio-tinto-arrival/5-_MG_0254.jpg",
+          "alt": "Torre de tijolos atrás de um grande coração com a frase 'Eu amo Rio Tinto'",
+          "title": "EU ❤ RT",
+          "date": "2026-02-21",
+          "timeOfDay": "08:17",
+          "occasion": "Viagem para Rio Tinto",
+          "tags": ["canon", "rebel t6", "36mm"]
+        },
+        {
+          "id": "ab-02-04",
+          "src": "/photos/ab-02-rio-tinto-arrival/4-20260221_085859.jpg",
+          "alt": "Árvore alta ao lado de ruínas de tijolos",
+          "title": "A Árvore Junto às Ruínas",
+          "date": "2026-02-21",
+          "timeOfDay": "08:58",
+          "occasion": "Viagem para Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "ultrawide"]
+        },
+        {
+          "id": "ab-02-05",
+          "src": "/photos/ab-02-rio-tinto-arrival/3-_MG_0322.jpg",
+          "alt": "Praça de pedras com torre de telecomunicações e prédios coloridos",
+          "title": "Praça de Pedras",
+          "date": "2026-02-21",
+          "timeOfDay": "09:52",
+          "occasion": "Viagem para Rio Tinto",
+          "tags": ["canon", "rebel t6", "18mm"]
+        },
+        {
+          "id": "ab-02-06",
+          "src": "/photos/ab-02-rio-tinto-arrival/2-20260227_172706.jpg",
+          "alt": "Lua crescente em um céu azul-escuro ao anoitecer",
+          "title": "Lua ao Anoitecer",
+          "date": "2026-02-27",
+          "timeOfDay": "17:27",
+          "occasion": "Viagem para Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "telephoto"]
+        },
+        {
+          "id": "ab-02-07",
+          "src": "/photos/ab-02-rio-tinto-arrival/1-20260228_092244.jpg",
+          "alt": "Cobertura de terminal rodoviário com placa de embarque intermunicipal",
+          "title": "Embarque para Rio Tinto",
+          "date": "2026-02-28",
+          "timeOfDay": "09:22",
+          "occasion": "Viagem para Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "telephoto"]
+        },
+        {
+          "id": "ab-02-08",
+          "src": "/photos/ab-02-rio-tinto-arrival/20260530_100805.jpg",
+          "alt": "Telhas de barro cobertas de musgo contra um céu azul, com uma antena antiga",
+          "title": "Beirais Cobertos de Musgo",
+          "date": "2026-05-30",
+          "timeOfDay": "10:08",
+          "occasion": "Vida em Rio Tinto",
+          "tags": ["samsung", "galaxy s24+"]
+        },
+        {
+          "id": "ab-02-09",
+          "src": "/photos/ab-02-rio-tinto-arrival/20260602_202341.jpg",
+          "alt": "Notebook gamer com teclado iluminado em vermelho aberto em um editor de código à noite",
+          "title": "Laboratório Noturno",
+          "date": "2026-06-02",
+          "timeOfDay": "20:23",
+          "occasion": "Vida em Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "ultrawide", "noturno"]
+        },
+        {
+          "id": "ab-02-10",
+          "src": "/photos/ab-02-rio-tinto-arrival/179372 (1)(1).jpg",
+          "alt": "Dois gatos enrolados dormindo sobre um muro de tijolos",
+          "title": "Gatos Dormindo no Muro",
+          "tags": ["lightroom", "mobile", "processado"]
+        }
+      ]
+    },
+    {
+      "id": "ab-03",
+      "name": "Vivendo em Rio Tinto",
+      "description": "Momentos do dia a dia capturados enquanto vivia em Rio Tinto, Paraíba. Feitos principalmente com um Samsung Galaxy S24+, além de uma Canon EOS Rebel T6. Inclui cenas matinais e fotografia noturna.",
+      "date": "2026-02-21",
+      "location": "Rio Tinto, Paraíba, Brasil",
+      "cover": "/photos/ab-03-rio-tinto/1-_MG_0305.jpg",
+      "photos": [
+        {
+          "id": "ab-03-01",
+          "src": "/photos/ab-03-rio-tinto/6-20260221_072939.jpg",
+          "alt": "Três janelas em arco da capela brilhando em um interior escuro",
+          "title": "Janelas Acesas ao Amanhecer",
+          "date": "2026-02-21",
+          "timeOfDay": "07:29",
+          "occasion": "Vida em Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide", "manhã"]
+        },
+        {
+          "id": "ab-03-02",
+          "src": "/photos/ab-03-rio-tinto/2-20260221_073026.jpg",
+          "alt": "Nave lateral da capela com bancos de madeira e janelas em arco iluminadas",
+          "title": "Nave Lateral da Capela",
+          "date": "2026-02-21",
+          "timeOfDay": "07:30",
+          "occasion": "Vida em Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide"]
+        },
+        {
+          "id": "ab-03-03",
+          "src": "/photos/ab-03-rio-tinto/5-20260221_073311.jpg",
+          "alt": "Altar de mármore com um relevo em bronze da Última Ceia",
+          "title": "O Altar de Mármore",
+          "date": "2026-02-21",
+          "timeOfDay": "07:33",
+          "occasion": "Vida em Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide"]
+        },
+        {
+          "id": "ab-03-04",
+          "src": "/photos/ab-03-rio-tinto/4-20260221_074040.jpg",
+          "alt": "Vista ampla da nave vazia da capela em direção ao altar",
+          "title": "A Capela Vazia",
+          "date": "2026-02-21",
+          "timeOfDay": "07:40",
+          "occasion": "Vida em Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "ultrawide"]
+        },
+        {
+          "id": "ab-03-05",
+          "src": "/photos/ab-03-rio-tinto/3-20260221_075154.jpg",
+          "alt": "Placa de bronze em homenagem ao fundador de Rio Tinto, Frederico João Lundgren",
+          "title": "Placa do Fundador",
+          "date": "2026-02-21",
+          "timeOfDay": "07:51",
+          "occasion": "Vida em Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide"]
+        },
+        {
+          "id": "ab-03-06",
+          "src": "/photos/ab-03-rio-tinto/2-20260221_080702.jpg",
+          "alt": "Vista dos telhados de Rio Tinto com palmeiras imperiais se erguendo sobre as casas",
+          "title": "Telhados e Palmeiras Imperiais",
+          "date": "2026-02-21",
+          "timeOfDay": "08:07",
+          "occasion": "Vida em Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide"]
+        },
+        {
+          "id": "ab-03-07",
+          "src": "/photos/ab-03-rio-tinto/1-_MG_0305.jpg",
+          "alt": "Estátuas do batismo de Jesus iluminadas pelo sol da tarde em um altar lateral",
+          "title": "O Altar do Batismo",
+          "date": "2026-02-21",
+          "timeOfDay": "08:37",
+          "occasion": "Vida em Rio Tinto",
+          "tags": ["canon", "rebel t6", "18mm"]
+        },
+        {
+          "id": "ab-03-08",
+          "src": "/photos/ab-03-rio-tinto/179361(1).jpg",
+          "alt": "Horizonte da cidade com as antigas chaminés da fábrica",
+          "title": "Horizonte e Chaminés",
+          "tags": ["lightroom", "mobile", "processado"]
+        },
+        {
+          "id": "ab-03-09",
+          "src": "/photos/ab-03-rio-tinto/179707(1).jpg",
+          "alt": "Vista noturna elevada de um cruzamento iluminado em Rio Tinto",
+          "title": "Luzes da Rua à Noite",
+          "date": "2026-04-10",
+          "timeOfDay": "19:49",
+          "occasion": "Noite em Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide", "noturno"]
+        },
+        {
+          "id": "ab-03-10",
+          "src": "/photos/ab-03-rio-tinto/20260604_025029.jpg",
+          "alt": "Rua vazia à noite iluminada por um poste de luz",
+          "title": "Brilho em uma Rua Vazia",
+          "date": "2026-06-04",
+          "timeOfDay": "02:50",
+          "occasion": "Noite em Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide", "noturno", "iso alto"]
+        },
+        {
+          "id": "ab-03-11",
+          "src": "/photos/ab-03-rio-tinto/20260617_232923 (2).jpg",
+          "alt": "Cadeiras de plástico avulsas em um quintal à noite",
+          "title": "Cadeiras Vazias na Noite",
+          "date": "2026-06-17",
+          "timeOfDay": "23:29",
+          "occasion": "Noite em Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "ultrawide", "noturno", "iso alto"]
+        }
+      ]
+    }
+  ]
 }

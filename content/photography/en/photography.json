@@ -1,4 +1,379 @@
 {
   "$schema": "../schema.json",
-  "albums": []
+  "albums": [
+    {
+      "id": "ab-01",
+      "name": "UFPB Rio Tinto",
+      "description": "A visit to the UFPB campus in Rio Tinto, Paraíba. All photos taken on February 21, 2026, mostly with a Canon EOS Rebel T6.",
+      "date": "2026-02-21",
+      "location": "UFPB, Rio Tinto, Paraíba, Brazil",
+      "cover": "/photos/ab-01-UFPB/1-_MG_0335.jpg",
+      "photos": [
+        {
+          "id": "ab-01-01",
+          "src": "/photos/ab-01-UFPB/12-20260221_090002.jpg",
+          "alt": "Wide view of UFPB campus in Rio Tinto captured with ultrawide lens",
+          "title": "Sky Over the Courtyard",
+          "date": "2026-02-21",
+          "timeOfDay": "09:00",
+          "occasion": "UFPB campus visit",
+          "tags": ["samsung", "galaxy s24+", "ultrawide", "ufpb"]
+        },
+        {
+          "id": "ab-01-02",
+          "src": "/photos/ab-01-UFPB/11-_MG_0309.jpg",
+          "alt": "Old factory buildings with a cobblestone courtyard and palm tree",
+          "title": "The Old Mill Yard",
+          "date": "2026-02-21",
+          "timeOfDay": "09:48",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-03",
+          "src": "/photos/ab-01-UFPB/10-_MG_0310.jpg",
+          "alt": "Long brick warehouse with a covered colonnade and water tower",
+          "title": "The Long Warehouse",
+          "date": "2026-02-21",
+          "timeOfDay": "09:48",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-04",
+          "src": "/photos/ab-01-UFPB/9-_MG_0311.jpg",
+          "alt": "Spear-top iron fence with old factory chimneys behind it",
+          "title": "Chimneys Behind the Fence",
+          "date": "2026-02-21",
+          "timeOfDay": "09:48",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "55mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-05",
+          "src": "/photos/ab-01-UFPB/8-_MG_0317.jpg",
+          "alt": "Bicycle parked in a palm-shaded path between buildings",
+          "title": "Bike Under the Palms",
+          "date": "2026-02-21",
+          "timeOfDay": "09:51",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-06",
+          "src": "/photos/ab-01-UFPB/7-_MG_0318.jpg",
+          "alt": "Bromeliads and seedling trays in a small shaded garden",
+          "title": "Garden Nursery",
+          "date": "2026-02-21",
+          "timeOfDay": "09:51",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-07",
+          "src": "/photos/ab-01-UFPB/6-_MG_0319.jpg",
+          "alt": "Brick chimney tower behind a row of yellow bromeliads and palms",
+          "title": "Old Chimney, New Garden",
+          "date": "2026-02-21",
+          "timeOfDay": "09:51",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-08",
+          "src": "/photos/ab-01-UFPB/5-_MG_0324.jpg",
+          "alt": "Two-story building with blue tile pillars seen through young trees",
+          "title": "Behind the Blue Tiles",
+          "date": "2026-02-21",
+          "timeOfDay": "09:52",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-09",
+          "src": "/photos/ab-01-UFPB/4-_MG_0326.jpg",
+          "alt": "Cobblestone plaza shaded by trees with a telecommunications tower behind",
+          "title": "Shade Trees on the Plaza",
+          "date": "2026-02-21",
+          "timeOfDay": "09:53",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-10",
+          "src": "/photos/ab-01-UFPB/3-_MG_0327.jpg",
+          "alt": "UFPB spelled out in painted stones under a shaded tree",
+          "title": "UFPB in Stone",
+          "date": "2026-02-21",
+          "timeOfDay": "09:54",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "42mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-11",
+          "src": "/photos/ab-01-UFPB/2-_MG_0330.jpg",
+          "alt": "Two-story classroom building seen through trees in heavy shade",
+          "title": "Classrooms in Shadow",
+          "date": "2026-02-21",
+          "timeOfDay": "09:55",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-12",
+          "src": "/photos/ab-01-UFPB/_MG_0332.jpg",
+          "alt": "Trees casting deep shadows over a sunlit campus path",
+          "title": "Sunlight Through the Trees",
+          "date": "2026-02-21",
+          "timeOfDay": "09:56",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        },
+        {
+          "id": "ab-01-13",
+          "src": "/photos/ab-01-UFPB/_MG_0333_01.jpg",
+          "alt": "Edited version of UFPB campus photo with enhanced tones",
+          "title": "The Mill in Warmer Light",
+          "date": "2026-02-21",
+          "timeOfDay": "09:56",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "18mm", "darktable", "edited"]
+        },
+        {
+          "id": "ab-01-14",
+          "src": "/photos/ab-01-UFPB/1-_MG_0335.jpg",
+          "alt": "Student bulletin board on a brick wall covered with flyers and a Wi-Fi sign",
+          "title": "Notice Board",
+          "date": "2026-02-21",
+          "timeOfDay": "09:57",
+          "occasion": "UFPB campus visit",
+          "tags": ["canon", "rebel t6", "18mm", "ufpb"]
+        }
+      ]
+    },
+    {
+      "id": "ab-02",
+      "name": "Arrival in Rio Tinto",
+      "description": "Photographs from the journey to Rio Tinto, capturing the landscape along the way. A mix of Canon EOS Rebel T6 and Samsung Galaxy S24+ shots spanning from February to June 2026.",
+      "date": "2026-02-21",
+      "location": "Rio Tinto, Paraíba, Brazil",
+      "cover": "/photos/ab-02-rio-tinto-arrival/1-20260228_092244.jpg",
+      "photos": [
+        {
+          "id": "ab-02-01",
+          "src": "/photos/ab-02-rio-tinto-arrival/133338.jpg",
+          "alt": "Air conditioning unit and potted plants on a tiled balcony wall",
+          "title": "Balcony Plants",
+          "date": "2026-02-14",
+          "timeOfDay": "14:29",
+          "occasion": "Travel to Rio Tinto",
+          "tags": ["canon", "rebel t6", "55mm"]
+        },
+        {
+          "id": "ab-02-02",
+          "src": "/photos/ab-02-rio-tinto-arrival/6-20260221_073811.jpg",
+          "alt": "Sunlit chapel altar with stained glass and a chandelier, seen through an iron gate",
+          "title": "Light in the Chapel",
+          "date": "2026-02-21",
+          "timeOfDay": "07:38",
+          "occasion": "Travel to Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide"]
+        },
+        {
+          "id": "ab-02-03",
+          "src": "/photos/ab-02-rio-tinto-arrival/5-_MG_0254.jpg",
+          "alt": "Brick clock tower behind a large heart-shaped 'I love Rio Tinto' sign",
+          "title": "I ❤ RT",
+          "date": "2026-02-21",
+          "timeOfDay": "08:17",
+          "occasion": "Travel to Rio Tinto",
+          "tags": ["canon", "rebel t6", "36mm"]
+        },
+        {
+          "id": "ab-02-04",
+          "src": "/photos/ab-02-rio-tinto-arrival/4-20260221_085859.jpg",
+          "alt": "Tall tree standing beside old brick ruins",
+          "title": "The Old Tree by the Ruins",
+          "date": "2026-02-21",
+          "timeOfDay": "08:58",
+          "occasion": "Travel to Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "ultrawide"]
+        },
+        {
+          "id": "ab-02-05",
+          "src": "/photos/ab-02-rio-tinto-arrival/3-_MG_0322.jpg",
+          "alt": "Cobblestone plaza with a telecommunications tower and painted buildings",
+          "title": "Cobblestone Square",
+          "date": "2026-02-21",
+          "timeOfDay": "09:52",
+          "occasion": "Travel to Rio Tinto",
+          "tags": ["canon", "rebel t6", "18mm"]
+        },
+        {
+          "id": "ab-02-06",
+          "src": "/photos/ab-02-rio-tinto-arrival/2-20260227_172706.jpg",
+          "alt": "Gibbous moon in a deep blue dusk sky",
+          "title": "Moon at Dusk",
+          "date": "2026-02-27",
+          "timeOfDay": "17:27",
+          "occasion": "Travel to Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "telephoto"]
+        },
+        {
+          "id": "ab-02-07",
+          "src": "/photos/ab-02-rio-tinto-arrival/1-20260228_092244.jpg",
+          "alt": "Bus terminal canopy with an intermunicipal boarding sign",
+          "title": "Boarding for Rio Tinto",
+          "date": "2026-02-28",
+          "timeOfDay": "09:22",
+          "occasion": "Travel to Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "telephoto"]
+        },
+        {
+          "id": "ab-02-08",
+          "src": "/photos/ab-02-rio-tinto-arrival/20260530_100805.jpg",
+          "alt": "Mossy clay roof tiles against a blue sky with an old TV antenna",
+          "title": "Mossy Eaves",
+          "date": "2026-05-30",
+          "timeOfDay": "10:08",
+          "occasion": "Rio Tinto life",
+          "tags": ["samsung", "galaxy s24+"]
+        },
+        {
+          "id": "ab-02-09",
+          "src": "/photos/ab-02-rio-tinto-arrival/20260602_202341.jpg",
+          "alt": "Gaming laptop with a red backlit keyboard open to a code editor at night",
+          "title": "Late-Night Code",
+          "date": "2026-06-02",
+          "timeOfDay": "20:23",
+          "occasion": "Rio Tinto life",
+          "tags": ["samsung", "galaxy s24+", "ultrawide", "night"]
+        },
+        {
+          "id": "ab-02-10",
+          "src": "/photos/ab-02-rio-tinto-arrival/179372 (1)(1).jpg",
+          "alt": "Two cats curled up asleep on a brick wall ledge",
+          "title": "Cats Napping on the Wall",
+          "tags": ["lightroom", "mobile", "processed"]
+        }
+      ]
+    },
+    {
+      "id": "ab-03",
+      "name": "Living in Rio Tinto",
+      "description": "Everyday moments captured while living in Rio Tinto, Paraíba. Shot primarily with a Samsung Galaxy S24+, alongside a Canon EOS Rebel T6. Includes early morning scenes and night photography.",
+      "date": "2026-02-21",
+      "location": "Rio Tinto, Paraíba, Brazil",
+      "cover": "/photos/ab-03-rio-tinto/1-_MG_0305.jpg",
+      "photos": [
+        {
+          "id": "ab-03-01",
+          "src": "/photos/ab-03-rio-tinto/6-20260221_072939.jpg",
+          "alt": "Three arched chapel windows glowing in an otherwise dark interior",
+          "title": "Glowing Windows at Dawn",
+          "date": "2026-02-21",
+          "timeOfDay": "07:29",
+          "occasion": "Daily life in Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide", "morning"]
+        },
+        {
+          "id": "ab-03-02",
+          "src": "/photos/ab-03-rio-tinto/2-20260221_073026.jpg",
+          "alt": "Chapel side aisle with wooden pews and sunlit arched windows",
+          "title": "Chapel Side Aisle",
+          "date": "2026-02-21",
+          "timeOfDay": "07:30",
+          "occasion": "Daily life in Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide"]
+        },
+        {
+          "id": "ab-03-03",
+          "src": "/photos/ab-03-rio-tinto/5-20260221_073311.jpg",
+          "alt": "Marble altar table with a bronze Last Supper relief",
+          "title": "The Marble Altar",
+          "date": "2026-02-21",
+          "timeOfDay": "07:33",
+          "occasion": "Daily life in Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide"]
+        },
+        {
+          "id": "ab-03-04",
+          "src": "/photos/ab-03-rio-tinto/4-20260221_074040.jpg",
+          "alt": "Wide view down the empty chapel nave toward the altar",
+          "title": "The Empty Chapel",
+          "date": "2026-02-21",
+          "timeOfDay": "07:40",
+          "occasion": "Daily life in Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "ultrawide"]
+        },
+        {
+          "id": "ab-03-05",
+          "src": "/photos/ab-03-rio-tinto/3-20260221_075154.jpg",
+          "alt": "Bronze plaque honoring Rio Tinto's founder, Frederico João Lundgren",
+          "title": "Founder's Plaque",
+          "date": "2026-02-21",
+          "timeOfDay": "07:51",
+          "occasion": "Daily life in Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide"]
+        },
+        {
+          "id": "ab-03-06",
+          "src": "/photos/ab-03-rio-tinto/2-20260221_080702.jpg",
+          "alt": "Rooftop view of Rio Tinto with royal palms rising above the houses",
+          "title": "Rooftops and Royal Palms",
+          "date": "2026-02-21",
+          "timeOfDay": "08:07",
+          "occasion": "Daily life in Rio Tinto",
+          "tags": ["samsung", "galaxy s24+", "wide"]
+        },
+        {
+          "id": "ab-03-07",
+          "src": "/photos/ab-03-rio-tinto/1-_MG_0305.jpg",
+          "alt": "Statues of the baptism of Jesus lit by afternoon sun on a side altar",
+          "title": "The Baptism Altar",
+          "date": "2026-02-21",
+          "timeOfDay": "08:37",
+          "occasion": "Daily life in Rio Tinto",
+          "tags": ["canon", "rebel t6", "18mm"]
+        },
+        {
+          "id": "ab-03-08",
+          "src": "/photos/ab-03-rio-tinto/179361(1).jpg",
+          "alt": "Town skyline with the old factory chimneys on the horizon",
+          "title": "Skyline and Chimneys",
+          "tags": ["lightroom", "mobile", "processed"]
+        },
+        {
+          "id": "ab-03-09",
+          "src": "/photos/ab-03-rio-tinto/179707(1).jpg",
+          "alt": "Elevated night view of a lit street intersection in Rio Tinto",
+          "title": "Streetlights at Night",
+          "date": "2026-04-10",
+          "timeOfDay": "19:49",
+          "occasion": "Rio Tinto night",
+          "tags": ["samsung", "galaxy s24+", "wide", "night"]
+        },
+        {
+          "id": "ab-03-10",
+          "src": "/photos/ab-03-rio-tinto/20260604_025029.jpg",
+          "alt": "Empty street at night lit by a glowing streetlamp",
+          "title": "Glow on an Empty Street",
+          "date": "2026-06-04",
+          "timeOfDay": "02:50",
+          "occasion": "Rio Tinto night",
+          "tags": ["samsung", "galaxy s24+", "wide", "night", "high iso"]
+        },
+        {
+          "id": "ab-03-11",
+          "src": "/photos/ab-03-rio-tinto/20260617_232923 (2).jpg",
+          "alt": "Mismatched plastic chairs in a backyard at night",
+          "title": "Empty Chairs After Dark",
+          "date": "2026-06-17",
+          "timeOfDay": "23:29",
+          "occasion": "Rio Tinto night",
+          "tags": ["samsung", "galaxy s24+", "ultrawide", "night", "high iso"]
+        }
+      ]
+    }
+  ]
 }
