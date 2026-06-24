@@ -31,12 +31,12 @@ declare module "@content/music/en/favorites.json" {
   const value: MusicDataStore;
   export default value;
 }
-declare module "@content/music/en/playlists.json" {
+declare module "@content/music/en/channels.json" {
   import type { MusicDataStore } from "@indago/hyper-json";
   const value: MusicDataStore;
   export default value;
 }
-declare module "@content/music/en/channels.json" {
+declare module "@content/music/en/playlists.json" {
   import type { MusicDataStore } from "@indago/hyper-json";
   const value: MusicDataStore;
   export default value;
