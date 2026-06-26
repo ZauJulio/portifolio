@@ -12,11 +12,9 @@ import { ChannelCard } from "./components/ChannelCard";
 import { FavoriteTrack } from "./components/FavoriteTrack";
 import { FilterRow } from "./components/FilterRow";
 import { PlaylistCard } from "./components/PlaylistCard";
-import { PlaylistModal } from "./components/PlaylistModal";
 import { channels, enFavorites, enPlaylists, genres, ptBRFavorites, ptBRPlaylists } from "./data";
 import { useYouTubeChannels } from "./hooks/useYouTubeChannels";
 
-import type { Playlist } from "@indago/hyper-json";
 import type { Favorite } from "@indago/hyper-json";
 
 const PAGE_SIZE = 6;
@@ -27,7 +25,6 @@ export default function MusicPage() {
   const [activeGenre, setActiveGenre] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(null);
 
   const isPtBR = locale.startsWith("pt");
   const playlists = isPtBR ? ptBRPlaylists : enPlaylists;
@@ -78,7 +75,7 @@ export default function MusicPage() {
             {t(($) => $.music.description)}
           </p>
 
-          <div className="flex items-center justify-center gap-4 mt-6">
+          <div className="flex items-center justify-center mt-6">
             <span className="inline-flex items-center gap-1.5 text-sm text-red-400 bg-red-500/10 px-3 py-1.5 rounded-full border border-red-500/20">
               <YouTubeMusicIcon className="size-4" /> YouTube Music
             </span>
@@ -125,11 +122,7 @@ export default function MusicPage() {
                 <h2 className="text-2xl font-bold mb-8">{t(($) => $.music.playlists)}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {pagedPlaylists.map((playlist) => (
-                    <PlaylistCard
-                      key={playlist.id}
-                      playlist={playlist}
-                      onClick={() => setSelectedPlaylist(playlist)}
-                    />
+                    <PlaylistCard key={playlist.id} playlist={playlist} />
                   ))}
                 </div>
               </div>
@@ -226,10 +219,6 @@ export default function MusicPage() {
             </div>
           </div>
         </section>
-      )}
-
-      {selectedPlaylist && (
-        <PlaylistModal playlist={selectedPlaylist} onClose={() => setSelectedPlaylist(null)} />
       )}
     </div>
   );

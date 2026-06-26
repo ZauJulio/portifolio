@@ -2,27 +2,25 @@ import { useTranslation } from "react-i18next";
 
 import { ImageIcon } from "lucide-react";
 
+import { Link } from "@/components/Link";
 import { useLocale } from "@/i18n";
 
 import type { Album } from "@indago/hyper-json";
 
 interface AlbumCardProps {
   album: Album;
-  onSelect: (album: Album) => void;
 }
 
-export function AlbumCard({ album, onSelect }: AlbumCardProps) {
+export function AlbumCard({ album }: AlbumCardProps) {
   const { displayLocale } = useLocale();
   const { t } = useTranslation();
   const coverPhoto = album.photos[0];
   const photoCount = album.photos.length;
 
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(album)}
-      aria-label={album.name}
-      className="group block text-left rounded-xl overflow-hidden border border-gray-800 hover:border-brand-500 transition-all duration-300 hover:shadow-lg hover:shadow-brand-900/20 cursor-pointer"
+    <Link
+      to={`${import.meta.env.BASE_URL}photography/${album.id}`}
+      className="group block text-left rounded-xl overflow-hidden border border-gray-800 hover:border-brand-500 transition-all duration-300 hover:shadow-lg hover:shadow-brand-900/20 no-underline"
     >
       <div className="aspect-video bg-gray-900 relative overflow-hidden">
         {coverPhoto ? (
@@ -58,6 +56,6 @@ export function AlbumCard({ album, onSelect }: AlbumCardProps) {
           </span>
         </div>
       </div>
-    </button>
+    </Link>
   );
 }

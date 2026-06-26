@@ -5,7 +5,11 @@
     "loading": "Loading...",
     "search": "Search...",
     "tags": "Tags",
-    "loadMore": "More"
+    "loadMore": "More",
+    "share": "Share",
+    "linkCopied": "Link copied!",
+    "share": "Share",
+    "linkCopied": "Link copied!"
   },
   "nav": {
     "about": "About",

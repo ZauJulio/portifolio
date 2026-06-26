@@ -26,12 +26,12 @@ declare module "@content/languages/languages.json" {
   const value: LanguageContentSchema;
   export default value;
 }
-declare module "@content/music/en/channels.json" {
+declare module "@content/music/en/favorites.json" {
   import type { MusicDataStore } from "@indago/hyper-json";
   const value: MusicDataStore;
   export default value;
 }
-declare module "@content/music/en/favorites.json" {
+declare module "@content/music/en/channels.json" {
   import type { MusicDataStore } from "@indago/hyper-json";
   const value: MusicDataStore;
   export default value;

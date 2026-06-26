@@ -5,7 +5,9 @@
     "loading": "Carregando...",
     "search": "Buscar...",
     "tags": "Tags",
-    "loadMore": "Mais"
+    "loadMore": "Mais",
+    "share": "Compartilhar",
+    "linkCopied": "Link copiado!"
   },
   "nav": {
     "about": "Sobre",

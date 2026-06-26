@@ -1,23 +1,16 @@
 import { PlayCircleIcon } from "lucide-react";
 
+import { Link } from "@/components/Link";
+
 import { PlatformLinks } from "./PlatformLinks";
 
 import type { Playlist } from "@indago/hyper-json";
 
-export function PlaylistCard({ playlist, onClick }: { playlist: Playlist; onClick?: () => void }) {
+export function PlaylistCard({ playlist }: { playlist: Playlist }) {
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div
-      role={onClick ? "button" : undefined}
-      tabIndex={onClick ? 0 : undefined}
-      onKeyDown={(e) => {
-        if (onClick && (e.key === "Enter" || e.key === " ")) {
-          e.preventDefault();
-          onClick();
-        }
-      }}
-      onClick={onClick}
-      className={`rounded-xl border border-gray-800 bg-gray-900/25 overflow-hidden group hover:border-brand-500/50 transition-all duration-300 ${onClick ? "cursor-pointer text-left" : ""}`}
+    <Link
+      to={`${import.meta.env.BASE_URL}music/${playlist.id}`}
+      className="block rounded-xl border border-gray-800 bg-gray-900/25 overflow-hidden group hover:border-brand-500/50 transition-all duration-300 no-underline"
     >
       {playlist.cover ? (
         <div className="aspect-square overflow-hidden">
@@ -51,6 +44,6 @@ export function PlaylistCard({ playlist, onClick }: { playlist: Playlist; onClic
 
         <PlatformLinks youtubeId={playlist.youtubeId} type="playlist" />
       </div>
-    </div>
+    </Link>
   );
 }

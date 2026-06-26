@@ -1,4 +1,9 @@
+import enPlaylistsJson from "@content/music/en/playlists.json";
+import photographyPt from "@content/photography/pt-BR/photography.json";
+
 import { getSlugs } from "@/lib/content-slugs";
+
+import type { Album, Playlist } from "@indago/hyper-json";
 
 // SSG for the Portuguese (`/pt`) variants (https://vike.dev/i18n).
 //
@@ -10,12 +15,28 @@ import { getSlugs } from "@/lib/content-slugs";
 export function onBeforePrerenderStart(): string[] {
   // The `/articles` and `/cooking` listings are SSR (`prerender: false`) in both
   // locales — the Hono server renders them on request — so they're omitted here;
-  // only the SSG `/pt` pages are listed. `onBeforeRoute` locale-strips each back
+  // only the SSG `/pt` pages are listed. `onBeforeRoute` locale-strip routes each back
   // to the shared page tree.
   const staticPtUrls = ["/pt", "/pt/music", "/pt/photography", "/pt/links"];
 
   const articlePtUrls = getSlugs("article").map((slug) => `/pt/articles/${slug}`);
   const recipePtUrls = getSlugs("recipe").map((slug) => `/pt/cooking/${slug}`);
 
-  return [...staticPtUrls, ...articlePtUrls, ...recipePtUrls];
+  const ptAlbums = photographyPt.albums as Album[];
+  const photographyAlbumPtUrls = ptAlbums.map((album) => `/pt/photography/${album.id}`);
+  const photographyPhotoPtUrls = ptAlbums.flatMap((album) =>
+    album.photos.map((photo) => `/pt/photography/${album.id}/${photo.id}`),
+  );
+
+  const enPlaylists = (enPlaylistsJson as unknown as { $schema: string; items: Playlist[] }).items;
+  const musicPtUrls = enPlaylists.map((p) => `/pt/music/${p.id}`);
+
+  return [
+    ...staticPtUrls,
+    ...articlePtUrls,
+    ...recipePtUrls,
+    ...photographyAlbumPtUrls,
+    ...photographyPhotoPtUrls,
+    ...musicPtUrls,
+  ];
 }

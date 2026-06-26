@@ -5,7 +5,6 @@ import { CameraIcon, ImageIcon } from "lucide-react";
 import { PageHeader } from "@/components/PageHeader";
 
 import { AlbumCard } from "./components/AlbumCard";
-import { AlbumModal } from "./components/AlbumModal";
 import { PhotographyProvider, usePhotography } from "./PhotographyContext";
 
 export default function PhotographyPage() {
@@ -18,7 +17,7 @@ export default function PhotographyPage() {
 
 function PhotographyView() {
   const { t } = useTranslation();
-  const { albums, selectedAlbum, selectAlbum, modalTags } = usePhotography();
+  const { albums } = usePhotography();
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
@@ -42,7 +41,7 @@ function PhotographyView() {
           {albums.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {albums.map((album) => (
-                <AlbumCard key={album.id} album={album} onSelect={selectAlbum} />
+                <AlbumCard key={album.id} album={album} />
               ))}
             </div>
           ) : (
@@ -55,8 +54,6 @@ function PhotographyView() {
           )}
         </div>
       </section>
-
-      <AlbumModal album={selectedAlbum} tags={modalTags} onClose={() => selectAlbum(null)} />
     </div>
   );
 }
