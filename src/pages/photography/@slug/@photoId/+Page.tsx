@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ChevronLeftIcon, ChevronRightIcon, XIcon } from "lucide-react";
 import { useData } from "vike-react/useData";
+import { navigate } from "vike/client/router";
 
 import { Link } from "@/components/Link";
 
@@ -12,6 +14,18 @@ export default function PhotoPage() {
   const { photo, album, prev, next, index, total } = useData<Data>();
 
   const albumUrl = `${import.meta.env.BASE_URL}photography/${album.id}`;
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "ArrowLeft" && prev) {
+        navigate(`${albumUrl}/${prev.id}`);
+      } else if (e.key === "ArrowRight" && next) {
+        navigate(`${albumUrl}/${next.id}`);
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [prev, next, albumUrl]);
 
   return (
     <div className="fixed inset-0 z-50 bg-black flex flex-col">
@@ -44,7 +58,7 @@ export default function PhotoPage() {
           {prev && (
             <Link
               to={`${albumUrl}/${prev.id}`}
-              className="hidden lg:flex absolute left-4 z-10 p-2 text-white/60 hover:text-white rounded-full hover:bg-white/10 transition-colors"
+              className="hidden lg:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/60 hover:text-white rounded-full hover:bg-white/10 transition-colors"
               aria-label={t(($) => $.cooking.prevPage)}
             >
               <ChevronLeftIcon className="size-8" />
@@ -60,7 +74,7 @@ export default function PhotoPage() {
           {next && (
             <Link
               to={`${albumUrl}/${next.id}`}
-              className="hidden lg:flex absolute right-4 z-10 p-2 text-white/60 hover:text-white rounded-full hover:bg-white/10 transition-colors"
+              className="hidden lg:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/60 hover:text-white rounded-full hover:bg-white/10 transition-colors"
               aria-label={t(($) => $.cooking.nextPage)}
             >
               <ChevronRightIcon className="size-8" />
