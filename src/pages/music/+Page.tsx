@@ -2,15 +2,17 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useComposed } from "@indago/hyper-json/hooks";
-import { ChevronLeftIcon, ChevronRightIcon, Disc3Icon, Music2Icon, SearchIcon } from "lucide-react";
+import { Disc3Icon, Music2Icon, SearchIcon } from "lucide-react";
 
+import { FilterRow } from "@/components/FilterRow";
+import { Footer } from "@/components/Footer";
 import { YouTubeMusicIcon } from "@/components/icons/YouTubeMusicIcon";
 import { PageHeader } from "@/components/PageHeader";
+import { Pagination } from "@/components/Pagination";
 import { useLocale } from "@/i18n";
 
 import { ChannelCard } from "./components/ChannelCard";
 import { FavoriteTrack } from "./components/FavoriteTrack";
-import { FilterRow } from "./components/FilterRow";
 import { PlaylistCard } from "./components/PlaylistCard";
 import { channels, enFavorites, enPlaylists, genres, ptBRFavorites, ptBRPlaylists } from "./data";
 import { useYouTubeChannels } from "./hooks/useYouTubeChannels";
@@ -24,7 +26,8 @@ export default function MusicPage() {
   const { t } = useTranslation();
   const [activeGenre, setActiveGenre] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState(1);
+  const [playlistPage, setPlaylistPage] = useState(1);
+  const [favoritePage, setFavoritePage] = useState(1);
 
   const isPtBR = locale.startsWith("pt");
   const playlists = isPtBR ? ptBRPlaylists : enPlaylists;
@@ -35,20 +38,22 @@ export default function MusicPage() {
   const genreFilter = activeGenre !== "All" ? [{ key: "genre" as const, value: activeGenre }] : [];
 
   const {
-    paginated: { items: pagedPlaylists },
+    paginated: { items: pagedPlaylists, totalPages: playlistPages },
   } = useComposed(playlists, {
     filters: genreFilter,
     searchQuery,
     searchFields: ["title", "description", "genre"],
+    page: playlistPage,
+    perPage: PAGE_SIZE,
   });
 
   const {
-    paginated: { items: pagedFavorites, totalPages: favPages, page: favPage },
+    paginated: { items: pagedFavorites, totalPages: favoritePages },
   } = useComposed(favorites, {
     filters: genreFilter,
     searchQuery,
     searchFields: ["title", "artist", "album", "genre"],
-    page: page,
+    page: favoritePage,
     perPage: PAGE_SIZE,
   });
 
@@ -57,8 +62,10 @@ export default function MusicPage() {
     locale,
   );
 
-  const handlePrev = () => setPage((p) => Math.max(1, p - 1));
-  const handleNext = () => setPage((p) => Math.min(favPages, p + 1));
+  const resetPages = () => {
+    setPlaylistPage(1);
+    setFavoritePage(1);
+  };
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
@@ -94,93 +101,70 @@ export default function MusicPage() {
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
-                setPage(1);
+                resetPages();
               }}
               className="w-full bg-gray-900/50 border border-gray-800 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:border-brand-500/50 transition-colors"
             />
           </div>
 
-          {genres.length > 1 && (
-            <FilterRow
-              label={t(($) => $.music.genre)}
-              options={genres}
-              active={activeGenre}
-              onSelect={(v) => {
-                setActiveGenre(v);
-                setPage(1);
-              }}
-            />
-          )}
+          <FilterRow
+            label={t(($) => $.music.genre)}
+            options={genres}
+            active={activeGenre}
+            onSelect={(v) => {
+              setActiveGenre(v);
+              resetPages();
+            }}
+          />
         </div>
       </section>
 
       {hasContent ? (
         <>
           {pagedPlaylists.length > 0 && (
-            <section className="pb-16 px-6">
-              <div className="max-w-7xl mx-auto">
-                <h2 className="text-2xl font-bold mb-8">{t(($) => $.music.playlists)}</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {pagedPlaylists.map((playlist) => (
-                    <PlaylistCard key={playlist.id} playlist={playlist} />
-                  ))}
+            <>
+              <section className="pb-16 px-6">
+                <div className="max-w-7xl mx-auto">
+                  <h2 className="text-2xl font-bold mb-8">{t(($) => $.music.playlists)}</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {pagedPlaylists.map((playlist) => (
+                      <PlaylistCard key={playlist.id} playlist={playlist} />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </section>
+              </section>
+
+              <Pagination
+                totalPages={playlistPages}
+                currentPage={playlistPage}
+                onPageChange={setPlaylistPage}
+                prevLabel={t(($) => $.cooking.prevPage)}
+                nextLabel={t(($) => $.cooking.nextPage)}
+              />
+            </>
           )}
 
           {pagedFavorites.length > 0 && (
-            <section className="pb-20 px-6">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="text-2xl font-bold mb-8">{t(($) => $.music.favorites)}</h2>
-                <div className="space-y-3">
-                  {pagedFavorites.map((track) => (
-                    <FavoriteTrack key={track.id} track={track as Favorite} />
-                  ))}
-                </div>
-              </div>
-
-              {favPages > 1 && (
-                <div className="max-w-4xl mx-auto mt-8 flex items-center justify-center gap-4">
-                  <button
-                    type="button"
-                    disabled={favPage <= 1}
-                    onClick={handlePrev}
-                    className="inline-flex items-center gap-1 px-4 py-2 rounded-lg border border-gray-800 text-sm text-gray-400 hover:text-white hover:border-gray-700 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                  >
-                    <ChevronLeftIcon className="size-4" />
-                    {t(($) => $.cooking.prevPage)}
-                  </button>
-
-                  <div className="flex items-center gap-2">
-                    {Array.from({ length: favPages }, (_, i) => i + 1).map((n) => (
-                      <button
-                        key={n}
-                        type="button"
-                        onClick={() => setPage(n)}
-                        className={`size-8 rounded-lg text-sm transition-colors ${
-                          n === favPage
-                            ? "bg-brand-500 text-white"
-                            : "text-gray-500 hover:text-white hover:bg-gray-800"
-                        }`}
-                      >
-                        {n}
-                      </button>
+            <>
+              <section className="pb-20 px-6">
+                <div className="max-w-7xl mx-auto">
+                  <h2 className="text-2xl font-bold mb-8">{t(($) => $.music.favorites)}</h2>
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    {pagedFavorites.map((track) => (
+                      <FavoriteTrack key={track.id} track={track as Favorite} />
                     ))}
                   </div>
-
-                  <button
-                    type="button"
-                    disabled={favPage >= favPages}
-                    onClick={handleNext}
-                    className="inline-flex items-center gap-1 px-4 py-2 rounded-lg border border-gray-800 text-sm text-gray-400 hover:text-white hover:border-gray-700 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                  >
-                    {t(($) => $.cooking.nextPage)}
-                    <ChevronRightIcon className="size-4" />
-                  </button>
                 </div>
-              )}
-            </section>
+              </section>
+
+              <Pagination
+                totalPages={favoritePages}
+                currentPage={favoritePage}
+                onPageChange={setFavoritePage}
+                prevLabel={t(($) => $.cooking.prevPage)}
+                nextLabel={t(($) => $.cooking.nextPage)}
+              />
+            </>
           )}
 
           {pagedPlaylists.length === 0 && pagedFavorites.length === 0 && (
@@ -220,6 +204,8 @@ export default function MusicPage() {
           </div>
         </section>
       )}
+
+      <Footer />
     </div>
   );
 }

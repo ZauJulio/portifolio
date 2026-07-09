@@ -8,8 +8,8 @@
     "loadMore": "More",
     "share": "Share",
     "linkCopied": "Link copied!",
-    "share": "Share",
-    "linkCopied": "Link copied!"
+    "availableOn": "Available on",
+    "all": "All"
   },
   "nav": {
     "about": "About",
@@ -20,6 +20,10 @@
     "photography": "Photography",
     "cooking": "Cooking",
     "music": "Music",
+    "games": "Games",
+    "books": "Books",
+    "movies": "Movies & Series",
+    "reviews": "Reviews",
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "contact": "Contact",
@@ -99,6 +103,18 @@
     "music": {
       "title": "Music",
       "description": "Playing guitar and exploring different genres. Music is a constant source of inspiration and creativity."
+    },
+    "games": {
+      "title": "Games",
+      "description": "Playing through worlds big and small. Games are where systems thinking meets storytelling and pure fun."
+    },
+    "books": {
+      "title": "Books",
+      "description": "Reading across fiction and non-fiction. Books are where I slow down and think deeply about ideas."
+    },
+    "movies": {
+      "title": "Movies & Series",
+      "description": "Watching everything from sprawling series to one-off films. A log of what's playing and what stuck with me."
     }
   },
   "hire": {
@@ -110,7 +126,11 @@
   "footer": {
     "copyright": "All rights reserved.",
     "builtWith": "Built with",
-    "and": "and"
+    "and": "and",
+    "links": "Site links",
+    "about": "About",
+    "accessibility": "Accessibility",
+    "cnpj": "CNPJ"
   },
   "photography": {
     "title": "Photography",
@@ -156,6 +176,85 @@
     "all": "All",
     "empty": "Playlists coming soon",
     "noResults": "No music matches this genre"
+  },
+  "games": {
+    "title": "Games",
+    "description": "What I'm playing, finished, and have queued up. From action RPGs to cozy strategy — a log of the worlds I've spent time in.",
+    "searchPlaceholder": "Search games...",
+    "genre": "Genre",
+    "empty": "Games coming soon",
+    "noResults": "No games match this genre",
+    "status": {
+      "playing": "Playing",
+      "completed": "Completed",
+      "backlog": "Backlog",
+      "dropped": "Dropped"
+    }
+  },
+  "books": {
+    "title": "Books",
+    "description": "What I'm reading, finished, and want to read next. A running log across fiction, non-fiction, and technical reads.",
+    "searchPlaceholder": "Search books...",
+    "genre": "Genre",
+    "empty": "Books coming soon",
+    "noResults": "No books match this genre",
+    "status": {
+      "reading": "Reading",
+      "finished": "Finished",
+      "want-to-read": "Want to Read",
+      "dropped": "Dropped"
+    }
+  },
+  "movies": {
+    "title": "Movies & Series",
+    "description": "What I'm watching, finished, and have queued up. A running log across films and series.",
+    "searchPlaceholder": "Search movies & series...",
+    "genre": "Genre",
+    "type": "Type",
+    "empty": "Movies & series coming soon",
+    "noResults": "Nothing matches this filter",
+    "status": {
+      "watching": "Watching",
+      "completed": "Completed",
+      "backlog": "Backlog",
+      "dropped": "Dropped"
+    },
+    "kind": {
+      "movie": "Movie",
+      "series": "Series",
+      "anime": "Anime"
+    }
+  },
+  "reviews": {
+    "title": "Reviews",
+    "description": "Longer-form thoughts on games, books, music, and movies — what worked, what didn't, and why it stuck with me.",
+    "searchPlaceholder": "Search reviews...",
+    "seeAll": "See all reviews",
+    "readMore": "Read More",
+    "publishedOn": "Published on",
+    "noReviews": "No reviews yet",
+    "noReviewsTagged": "No reviews tagged \"{{tag}}\"",
+    "sortBy": "Sort by",
+    "sortDate": "Date",
+    "sortTitle": "Title",
+    "page": "Page {page} of {total}",
+    "prevPage": "Previous",
+    "nextPage": "Next",
+    "notFound": "Review not found",
+    "notFoundDesc": "The review you're looking for doesn't exist.",
+    "contentNotFound": "Content not available",
+    "relatedTitle": "You might also like",
+    "type": {
+      "game": "Game",
+      "music": "Music",
+      "book": "Book",
+      "movie": "Movie",
+      "other": "Other"
+    },
+    "kind": {
+      "review": "Review",
+      "critique": "Critique"
+    }
   },
   "notFound": {
     "title": "404",
@@ -222,5 +321,58 @@
     "github": "GitHub",
     "codersrank": "CodersRank",
     "discord": "Discord"
+  },
+  "siteAbout": {
+    "title": "About this site",
+    "intro": "This is the personal website and portfolio of Zau Julio — a place to share professional work, writing, and the hobbies that keep the balance. This page explains, in plain terms, what the site is, how it was built, and how your privacy is respected here.",
+    "sections": [
+      {
+        "heading": "What this site is",
+        "body": "A personal portfolio and digital garden. Alongside professional projects and articles, it collects hobbies — photography, cooking, music, games, books, and film. Nothing here is a commercial product or service; it is a place to show work and share ideas."
+      },
+      {
+        "heading": "Privacy",
+        "body": "This site does not sell or share your personal data. It collects no accounts, no logins, and no personal information you don't volunteer. Lightweight, privacy-respecting analytics may be used to understand aggregate traffic (such as page views and performance), never to identify you individually. External links (streaming services, stores, social networks) open on third-party sites governed by their own privacy policies."
+      },
+      {
+        "heading": "How AI was used",
+        "body": "Parts of this site were built with the help of AI coding assistants, used as a tool under human direction and review. AI helped with implementation, refactoring, and drafting — but the ideas, decisions, editorial choices, and final review are the author's own. Where AI generated or assisted content, it was checked and edited by a human. No content here is published unreviewed."
+      },
+      {
+        "heading": "Content and accuracy",
+        "body": "Opinions, reviews, and notes reflect the author's personal views at the time of writing and may change. Cover images, logos, and trademarks belong to their respective owners and are used for identification and editorial reference only. If you believe something is inaccurate or should be corrected, please get in touch."
+      },
+      {
+        "heading": "Contact",
+        "body": "For professional inquiries, corrections, or questions about this site, reach out by email at zaujulio.dev@gmail.com. This site is operated by Zau Julio (CNPJ 49.708.916/0001-90)."
+      }
+    ],
+    "accessibilityCta": "Read the accessibility statement"
+  },
+  "accessibility": {
+    "title": "Accessibility",
+    "intro": "Accessibility is a priority for this site. The goal is that everyone — including people who rely on assistive technology — can navigate, read, and use every page comfortably.",
+    "sections": [
+      {
+        "heading": "Commitment",
+        "body": "This site aims to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 at level AA. Accessibility is treated as an ongoing effort rather than a one-time task: pages are reviewed and improved over time."
+      },
+      {
+        "heading": "What's in place",
+        "body": "Semantic HTML and landmarks for screen readers; keyboard navigation for interactive elements; visible focus indicators; descriptive alt text on meaningful images; ARIA labels on icon-only controls; color choices checked for contrast; a responsive layout that reflows without horizontal scrolling; and support for reduced-motion preferences."
+      },
+      {
+        "heading": "Language and structure",
+        "body": "The site is available in English and Portuguese, with the page language declared for assistive technology. Headings follow a logical order, and content is structured so it can be understood without relying on color or shape alone."
+      },
+      {
+        "heading": "Known limitations",
+        "body": "Some third-party embeds and external destinations (streaming services, stores) are outside this site's control and may not meet the same standards. Where such content appears, an accessible text alternative or label is provided whenever possible."
+      },
+      {
+        "heading": "Feedback",
+        "body": "If you encounter an accessibility barrier, or need content in a different format, please email zaujulio.dev@gmail.com with a description of the problem and the page where it occurred. Reports are taken seriously and used to improve the site."
+      }
+    ]
   }
 }

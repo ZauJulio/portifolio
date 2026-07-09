@@ -29,10 +29,16 @@ export default function HeadDefault() {
   const logicalPath = stripLocale(pageContext.urlPathname);
   const canonical = absoluteUrl(locale, logicalPath);
 
+  // Reviews are only a data source for the books/movies/games detail pages —
+  // the `/reviews` listing and its `@slug` pages stay browseable but must never
+  // be indexed, so they're dropped from the sitemap (hyperdown.config.json) and
+  // marked `noindex` here (and skip the canonical/hreflang block below).
+  const isNoIndex = isNotFound || logicalPath === "/reviews" || logicalPath.startsWith("/reviews/");
+
   return (
     <>
       <meta name="author" content="Zau Julio" />
-      <meta name="robots" content={isNotFound ? "noindex, follow" : "index, follow"} />
+      <meta name="robots" content={isNoIndex ? "noindex, follow" : "index, follow"} />
       <meta name="theme-color" content="#000000" />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={canonical} />
@@ -51,8 +57,8 @@ export default function HeadDefault() {
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
       {/* Per-page canonical + hreflang alternates (region tags via I18N.canonical).
-          Skipped on 404s so an unpublished/missing URL never claims a canonical. */}
-      {!isNotFound && (
+          Skipped on 404s and noindex (reviews) so those URLs never claim a canonical. */}
+      {!isNoIndex && (
         <>
           <link rel="canonical" href={canonical} />
           {LOCALES.map((l) => (

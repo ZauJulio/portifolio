@@ -7,9 +7,12 @@ type CoverImageProps = {
   src: string;
   alt: string;
   maxHeightClass?: string;
+  // When true the image fills the container edge-to-edge (no side padding),
+  // used where the cover should occupy 100% of its wrapper (e.g. SubjectHeader).
+  fill?: boolean;
 };
 
-export function CoverImage({ src, alt, maxHeightClass }: CoverImageProps) {
+export function CoverImage({ src, alt, maxHeightClass, fill }: CoverImageProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scale, setScale] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -36,7 +39,9 @@ export function CoverImage({ src, alt, maxHeightClass }: CoverImageProps) {
     };
   }, [isOpen]);
 
-  const containerClass = `group relative w-full px-2  rounded-2xl overflow-hidden bg-black/40 transition-[max-height] duration-300 ${
+  const containerClass = `group relative w-full ${
+    fill ? "h-full px-0" : "rounded-2xl bg-black/40 px-2"
+  } overflow-hidden transition-[max-height] duration-300 ${
     maxHeightClass || "max-h-[400px]"
   } hover:max-h-[70vh]`;
 
@@ -55,7 +60,9 @@ export function CoverImage({ src, alt, maxHeightClass }: CoverImageProps) {
         <img
           src={src}
           alt={alt}
-          className="w-full h-full rounded-2xl object-cover transition-all duration-300 group-hover:object-contain cursor-zoom-in"
+          className={`w-full h-full object-cover transition-all duration-300 group-hover:object-contain cursor-zoom-in ${
+            fill ? "rounded-none" : "rounded-2xl"
+          }`}
         />
       </button>
 
@@ -108,28 +115,32 @@ export function CoverImage({ src, alt, maxHeightClass }: CoverImageProps) {
               onWheel={(event) => {
                 event.preventDefault();
                 const delta = event.deltaY * -0.001;
+
                 setScale((current) => {
                   const nextScale = Math.min(4, Math.max(1, current + delta));
-                  if (nextScale === 1) {
-                    setOffset({ x: 0, y: 0 });
-                  }
+
+                  if (nextScale === 1) setOffset({ x: 0, y: 0 });
                   return nextScale;
                 });
               }}
               onPointerDown={(event) => {
                 if (scale <= 1) return;
+
                 isDraggingRef.current = true;
                 didMoveRef.current = false;
+
                 lastPointerRef.current = { x: event.clientX, y: event.clientY };
               }}
               onPointerMove={(event) => {
                 if (!isDraggingRef.current || scale <= 1) return;
+
                 const dx = event.clientX - lastPointerRef.current.x;
                 const dy = event.clientY - lastPointerRef.current.y;
+
                 lastPointerRef.current = { x: event.clientX, y: event.clientY };
-                if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
-                  didMoveRef.current = true;
-                }
+
+                if (Math.abs(dx) > 2 || Math.abs(dy) > 2) didMoveRef.current = true;
+
                 setOffset((current) => ({ x: current.x + dx, y: current.y + dy }));
               }}
               onPointerUp={() => {

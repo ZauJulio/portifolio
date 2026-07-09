@@ -1,0 +1,84 @@
+{
+  "$schema": "../schema.json",
+  "items": [
+    {
+      "id": "harry-potter",
+      "title": "Harry Potter (Saga)",
+      "author": "J. K. Rowling",
+      "cover": "/covers/harry-potter.jpg",
+      "kind": "book",
+      "status": "finished",
+      "genre": "Fantasy",
+      "rating": 5,
+      "description": "The seven-book saga of the boy wizard's coming of age at Hogwarts and his fight against Lord Voldemort."
+    },
+    {
+      "id": "divergent",
+      "title": "Divergent",
+      "author": "Veronica Roth",
+      "cover": "/covers/divergent.jpg",
+      "kind": "book",
+      "status": "finished",
+      "genre": "Dystopian",
+      "rating": 4,
+      "description": "In a faction-divided future Chicago, Tris discovers she is Divergent — and that the truth threatens the whole system.",
+      "links": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.com/dp/0062387243"
+        },
+        {
+          "platform": "goodreads",
+          "url": "https://www.goodreads.com/book/show/13335037-divergent"
+        }
+      ]
+    },
+    {
+      "id": "the-hunger-games",
+      "title": "The Hunger Games",
+      "author": "Suzanne Collins",
+      "cover": "/covers/the-hunger-games.jpg",
+      "kind": "book",
+      "status": "finished",
+      "genre": "Dystopian",
+      "rating": 4.5,
+      "description": "Katniss Everdeen volunteers for a televised fight to the death and becomes the spark of a rebellion against the Capitol."
+    },
+    {
+      "id": "dracula",
+      "title": "Dracula",
+      "author": "Bram Stoker",
+      "cover": "/covers/dracula.jpg",
+      "kind": "book",
+      "status": "finished",
+      "genre": "Gothic Horror",
+      "rating": 4.5,
+      "description": "The epistolary classic that defined the vampire myth, as Count Dracula spreads his curse from Transylvania to England."
+    },
+    {
+      "id": "1984",
+      "title": "1984",
+      "author": "George Orwell",
+      "cover": "/covers/1984.jpg",
+      "kind": "book",
+      "status": "finished",
+      "genre": "Dystopian",
+      "rating": 5,
+      "description": "Orwell's chilling vision of a totalitarian state where surveillance, propaganda, and Big Brother crush all dissent.",
+      "links": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.com/dp/0451524934"
+        },
+        {
+          "platform": "kindle",
+          "url": "https://www.amazon.com/dp/B003JTHWKU"
+        },
+        {
+          "platform": "goodreads",
+          "url": "https://www.goodreads.com/book/show/40961427-1984"
+        }
+      ]
+    }
+  ]
+}

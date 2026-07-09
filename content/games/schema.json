@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GamesDataStore",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/game" }
+    }
+  },
+  "required": ["items"],
+  "additionalProperties": false,
+  "definitions": {
+    "game": {
+      "type": "object",
+      "required": ["id", "title", "cover", "status", "platform", "genre"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "cover": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["playing", "completed", "backlog", "dropped"]
+        },
+        "platform": { "type": "string" },
+        "genre": { "type": "string" },
+        "rating": { "type": "number", "minimum": 0, "maximum": 5 },
+        "hoursPlayed": { "type": "number", "minimum": 0 },
+        "accentColor": {
+          "type": "string",
+          "description": "Override accent color as hex (e.g. '#fe0000')"
+        },
+        "description": { "type": "string" },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["platform", "url"],
+            "additionalProperties": false,
+            "properties": {
+              "platform": { "type": "string" },
+              "url": { "type": "string" },
+              "label": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

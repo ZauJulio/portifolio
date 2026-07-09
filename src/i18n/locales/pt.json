@@ -7,7 +7,9 @@
     "tags": "Tags",
     "loadMore": "Mais",
     "share": "Compartilhar",
-    "linkCopied": "Link copiado!"
+    "linkCopied": "Link copiado!",
+    "availableOn": "Disponível em",
+    "all": "Todos"
   },
   "nav": {
     "about": "Sobre",
@@ -18,6 +20,10 @@
     "photography": "Fotografia",
     "cooking": "Culinária",
     "music": "Música",
+    "games": "Jogos",
+    "books": "Livros",
+    "movies": "Filmes e Séries",
+    "reviews": "Resenhas",
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "contact": "Contato",
@@ -97,6 +103,18 @@
     "music": {
       "title": "Música",
       "description": "Tocando guitarra e explorando diferentes gêneros. A música é uma fonte constante de inspiração e criatividade."
+    },
+    "games": {
+      "title": "Jogos",
+      "description": "Jogando em mundos grandes e pequenos. Jogos são onde pensamento sistêmico encontra narrativa e diversão pura."
+    },
+    "books": {
+      "title": "Livros",
+      "description": "Lendo entre ficção e não-ficção. Livros são onde eu desacelero e penso profundamente sobre ideias."
+    },
+    "movies": {
+      "title": "Filmes e Séries",
+      "description": "Assistindo de séries longas a filmes avulsos. Um registro do que está passando e do que ficou na memória."
     }
   },
   "hire": {
@@ -108,7 +126,11 @@
   "footer": {
     "copyright": "Todos os direitos reservados.",
     "builtWith": "Construído com",
-    "and": "e"
+    "and": "e",
+    "links": "Links do site",
+    "about": "Sobre",
+    "accessibility": "Acessibilidade",
+    "cnpj": "CNPJ"
   },
   "photography": {
     "title": "Fotografia",
@@ -154,6 +176,85 @@
     "all": "Todos",
     "empty": "Playlists em breve",
     "noResults": "Nenhuma música corresponde a este gênero"
+  },
+  "games": {
+    "title": "Jogos",
+    "description": "O que estou jogando, terminei e tenho na fila. De RPGs de ação a estratégia tranquila — um registro dos mundos onde passei meu tempo.",
+    "searchPlaceholder": "Buscar jogos...",
+    "genre": "Gênero",
+    "empty": "Jogos em breve",
+    "noResults": "Nenhum jogo corresponde a este gênero",
+    "status": {
+      "playing": "Jogando",
+      "completed": "Concluído",
+      "backlog": "Backlog",
+      "dropped": "Abandonado"
+    }
+  },
+  "books": {
+    "title": "Livros",
+    "description": "O que estou lendo, terminei e quero ler em seguida. Um registro contínuo entre ficção, não-ficção e leituras técnicas.",
+    "searchPlaceholder": "Buscar livros...",
+    "genre": "Gênero",
+    "empty": "Livros em breve",
+    "noResults": "Nenhum livro corresponde a este gênero",
+    "status": {
+      "reading": "Lendo",
+      "finished": "Concluído",
+      "want-to-read": "Quero Ler",
+      "dropped": "Abandonado"
+    }
+  },
+  "movies": {
+    "title": "Filmes e Séries",
+    "description": "O que estou assistindo, terminei e tenho na fila. Um registro contínuo entre filmes e séries.",
+    "searchPlaceholder": "Buscar filmes e séries...",
+    "genre": "Gênero",
+    "type": "Tipo",
+    "empty": "Filmes e séries em breve",
+    "noResults": "Nada corresponde a este filtro",
+    "status": {
+      "watching": "Assistindo",
+      "completed": "Concluído",
+      "backlog": "Backlog",
+      "dropped": "Abandonado"
+    },
+    "kind": {
+      "movie": "Filme",
+      "series": "Série",
+      "anime": "Anime"
+    }
+  },
+  "reviews": {
+    "title": "Resenhas",
+    "description": "Reflexões mais longas sobre jogos, livros, música e filmes — o que funcionou, o que não funcionou e por que ficou na memória.",
+    "searchPlaceholder": "Buscar resenhas...",
+    "seeAll": "Ver todas as resenhas",
+    "readMore": "Ler Mais",
+    "publishedOn": "Publicado em",
+    "noReviews": "Nenhuma resenha ainda",
+    "noReviewsTagged": "Nenhuma resenha com a tag \"{{tag}}\"",
+    "sortBy": "Ordenar por",
+    "sortDate": "Data",
+    "sortTitle": "Título",
+    "page": "Página {page} de {total}",
+    "prevPage": "Anterior",
+    "nextPage": "Próxima",
+    "notFound": "Resenha não encontrada",
+    "notFoundDesc": "A resenha que você está procurando não existe.",
+    "contentNotFound": "Conteúdo não disponível",
+    "relatedTitle": "Você também pode gostar",
+    "type": {
+      "game": "Jogo",
+      "music": "Música",
+      "book": "Livro",
+      "movie": "Filme",
+      "other": "Outro"
+    },
+    "kind": {
+      "review": "Resenha",
+      "critique": "Crítica"
+    }
   },
   "notFound": {
     "title": "404",
@@ -220,5 +321,58 @@
     "github": "GitHub",
     "codersrank": "CodersRank",
     "discord": "Discord"
+  },
+  "siteAbout": {
+    "title": "Sobre este site",
+    "intro": "Este é o site pessoal e portfólio de Zau Julio — um espaço para compartilhar trabalho profissional, escritos e os hobbies que mantêm o equilíbrio. Esta página explica, de forma simples, o que é o site, como ele foi construído e como sua privacidade é respeitada aqui.",
+    "sections": [
+      {
+        "heading": "O que é este site",
+        "body": "Um portfólio pessoal e jardim digital. Além de projetos profissionais e artigos, reúne hobbies — fotografia, culinária, música, jogos, livros e cinema. Nada aqui é um produto ou serviço comercial; é um espaço para mostrar trabalho e compartilhar ideias."
+      },
+      {
+        "heading": "Privacidade",
+        "body": "Este site não vende nem compartilha seus dados pessoais. Não coleta contas, logins nem informações pessoais que você não forneça voluntariamente. Análises leves e que respeitam a privacidade podem ser usadas para entender o tráfego de forma agregada (como visualizações de página e desempenho), nunca para identificar você individualmente. Links externos (serviços de streaming, lojas, redes sociais) abrem em sites de terceiros, regidos por suas próprias políticas de privacidade."
+      },
+      {
+        "heading": "Como a IA foi usada",
+        "body": "Partes deste site foram construídas com a ajuda de assistentes de IA de programação, usados como ferramenta sob direção e revisão humana. A IA ajudou na implementação, refatoração e rascunhos — mas as ideias, decisões, escolhas editoriais e a revisão final são do autor. Onde a IA gerou ou auxiliou algum conteúdo, ele foi verificado e editado por uma pessoa. Nenhum conteúdo aqui é publicado sem revisão."
+      },
+      {
+        "heading": "Conteúdo e precisão",
+        "body": "Opiniões, resenhas e notas refletem as visões pessoais do autor no momento em que foram escritas e podem mudar. Imagens de capa, logotipos e marcas pertencem a seus respectivos donos e são usados apenas para identificação e referência editorial. Se você acredita que algo está incorreto ou deveria ser corrigido, entre em contato."
+      },
+      {
+        "heading": "Contato",
+        "body": "Para contatos profissionais, correções ou dúvidas sobre este site, escreva para zaujulio.dev@gmail.com. Este site é operado por Zau Julio (CNPJ 49.708.916/0001-90)."
+      }
+    ],
+    "accessibilityCta": "Ler a declaração de acessibilidade"
+  },
+  "accessibility": {
+    "title": "Acessibilidade",
+    "intro": "A acessibilidade é uma prioridade neste site. O objetivo é que todas as pessoas — inclusive quem depende de tecnologias assistivas — consigam navegar, ler e usar cada página com conforto.",
+    "sections": [
+      {
+        "heading": "Compromisso",
+        "body": "Este site busca conformidade com as Diretrizes de Acessibilidade para Conteúdo Web (WCAG) 2.1 no nível AA. A acessibilidade é tratada como um esforço contínuo, e não como uma tarefa única: as páginas são revisadas e aprimoradas ao longo do tempo."
+      },
+      {
+        "heading": "O que já está implementado",
+        "body": "HTML semântico e marcos (landmarks) para leitores de tela; navegação por teclado nos elementos interativos; indicadores de foco visíveis; textos alternativos descritivos em imagens relevantes; rótulos ARIA em controles apenas com ícone; cores verificadas quanto ao contraste; layout responsivo que se reorganiza sem rolagem horizontal; e suporte à preferência por movimento reduzido."
+      },
+      {
+        "heading": "Idioma e estrutura",
+        "body": "O site está disponível em português e inglês, com o idioma da página declarado para tecnologias assistivas. Os títulos seguem uma ordem lógica, e o conteúdo é estruturado para ser compreendido sem depender apenas de cor ou forma."
+      },
+      {
+        "heading": "Limitações conhecidas",
+        "body": "Alguns conteúdos incorporados de terceiros e destinos externos (serviços de streaming, lojas) estão fora do controle deste site e podem não atender aos mesmos padrões. Onde esse conteúdo aparece, uma alternativa em texto ou rótulo acessível é fornecida sempre que possível."
+      },
+      {
+        "heading": "Feedback",
+        "body": "Se você encontrar uma barreira de acessibilidade, ou precisar de conteúdo em outro formato, escreva para zaujulio.dev@gmail.com descrevendo o problema e a página em que ele ocorreu. Os relatos são levados a sério e usados para melhorar o site."
+      }
+    ]
   }
 }

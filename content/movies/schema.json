@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MoviesDataStore",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/movie" }
+    }
+  },
+  "required": ["items"],
+  "additionalProperties": false,
+  "definitions": {
+    "movie": {
+      "type": "object",
+      "required": ["id", "title", "cover", "kind", "status", "genre"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "cover": { "type": "string" },
+        "kind": {
+          "type": "string",
+          "enum": ["movie", "series", "anime"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["watching", "completed", "backlog", "dropped"]
+        },
+        "genre": { "type": "string" },
+        "year": { "type": "number" },
+        "rating": { "type": "number", "minimum": 0, "maximum": 5 },
+        "description": { "type": "string" },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["platform", "url"],
+            "additionalProperties": false,
+            "properties": {
+              "platform": { "type": "string" },
+              "url": { "type": "string" },
+              "label": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

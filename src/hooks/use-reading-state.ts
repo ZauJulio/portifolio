@@ -8,15 +8,17 @@ import { useCallback, useEffect, useState } from "react";
 
 const STORAGE_KEY = "portifolio:reading";
 
-export type ReadableType = "article" | "recipe";
+export type ReadableType = "article" | "recipe" | "review";
 
 const keyOf = (type: ReadableType, slug: string) => `${type}:${slug}`;
 
 function load(): Set<string> {
   if (typeof window === "undefined") return new Set();
+
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     const list = raw ? (JSON.parse(raw) as unknown) : [];
+
     return new Set(
       Array.isArray(list) ? list.filter((x): x is string => typeof x === "string") : [],
     );
@@ -46,9 +48,11 @@ export function useReadingState() {
   // Cross-tab + initial hydration: load once, and stay in sync if another tab writes.
   useEffect(() => {
     setReadSet(load());
+
     const onStorage = (e: StorageEvent) => {
       if (e.key === STORAGE_KEY) setReadSet(load());
     };
+
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
   }, []);
@@ -56,8 +60,10 @@ export function useReadingState() {
   const markRead = useCallback((type: ReadableType, slug: string) => {
     setReadSet((prev) => {
       if (prev.has(keyOf(type, slug))) return prev;
+
       const next = new Set(prev).add(keyOf(type, slug));
       persist(next);
+
       return next;
     });
   }, []);

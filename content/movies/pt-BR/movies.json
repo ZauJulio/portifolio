@@ -1,0 +1,186 @@
+{
+  "$schema": "../schema.json",
+  "items": [
+    {
+      "id": "interstellar",
+      "title": "Interestelar",
+      "cover": "/covers/interstellar.jpg",
+      "kind": "movie",
+      "status": "completed",
+      "genre": "Ficção Científica",
+      "year": 2014,
+      "rating": 5,
+      "description": "Uma equipe de exploradores atravessa um buraco de minhoca em busca de um novo lar para a humanidade, na reflexão de Christopher Nolan sobre amor, tempo e gravidade.",
+      "links": [
+        {
+          "platform": "prime-video",
+          "url": "https://www.primevideo.com/detail/Interstellar"
+        },
+        {
+          "platform": "apple-tv",
+          "url": "https://tv.apple.com/movie/interstellar"
+        },
+        {
+          "platform": "imdb",
+          "url": "https://www.imdb.com/title/tt0816692/"
+        }
+      ]
+    },
+    {
+      "id": "the-conjuring",
+      "title": "Invocação do Mal (Saga)",
+      "cover": "/covers/the-conjuring.jpg",
+      "kind": "movie",
+      "status": "completed",
+      "genre": "Terror",
+      "year": 2013,
+      "rating": 4.5,
+      "description": "Os investigadores paranormais Ed e Lorraine Warren enfrentam os casos mais sombrios de suas carreiras em um universo interligado de filmes assombrados.",
+      "links": [
+        {
+          "platform": "hbo-max",
+          "url": "https://www.max.com/movies/the-conjuring"
+        },
+        {
+          "platform": "prime-video",
+          "url": "https://www.primevideo.com/detail/The-Conjuring"
+        },
+        {
+          "platform": "apple-tv",
+          "url": "https://tv.apple.com/movie/the-conjuring"
+        }
+      ]
+    },
+    {
+      "id": "three-body-problem",
+      "title": "O Problema dos 3 Corpos",
+      "cover": "/covers/three-body-problem.jpg",
+      "kind": "series",
+      "status": "watching",
+      "genre": "Ficção Científica",
+      "year": 2024,
+      "rating": 4.5,
+      "description": "Uma decisão fatídica na China dos anos 1960 ecoa pelo espaço e pelo tempo até o presente, quando um grupo de cientistas enfrenta a maior ameaça da humanidade.",
+      "links": [
+        {
+          "platform": "netflix",
+          "url": "https://www.netflix.com/title/81024821"
+        }
+      ]
+    },
+    {
+      "id": "stranger-things",
+      "title": "Stranger Things",
+      "cover": "/covers/stranger-things.jpg",
+      "kind": "series",
+      "status": "watching",
+      "genre": "Ficção Científica",
+      "year": 2016,
+      "rating": 4.5,
+      "description": "Em uma pequena cidade nos anos 1980, um grupo de crianças descobre um laboratório secreto do governo, forças sobrenaturais e uma dimensão paralela: o Mundo Invertido.",
+      "links": [
+        {
+          "platform": "netflix",
+          "url": "https://www.netflix.com/title/80057281"
+        }
+      ]
+    },
+    {
+      "id": "them",
+      "title": "Eles",
+      "cover": "/covers/them.jpg",
+      "kind": "series",
+      "status": "completed",
+      "genre": "Terror",
+      "year": 2021,
+      "rating": 4,
+      "description": "Uma antologia de terror nos Estados Unidos, acompanhando uma família negra cuja mudança para a Los Angeles dos anos 1950 é recebida por forças malévolas.",
+      "links": [
+        {
+          "platform": "prime-video",
+          "url": "https://www.primevideo.com/detail/Them"
+        }
+      ]
+    },
+    {
+      "id": "frieren",
+      "title": "Frieren e a Jornada Rumo ao Além",
+      "cover": "/covers/frieren.jpg",
+      "kind": "anime",
+      "status": "watching",
+      "genre": "Fantasia",
+      "year": 2023,
+      "rating": 5,
+      "description": "Uma maga elfa que sobrevive a todos os seus companheiros de aventura parte em uma nova jornada para compreender a humanidade e a natureza fugaz do tempo.",
+      "links": [
+        {
+          "platform": "crunchyroll",
+          "url": "https://www.crunchyroll.com/series/GG5H5XQ0D/frieren-beyond-journeys-end"
+        },
+        {
+          "platform": "netflix",
+          "url": "https://www.netflix.com/title/81726714"
+        }
+      ]
+    },
+    {
+      "id": "go-for-it-nakamura",
+      "title": "Força, Nakamura!",
+      "cover": "/covers/go-for-it-nakamura.jpg",
+      "kind": "anime",
+      "status": "completed",
+      "genre": "Romance",
+      "year": 2026,
+      "rating": 4,
+      "description": "Um estudante tímido e desastrado cria coragem para se aproximar do colega por quem é apaixonado, uma tentativa atrapalhada de cada vez.",
+      "links": [
+        {
+          "platform": "crunchyroll",
+          "url": "https://www.crunchyroll.com/series/G0DUEQZP1/go-for-it-nakamura"
+        }
+      ]
+    },
+    {
+      "id": "hunter-x-hunter",
+      "title": "Hunter x Hunter",
+      "cover": "/covers/hunter-x-hunter.jpg",
+      "kind": "anime",
+      "status": "completed",
+      "genre": "Aventura",
+      "year": 2011,
+      "rating": 5,
+      "description": "O jovem Gon Freecss se torna um Hunter para encontrar o pai, embarcando com amigos em uma jornada cheia de perigo, estratégia e rivais inesquecíveis.",
+      "links": [
+        {
+          "platform": "crunchyroll",
+          "url": "https://www.crunchyroll.com/series/GRGG91EK6/hunter-x-hunter"
+        },
+        {
+          "platform": "netflix",
+          "url": "https://www.netflix.com/title/80181950"
+        }
+      ]
+    },
+    {
+      "id": "my-hero-academia",
+      "title": "My Hero Academia",
+      "cover": "/covers/my-hero-academia.jpg",
+      "kind": "anime",
+      "status": "watching",
+      "genre": "Ação",
+      "year": 2016,
+      "rating": 4.5,
+      "description": "Em um mundo onde quase todos têm superpoderes, um garoto sem poderes herda o legado do maior herói e ingressa na academia U.A.",
+      "links": [
+        {
+          "platform": "crunchyroll",
+          "url": "https://www.crunchyroll.com/series/GYD8G0WZR/my-hero-academia"
+        },
+        {
+          "platform": "netflix",
+          "url": "https://www.netflix.com/title/80230316"
+        }
+      ]
+    }
+  ]
+}

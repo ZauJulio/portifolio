@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800" fill="none" role="img" aria-label="Movie">
+  <defs>
+    <linearGradient id="mf-bg" x1="0" y1="0" x2="0.55" y2="1">
+      <stop offset="0" stop-color="#160e26"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+    <radialGradient id="mf-glow" cx="0.5" cy="0.34" r="0.55">
+      <stop offset="0" stop-color="#8b5cf6" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="mf-dots" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#ffffff" fill-opacity="0.045"/>
+    </pattern>
+    <filter id="mf-soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+  </defs>
+
+  <rect width="600" height="800" fill="url(#mf-bg)"/>
+  <rect width="600" height="800" fill="url(#mf-dots)"/>
+  <rect width="600" height="800" fill="url(#mf-glow)"/>
+
+  <g transform="translate(300 380)">
+    <rect x="-100" y="-90" width="200" height="36" rx="6" stroke="#a78bfa" stroke-width="6" filter="url(#mf-soft)" opacity="0.55"/>
+    <rect x="-100" y="-90" width="200" height="36" rx="6" fill="#160e26" stroke="#a78bfa" stroke-width="5"/>
+    <g stroke="#160e26" stroke-width="6">
+      <line x1="-80" y1="-90" x2="-60" y2="-54"/>
+      <line x1="-40" y1="-90" x2="-20" y2="-54"/>
+      <line x1="0" y1="-90" x2="20" y2="-54"/>
+      <line x1="40" y1="-90" x2="60" y2="-54"/>
+    </g>
+    <rect x="-100" y="-50" width="200" height="140" rx="10" fill="#160e26" stroke="#a78bfa" stroke-width="5"/>
+    <polygon points="-24,-2 -24,42 16,20" fill="#c4b5fd"/>
+  </g>
+</svg>

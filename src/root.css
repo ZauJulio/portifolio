@@ -61,6 +61,14 @@
   --color-brand-400: #ee4540;
   --color-brand-300: #f47370;
 
+  /* Per-page accent — defaults to the brand red, but hobby collection pages
+     (games → teal, books → amber, movies → violet) override the `--page-*`
+     custom properties on a wrapper so shared controls (search, filters, cards,
+     lang switch) pick up that page's color. */
+  --color-page-500: var(--page-500, var(--color-brand-500));
+  --color-page-400: var(--page-400, var(--color-brand-400));
+  --color-page-300: var(--page-300, var(--color-brand-300));
+
   /* Body (Tailwind `font-sans`) → Geist Sans, imported in +Layout.tsx. */
   --font-sans:
     "Geist Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",

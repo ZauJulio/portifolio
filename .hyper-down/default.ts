@@ -14,10 +14,12 @@
 
 import articleModules from "./content/article/modules";
 import recipeModules from "./content/recipe/modules";
+import reviewModules from "./content/review/modules";
 
 export const contentModules = {
   article: articleModules,
   recipe: recipeModules,
+  review: reviewModules,
 };
 
 /** Union of the content-type names, e.g. `"article" | "recipe"`. */

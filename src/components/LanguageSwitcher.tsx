@@ -37,7 +37,7 @@ export function LanguageSwitcher() {
           type="button"
           onClick={() => handleLanguageChange(lang.code)}
           className={`px-2 py-1 text-xs font-medium rounded transition-colors ${
-            locale === lang.code ? "bg-brand-500/70 text-white" : "text-gray-400 hover:text-white"
+            locale === lang.code ? "bg-page-500/70 text-white" : "text-gray-400 hover:text-white"
           }`}
           aria-label={`Switch to ${lang.label}`}
         >

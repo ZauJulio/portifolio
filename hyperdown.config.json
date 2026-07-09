@@ -8,6 +8,7 @@
   "sitemap": {
     "siteUrl": "https://zaujulio.com",
     "outputPath": "./public/sitemap.xml",
+    "mode": "override",
     "staticRoutes": [
       { "path": "/", "priority": "1.0", "changefreq": "weekly" },
       { "path": "/pt", "priority": "1.0", "changefreq": "weekly" },
@@ -19,6 +20,12 @@
       { "path": "/pt/photography", "priority": "0.7", "changefreq": "monthly" },
       { "path": "/music", "priority": "0.7", "changefreq": "monthly" },
       { "path": "/pt/music", "priority": "0.7", "changefreq": "monthly" },
+      { "path": "/games", "priority": "0.7", "changefreq": "monthly" },
+      { "path": "/pt/games", "priority": "0.7", "changefreq": "monthly" },
+      { "path": "/books", "priority": "0.7", "changefreq": "monthly" },
+      { "path": "/pt/books", "priority": "0.7", "changefreq": "monthly" },
+      { "path": "/movies", "priority": "0.7", "changefreq": "monthly" },
+      { "path": "/pt/movies", "priority": "0.7", "changefreq": "monthly" },
       { "path": "/links", "priority": "0.6", "changefreq": "monthly" },
       { "path": "/pt/links", "priority": "0.6", "changefreq": "monthly" }
     ],

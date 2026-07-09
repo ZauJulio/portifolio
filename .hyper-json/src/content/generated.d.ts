@@ -76,3 +76,33 @@ declare module "@content/skills/skills.json" {
   const value: SkillsContentSchema;
   export default value;
 }
+declare module "@content/games/en/games.json" {
+  import type { GamesDataStore } from "@indago/hyper-json";
+  const value: GamesDataStore;
+  export default value;
+}
+declare module "@content/games/pt-BR/games.json" {
+  import type { GamesDataStore } from "@indago/hyper-json";
+  const value: GamesDataStore;
+  export default value;
+}
+declare module "@content/books/en/books.json" {
+  import type { BooksDataStore } from "@indago/hyper-json";
+  const value: BooksDataStore;
+  export default value;
+}
+declare module "@content/books/pt-BR/books.json" {
+  import type { BooksDataStore } from "@indago/hyper-json";
+  const value: BooksDataStore;
+  export default value;
+}
+declare module "@content/movies/en/movies.json" {
+  import type { MoviesDataStore } from "@indago/hyper-json";
+  const value: MoviesDataStore;
+  export default value;
+}
+declare module "@content/movies/pt-BR/movies.json" {
+  import type { MoviesDataStore } from "@indago/hyper-json";
+  const value: MoviesDataStore;
+  export default value;
+}

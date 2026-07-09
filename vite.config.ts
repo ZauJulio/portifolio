@@ -6,7 +6,7 @@ import {
   hyperdownSitemapPlugin,
   remarkHeadingBadges,
 } from "@indago/hyper-down/plugins";
-import { hyperjsonValidationPlugin } from "@indago/hyper-json/plugins";
+import { hyperjsonSitemapPlugin, hyperjsonValidationPlugin } from "@indago/hyper-json/plugins";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { common } from "lowlight";
@@ -23,16 +23,12 @@ import { vercel } from "vite-plugin-vercel/vite";
 
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 
-// The Vercel plugin rewrites the build into `.vercel/output/`, which suppresses
-// vike-server's standalone `dist/server/` entry. Only enable it on Vercel (which
-// sets `VERCEL=1`); locally and in Docker, a plain build yields a runnable SSR
-// server. Set `VERCEL=1` to force the Vercel output anywhere.
+// Enable Vercel output only when running in Vercel.
 const isVercel = Boolean(process.env.VERCEL);
 
 export default defineConfig(({ mode }) => ({
   base: "/",
-  // Code lives in src/; static assets in the app-root `public/` (Vite default)
-  // and the content collections in `./content` (imported via the `@content` alias).
+  // App code in src/, static files in public/, JSON/MDX content in ./content.
   publicDir: "public",
   resolve: {
     alias: {
@@ -41,17 +37,25 @@ export default defineConfig(({ mode }) => ({
       "@hyper-down": r("./.hyper-down"),
       "@hyper-json": r("./.hyper-json"),
     },
-    // Force a single React instance. Needed when an engine (e.g. @indago/hyper-down,
-    // which renders hooks-based components like <Sidebar/>) is `bun link`-ed during
-    // local dev: the symlinked package would otherwise resolve its own React copy,
-    // triggering "Invalid hook call". A no-op for a normal hoisted npm install.
-    dedupe: ["react", "react-dom"],
+    // Keep a single React instance (important when linked packages are used).
+    // The `@indago/*` packages are symlinked to the indago workspace, which has
+    // its own physically-distinct `react` install; deduping every React entry
+    // point (incl. jsx-runtime) collapses them to this app's single copy —
+    // otherwise a lib component (e.g. MdxRender) intermittently loads the second
+    // copy and crashes with "more than one copy of React" / null dispatcher.
+    dedupe: [
+      "react",
+      "react-dom",
+      "react/jsx-runtime",
+      "react/jsx-dev-runtime",
+      "react-dom/client",
+      "react-dom/server",
+    ],
   },
   plugins: [
-    // MUST run before Vike/React so *.mdx?raw bypass + MDX compile happen first.
+    // Must run before Vike/React.
     hyperdownMdxPlugin({
-      // remarkHeadingBadges strips `#[label/#color]` tutorial badges from headings
-      // (surfaced as sidebar pills) before rehypeSlug computes the anchor.
+      // remarkHeadingBadges strips badge markers before anchors are slugged.
       remarkPlugins: [remarkMath, remarkFrontmatter, remarkGfm, remarkHeadingBadges],
       rehypePlugins: [
         rehypeSlug,
@@ -63,20 +67,15 @@ export default defineConfig(({ mode }) => ({
     react(),
     tailwindcss(),
     hyperdownPlugin(),
+    // Order matters: HyperDown writes base URLs, HyperJson appends JSON URLs.
     hyperdownSitemapPlugin(),
     hyperjsonValidationPlugin(),
+    hyperjsonSitemapPlugin(),
     ...(isVercel
       ? [
           vercel({
-            // Keep `.html` URLs literal. Vercel's default cleanUrls 308-redirects
-            // `/x.html` → `/x`, which breaks the Google Search Console file
-            // (`public/google*.html`): Google fetches the exact `.html` URL and
-            // the redirect lands on the SSR 404. Every app page is directory-index
-            // (`<route>/index.html`), so cleanUrls is otherwise a no-op here.
+            // Keep literal .html URLs (for the Search Console verification file).
             cleanUrls: false,
-            // Build Output API serves everything with `max-age=0, must-revalidate`
-            // by default. Hashed bundles are immutable by construction; public/
-            // images get a day with a week of stale-while-revalidate.
             headers: [
               {
                 source: "/assets/(.*)",
@@ -103,16 +102,12 @@ export default defineConfig(({ mode }) => ({
     }),
   ],
   ssr: {
-    // Bundle @indago/hyper-down server-side so its virtual:* imports are transformed
-    // by the hyperdown plugin. Keep SQLite builtins external (lazy SSR search path).
+    // Keep HyperDown bundled for virtual module transforms; keep SQLite builtins external.
     external: ["pino", "pino-pretty", "bun:sqlite", "node:sqlite"],
     noExternal: ["tw-animate-css", "@indago/hyper-down"],
   },
   environments: {
-    // `ssr:` above only configures the "ssr" environment. vite-plugin-vercel builds
-    // the serverless function in its own "vercel_node" environment, which otherwise
-    // externalizes @indago/hyper-down — its virtual:* imports then reach the final
-    // plugin-less bundling step unresolved and crash the lambda at request time.
+    // Mirror SSR bundling rules for Vercel's dedicated build environment.
     vercel_node: {
       resolve: {
         external: ["pino", "pino-pretty", "bun:sqlite", "node:sqlite"],
@@ -121,43 +116,40 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
-    exclude: [
-      "pino-pretty",
-      "pino-abstract-transport",
-      "sonic-boom",
-      "split2",
+    exclude: ["pino-pretty", "pino-abstract-transport", "sonic-boom", "split2"],
+    // Force pre-bundling for runtime-loaded Mermaid modules. React entry points
+    // + the client-facing `@indago/hyper-down` browser components are force-
+    // included so they are pre-bundled against the SAME shared React copy.
+    //
+    // Previously `@indago/hyper-down` sat in `exclude` (to keep its SSR-only
+    // virtual-module transforms out of the optimizer): excluded deps are served
+    // as raw source, so its bare `import "react"` / `"react/jsx-runtime"` was
+    // NOT rewritten to the optimized `deps/react.js` the app code uses — two
+    // React instances on the client → intermittent "more than one copy of
+    // React" / null-dispatcher hook crash on client-side nav to any page that
+    // renders a lib component (MdxRender), gone on F5. Including it collapses
+    // both onto one React. SSR bundling is governed separately by `ssr.*`.
+    include: [
+      "mermaid",
+      "react",
+      "react-dom",
+      "react-dom/client",
+      "react/jsx-runtime",
+      "react/jsx-dev-runtime",
       "@indago/hyper-down",
     ],
-    // `mermaid` is only ever reached through `@indago/hyper-down`'s client-side
-    // `import("mermaid")` (MermaidBlock). Because the importer is excluded above,
-    // Vite never discovers mermaid during dep scanning, so it isn't pre-bundled —
-    // and its lazy diagram-loader sub-imports then fail at runtime with
-    // `Could not resolve "mermaid"`. Force it into the optimized deps so every
-    // diagram renders. (mermaid is a direct dependency in package.json.)
-    include: ["mermaid"],
   },
   build: {
     minify: mode === "production" ? "oxc" : false,
     chunkSizeWarningLimit: 3000,
-    // Never inline the content databases — keep them real assets for SSR loaders.
+    // Keep content databases as emitted assets for SSR.
     assetsInlineLimit: (filePath: string) => (filePath.endsWith(".db") ? false : undefined),
-    // rollupOptions is deprecated in Vite 8 — use rolldownOptions.
-    // Note: Vike overrides chunkFileNames to always produce chunk-[hash].js, so
-    // group names don't appear in filenames. They still control module
-    // grouping, keeping mermaid's 75+ sub-modules in one stable lazy chunk.
+    // Vite 8 uses rolldownOptions.
     rolldownOptions: {
       output: {
-        // rolldown-native chunking (manualChunks couldn't relocate the virtual
-        // preload helper — rolldown merged the tiny chunk back). `priority` makes
-        // the helper win over the mermaid group, and `minSize: 0` stops rolldown
-        // from folding it back into a vendor chunk.
-        // `codeSplitting` is the current name; `advancedChunks` is deprecated.
         codeSplitting: {
           groups: [
-            // Vite's dynamic-import preload helper. Left in the mermaid vendor
-            // chunk, every page that does a dynamic import (the home page
-            // included) statically imports it — pulling all ~780 KiB of mermaid
-            // onto the initial load path. Isolate it into its own ~1 KiB chunk.
+            // Isolate the preload helper from heavy lazy vendors (Mermaid).
             { name: "vite-preload", test: "preload-helper", priority: 100, minSize: 0 },
             { name: "mermaid-vendor", test: "mermaid", priority: 10 },
             { name: "markdown-math", test: "katex", priority: 10 },

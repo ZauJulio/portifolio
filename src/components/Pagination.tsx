@@ -40,7 +40,7 @@ export function Pagination({
               onClick={() => onPageChange(page)}
               className={`size-8 rounded-lg text-sm transition-colors ${
                 page === currentPage
-                  ? "bg-brand-500 text-white"
+                  ? "bg-page-500 text-white"
                   : "text-gray-500 hover:text-white hover:bg-gray-800"
               }`}
             >

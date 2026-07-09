@@ -2,16 +2,16 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Sidebar } from "@indago/hyper-down";
 import { ListTreeIcon, XIcon } from "lucide-react";
 
+import { Sidebar } from "@/components/Sidebar";
 import { flattenSectionIds, useActiveSection } from "@/hooks/use-active-section";
 
 import type { SectionNode } from "@indago/hyper-down";
 
-// The lib's default <Sidebar/> ships the structural CSS + a `--hd-sidebar-*`
-// variable API; we import it and recolour it to the brand palette.
-import "@indago/hyper-down/sidebar.css";
+// The <Sidebar/> ships the structural CSS + a `--hd-sidebar-*` variable API;
+// we import it and recolour it to the brand palette.
+import "@/components/sidebar.css";
 
 // Recolour the lib sidebar to the brand palette (hover accent + muted text).
 // `--color-brand-400` is defined in `root.css`. Active rows use a very-low-

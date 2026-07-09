@@ -149,6 +149,62 @@
           "type": "string"
         }
       ]
+    },
+    {
+      "name": "review",
+      "pageBundle": false,
+      "previewPath": "/reviews",
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "title": "Description",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "title": "Publishing date",
+          "name": "date",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Is in draft",
+          "name": "draft",
+          "type": "draft"
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "Cover",
+          "name": "cover",
+          "type": "string"
+        },
+        {
+          "title": "Subject type",
+          "name": "type",
+          "type": "choice",
+          "choices": ["game", "music", "book", "movie", "other"]
+        },
+        {
+          "title": "Kind",
+          "name": "kind",
+          "type": "choice",
+          "choices": ["review", "critique"]
+        },
+        {
+          "title": "Subject id",
+          "name": "subjectId",
+          "type": "string"
+        }
+      ]
     }
   ],
   "frontMatter.framework.id": "other",
@@ -174,6 +230,17 @@
       "path": "[[workspace]]/content/recipe",
       "filePrefix": "",
       "contentTypes": ["recipe"],
+      "defaultLocale": "en",
+      "locales": [
+        { "title": "English", "locale": "en", "path": "en" },
+        { "title": "Português (Brasil)", "locale": "pt-BR", "path": "pt-BR" }
+      ]
+    },
+    {
+      "title": "Reviews",
+      "path": "[[workspace]]/content/review",
+      "filePrefix": "",
+      "contentTypes": ["review"],
       "defaultLocale": "en",
       "locales": [
         { "title": "English", "locale": "en", "path": "en" },

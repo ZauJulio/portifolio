@@ -1,7 +1,7 @@
 import { usePageContext } from "vike-react/usePageContext";
 
 import { I18N, type Locale, stripLocale } from "@/i18n";
-import { absoluteUrl, SITE_URL } from "@/lib/seo";
+import { absoluteAsset, absoluteUrl, COVER_FALLBACK, SITE_URL } from "@/lib/seo";
 
 import type { Data } from "./+data";
 
@@ -18,6 +18,7 @@ export default function Head() {
 
   const locale = (pageContext.locale ?? I18N.defaultLocale) as Locale;
   const pageUrl = absoluteUrl(locale, stripLocale(pageContext.urlPathname));
+  const image = absoluteAsset(article.cover, COVER_FALLBACK.article);
 
   return (
     <>
@@ -27,9 +28,7 @@ export default function Head() {
       <meta property="og:title" content={article.title} />
       <meta property="og:description" content={article.description} />
       <meta property="og:site_name" content="Zau Julio" />
-      {article.cover && <meta property="og:image" content={article.cover} />}
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
+      <meta property="og:image" content={image} />
       <meta property="article:author" content={article.author || "Zau Julio"} />
       {article.date && <meta property="article:published_time" content={article.date} />}
       {article.tags?.map((tag) => (
@@ -39,7 +38,7 @@ export default function Head() {
       <meta name="twitter:title" content={article.title} />
       <meta name="twitter:description" content={article.description} />
       <meta name="twitter:creator" content="@zaujulio" />
-      {article.cover && <meta name="twitter:image" content={article.cover} />}
+      <meta name="twitter:image" content={image} />
       <script
         type="application/ld+json"
         // biome-ignore lint: structured data

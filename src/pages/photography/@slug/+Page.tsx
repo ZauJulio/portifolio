@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useComposed } from "@indago/hyper-json/hooks";
-import { CameraIcon, ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
+import { CameraIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useData } from "vike-react/useData";
 
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -20,7 +20,6 @@ export default function AlbumPage() {
   const album = useData<Data>();
 
   const [activeTag, setActiveTag] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
   const [photoPage, setPhotoPage] = useState(1);
 
   const tags = useMemo(() => {
@@ -37,7 +36,6 @@ export default function AlbumPage() {
     paginated: { items: pagedPhotos, totalPages: photoTotalPages, page: photoCurrentPage },
   } = useComposed(album.photos, {
     filters: tagFilter,
-    searchQuery,
     searchFields: ["title", "description", "alt", "location"],
     page: photoPage,
     perPage: 12,
@@ -60,8 +58,8 @@ export default function AlbumPage() {
       {/* Album Header */}
       <section className="py-8 px-6">
         <div className="max-w-4xl mx-auto flex items-start gap-4">
-          <div className="size-14 rounded-xl overflow-hidden border border-gray-800 shadow-md flex items-center justify-center bg-linear-to-br from-amber-500/15 to-orange-500/5 shrink-0">
-            <CameraIcon className="size-7 text-amber-400" />
+          <div className="size-14 rounded-xl overflow-hidden border border-gray-800 shadow-md flex items-center justify-center bg-linear-to-br from-sky-500/15 to-cyan-400/5 shrink-0">
+            <CameraIcon className="size-7 text-sky-400" />
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-4">
@@ -94,21 +92,6 @@ export default function AlbumPage() {
       {/* Filters */}
       <section className="pb-6 px-6">
         <div className="max-w-6xl mx-auto space-y-3">
-          <div className="relative max-w-md">
-            <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-500" />
-            <input
-              type="text"
-              aria-label={t(($) => $.common.search)}
-              placeholder={t(($) => $.common.search)}
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setPhotoPage(1);
-              }}
-              className="w-full bg-gray-900/50 border border-gray-800 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:border-brand-500/50 transition-colors"
-            />
-          </div>
-
           {tags.length > 1 && (
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs text-gray-500 uppercase tracking-wider font-medium shrink-0">
@@ -128,7 +111,7 @@ export default function AlbumPage() {
                       : "bg-gray-900/50 text-gray-400 border-gray-800 hover:border-brand-500/50 hover:text-white"
                   }`}
                 >
-                  {tag}
+                  {tag === "All" ? t(($) => $.common.all) : tag}
                 </button>
               ))}
             </div>

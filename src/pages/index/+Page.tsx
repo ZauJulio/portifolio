@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useGlitch } from "react-powerglitch";
 import { useData } from "vike-react/useData";
 
+import { Footer } from "@/components/Footer";
 import { NavigationBar } from "@/components/Navigation";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ScrollSpy } from "@/components/ScrollSpy";
@@ -11,7 +12,6 @@ import { ScrollSpy } from "@/components/ScrollSpy";
 import {
   AboutMeSection,
   ArticlesSection,
-  Footer,
   HireMeSection,
   HobbiesSection,
   ProjectsSection,

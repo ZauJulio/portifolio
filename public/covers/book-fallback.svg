@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800" fill="none" role="img" aria-label="Book">
+  <defs>
+    <linearGradient id="bf-bg" x1="0" y1="0" x2="0.55" y2="1">
+      <stop offset="0" stop-color="#1a1308"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+    <radialGradient id="bf-glow" cx="0.5" cy="0.34" r="0.55">
+      <stop offset="0" stop-color="#e0a82c" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#e0a82c" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="bf-dots" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#ffffff" fill-opacity="0.045"/>
+    </pattern>
+    <filter id="bf-soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+  </defs>
+
+  <rect width="600" height="800" fill="url(#bf-bg)"/>
+  <rect width="600" height="800" fill="url(#bf-dots)"/>
+  <rect width="600" height="800" fill="url(#bf-glow)"/>
+
+  <g transform="translate(300 380)">
+    <rect x="-80" y="-110" width="160" height="220" rx="10" stroke="#f0c050" stroke-width="6" filter="url(#bf-soft)" opacity="0.55"/>
+    <rect x="-80" y="-110" width="160" height="220" rx="10" fill="#1a1308" stroke="#f0c050" stroke-width="5"/>
+    <line x1="-26" y1="-110" x2="-26" y2="110" stroke="#f0c050" stroke-width="4"/>
+    <g stroke="#f6d57a" stroke-width="6" stroke-linecap="round">
+      <line x1="-2" y1="-58" x2="58" y2="-58"/>
+      <line x1="-2" y1="-30" x2="58" y2="-30"/>
+      <line x1="-2" y1="-2" x2="58" y2="-2"/>
+      <line x1="-2" y1="26" x2="58" y2="26"/>
+      <line x1="-2" y1="54" x2="40" y2="54"/>
+    </g>
+  </g>
+</svg>

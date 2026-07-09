@@ -142,7 +142,7 @@ export function AlbumModal({ album, tags, onClose }: AlbumModalProps) {
                       : "bg-gray-900/50 text-gray-400 border-gray-800 hover:border-brand-500/50 hover:text-white"
                   }`}
                 >
-                  {tag}
+                  {tag === "All" ? t(($) => $.common.all) : tag}
                 </button>
               ))}
             </div>

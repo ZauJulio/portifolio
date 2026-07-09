@@ -1,0 +1,189 @@
+{
+  "$schema": "../schema.json",
+  "items": [
+    {
+      "id": "tomb-raider",
+      "title": "Tomb Raider",
+      "cover": "/covers/tomb-raider.jpg",
+      "status": "completed",
+      "platform": "PC",
+      "genre": "Ação e Aventura",
+      "rating": 4.5,
+      "description": "O reboot de 2013 que reinventa a origem de Lara Croft como uma jovem sobrevivente presa em uma ilha hostil.",
+      "links": [
+        {
+          "platform": "steam",
+          "url": "https://store.steampowered.com/app/203160/Tomb_Raider/"
+        },
+        {
+          "platform": "epic-games",
+          "url": "https://store.epicgames.com/en-US/p/tomb-raider"
+        }
+      ]
+    },
+    {
+      "id": "rise-of-the-tomb-raider",
+      "title": "Rise of the Tomb Raider",
+      "cover": "/covers/rise-of-the-tomb-raider.jpg",
+      "status": "completed",
+      "platform": "PC",
+      "genre": "Ação e Aventura",
+      "rating": 4.5,
+      "description": "Lara busca um segredo ancestral na Sibéria, refinando a mistura de exploração, sobrevivência e tumbas do reboot.",
+      "links": [
+        {
+          "platform": "steam",
+          "url": "https://store.steampowered.com/app/391220/Rise_of_the_Tomb_Raider/"
+        },
+        {
+          "platform": "epic-games",
+          "url": "https://store.epicgames.com/en-US/p/rise-of-the-tomb-raider"
+        }
+      ]
+    },
+    {
+      "id": "shadow-of-the-tomb-raider",
+      "title": "Shadow of the Tomb Raider",
+      "cover": "/covers/shadow-of-the-tomb-raider.jpg",
+      "status": "completed",
+      "platform": "PC",
+      "genre": "Ação e Aventura",
+      "rating": 4,
+      "description": "O desfecho da trilogia de origem leva Lara à Amazônia para impedir um apocalipse maia que ela mesma desencadeou.",
+      "links": [
+        {
+          "platform": "steam",
+          "url": "https://store.steampowered.com/app/750920/Shadow_of_the_Tomb_Raider_Definitive_Edition/"
+        },
+        {
+          "platform": "epic-games",
+          "url": "https://store.epicgames.com/en-US/p/shadow-of-the-tomb-raider"
+        }
+      ]
+    },
+    {
+      "id": "undertale",
+      "title": "Undertale",
+      "cover": "/covers/undertale.jpg",
+      "status": "completed",
+      "platform": "PC",
+      "genre": "RPG",
+      "rating": 5,
+      "accentColor": "#a10000",
+      "description": "Um pequeno RPG em que todo monstro pode ser poupado, com um coração, humor e metanarrativa que poucos jogos alcançam.",
+      "links": [
+        {
+          "platform": "steam",
+          "url": "https://store.steampowered.com/app/391540/Undertale/"
+        },
+        {
+          "platform": "gog",
+          "url": "https://www.gog.com/game/undertale"
+        },
+        {
+          "platform": "nintendo",
+          "url": "https://www.nintendo.com/us/store/products/undertale-switch/"
+        }
+      ]
+    },
+    {
+      "id": "resident-evil-2",
+      "title": "Resident Evil 2",
+      "cover": "/covers/resident-evil-2.jpg",
+      "status": "completed",
+      "platform": "PC",
+      "genre": "Survival Horror",
+      "rating": 5,
+      "description": "O aclamado remake do surto em Raccoon City, tenso e belíssimo, com as campanhas entrelaçadas de Leon e Claire.",
+      "links": [
+        {
+          "platform": "steam",
+          "url": "https://store.steampowered.com/app/883710/Resident_Evil_2/"
+        },
+        {
+          "platform": "gog",
+          "url": "https://www.gog.com/game/resident_evil_2"
+        }
+      ]
+    },
+    {
+      "id": "resident-evil-4",
+      "title": "Resident Evil 4",
+      "cover": "/covers/resident-evil-4.jpg",
+      "status": "completed",
+      "platform": "PC",
+      "genre": "Survival Horror",
+      "rating": 5,
+      "description": "O remake do clássico que redefiniu o gênero, levando Leon à Espanha rural para resgatar a filha do presidente.",
+      "links": [
+        {
+          "platform": "steam",
+          "url": "https://store.steampowered.com/app/2050650/Resident_Evil_4/"
+        }
+      ]
+    },
+    {
+      "id": "resident-evil-5",
+      "title": "Resident Evil 5",
+      "cover": "/covers/resident-evil-5.jpg",
+      "status": "completed",
+      "platform": "PC",
+      "genre": "Ação e Terror",
+      "rating": 4,
+      "description": "Chris Redfield enfrenta uma ameaça de bioterror na África Ocidental, com foco em ação cooperativa.",
+      "links": [
+        {
+          "platform": "steam",
+          "url": "https://store.steampowered.com/app/21690/Resident_Evil_5/"
+        }
+      ]
+    },
+    {
+      "id": "resident-evil-6",
+      "title": "Resident Evil 6",
+      "cover": "/covers/resident-evil-6.jpg",
+      "status": "completed",
+      "platform": "PC",
+      "genre": "Ação e Terror",
+      "rating": 3.5,
+      "description": "Quatro campanhas entrelaçadas levam a série ao seu extremo mais espalhafatoso e cheio de ação.",
+      "links": [
+        {
+          "platform": "steam",
+          "url": "https://store.steampowered.com/app/221040/Resident_Evil_6/"
+        }
+      ]
+    },
+    {
+      "id": "resident-evil-7",
+      "title": "Resident Evil 7: Biohazard",
+      "cover": "/covers/resident-evil-7.jpg",
+      "status": "completed",
+      "platform": "PC",
+      "genre": "Survival Horror",
+      "rating": 4.5,
+      "description": "Um retorno em primeira pessoa ao terror lento, prendendo Ethan Winters na propriedade apodrecida dos Baker, na Louisiana.",
+      "links": [
+        {
+          "platform": "steam",
+          "url": "https://store.steampowered.com/app/418370/Resident_Evil_7_Biohazard/"
+        }
+      ]
+    },
+    {
+      "id": "librarian-tidy-up",
+      "title": "Librarian: Tidy Up the Arcane Library",
+      "cover": "/covers/librarian-tidy-up.jpg",
+      "status": "playing",
+      "platform": "PC",
+      "genre": "Puzzle",
+      "description": "Organize e guarde tomos encantados em uma aconchegante biblioteca arcana, resolvendo quebra-cabeças espaciais para restaurar a ordem no caos mágico.",
+      "links": [
+        {
+          "platform": "steam",
+          "url": "https://store.steampowered.com/app/4197610/Librarian_Tidy_Up_the_Arcane_Library/"
+        }
+      ]
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ChefHatIcon, CookingPotIcon, SearchIcon } from "lucide-react";
 
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { Footer } from "@/components/Footer";
 import { Link } from "@/components/Link";
 import { PageHeader } from "@/components/PageHeader";
 import { Pagination } from "@/components/Pagination";
@@ -72,6 +73,8 @@ function CookingView() {
       </section>
 
       <CookingPagination />
+
+      <Footer />
     </div>
   );
 }
@@ -82,7 +85,7 @@ function SearchBox() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="relative max-w-md">
+    <div className="relative w-full">
       <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-500" />
       <input
         ref={inputRef}
@@ -107,31 +110,33 @@ function FacetFilters() {
       {filterRows.map(
         (row) =>
           row.options.length > 1 && (
-            <div key={row.param} className="flex flex-wrap items-center gap-2">
+            <div key={row.param} className="flex flex-wrap items-center justify-between gap-2">
               <span className="text-xs text-gray-500 uppercase tracking-wider font-medium w-16 shrink-0">
                 {row.label}
               </span>
-              {row.options.map((opt) => (
-                <Link
-                  key={opt}
-                  to={getFilterLink(row.param, opt)}
-                  // Vike's link interceptor ignores `e.preventDefault()` and would
-                  // navigate (scroll-to-top); `data-vike="false"` opts the chip out
-                  // so the onClick `setFilter` (keepScrollPosition) is the only nav.
-                  data-vike="false"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setFilter(row.param, opt);
-                  }}
-                  className={`px-3 py-1.5 rounded-full text-xs transition-all duration-200 border no-underline ${
-                    opt === row.active
-                      ? "bg-brand-500 text-white border-brand-500 font-medium"
-                      : "bg-gray-900/50 text-gray-400 border-gray-800 hover:border-brand-500/50 hover:text-white"
-                  }`}
-                >
-                  {opt === "All" ? t(($) => $.cooking.all) : opt}
-                </Link>
-              ))}
+              <div className="flex flex-wrap items-center gap-2">
+                {row.options.map((opt) => (
+                  <Link
+                    key={opt}
+                    to={getFilterLink(row.param, opt)}
+                    // Vike's link interceptor ignores `e.preventDefault()` and would
+                    // navigate (scroll-to-top); `data-vike="false"` opts the chip out
+                    // so the onClick `setFilter` (keepScrollPosition) is the only nav.
+                    data-vike="false"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setFilter(row.param, opt);
+                    }}
+                    className={`px-3 py-1.5 rounded-full text-xs transition-all duration-200 border no-underline ${
+                      opt === row.active
+                        ? "bg-brand-500 text-white border-brand-500 font-medium"
+                        : "bg-gray-900/50 text-gray-400 border-gray-800 hover:border-brand-500/50 hover:text-white"
+                    }`}
+                  >
+                    {opt === "All" ? t(($) => $.cooking.all) : opt}
+                  </Link>
+                ))}
+              </div>
             </div>
           ),
       )}

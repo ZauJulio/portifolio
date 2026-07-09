@@ -4,5 +4,63 @@
   "validation": {
     "strict": true,
     "failOnError": true
+  },
+  "sitemap": {
+    "siteUrl": "https://zaujulio.com",
+    "outputPath": "./public/sitemap.xml",
+    "mode": "append",
+    "collections": [
+      {
+        "name": "music-playlists",
+        "file": "music/playlists.json",
+        "itemsPath": "items",
+        "idField": "id",
+        "basePath": "/music",
+        "priority": "0.6",
+        "changefreq": "monthly"
+      },
+      {
+        "name": "photography-albums",
+        "file": "photography/photography.json",
+        "itemsPath": "albums",
+        "idField": "id",
+        "basePath": "/photography",
+        "priority": "0.6",
+        "changefreq": "monthly"
+      },
+      {
+        "name": "games",
+        "file": "games/games.json",
+        "itemsPath": "items",
+        "idField": "id",
+        "basePath": "/games",
+        "priority": "0.6",
+        "changefreq": "monthly"
+      },
+      {
+        "name": "books",
+        "file": "books/books.json",
+        "itemsPath": "items",
+        "idField": "id",
+        "basePath": "/books",
+        "priority": "0.6",
+        "changefreq": "monthly"
+      },
+      {
+        "name": "movies",
+        "file": "movies/movies.json",
+        "itemsPath": "items",
+        "idField": "id",
+        "basePath": "/movies",
+        "priority": "0.6",
+        "changefreq": "monthly"
+      }
+    ]
+  },
+  "i18n": {
+    "defaultLocale": "en",
+    "locales": ["en", "pt-BR"],
+    "strategy": "folder",
+    "filePattern": {}
   }
 }

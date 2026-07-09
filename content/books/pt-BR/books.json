@@ -1,0 +1,84 @@
+{
+  "$schema": "../schema.json",
+  "items": [
+    {
+      "id": "harry-potter",
+      "title": "Harry Potter (Saga)",
+      "author": "J. K. Rowling",
+      "cover": "/covers/harry-potter.jpg",
+      "kind": "book",
+      "status": "finished",
+      "genre": "Fantasia",
+      "rating": 5,
+      "description": "A saga de sete livros sobre o amadurecimento do jovem bruxo em Hogwarts e sua luta contra Lord Voldemort."
+    },
+    {
+      "id": "divergent",
+      "title": "Divergente",
+      "author": "Veronica Roth",
+      "cover": "/covers/divergent.jpg",
+      "kind": "book",
+      "status": "finished",
+      "genre": "Distopia",
+      "rating": 4,
+      "description": "Numa Chicago futura dividida em facções, Tris descobre que é Divergente — e que essa verdade ameaça todo o sistema.",
+      "links": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.com/dp/0062387243"
+        },
+        {
+          "platform": "goodreads",
+          "url": "https://www.goodreads.com/book/show/13335037-divergent"
+        }
+      ]
+    },
+    {
+      "id": "the-hunger-games",
+      "title": "Jogos Vorazes",
+      "author": "Suzanne Collins",
+      "cover": "/covers/the-hunger-games.jpg",
+      "kind": "book",
+      "status": "finished",
+      "genre": "Distopia",
+      "rating": 4.5,
+      "description": "Katniss Everdeen se voluntaria para uma luta televisionada até a morte e se torna a faísca de uma rebelião contra a Capital."
+    },
+    {
+      "id": "dracula",
+      "title": "Drácula",
+      "author": "Bram Stoker",
+      "cover": "/covers/dracula.jpg",
+      "kind": "book",
+      "status": "finished",
+      "genre": "Terror Gótico",
+      "rating": 4.5,
+      "description": "O clássico epistolar que definiu o mito do vampiro, enquanto o Conde Drácula espalha sua maldição da Transilvânia à Inglaterra."
+    },
+    {
+      "id": "1984",
+      "title": "1984",
+      "author": "George Orwell",
+      "cover": "/covers/1984.jpg",
+      "kind": "book",
+      "status": "finished",
+      "genre": "Distopia",
+      "rating": 5,
+      "description": "A visão aterrorizante de Orwell sobre um Estado totalitário onde vigilância, propaganda e o Grande Irmão esmagam toda dissidência.",
+      "links": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.com/dp/0451524934"
+        },
+        {
+          "platform": "kindle",
+          "url": "https://www.amazon.com/dp/B003JTHWKU"
+        },
+        {
+          "platform": "goodreads",
+          "url": "https://www.goodreads.com/book/show/40961427-1984"
+        }
+      ]
+    }
+  ]
+}

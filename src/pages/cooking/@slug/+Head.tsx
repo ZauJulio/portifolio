@@ -1,7 +1,7 @@
 import { usePageContext } from "vike-react/usePageContext";
 
 import { I18N } from "@/i18n";
-import { SITE_URL, toISODuration } from "@/lib/seo";
+import { absoluteAsset, COVER_FALLBACK, SITE_URL, toISODuration } from "@/lib/seo";
 
 import type { Data } from "./+data";
 
@@ -15,6 +15,8 @@ export default function Head() {
 
   if (!data) return null;
 
+  const image = absoluteAsset(data.cover, COVER_FALLBACK.recipe);
+
   return (
     <>
       {/* og:url + canonical + hreflang are emitted (locale-aware) by the root +Head. */}
@@ -22,9 +24,7 @@ export default function Head() {
       <meta property="og:title" content={data.title} />
       <meta property="og:description" content={data.description} />
       <meta property="og:site_name" content="Zau Julio" />
-      {data.cover && <meta property="og:image" content={data.cover} />}
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
+      <meta property="og:image" content={image} />
       {data.tags?.map((tag) => (
         <meta key={tag} property="article:tag" content={tag} />
       ))}
@@ -32,7 +32,7 @@ export default function Head() {
       <meta name="twitter:title" content={data.title} />
       <meta name="twitter:description" content={data.description} />
       <meta name="twitter:creator" content="@zaujulio" />
-      {data.cover && <meta name="twitter:image" content={data.cover} />}
+      <meta name="twitter:image" content={image} />
       <script
         type="application/ld+json"
         // biome-ignore lint: structured data

@@ -12,12 +12,31 @@ interface PageHeaderProps {
   centerElement?: React.ReactNode;
 }
 
+function defaultBackLabel(backToUrl: string): string {
+  if (backToUrl === "/" || backToUrl === `${import.meta.env.BASE_URL}`) {
+    return "Back to portfolio";
+  }
+
+  if (backToUrl.includes("articles")) return "Back to articles";
+  if (backToUrl.includes("cooking")) return "Back to cooking";
+  if (backToUrl.includes("reviews")) return "Back to reviews";
+  if (backToUrl.includes("music")) return "Back to music";
+  if (backToUrl.includes("books")) return "Back to books";
+  if (backToUrl.includes("movies")) return "Back to movies";
+  if (backToUrl.includes("games")) return "Back to games";
+  if (backToUrl.includes("photography")) return "Back to photography";
+
+  return "Back";
+}
+
 export function PageHeader({
   backToUrl,
   backToLabel,
   rightElement,
   centerElement,
 }: PageHeaderProps) {
+  const resolvedBackLabel = backToUrl ? (backToLabel ?? defaultBackLabel(backToUrl)) : undefined;
+
   return (
     <header className="sticky py-2 top-0 z-40 bg-black/80 backdrop-blur-md border-b border-gray-800/50">
       <Link
@@ -36,13 +55,14 @@ export function PageHeader({
           {backToUrl && (
             <Link
               to={backToUrl}
-              className="group inline-flex items-center gap-2 text-gray-400 hover:text-brand-300 transition-colors no-underline text-sm"
+              className="group inline-flex items-center gap-2 text-gray-400 hover:text-page-300 transition-colors no-underline text-sm"
+              aria-label={resolvedBackLabel}
             >
               {/* Circle highlight around the icon on hover of the back link. */}
-              <span className="inline-flex items-center justify-center rounded-full p-1.5 transition-colors group-hover:bg-brand-500/10">
+              <span className="inline-flex items-center justify-center rounded-full p-1.5 transition-colors group-hover:bg-page-500/10">
                 <ArrowLeftIcon className="size-4" />
               </span>
-              {backToLabel ?? ""}
+              {resolvedBackLabel}
             </Link>
           )}
         </div>

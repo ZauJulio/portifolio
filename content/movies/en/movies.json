@@ -1,0 +1,186 @@
+{
+  "$schema": "../schema.json",
+  "items": [
+    {
+      "id": "interstellar",
+      "title": "Interstellar",
+      "cover": "/covers/interstellar.jpg",
+      "kind": "movie",
+      "status": "completed",
+      "genre": "Science Fiction",
+      "year": 2014,
+      "rating": 5,
+      "description": "A team of explorers travels through a wormhole in search of a new home for humanity, in Christopher Nolan's meditation on love, time, and gravity.",
+      "links": [
+        {
+          "platform": "prime-video",
+          "url": "https://www.primevideo.com/detail/Interstellar"
+        },
+        {
+          "platform": "apple-tv",
+          "url": "https://tv.apple.com/movie/interstellar"
+        },
+        {
+          "platform": "imdb",
+          "url": "https://www.imdb.com/title/tt0816692/"
+        }
+      ]
+    },
+    {
+      "id": "the-conjuring",
+      "title": "The Conjuring (Saga)",
+      "cover": "/covers/the-conjuring.jpg",
+      "kind": "movie",
+      "status": "completed",
+      "genre": "Horror",
+      "year": 2013,
+      "rating": 4.5,
+      "description": "Paranormal investigators Ed and Lorraine Warren confront the darkest cases of their careers across an interconnected universe of haunting films.",
+      "links": [
+        {
+          "platform": "hbo-max",
+          "url": "https://www.max.com/movies/the-conjuring"
+        },
+        {
+          "platform": "prime-video",
+          "url": "https://www.primevideo.com/detail/The-Conjuring"
+        },
+        {
+          "platform": "apple-tv",
+          "url": "https://tv.apple.com/movie/the-conjuring"
+        }
+      ]
+    },
+    {
+      "id": "three-body-problem",
+      "title": "3 Body Problem",
+      "cover": "/covers/three-body-problem.jpg",
+      "kind": "series",
+      "status": "watching",
+      "genre": "Science Fiction",
+      "year": 2024,
+      "rating": 4.5,
+      "description": "A fateful decision in 1960s China echoes across space and time into the present, as a group of scientists face humanity's greatest threat.",
+      "links": [
+        {
+          "platform": "netflix",
+          "url": "https://www.netflix.com/title/81024821"
+        }
+      ]
+    },
+    {
+      "id": "stranger-things",
+      "title": "Stranger Things",
+      "cover": "/covers/stranger-things.jpg",
+      "kind": "series",
+      "status": "watching",
+      "genre": "Science Fiction",
+      "year": 2016,
+      "rating": 4.5,
+      "description": "In a small 1980s town, a group of kids uncover a secret government lab, supernatural forces, and a parallel dimension known as the Upside Down.",
+      "links": [
+        {
+          "platform": "netflix",
+          "url": "https://www.netflix.com/title/80057281"
+        }
+      ]
+    },
+    {
+      "id": "them",
+      "title": "Them",
+      "cover": "/covers/them.jpg",
+      "kind": "series",
+      "status": "completed",
+      "genre": "Horror",
+      "year": 2021,
+      "rating": 4,
+      "description": "An anthology of terror in America, following a Black family whose move to 1950s Los Angeles is met with malevolent forces both human and otherwise.",
+      "links": [
+        {
+          "platform": "prime-video",
+          "url": "https://www.primevideo.com/detail/Them"
+        }
+      ]
+    },
+    {
+      "id": "frieren",
+      "title": "Frieren: Beyond Journey's End",
+      "cover": "/covers/frieren.jpg",
+      "kind": "anime",
+      "status": "watching",
+      "genre": "Fantasy",
+      "year": 2023,
+      "rating": 5,
+      "description": "An elven mage who outlives her adventuring party sets out on a new journey to understand humanity and the fleeting nature of time.",
+      "links": [
+        {
+          "platform": "crunchyroll",
+          "url": "https://www.crunchyroll.com/series/GG5H5XQ0D/frieren-beyond-journeys-end"
+        },
+        {
+          "platform": "netflix",
+          "url": "https://www.netflix.com/title/81726714"
+        }
+      ]
+    },
+    {
+      "id": "go-for-it-nakamura",
+      "title": "Go for It, Nakamura!",
+      "cover": "/covers/go-for-it-nakamura.jpg",
+      "kind": "anime",
+      "status": "completed",
+      "genre": "Romance",
+      "year": 2026,
+      "rating": 4,
+      "description": "A shy, hopelessly clumsy high schooler works up the courage to get closer to the classmate he has a crush on, one awkward attempt at a time.",
+      "links": [
+        {
+          "platform": "crunchyroll",
+          "url": "https://www.crunchyroll.com/series/G0DUEQZP1/go-for-it-nakamura"
+        }
+      ]
+    },
+    {
+      "id": "hunter-x-hunter",
+      "title": "Hunter x Hunter",
+      "cover": "/covers/hunter-x-hunter.jpg",
+      "kind": "anime",
+      "status": "completed",
+      "genre": "Adventure",
+      "year": 2011,
+      "rating": 5,
+      "description": "Young Gon Freecss becomes a Hunter to find his father, joining friends on a journey full of danger, strategy, and unforgettable rivals.",
+      "links": [
+        {
+          "platform": "crunchyroll",
+          "url": "https://www.crunchyroll.com/series/GRGG91EK6/hunter-x-hunter"
+        },
+        {
+          "platform": "netflix",
+          "url": "https://www.netflix.com/title/80181950"
+        }
+      ]
+    },
+    {
+      "id": "my-hero-academia",
+      "title": "My Hero Academia",
+      "cover": "/covers/my-hero-academia.jpg",
+      "kind": "anime",
+      "status": "watching",
+      "genre": "Action",
+      "year": 2016,
+      "rating": 4.5,
+      "description": "In a world where nearly everyone has superpowers, a powerless boy inherits the legacy of the greatest hero and enrolls at U.A. High.",
+      "links": [
+        {
+          "platform": "crunchyroll",
+          "url": "https://www.crunchyroll.com/series/GYD8G0WZR/my-hero-academia"
+        },
+        {
+          "platform": "netflix",
+          "url": "https://www.netflix.com/title/80230316"
+        }
+      ]
+    }
+  ]
+}

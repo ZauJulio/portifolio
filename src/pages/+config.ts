@@ -13,6 +13,9 @@ const config: Config = {
 
   extends: [vikeReact],
 
+  // Required by useSearchParamsNav/LanguageSwitcher, which use vike `navigate()`.
+  clientRouting: true,
+
   // Prerender every page to static HTML (SSG); the Hono server adds live search.
   // MDX bodies render inline into the pre-rendered HTML because the generated
   // `modules.ts` uses an eager glob (no Suspense fallback) — see HyperDown codegen.

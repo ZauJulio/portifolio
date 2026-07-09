@@ -2,6 +2,9 @@ import { useTranslation } from "react-i18next";
 
 import { CameraIcon, ImageIcon } from "lucide-react";
 
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { Footer } from "@/components/Footer";
+import { HobbyHero } from "@/components/HobbyHero";
 import { PageHeader } from "@/components/PageHeader";
 
 import { AlbumCard } from "./components/AlbumCard";
@@ -23,20 +26,25 @@ function PhotographyView() {
     <div className="min-h-screen bg-black text-white font-sans">
       <PageHeader backToUrl="/" />
 
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex p-4 rounded-2xl bg-linear-to-br from-amber-500/10 to-orange-500/5 mb-6">
-            <CameraIcon className="size-10 text-amber-400" />
-          </div>
+      <div className="max-w-7xl mx-auto px-6">
+        <Breadcrumbs
+          items={[
+            { label: t(($) => $.common.home), href: "/" },
+            { label: t(($) => $.photography.title) },
+          ]}
+        />
+      </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t(($) => $.photography.title)}</h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            {t(($) => $.photography.description)}
-          </p>
-        </div>
+      <section className="pt-12 px-6">
+        <HobbyHero
+          icon={<CameraIcon className="size-10 text-sky-400" />}
+          iconWrapperClassName="bg-linear-to-br from-sky-500/15 to-cyan-400/5"
+          title={t(($) => $.photography.title)}
+          description={t(($) => $.photography.description)}
+        />
       </section>
 
-      <section className="pb-20 px-6">
+      <section className="px-6 pt-8 pb-8">
         <div className="max-w-7xl mx-auto">
           {albums.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -54,6 +62,8 @@ function PhotographyView() {
           )}
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }
