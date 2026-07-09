@@ -29,23 +29,6 @@ export function useYouTubePlaylist(playlistId?: string) {
             );
           }
 
-          const targetUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
-
-          const response = await fetch(targetUrl);
-          if (!response.ok) {
-            const errData = await response.json().catch(() => ({}));
-            throw new Error(
-              `Failed to fetch playlist via API: ${errData?.error?.message || response.statusText}`,
-            );
-          }
-
-          const data = await response.json();
-          const items = data.items;
-
-          if (!items || !Array.isArray(items)) {
-            throw new Error("Invalid YouTube API response format.");
-          }
-
           interface PlaylistItem {
             snippet?: {
               title?: string;
@@ -59,37 +42,65 @@ export function useYouTubePlaylist(playlistId?: string) {
             };
           }
 
-          const extractedTracks: YouTubeTrack[] = items
-            .map((item: PlaylistItem) => {
-              const snippet = item.snippet;
-              if (!snippet) return null;
+          function toTrack(item: PlaylistItem): YouTubeTrack | null {
+            const snippet = item.snippet;
+            if (!snippet) return null;
 
-              const title = snippet.title;
-              const artist = snippet.videoOwnerChannelTitle || "Unknown Artist";
+            const title = snippet.title;
+            const artist = snippet.videoOwnerChannelTitle || "Unknown Artist";
 
-              // Handle "Private video" or "Deleted video"
-              if (title === "Private video" || title === "Deleted video") {
-                return null;
-              }
+            // Handle "Private video" or "Deleted video"
+            if (!title || title === "Private video" || title === "Deleted video") {
+              return null;
+            }
 
-              const videoId = snippet.resourceId?.videoId;
+            const videoId = snippet.resourceId?.videoId;
+            if (!videoId) return null;
 
-              const thumbnails = snippet.thumbnails;
-              // Attempt to use maxres, then high, then default
-              const cover =
-                thumbnails?.maxres?.url || thumbnails?.high?.url || thumbnails?.default?.url || "";
+            const thumbnails = snippet.thumbnails;
+            // Attempt to use maxres, then high, then default
+            const cover =
+              thumbnails?.maxres?.url || thumbnails?.high?.url || thumbnails?.default?.url || "";
 
-              if (!videoId) return null;
+            return {
+              id: videoId,
+              title,
+              artist: artist.replace(/ - Topic$/, ""), // Clean up auto-generated topics
+              cover,
+              url: `https://music.youtube.com/watch?v=${videoId}&list=${playlistId}`,
+            };
+          }
 
-              return {
-                id: videoId,
-                title,
-                artist: artist.replace(/ - Topic$/, ""), // Clean up auto-generated topics
-                cover,
-                url: `https://music.youtube.com/watch?v=${videoId}&list=${playlistId}`,
-              };
-            })
-            .filter(Boolean) as YouTubeTrack[];
+          // The API caps each page at 50 items — follow nextPageToken until
+          // exhausted so playlists longer than 50 tracks aren't truncated.
+          const extractedTracks: YouTubeTrack[] = [];
+          let pageToken: string | undefined;
+
+          do {
+            const targetUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}${pageToken ? `&pageToken=${pageToken}` : ""}`;
+
+            const response = await fetch(targetUrl);
+            if (!response.ok) {
+              const errData = await response.json().catch(() => ({}));
+              throw new Error(
+                `Failed to fetch playlist via API: ${errData?.error?.message || response.statusText}`,
+              );
+            }
+
+            const data = await response.json();
+            const items = data.items;
+
+            if (!items || !Array.isArray(items)) {
+              throw new Error("Invalid YouTube API response format.");
+            }
+
+            for (const item of items as PlaylistItem[]) {
+              const track = toTrack(item);
+              if (track) extractedTracks.push(track);
+            }
+
+            pageToken = data.nextPageToken;
+          } while (pageToken);
 
           if (isMounted) {
             setTracks(extractedTracks);

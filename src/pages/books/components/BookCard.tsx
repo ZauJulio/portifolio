@@ -20,7 +20,7 @@ export function BookCard({ book }: { book: Book }) {
       metaText={
         <>
           {book.author}
-          {book.genre && <span>&bull; {book.genre}</span>}
+          {`${book.genre ? ` • ${book.genre}` : ""}`}
         </>
       }
       rating={book.rating}

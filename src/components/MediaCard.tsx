@@ -61,28 +61,31 @@ export function MediaCard({
     <Link
       to={href}
       style={{ "--accent": accentRGB } as React.CSSProperties}
-      className="block rounded-xl border border-gray-800 bg-gray-900/25 overflow-hidden group hover:border-[rgb(var(--accent)/0.5)] transition-all duration-300 no-underline"
+      className="hobby-grid-item flex flex-col rounded-xl border border-gray-800 bg-gray-900/25 backdrop-blur-md backdrop-saturate-150 overflow-hidden group hover:border-[rgb(var(--accent)/0.5)] hover:bg-gray-900/40 transition-all duration-300 no-underline"
     >
-      <div className="aspect-3/4 overflow-hidden bg-gray-950">
+      <div className="hobby-grid-cover shrink-0 overflow-hidden bg-gray-950 transition-[height] duration-300">
         <img
           src={cover}
           alt={title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
-      <div className="p-5">
-        <div className="flex items-center gap-2 mb-2 flex-wrap">
-          <h3 className="text-lg font-semibold text-white group-hover:text-[rgb(var(--accent))] transition-colors">
-            {title}
-          </h3>
-          <span className={`text-xs px-2 py-0.5 rounded-full border ${statusClassName}`}>
+      <div className="hobby-grid-body p-5 flex flex-col overflow-hidden">
+        <h3 className="text-lg font-semibold text-white group-hover:text-[rgb(var(--accent))] transition-colors">
+          {title}
+        </h3>
+
+        <div className="mt-1 mb-2">
+          <span
+            className={`inline-block text-xs px-2 py-0.5 rounded-full border ${statusClassName}`}
+          >
             {statusLabel}
           </span>
         </div>
 
-        <p className="text-xs text-gray-500 mb-2 flex items-center gap-1.5">
-          {metaIcon}
-          {metaText}
+        <p className="text-xs text-gray-500 mb-2 flex items-center gap-1.5 overflow-hidden whitespace-nowrap">
+          <span className="shrink-0">{metaIcon}</span>
+          <span className="truncate">{metaText}</span>
         </p>
 
         {typeof rating === "number" && (

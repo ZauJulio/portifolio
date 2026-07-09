@@ -20,8 +20,8 @@ export function MovieCard({ movie }: { movie: Movie }) {
       metaText={
         <>
           {t(($) => $.movies.kind[movie.kind])}
-          {movie.year && <span>&bull; {movie.year}</span>}
-          {movie.genre && <span>&bull; {movie.genre}</span>}
+          {`${movie.genre ? ` • ${movie.genre}` : ""}`}
+          {`${movie.year ? ` • ${movie.year}` : ""}`}
         </>
       }
       rating={movie.rating}

@@ -31,21 +31,21 @@ const variantStyles: Record<SubjectVariant, SubjectStyles> = {
     poster:
       "rounded-2xl ring-1 ring-[rgb(var(--accent)_/_0.3)] shadow-lg shadow-[rgb(var(--accent)_/_0.1)]",
     title:
-      "bg-linear-to-r from-white via-[rgb(var(--accent))] to-[rgb(var(--accent))] bg-clip-text text-transparent",
+      "bg-linear-to-l from-white from-15% to-[rgb(var(--accent))] bg-clip-text text-transparent",
   },
   game: {
     glow: "bg-[rgb(var(--accent)_/_0.2)]",
     poster:
       "rounded-xl ring-2 ring-[rgb(var(--accent)_/_0.3)] shadow-lg shadow-[rgb(var(--accent)_/_0.1)]",
     title:
-      "bg-linear-to-r from-white via-[rgb(var(--accent))] to-[rgb(var(--accent))] bg-clip-text text-transparent",
+      "bg-linear-to-l from-white from-15% to-[rgb(var(--accent))] bg-clip-text text-transparent",
   },
   book: {
     glow: "bg-[rgb(var(--accent)_/_0.2)]",
     poster:
       "rounded-md ring-1 ring-[rgb(var(--accent)_/_0.3)] shadow-xl shadow-[rgb(var(--accent)_/_0.1)] -rotate-2 hover:rotate-0 transition-transform duration-300",
     title:
-      "bg-linear-to-r from-white via-[rgb(var(--accent))] to-[rgb(var(--accent))] bg-clip-text text-transparent",
+      "bg-linear-to-l from-white from-15% to-[rgb(var(--accent))] bg-clip-text text-transparent",
   },
 };
 
