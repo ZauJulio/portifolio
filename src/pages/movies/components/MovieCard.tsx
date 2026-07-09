@@ -26,6 +26,7 @@ export function MovieCard({ movie }: { movie: Movie }) {
       }
       rating={movie.rating}
       description={movie.description}
+      accentColor={movie.accentColor}
     />
   );
 }

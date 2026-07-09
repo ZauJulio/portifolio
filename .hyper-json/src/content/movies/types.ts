@@ -26,6 +26,10 @@ declare module "@indago/hyper-json" {
     genre: string;
     year?: number;
     rating?: number;
+    /**
+     * Override accent color as hex (e.g. '#fe0000')
+     */
+    accentColor?: string;
     description?: string;
     links?: {
       platform: string;

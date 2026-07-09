@@ -64,6 +64,7 @@
       "status": "finished",
       "genre": "Distopia",
       "rating": 5,
+      "accentColor": "#0a0f0f",
       "description": "A visão aterrorizante de Orwell sobre um Estado totalitário onde vigilância, propaganda e o Grande Irmão esmagam toda dissidência.",
       "links": [
         {

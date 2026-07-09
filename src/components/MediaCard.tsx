@@ -1,8 +1,9 @@
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { StarIcon } from "lucide-react";
 
 import { Link } from "@/components/Link";
+import { getAverageColor } from "@/utils/quantize-color";
 
 interface MediaCardProps {
   href: string;
@@ -16,6 +17,8 @@ interface MediaCardProps {
   metaText: ReactNode;
   rating?: number;
   description?: string;
+  /** Override the auto-detected accent color (hex, e.g. `"#a10000"`). */
+  accentColor?: string;
 }
 
 // Shared listing-card shell for the games/books/movies hobby collections —
@@ -30,11 +33,35 @@ export function MediaCard({
   metaText,
   rating,
   description,
+  accentColor,
 }: MediaCardProps) {
+  const [accentRGB, setAccentRGB] = useState<string>("0 0 0");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    let isMounted = true;
+
+    if (accentColor) {
+      const hex = accentColor.replace("#", "");
+      const r = parseInt(hex.slice(0, 2), 16);
+      const g = parseInt(hex.slice(2, 4), 16);
+      const b = parseInt(hex.slice(4, 6), 16);
+      setAccentRGB(`${r} ${g} ${b}`);
+      return;
+    }
+
+    getAverageColor(cover)
+      .then((rgbStr) => isMounted && setAccentRGB(rgbStr))
+      .catch((_) => {});
+
+    return () => void (isMounted = false);
+  }, [cover, accentColor]);
+
   return (
     <Link
       to={href}
-      className="block rounded-xl border border-gray-800 bg-gray-900/25 overflow-hidden group hover:border-page-500/50 transition-all duration-300 no-underline"
+      style={{ "--accent": accentRGB } as React.CSSProperties}
+      className="block rounded-xl border border-gray-800 bg-gray-900/25 overflow-hidden group hover:border-[rgb(var(--accent)/0.5)] transition-all duration-300 no-underline"
     >
       <div className="aspect-3/4 overflow-hidden bg-gray-950">
         <img
@@ -45,7 +72,7 @@ export function MediaCard({
       </div>
       <div className="p-5">
         <div className="flex items-center gap-2 mb-2 flex-wrap">
-          <h3 className="text-lg font-semibold text-white group-hover:text-page-300 transition-colors">
+          <h3 className="text-lg font-semibold text-white group-hover:text-[rgb(var(--accent))] transition-colors">
             {title}
           </h3>
           <span className={`text-xs px-2 py-0.5 rounded-full border ${statusClassName}`}>

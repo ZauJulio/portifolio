@@ -26,6 +26,10 @@ declare module "@indago/hyper-json" {
     status: "reading" | "finished" | "want-to-read" | "dropped";
     genre: string;
     rating?: number;
+    /**
+     * Override accent color as hex (e.g. '#fe0000')
+     */
+    accentColor?: string;
     description?: string;
     links?: {
       platform: string;

@@ -64,6 +64,7 @@
       "status": "finished",
       "genre": "Dystopian",
       "rating": 5,
+      "accentColor": "#0a0f0f",
       "description": "Orwell's chilling vision of a totalitarian state where surveillance, propaganda, and Big Brother crush all dissent.",
       "links": [
         {

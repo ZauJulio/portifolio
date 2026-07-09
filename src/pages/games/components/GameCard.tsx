@@ -25,6 +25,7 @@ export function GameCard({ game }: { game: Game }) {
       }
       rating={game.rating}
       description={game.description}
+      accentColor={game.accentColor}
     />
   );
 }

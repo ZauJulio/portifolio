@@ -30,6 +30,10 @@
         },
         "genre": { "type": "string" },
         "rating": { "type": "number", "minimum": 0, "maximum": 5 },
+        "accentColor": {
+          "type": "string",
+          "description": "Override accent color as hex (e.g. '#fe0000')"
+        },
         "description": { "type": "string" },
         "links": {
           "type": "array",

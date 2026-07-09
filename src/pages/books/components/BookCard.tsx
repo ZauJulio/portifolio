@@ -25,6 +25,7 @@ export function BookCard({ book }: { book: Book }) {
       }
       rating={book.rating}
       description={book.description}
+      accentColor={book.accentColor}
     />
   );
 }
