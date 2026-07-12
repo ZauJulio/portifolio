@@ -10,7 +10,7 @@
       "genre": "Ficção Científica",
       "year": 2014,
       "rating": 5,
-      "description": "Uma equipe de exploradores atravessa um buraco de minhoca em busca de um novo lar para a humanidade, na reflexão de Christopher Nolan sobre amor, tempo e gravidade.",
+      "description": "Tenho uma tattoo do Gargantua — isso diz tudo. Uma das melhores coisas já colocadas em tela, sem discussão.",
       "links": [
         {
           "platform": "prime-video",
@@ -27,6 +27,31 @@
       ]
     },
     {
+      "id": "the-matrix",
+      "title": "Matrix (Saga)",
+      "cover": "/covers/matrix.webp",
+      "kind": "movie",
+      "status": "completed",
+      "genre": "Ficção Científica",
+      "year": 1999,
+      "rating": 5,
+      "description": "Um divisor de águas pro cinema. Daqueles filmes que você assiste e nunca mais vê o cinema — nem a realidade — do mesmo jeito.",
+      "links": [
+        {
+          "platform": "hbo-max",
+          "url": "https://www.max.com/movies/the-matrix"
+        },
+        {
+          "platform": "prime-video",
+          "url": "https://www.primevideo.com/detail/The-Matrix"
+        },
+        {
+          "platform": "imdb",
+          "url": "https://www.imdb.com/title/tt0133093/"
+        }
+      ]
+    },
+    {
       "id": "the-conjuring",
       "title": "Invocação do Mal (Saga)",
       "cover": "/covers/the-conjuring.jpg",
@@ -35,7 +60,7 @@
       "genre": "Terror",
       "year": 2013,
       "rating": 4.5,
-      "description": "Os investigadores paranormais Ed e Lorraine Warren enfrentam os casos mais sombrios de suas carreiras em um universo interligado de filmes assombrados.",
+      "description": "Acompanho desde a infância e vi todo o universo se desenrolar. Uma saga de terror divertida e bem feita do início ao fim.",
       "links": [
         {
           "platform": "hbo-max",
@@ -56,11 +81,11 @@
       "title": "O Problema dos 3 Corpos",
       "cover": "/covers/three-body-problem.jpg",
       "kind": "series",
-      "status": "watching",
+      "status": "completed",
       "genre": "Ficção Científica",
       "year": 2024,
       "rating": 4.5,
-      "description": "Uma decisão fatídica na China dos anos 1960 ecoa pelo espaço e pelo tempo até o presente, quando um grupo de cientistas enfrenta a maior ameaça da humanidade.",
+      "description": "Top ficção científica pra mim. O professor João Paulo, da UFRN, me recomendou e desde então venho passando adiante. Assisti tudo e agora preciso dos livros — deve ter 10x mais profundidade.",
       "links": [
         {
           "platform": "netflix",
@@ -73,11 +98,11 @@
       "title": "Stranger Things",
       "cover": "/covers/stranger-things.jpg",
       "kind": "series",
-      "status": "watching",
+      "status": "completed",
       "genre": "Ficção Científica",
       "year": 2016,
       "rating": 4.5,
-      "description": "Em uma pequena cidade nos anos 1980, um grupo de crianças descobre um laboratório secreto do governo, forças sobrenaturais e uma dimensão paralela: o Mundo Invertido.",
+      "description": "Uma série ótima que merecia um final melhor. Depois de tantas temporadas, o encerramento simplesmente não fez jus.",
       "links": [
         {
           "platform": "netflix",
@@ -94,7 +119,7 @@
       "genre": "Terror",
       "year": 2021,
       "rating": 4,
-      "description": "Uma antologia de terror nos Estados Unidos, acompanhando uma família negra cuja mudança para a Los Angeles dos anos 1950 é recebida por forças malévolas.",
+      "description": "Bem pesado, mas foge bastante da mesmice de terror e suspense. Vale a pena pra quem quer algo que quebra a fórmula.",
       "links": [
         {
           "platform": "prime-video",
@@ -111,7 +136,7 @@
       "genre": "Fantasia",
       "year": 2023,
       "rating": 5,
-      "description": "Uma maga elfa que sobrevive a todos os seus companheiros de aventura parte em uma nova jornada para compreender a humanidade e a natureza fugaz do tempo.",
+      "description": "Um anime que dita seu próprio ritmo em vez de correr como todo o resto. A arte é linda e a narrativa acompanha perfeitamente.",
       "links": [
         {
           "platform": "crunchyroll",
@@ -131,8 +156,8 @@
       "status": "completed",
       "genre": "Romance",
       "year": 2026,
-      "rating": 4,
-      "description": "Um estudante tímido e desastrado cria coragem para se aproximar do colega por quem é apaixonado, uma tentativa atrapalhada de cada vez.",
+      "rating": 4.5,
+      "description": "Um dos meus yaois favoritos — muito fofinho. O primeiro volume do mangá tá na minha mesa esperando pra ser lido. Só dois volumes até agora; espero que a autora continue.",
       "links": [
         {
           "platform": "crunchyroll",
@@ -149,7 +174,7 @@
       "genre": "Aventura",
       "year": 2011,
       "rating": 5,
-      "description": "O jovem Gon Freecss se torna um Hunter para encontrar o pai, embarcando com amigos em uma jornada cheia de perigo, estratégia e rivais inesquecíveis.",
+      "description": "Meu anime favorito de todos os tempos. Fã do Killua, já assisti umas quatro vezes. A evolução de todo o elenco é incomparável. Ainda bem que o Togashi voltou a escrever.",
       "links": [
         {
           "platform": "crunchyroll",
@@ -166,11 +191,11 @@
       "title": "My Hero Academia",
       "cover": "/covers/my-hero-academia.jpg",
       "kind": "anime",
-      "status": "watching",
+      "status": "completed",
       "genre": "Ação",
       "year": 2016,
       "rating": 4.5,
-      "description": "Em um mundo onde quase todos têm superpoderes, um garoto sem poderes herda o legado do maior herói e ingressa na academia U.A.",
+      "description": "A última temporada é o ápice dos animes da época. Melhor final, melhor animação — tudo se encaixou da forma mais espetacular possível.",
       "links": [
         {
           "platform": "crunchyroll",
@@ -179,6 +204,23 @@
         {
           "platform": "netflix",
           "url": "https://www.netflix.com/title/80230316"
+        }
+      ]
+    },
+    {
+      "id": "dr-stone",
+      "title": "Dr. Stone",
+      "cover": "/covers/dr_stone.jpg",
+      "kind": "anime",
+      "status": "completed",
+      "genre": "Ficção Científica",
+      "year": 2019,
+      "rating": 4,
+      "description": "Sei que muita gente acha bestinha, e o final apressado não ajudou. Mas trouxe de volta aquele sentimento de descobrir biologia, química, física e tecnologia pela primeira vez.",
+      "links": [
+        {
+          "platform": "crunchyroll",
+          "url": "https://www.crunchyroll.com/series/GYEXQKJG6/dr-stone"
         }
       ]
     }

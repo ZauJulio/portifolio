@@ -7,10 +7,10 @@
       "author": "J. K. Rowling",
       "cover": "/covers/harry-potter.jpg",
       "kind": "book",
-      "status": "finished",
+      "status": "want-to-read",
       "genre": "Fantasy",
       "rating": 5,
-      "description": "The seven-book saga of the boy wizard's coming of age at Hogwarts and his fight against Lord Voldemort."
+      "description": "The movies already mean so much to me — the full collection is bought and sitting on my shelf, waiting for the right moment to dive in."
     },
     {
       "id": "divergent",
@@ -21,7 +21,7 @@
       "status": "finished",
       "genre": "Dystopian",
       "rating": 4,
-      "description": "In a faction-divided future Chicago, Tris discovers she is Divergent — and that the truth threatens the whole system.",
+      "description": "Tris is what makes this saga work. The worldbuilding is interesting, but it's her arc that kept me turning pages all the way to a genuinely satisfying ending.",
       "links": [
         {
           "platform": "amazon",
@@ -42,7 +42,7 @@
       "status": "finished",
       "genre": "Dystopian",
       "rating": 4.5,
-      "description": "Katniss Everdeen volunteers for a televised fight to the death and becomes the spark of a rebellion against the Capitol."
+      "description": "A defining piece of my teenage years. The films pulled me in, the books kept me — both are incredible in their own right."
     },
     {
       "id": "dracula",
@@ -53,7 +53,7 @@
       "status": "finished",
       "genre": "Gothic Horror",
       "rating": 4.5,
-      "description": "The epistolary classic that defined the vampire myth, as Count Dracula spreads his curse from Transylvania to England."
+      "description": "The kind of classic that earns its reputation. The gothic atmosphere grabs you from the first page and never lets go."
     },
     {
       "id": "1984",
@@ -65,7 +65,7 @@
       "genre": "Dystopian",
       "rating": 5,
       "accentColor": "#0a0f0f",
-      "description": "Orwell's chilling vision of a totalitarian state where surveillance, propaganda, and Big Brother crush all dissent.",
+      "description": "Essential reading for our generation. Every page reads like a mirror held up to the present, and it stays with you long after the last chapter.",
       "links": [
         {
           "platform": "amazon",

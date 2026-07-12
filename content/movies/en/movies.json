@@ -10,7 +10,7 @@
       "genre": "Science Fiction",
       "year": 2014,
       "rating": 5,
-      "description": "A team of explorers travels through a wormhole in search of a new home for humanity, in Christopher Nolan's meditation on love, time, and gravity.",
+      "description": "I have a Gargantua tattoo — that should tell you everything. One of the best things ever put on screen, period.",
       "links": [
         {
           "platform": "prime-video",
@@ -27,6 +27,31 @@
       ]
     },
     {
+      "id": "the-matrix",
+      "title": "The Matrix (Saga)",
+      "cover": "/covers/matrix.webp",
+      "kind": "movie",
+      "status": "completed",
+      "genre": "Science Fiction",
+      "year": 1999,
+      "rating": 5,
+      "description": "A turning point for cinema. One of those films where nothing — not movies, not how you see reality — looks the same after watching it.",
+      "links": [
+        {
+          "platform": "hbo-max",
+          "url": "https://www.max.com/movies/the-matrix"
+        },
+        {
+          "platform": "prime-video",
+          "url": "https://www.primevideo.com/detail/The-Matrix"
+        },
+        {
+          "platform": "imdb",
+          "url": "https://www.imdb.com/title/tt0133093/"
+        }
+      ]
+    },
+    {
       "id": "the-conjuring",
       "title": "The Conjuring (Saga)",
       "cover": "/covers/the-conjuring.jpg",
@@ -35,7 +60,7 @@
       "genre": "Horror",
       "year": 2013,
       "rating": 4.5,
-      "description": "Paranormal investigators Ed and Lorraine Warren confront the darkest cases of their careers across an interconnected universe of haunting films.",
+      "description": "Been watching since I was a kid and followed the whole universe as it unfolded. A fun and well-crafted horror saga from start to finish.",
       "links": [
         {
           "platform": "hbo-max",
@@ -56,11 +81,11 @@
       "title": "3 Body Problem",
       "cover": "/covers/three-body-problem.jpg",
       "kind": "series",
-      "status": "watching",
+      "status": "completed",
       "genre": "Science Fiction",
       "year": 2024,
       "rating": 4.5,
-      "description": "A fateful decision in 1960s China echoes across space and time into the present, as a group of scientists face humanity's greatest threat.",
+      "description": "Top sci-fi for me. Professor João Paulo from UFRN recommended it and I've been passing it forward ever since. Watched everything and now I need the books — there's probably 10x more depth in there.",
       "links": [
         {
           "platform": "netflix",
@@ -73,11 +98,11 @@
       "title": "Stranger Things",
       "cover": "/covers/stranger-things.jpg",
       "kind": "series",
-      "status": "watching",
+      "status": "completed",
       "genre": "Science Fiction",
       "year": 2016,
       "rating": 4.5,
-      "description": "In a small 1980s town, a group of kids uncover a secret government lab, supernatural forces, and a parallel dimension known as the Upside Down.",
+      "description": "A great series that deserved a better ending. After all those seasons, the finale just didn't do it justice.",
       "links": [
         {
           "platform": "netflix",
@@ -94,7 +119,7 @@
       "genre": "Horror",
       "year": 2021,
       "rating": 4,
-      "description": "An anthology of terror in America, following a Black family whose move to 1950s Los Angeles is met with malevolent forces both human and otherwise.",
+      "description": "Heavy stuff, but refreshingly different from the usual horror and suspense formula. Worth the watch if you want something that breaks the mold.",
       "links": [
         {
           "platform": "prime-video",
@@ -111,7 +136,7 @@
       "genre": "Fantasy",
       "year": 2023,
       "rating": 5,
-      "description": "An elven mage who outlives her adventuring party sets out on a new journey to understand humanity and the fleeting nature of time.",
+      "description": "An anime that sets its own pace instead of rushing like everything else. The art is beautiful and the storytelling matches it perfectly.",
       "links": [
         {
           "platform": "crunchyroll",
@@ -131,8 +156,8 @@
       "status": "completed",
       "genre": "Romance",
       "year": 2026,
-      "rating": 4,
-      "description": "A shy, hopelessly clumsy high schooler works up the courage to get closer to the classmate he has a crush on, one awkward attempt at a time.",
+      "rating": 4.5,
+      "description": "One of my favorite yaoi — incredibly wholesome. The first manga volume is on my desk waiting to be read. Only two volumes out so far; hoping the author keeps going.",
       "links": [
         {
           "platform": "crunchyroll",
@@ -149,7 +174,7 @@
       "genre": "Adventure",
       "year": 2011,
       "rating": 5,
-      "description": "Young Gon Freecss becomes a Hunter to find his father, joining friends on a journey full of danger, strategy, and unforgettable rivals.",
+      "description": "My all-time favorite anime. Killua fan through and through, watched it about four times. The character growth across the entire cast is unmatched. Glad Togashi is writing again.",
       "links": [
         {
           "platform": "crunchyroll",
@@ -166,11 +191,11 @@
       "title": "My Hero Academia",
       "cover": "/covers/my-hero-academia.jpg",
       "kind": "anime",
-      "status": "watching",
+      "status": "completed",
       "genre": "Action",
       "year": 2016,
       "rating": 4.5,
-      "description": "In a world where nearly everyone has superpowers, a powerless boy inherits the legacy of the greatest hero and enrolls at U.A. High.",
+      "description": "The final season is peak anime of its era. Best finale, best animation — everything came together in the most spectacular way possible.",
       "links": [
         {
           "platform": "crunchyroll",
@@ -179,6 +204,23 @@
         {
           "platform": "netflix",
           "url": "https://www.netflix.com/title/80230316"
+        }
+      ]
+    },
+    {
+      "id": "dr-stone",
+      "title": "Dr. Stone",
+      "cover": "/covers/dr_stone.jpg",
+      "kind": "anime",
+      "status": "completed",
+      "genre": "Science Fiction",
+      "year": 2019,
+      "rating": 4,
+      "description": "I know plenty of people dismiss it, and the rushed ending didn't help. But it brought back that feeling of discovering biology, chemistry, physics, and tech for the very first time.",
+      "links": [
+        {
+          "platform": "crunchyroll",
+          "url": "https://www.crunchyroll.com/series/GYEXQKJG6/dr-stone"
         }
       ]
     }

@@ -7,10 +7,10 @@
       "author": "J. K. Rowling",
       "cover": "/covers/harry-potter.jpg",
       "kind": "book",
-      "status": "finished",
+      "status": "want-to-read",
       "genre": "Fantasia",
       "rating": 5,
-      "description": "A saga de sete livros sobre o amadurecimento do jovem bruxo em Hogwarts e sua luta contra Lord Voldemort."
+      "description": "Os filmes já significam muito pra mim — a coleção completa tá comprada e na estante, esperando o momento certo pra mergulhar."
     },
     {
       "id": "divergent",
@@ -21,7 +21,7 @@
       "status": "finished",
       "genre": "Distopia",
       "rating": 4,
-      "description": "Numa Chicago futura dividida em facções, Tris descobre que é Divergente — e que essa verdade ameaça todo o sistema.",
+      "description": "A Tris é o que faz essa saga funcionar. O worldbuilding é interessante, mas foi a jornada dela que me prendeu até um final genuinamente satisfatório.",
       "links": [
         {
           "platform": "amazon",
@@ -42,7 +42,7 @@
       "status": "finished",
       "genre": "Distopia",
       "rating": 4.5,
-      "description": "Katniss Everdeen se voluntaria para uma luta televisionada até a morte e se torna a faísca de uma rebelião contra a Capital."
+      "description": "Marca registrada da minha adolescência. Os filmes me puxaram, os livros me seguraram — os dois são incríveis do jeito deles."
     },
     {
       "id": "dracula",
@@ -53,7 +53,7 @@
       "status": "finished",
       "genre": "Terror Gótico",
       "rating": 4.5,
-      "description": "O clássico epistolar que definiu o mito do vampiro, enquanto o Conde Drácula espalha sua maldição da Transilvânia à Inglaterra."
+      "description": "O tipo de clássico que faz jus à fama. A atmosfera gótica te pega desde a primeira página e não solta mais."
     },
     {
       "id": "1984",
@@ -65,7 +65,7 @@
       "genre": "Distopia",
       "rating": 5,
       "accentColor": "#0a0f0f",
-      "description": "A visão aterrorizante de Orwell sobre um Estado totalitário onde vigilância, propaganda e o Grande Irmão esmagam toda dissidência.",
+      "description": "Leitura fundamental pra nossa geração. Cada página parece um espelho apontado pro presente, e fica na cabeça muito depois do último capítulo.",
       "links": [
         {
           "platform": "amazon",
