@@ -33,20 +33,18 @@ Este post é a história técnica por trás disso: por que a abstração de WebV
 
 <br />
 
-<p align="center">
+<ImageCarousel>
   <img
     src="https://raw.githubusercontent.com/ZauJulio/ZeroWhats/main/release/linux/screenshots/print-global.jpg"
     alt="Janela principal do ZeroWhats — WhatsApp Web com a barra de título injetada, e as janelas Settings, About e Keyboard Shortcuts abertas ao lado"
+    style={{ maxWidth: "75%", height: "auto" }}
   />
-</p>
-
-<p align="center">
   <img
     src="https://raw.githubusercontent.com/ZauJulio/ZeroWhats/main/release/linux/screenshots/print-lock.jpg"
     alt="Tela de bloqueio do ZeroWhats, exibida no auto-lock, ao fechar, ou pelo menu da bandeja"
-    style={{ maxWidth: "480px" }}
+    style={{ maxWidth: "75%", height: "auto" }}
   />
-</p>
+</ImageCarousel>
 
 <nav className="article-toc" aria-label="Contents">
 
@@ -143,13 +141,13 @@ O Tauri até permite trocar toda a camada de runtime — é o que o `tauri-runti
 
 Antes de me decidir por "deixar o wry escolher", eu olhei para as outras formas de colocar um motor web dentro de um app desktop em Rust.
 
-| Motor / caminho de entrada | Modelo de integração | Onde estava quando decidi | Veredito |
-| --- | --- | --- | --- |
-| **WebView do sistema via wry** (WebKitGTK, WebView2, WKWebView) | Runtime padrão do Tauri (`tauri-runtime-wry`) | Nível de produção — todo app Tauri 1.x/2.x em uso hoje roda isso | **Escolhido** |
-| **Servo, via Verso** | Um runtime customizado separado do Tauri, `tauri-runtime-verso` — não é um backend do wry | Experimental, financiado por uma grant da NLnet; no momento da integração cobria só um subconjunto dos recursos de janela do Tauri — sem decorações, sem transparência, sem menus por janela ainda | Ainda não — o ZeroWhats precisa de uma janela transparente, sem bordas e guiada pela bandeja hoje |
-| **Gecko** (motor do Firefox) | Nenhuma API de embedding de terceiros mantida | A Mozilla abandonou o embedding genérico do Gecko por volta de 2011; o GeckoView é o único caminho de embedding mantido, e é exclusivo do Android | Descartado — não existe porta de entrada suportada |
-| **CEF** (Chromium Embedded Framework) | Runtime próprio; substitui o wry por completo — janelas e IPC próprios | Maduro e comprovado — o próprio Karere migrou para ele na reescrita 4.0 | Rejeitado — empacota um build privado de Chromium por SO/arquitetura, no meu próprio ritmo de patch, exatamente o custo que uma WebView de sistema existe para evitar |
-| **Chromium embutido via Electron** | Um framework diferente, não uma escolha de WebView | Maduro, totalmente consistente entre SOs | Rejeitado — mesmo custo de navegador embutido do CEF, mais um runtime Node.js empacotado em cima |
+| Motor / caminho de entrada                                      | Modelo de integração                                                                      | Onde estava quando decidi                                                                                                                                                                          | Veredito                                                                                                                                                              |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **WebView do sistema via wry** (WebKitGTK, WebView2, WKWebView) | Runtime padrão do Tauri (`tauri-runtime-wry`)                                             | Nível de produção — todo app Tauri 1.x/2.x em uso hoje roda isso                                                                                                                                   | **Escolhido**                                                                                                                                                         |
+| **Servo, via Verso**                                            | Um runtime customizado separado do Tauri, `tauri-runtime-verso` — não é um backend do wry | Experimental, financiado por uma grant da NLnet; no momento da integração cobria só um subconjunto dos recursos de janela do Tauri — sem decorações, sem transparência, sem menus por janela ainda | Ainda não — o ZeroWhats precisa de uma janela transparente, sem bordas e guiada pela bandeja hoje                                                                     |
+| **Gecko** (motor do Firefox)                                    | Nenhuma API de embedding de terceiros mantida                                             | A Mozilla abandonou o embedding genérico do Gecko por volta de 2011; o GeckoView é o único caminho de embedding mantido, e é exclusivo do Android                                                  | Descartado — não existe porta de entrada suportada                                                                                                                    |
+| **CEF** (Chromium Embedded Framework)                           | Runtime próprio; substitui o wry por completo — janelas e IPC próprios                    | Maduro e comprovado — o próprio Karere migrou para ele na reescrita 4.0                                                                                                                            | Rejeitado — empacota um build privado de Chromium por SO/arquitetura, no meu próprio ritmo de patch, exatamente o custo que uma WebView de sistema existe para evitar |
+| **Chromium embutido via Electron**                              | Um framework diferente, não uma escolha de WebView                                        | Maduro, totalmente consistente entre SOs                                                                                                                                                           | Rejeitado — mesmo custo de navegador embutido do CEF, mais um runtime Node.js empacotado em cima                                                                      |
 
 ### Servo, via Verso
 
@@ -171,13 +169,13 @@ O CEF é a alternativa mais defensável dessa lista, e eu não preciso especular
 
 A questão do motor é uma camada. A outra é: vários desses já existem como apps prontos — por que o ZeroWhats é um uso defensável do tempo de alguém, inclusive o meu?
 
-| Cliente | Shell / linguagem | Motor de renderização | Escopo | Formato do consumo |
-| --- | --- | --- | --- | --- |
-| **ZeroWhats** | Rust (Tauri 2) + Preact | WebView do sistema (WebKitGTK / WebView2 / WKWebView) | Só WhatsApp, navegação em sandbox | Pacote nativo de ~2–4 MB; sem navegador embutido |
-| **Karere** (≥4.0) | Shell nativo GTK4/Libadwaita | CEF — Chromium embutido (saiu do WebKitGTK na 4.0) | Só WhatsApp, multi-conta | Empacota um runtime privado de Chromium |
-| **ZapZap** | Python + PyQt6 | QtWebEngine — Chromium embutido | Só WhatsApp | Chromium embutido mais o runtime Python/Qt |
-| **Ferdium** (fork do Ferdi, fork do Franz) | Electron (Node.js) | Chromium embutido | Dezenas de serviços de chat — WhatsApp é só mais uma receita | Consumo pleno de Electron, por design |
-| **WhatsApp Desktop** (oficial) | Electron, confirmado no macOS | Chromium embutido | Só WhatsApp, oficial | Consumo de Electron |
+| Cliente                                    | Shell / linguagem             | Motor de renderização                                 | Escopo                                                       | Formato do consumo                               |
+| ------------------------------------------ | ----------------------------- | ----------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------ |
+| **ZeroWhats**                              | Rust (Tauri 2) + Preact       | WebView do sistema (WebKitGTK / WebView2 / WKWebView) | Só WhatsApp, navegação em sandbox                            | Pacote nativo de ~2–4 MB; sem navegador embutido |
+| **Karere** (≥4.0)                          | Shell nativo GTK4/Libadwaita  | CEF — Chromium embutido (saiu do WebKitGTK na 4.0)    | Só WhatsApp, multi-conta                                     | Empacota um runtime privado de Chromium          |
+| **ZapZap**                                 | Python + PyQt6                | QtWebEngine — Chromium embutido                       | Só WhatsApp                                                  | Chromium embutido mais o runtime Python/Qt       |
+| **Ferdium** (fork do Ferdi, fork do Franz) | Electron (Node.js)            | Chromium embutido                                     | Dezenas de serviços de chat — WhatsApp é só mais uma receita | Consumo pleno de Electron, por design            |
+| **WhatsApp Desktop** (oficial)             | Electron, confirmado no macOS | Chromium embutido                                     | Só WhatsApp, oficial                                         | Consumo de Electron                              |
 
 Nada disso é uma crítica aos outros — é uma aposta diferente. A razão de existir do Ferdium é abrangência: se você já roda Slack, Discord e mais quatro serviços por um agregador só, o custo do Electron é diluído entre todos eles, e o WhatsApp é só mais uma receita num app maior; é uma troca justa para o que o Ferdium tenta ser, e sua linhagem Franz/Ferdi é especificamente sobre fazer isso sem um nível de conta pago ou telemetria — uma linhagem que merece respeito. A reescrita do Karere para CEF comprou isolamento multi-conta e compatibilidade completa de codecs de mídia, aceitando o custo do Chromium embutido que o ZeroWhats foi construído especificamente para evitar. O ZapZap ganha a mesma compatibilidade em nível de Chromium através do WebEngine do Qt, mais um runtime Python em cima.
 
@@ -383,15 +381,15 @@ strip = true
 
 Números batem adjetivos, então aqui estão os reais — os artefatos de verdade publicados para a release v1.4.0:
 
-| Pacote | Plataforma | Tamanho | Por quê |
-| --- | --- | --- | --- |
-| `.deb` (amd64) | Linux | ~3,5 MB | WebKitGTK é uma dependência de sistema declarada, não empacotada |
-| `.rpm` (x86_64) | Linux | ~3,5 MB | O mesmo |
-| `.msi` | Windows | ~2,5 MB | O WebView2 vem com o SO |
-| `-setup.exe` | Windows | ~1,8 MB | O mesmo |
-| `.dmg` | macOS | ~2,8 MB | O WKWebView vem com o SO |
-| `.AppImage` (amd64) | Linux | ~81 MB | Empacota GTK/WebKitGTK para portabilidade entre distros |
-| `.snap` (amd64) | Linux | ~131 MB | Empacota seus próprios snaps de conteúdo/runtime |
+| Pacote              | Plataforma | Tamanho | Por quê                                                          |
+| ------------------- | ---------- | ------- | ---------------------------------------------------------------- |
+| `.deb` (amd64)      | Linux      | ~3,5 MB | WebKitGTK é uma dependência de sistema declarada, não empacotada |
+| `.rpm` (x86_64)     | Linux      | ~3,5 MB | O mesmo                                                          |
+| `.msi`              | Windows    | ~2,5 MB | O WebView2 vem com o SO                                          |
+| `-setup.exe`        | Windows    | ~1,8 MB | O mesmo                                                          |
+| `.dmg`              | macOS      | ~2,8 MB | O WKWebView vem com o SO                                         |
+| `.AppImage` (amd64) | Linux      | ~81 MB  | Empacota GTK/WebKitGTK para portabilidade entre distros          |
+| `.snap` (amd64)     | Linux      | ~131 MB | Empacota seus próprios snaps de conteúdo/runtime                 |
 
 A variação dentro dessa tabela é a arquitetura inteira em miniatura. Os pacotes que se apoiam numa WebView que o SO já entrega ficam na casa de poucos megabytes; os dois formatos que trocam essa suposição por portabilidade — empacotando o suficiente da stack GTK/WebKit para rodar, sem modificação, em qualquer distro — incham por algo entre 25 e 35×. Isso não é ineficiência; é o preço literal do que estão te vendendo.
 

@@ -33,20 +33,18 @@ This post is the technical story behind it: why Tauri's webview abstraction — 
 
 <br />
 
-<p align="center">
+<ImageCarousel>
   <img
     src="https://raw.githubusercontent.com/ZauJulio/ZeroWhats/main/release/linux/screenshots/print-global.jpg"
     alt="ZeroWhats main window — WhatsApp Web with the injected titlebar, and the Settings, About, and Keyboard Shortcuts windows open alongside it"
+    style={{ maxWidth: "75%", height: "auto" }}
   />
-</p>
-
-<p align="center">
   <img
     src="https://raw.githubusercontent.com/ZauJulio/ZeroWhats/main/release/linux/screenshots/print-lock.jpg"
     alt="ZeroWhats lock screen, shown on auto-lock, on close, or from the tray menu"
-    style={{ maxWidth: "480px" }}
+    style={{ maxWidth: "75%", height: "auto" }}
   />
-</p>
+</ImageCarousel>
 
 <nav className="article-toc" aria-label="Contents">
 
@@ -143,13 +141,13 @@ Tauri does let you swap the whole runtime layer — that's what `tauri-runtime-v
 
 Before settling on "let wry pick," I looked at the other ways to get a web engine into a Rust desktop app.
 
-| Engine / path in | Integration model | Where it stood | Verdict |
-| --- | --- | --- | --- |
-| **System webview via wry** (WebKitGTK, WebView2, WKWebView) | Tauri's default runtime (`tauri-runtime-wry`) | Production-grade — every Tauri 1.x/2.x app shipping today runs this | **Chosen** |
-| **Servo, via Verso** | A separate custom Tauri runtime, `tauri-runtime-verso` — not a wry backend | Experimental, NLnet-funded; at integration time it covered only a subset of Tauri's window features — no decorations, no transparency, no per-window menus yet | Not yet — ZeroWhats needs a transparent, frameless, tray-driven window today |
-| **Gecko** (Firefox's engine) | No maintained third-party embedding API | Mozilla dropped general-purpose Gecko embedding around 2011; GeckoView is the only maintained embedding path, and it's Android-only | Ruled out — there's no supported door in |
-| **CEF** (Chromium Embedded Framework) | Its own runtime; replaces wry entirely — own windowing, own IPC | Mature and proven — Karere itself moved to it in its 4.0 rewrite | Rejected — ships a private Chromium build per OS/arch, on my own patch cadence, which is the exact cost a system webview exists to avoid |
-| **Bundled Chromium via Electron** | A different framework, not a webview choice | Mature, fully consistent across OSes | Rejected — same bundled-browser cost as CEF, plus a bundled Node.js runtime on top |
+| Engine / path in                                            | Integration model                                                          | Where it stood                                                                                                                                                 | Verdict                                                                                                                                  |
+| ----------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| **System webview via wry** (WebKitGTK, WebView2, WKWebView) | Tauri's default runtime (`tauri-runtime-wry`)                              | Production-grade — every Tauri 1.x/2.x app shipping today runs this                                                                                            | **Chosen**                                                                                                                               |
+| **Servo, via Verso**                                        | A separate custom Tauri runtime, `tauri-runtime-verso` — not a wry backend | Experimental, NLnet-funded; at integration time it covered only a subset of Tauri's window features — no decorations, no transparency, no per-window menus yet | Not yet — ZeroWhats needs a transparent, frameless, tray-driven window today                                                             |
+| **Gecko** (Firefox's engine)                                | No maintained third-party embedding API                                    | Mozilla dropped general-purpose Gecko embedding around 2011; GeckoView is the only maintained embedding path, and it's Android-only                            | Ruled out — there's no supported door in                                                                                                 |
+| **CEF** (Chromium Embedded Framework)                       | Its own runtime; replaces wry entirely — own windowing, own IPC            | Mature and proven — Karere itself moved to it in its 4.0 rewrite                                                                                               | Rejected — ships a private Chromium build per OS/arch, on my own patch cadence, which is the exact cost a system webview exists to avoid |
+| **Bundled Chromium via Electron**                           | A different framework, not a webview choice                                | Mature, fully consistent across OSes                                                                                                                           | Rejected — same bundled-browser cost as CEF, plus a bundled Node.js runtime on top                                                       |
 
 ### Servo, via Verso
 
@@ -171,13 +169,13 @@ It's also exactly the cost a system-webview approach is built to avoid: CEF mean
 
 The engine question is one layer. The other is: several of these already exist as finished apps — why is ZeroWhats a defensible use of anyone's time, including mine?
 
-| Client | Shell / language | Rendering engine | Scope | Footprint shape |
-| --- | --- | --- | --- | --- |
-| **ZeroWhats** | Rust (Tauri 2) + Preact | System webview (WebKitGTK / WebView2 / WKWebView) | WhatsApp only, sandboxed navigation | ~2–4 MB native package; no bundled browser |
-| **Karere** (≥4.0) | GTK4/Libadwaita native shell | CEF — bundled Chromium (moved off WebKitGTK in 4.0) | WhatsApp only, multi-account | Bundles a private Chromium runtime |
-| **ZapZap** | Python + PyQt6 | QtWebEngine — bundled Chromium | WhatsApp only | Bundled Chromium plus the Python/Qt runtime |
-| **Ferdium** (fork of Ferdi, fork of Franz) | Electron (Node.js) | Bundled Chromium | Dozens of chat services — WhatsApp is one recipe among many | Full Electron footprint, by design |
-| **WhatsApp Desktop** (official) | Electron, confirmed on macOS | Bundled Chromium | WhatsApp only, official | Electron footprint |
+| Client                                     | Shell / language             | Rendering engine                                    | Scope                                                       | Footprint shape                             |
+| ------------------------------------------ | ---------------------------- | --------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------- |
+| **ZeroWhats**                              | Rust (Tauri 2) + Preact      | System webview (WebKitGTK / WebView2 / WKWebView)   | WhatsApp only, sandboxed navigation                         | ~2–4 MB native package; no bundled browser  |
+| **Karere** (≥4.0)                          | GTK4/Libadwaita native shell | CEF — bundled Chromium (moved off WebKitGTK in 4.0) | WhatsApp only, multi-account                                | Bundles a private Chromium runtime          |
+| **ZapZap**                                 | Python + PyQt6               | QtWebEngine — bundled Chromium                      | WhatsApp only                                               | Bundled Chromium plus the Python/Qt runtime |
+| **Ferdium** (fork of Ferdi, fork of Franz) | Electron (Node.js)           | Bundled Chromium                                    | Dozens of chat services — WhatsApp is one recipe among many | Full Electron footprint, by design          |
+| **WhatsApp Desktop** (official)            | Electron, confirmed on macOS | Bundled Chromium                                    | WhatsApp only, official                                     | Electron footprint                          |
 
 None of this is a knock on the others — it's a different bet. Ferdium's whole reason to exist is breadth: if you already run Slack, Discord, and four other services through one aggregator, its Electron cost is amortized across all of them, and WhatsApp is just one more recipe in a bigger app; that's a fair trade for what Ferdium is trying to be, and its Franz/Ferdi lineage is specifically about doing that without a paid account tier or telemetry, a lineage worth respecting. Karere's CEF rewrite bought it multi-account isolation and full media-codec compatibility by accepting the bundled-Chromium cost ZeroWhats was built specifically to avoid. ZapZap gets the same Chromium-grade compatibility through Qt's WebEngine, plus a Python runtime on top.
 
@@ -383,15 +381,15 @@ strip = true
 
 Numbers beat adjectives, so here are the real ones — the actual artifacts published for release v1.4.0:
 
-| Package | Platform | Size | Why |
-| --- | --- | --- | --- |
-| `.deb` (amd64) | Linux | ~3.5 MB | WebKitGTK is a declared system dependency, not bundled |
-| `.rpm` (x86_64) | Linux | ~3.5 MB | Same |
-| `.msi` | Windows | ~2.5 MB | WebView2 ships with the OS |
-| `-setup.exe` | Windows | ~1.8 MB | Same |
-| `.dmg` | macOS | ~2.8 MB | WKWebView ships with the OS |
-| `.AppImage` (amd64) | Linux | ~81 MB | Bundles GTK/WebKitGTK for distro-independent portability |
-| `.snap` (amd64) | Linux | ~131 MB | Bundles its own content/runtime snaps |
+| Package             | Platform | Size    | Why                                                      |
+| ------------------- | -------- | ------- | -------------------------------------------------------- |
+| `.deb` (amd64)      | Linux    | ~3.5 MB | WebKitGTK is a declared system dependency, not bundled   |
+| `.rpm` (x86_64)     | Linux    | ~3.5 MB | Same                                                     |
+| `.msi`              | Windows  | ~2.5 MB | WebView2 ships with the OS                               |
+| `-setup.exe`        | Windows  | ~1.8 MB | Same                                                     |
+| `.dmg`              | macOS    | ~2.8 MB | WKWebView ships with the OS                              |
+| `.AppImage` (amd64) | Linux    | ~81 MB  | Bundles GTK/WebKitGTK for distro-independent portability |
+| `.snap` (amd64)     | Linux    | ~131 MB | Bundles its own content/runtime snaps                    |
 
 The spread inside that table is the whole architecture in miniature. The packages that lean on a webview the OS already ships stay in the low single-digit megabytes; the two formats that trade that assumption for portability — bundling enough of the GTK/WebKit stack to run, unmodified, on any distro — balloon by roughly 25–35×. That's not inefficiency; it's the literal price of what they're buying you.
 

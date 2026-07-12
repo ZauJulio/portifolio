@@ -66,7 +66,7 @@ export function Footer() {
 
         {/* Centered site links (lower-contrast gray) */}
         <nav
-          className="absolute inset-x-0 top-10 flex items-center justify-center gap-6 text-sm pointer-events-none"
+          className="absolute top-20 sm:top-10 inset-x-0 flex items-center justify-center gap-6 text-sm pointer-events-none"
           aria-label={t(($) => $.footer.links)}
         >
           <Link
