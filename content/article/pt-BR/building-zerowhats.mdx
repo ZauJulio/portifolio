@@ -29,7 +29,7 @@ cover: "https://raw.githubusercontent.com/ZauJulio/ZeroWhats/main/release/linux/
 
 <br />
 
-Este post é a história técnica por trás disso: por que a abstração de WebView do Tauri — o wry — venceu Servo, Gecko e Chromium-via-CEF para esse trabalho, e o que a seleção "automática" de WebView realmente significa por baixo dos panos. Por que um cliente de propósito único e sandboxed é uma aposta diferente dos agregadores multi-serviço (Ferdium, Franz) e dos outros wrappers nativos de WhatsApp já existentes (Karere, ZapZap), com uma comparação justa e embasada de todos eles. Como o modelo de segurança tem escopo definido, capability por capability, com o JSON de verdade. Por que Preact e por que Rust. Quanto isso custa de fato, em números reais tirados dos artefatos de release publicados. E — porque é uma pergunta justa para qualquer coisa construída em 2026 — exatamente onde a IA entrou nisso, e onde não entrou.
+Este post cobre a história técnica: por que o wry do Tauri venceu Servo, Gecko e Chromium-via-CEF para esse trabalho, o que a seleção "automática" de WebView realmente significa, como o modelo de segurança tem escopo definido capability por capability com o JSON de verdade, por que Preact e por que Rust, quanto isso custa em números reais dos artefatos de release, e onde a IA entrou (e onde não).
 
 <br />
 
@@ -399,7 +399,7 @@ Eu ainda não publiquei um benchmark formal de RAM em idle — isso é uma lacun
 
 ## Onde a IA Ajudou, e Onde Não Ajudou
 
-Mais uma prestação de contas honesta, já que é uma pergunta justa para qualquer coisa construída em 2026: onde a IA realmente entrou no ZeroWhats?
+Uma pergunta justa para qualquer coisa construída em 2026: onde a IA realmente entrou no ZeroWhats?
 
 Como uma caixa de ressonância, não como autora. Eu usei para argumentar trade-offs em voz alta antes de me comprometer com eles — a comparação de motores de WebView acima, o formato da divisão de capability entre `default.json` e `whatsapp-remote.json`, se uma ponte de eventos ou uma superfície de comandos expostos mais estreita era a resposta certa para "uma origem remota precisa disparar algum comportamento de backend". Eu usei para acelerar sessões de debug — do tipo em que você está olhando para uma diferença de renderização entre dois user-agents, ou um download em blob que silenciosamente nunca chega na própria maquinaria de download do WebKitGTK, e você quer uma segunda opinião sobre por onde nem começar a procurar antes de sair fazendo printf-debugging num motor de navegador. E, para este artigo especificamente, eu usei para checar minhas afirmações sobre projetos de outras pessoas — a migração do Karere para CEF, a cobertura de recursos atual do Verso, o que de fato aconteceu com a API de embedding do Gecko — contra a documentação atual, porque errar isso publicamente seria pior do que não escrever nada.
 

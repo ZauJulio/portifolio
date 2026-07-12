@@ -24,11 +24,11 @@ cover: "https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/
 
 # ZSOM: Um Mapa Auto-Organizável pronto para produção em NumPy puro
 
-Mapas Auto-Organizáveis (SOMs) são uma das ferramentas mais subestimadas do aprendizado não supervisionado. Enquanto o mundo corre atrás de transformers e modelos de difusão, SOMs fazem silenciosamente algo que nenhum outro algoritmo faz com a mesma elegância: aprendem um **mapa que preserva a topologia** do espaço de alta dimensão para uma grade 2D — sem backpropagation, sem rótulos e sem uma função de perda que você precisa ajustar.
+Conheci Mapas Auto-Organizáveis durante um projeto de iniciação científica na faculdade, e eles ficaram comigo o suficiente para virarem base da minha monografia. SOMs fazem algo que nenhum outro algoritmo faz tão bem: aprendem um **mapa que preserva a topologia** do espaço de alta dimensão para uma grade 2D — sem backpropagation, sem rótulos e sem função de perda para ajustar. Vizinhos na grade acabam representando entradas similares, e só essa propriedade já os torna únicos para visualização e exploração.
 
 <br />
 
-ZSOM é minha implementação completa do SOM de Kohonen do zero. NumPy puro no núcleo, Numba JIT opcional no caminho crítico e uma camada de visualização que produz figuras 4-painéis em nível de publicação e animações de treinamento. Este artigo percorre tudo — o algoritmo passo a passo, a matemática por trás de cada decisão de design, os datasets de malhas 3D e as partes que considero genuinamente novas.
+ZSOM é minha implementação do algoritmo de Kohonen do zero. NumPy puro no núcleo, Numba JIT opcional no caminho crítico e uma camada de visualização que produz figuras 4-painéis em nível de publicação e animações de treinamento. Este artigo cobre o algoritmo passo a passo, a matemática por trás de cada decisão de design, os datasets de malhas 3D e as partes que vão além do que bibliotecas SOM típicas oferecem.
 
 <nav className="article-toc" aria-label="Sumário">
 
@@ -260,7 +260,7 @@ snapshots = som.fit(data, epochs=100, learning_rate=0.5,
 
 ## Métricas de distância: a matemática e o efeito
 
-Agora, a escolha de design mais fundamental: a métrica de distância.
+A métrica de distância é a escolha de design mais fundamental de um SOM.
 
 A métrica define o que significa "nó mais próximo" na seleção do BMU. Ela controla diretamente a **forma das células de Voronoi** ao redor de cada nó — as regiões do espaço de entrada que cada nó "possui". Escolher a métrica errada para seus dados é equivalente a medir distância com a régua errada.
 
@@ -409,7 +409,7 @@ No dataset de clusters, a PCA já separa as três regiões antes do treinamento 
 
 ## Taxa de aprendizado adaptativa
 
-Agora, vamos falar sobre o cronograma de decaimento. A taxa de aprendizado e o raio de vizinhança decaem linearmente por padrão. Esse é o cronograma clássico do SOM e funciona bem na prática.
+A taxa de aprendizado e o raio de vizinhança decaem linearmente por padrão — o cronograma clássico do SOM, que funciona bem na prática.
 
 O decaimento linear é estável, mas conservador. O agendador adaptativo observa o Mean Quantization Error (MQE) e ajusta a velocidade de decaimento em tempo real.
 
@@ -585,7 +585,7 @@ Um mapa saudável não tem regiões totalmente escuras. Alguns pontos frios pert
 
 ## Visualização: a figura em 4 painéis
 
-Agora, vamos juntar tudo. O módulo de visualização do ZSOM produz uma figura em 4 painéis que mostra o progresso do treinamento por múltiplos ângulos simultaneamente:
+O módulo de visualização do ZSOM produz uma figura em 4 painéis que mostra o progresso do treinamento por múltiplos ângulos de uma vez:
 
 ```python
 from examples.visualization import plot_static, plot_animated
@@ -688,9 +688,9 @@ Renderiza wireframe + nuvem de pontos para qualquer número de modelos. O wirefr
 
 ## O que torna isto diferente
 
-A maioria das implementações de SOM é um exemplo de brinquedo (50 linhas, uma métrica) ou frameworks pesados otimizados para compatibilidade de API em vez de transparência.
+A maioria das implementações de SOM disponíveis é ou um exemplo de brinquedo (50 linhas, uma métrica) ou um framework pesado otimizado para compatibilidade de API em vez de transparência.
 
-ZSOM ocupa um lugar diferente:
+Construí o ZSOM para ocupar um espaço diferente:
 
 - **Legível** — o caminho NumPy tem ~200 linhas. O algoritmo é exatamente o que o livro descreve, vetorizado.
 - **Rápido** — Numba JIT chega a 2–5× de uma implementação em C no caso comum.
@@ -706,8 +706,6 @@ O código-fonte está em [github.com/ZauJulio/ZSOM](https://github.com/ZauJulio/
 
 <br />
 
-> SOMs têm 35 anos e ainda produzem as visualizações de aprendizado não supervisionado mais imediatamente legíveis que eu conheço. A U-Matrix sozinha — uma imagem 2D onde os limites de clusters são literalmente visíveis como cristas — comunica mais para um público não-ML em cinco segundos do que qualquer plot de t-SNE que eu já mostrei.
+> SOMs têm 35 anos e ainda produzem as visualizações de aprendizado não supervisionado mais imediatamente legíveis que eu conheço. A U-Matrix sozinha — uma imagem 2D onde os limites de clusters são literalmente visíveis como cristas — comunica mais para um público não-ML em cinco segundos do que qualquer plot de t-SNE que eu já mostrei. Foi o primeiro algoritmo de rede neural que aprendi na faculdade, parte de um projeto de iniciação científica que inspirou minha monografia — poder revisitá-lo anos depois fez o ZSOM significar algo além de código.
 
-> Espero que o ZSOM facilite para as pessoas experimentarem SOMs e descobrirem suas capacidades únicas por conta própria. Se você tiver dúvidas, sugestões ou quiser compartilhar coisas legais que fez com o ZSOM, fale comigo no Twitter ou no GitHub!
-
-> Este foi o primeiro algoritmo de rede neural que aprendi e apliquei na faculdade — originalmente como parte de um projeto de iniciação científica que mais tarde inspirou minha monografia de graduação. Poder revisitá-lo, desta vez com uma ajudinha artificial ao lado, tornou tudo ainda mais significativo.
+> Se você quiser experimentar, o código está aberto. Dúvidas, sugestões ou coisas legais que fez com o ZSOM — fale comigo no Twitter ou no GitHub.

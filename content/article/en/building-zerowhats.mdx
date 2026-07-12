@@ -29,7 +29,7 @@ cover: "https://raw.githubusercontent.com/ZauJulio/ZeroWhats/main/release/linux/
 
 <br />
 
-This post is the technical story behind it: why Tauri's webview abstraction — wry — beat Servo, Gecko, and Chromium-via-CEF for this job, and what "automatic" webview selection actually means under the hood. Why a single-purpose, sandboxed client is a different bet than the multi-service aggregators (Ferdium, Franz) and the other native WhatsApp wrappers (Karere, ZapZap) already out there, with a fair, sourced comparison of all of them. How the security model is scoped, capability by capability, with the actual JSON. Why Preact and why Rust. What it actually costs, in real numbers pulled from the shipped release artifacts. And — because it's a fair question for anything built in 2026 — exactly where AI fit into this, and where it didn't.
+This post is the technical story: why wry beat Servo, Gecko, and CEF for this job; how the security model is scoped capability by capability (with the actual JSON); why Preact, why Rust, and what it all costs in real numbers from the shipped artifacts. I also compare it honestly against Karere, ZapZap, and Ferdium — and cover where AI helped in the process, and where it didn't.
 
 <br />
 
@@ -399,7 +399,7 @@ I haven't published a formal idle-RAM benchmark — that's an honest gap, not mo
 
 ## Where AI Helped, and Where It Didn't
 
-One more honest accounting, since it's a fair question for anything built in 2026: where did AI actually fit into ZeroWhats?
+A fair question for anything built in 2026: where did AI fit into ZeroWhats?
 
 As a sounding board, not an author. I used it to argue through trade-offs out loud before committing to them — the webview-engine comparison above, the shape of the capability split between `default.json` and `whatsapp-remote.json`, whether an event bridge or a narrower exposed-command surface was the right answer to "a remote origin needs to trigger some backend behavior." I used it to speed up debugging sessions — the kind where you're staring at a rendering difference between two user-agents, or a blob download that silently never reaches WebKitGTK's own download machinery, and you want a second opinion on where to even start looking before printf-debugging a browser engine. And, for this article specifically, I used it to check my claims about other people's projects — Karere's CEF migration, Verso's current feature coverage, what actually happened to Gecko's embedding API — against current documentation, because getting that wrong in public would be worse than not writing it at all.
 
