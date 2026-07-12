@@ -31,7 +31,7 @@ bilingual, content-rich experience from a SQLite file generated at build time an
 inside the bundle. There is nothing to keep awake, nothing to scale, and nothing to pay for
 beyond static-ish hosting — and yet it behaves like it has a server.
 
-That last sentence is the whole pitch, and it cuts two ways. For a **business**, it means a
+That cuts two ways. For a **business**, it means a
 content-rich marketing-and-portfolio site with the running cost of a static page, no vendor
 lock-in, and content that lives in git instead of someone else's dashboard. For an **engineer**,
 it means real full-text search, faceted filtering, and i18n with no API to operate. This post is
@@ -40,14 +40,14 @@ make it possible.
 
 <br />
 
-Because here is the honest part: this architecture did not exist off the shelf. To get a database
+The catch: this architecture did not exist off the shelf. To get a database
 that ships in the build, I had to write the engines that produce it. That toolkit is **Indago**,
 and it is now open source. This article explains the _portfolio_; the companion piece,
 [Getting Started with Indago](/articles/getting-started-with-indago), explains the _engines_ — what
 they are and how they work under the hood. I will link into its sections as they come up, rather
 than repeat them here.
 
-<br />
+<nav className="article-toc" aria-label="Contents">
 
 - [Building This Portfolio](#building-this-portfolio)
   - [The big idea: a database that ships in the build](#the-big-idea-a-database-that-ships-in-the-build)
@@ -67,7 +67,7 @@ than repeat them here.
   - [Quality gates](#quality-gates)
   - [What I would tell you to steal](#what-i-would-tell-you-to-steal)
 
-<br />
+</nav>
 
 ## The big idea: a database that ships in the build
 

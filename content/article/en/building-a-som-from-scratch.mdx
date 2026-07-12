@@ -24,11 +24,11 @@ cover: "https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/
 
 # ZSOM: A Production-Ready Self-Organizing Map in Pure NumPy
 
-Self-Organizing Maps are one of the most underrated tools in unsupervised learning. While the world chases transformers and diffusion models, SOMs quietly do something no other algorithm does quite as elegantly: they learn a **topology-preserving map** from high-dimensional space to a 2D grid — without backpropagation, without labels, and without a loss function you have to tune.
+I first ran into Self-Organizing Maps during a scientific initiation project in college, and they stuck with me enough to become the basis of my undergraduate thesis. SOMs do something no other algorithm does quite as cleanly: they learn a **topology-preserving map** from high-dimensional space to a 2D grid — no backpropagation, no labels, no loss function to tune. Neighbors on the grid end up representing similar inputs, and that property alone makes them uniquely useful for visualization and exploration.
 
 <br />
 
-ZSOM is my full implementation of Kohonen's SOM from scratch. Pure NumPy at the core, optional Numba JIT on the hot path, and a visualization layer that produces publication-quality 4-panel figures and training animations. This post walks through everything — the algorithm step by step, the math behind each design decision, the 3D mesh datasets, and the parts I think are genuinely novel.
+ZSOM is my from-scratch implementation of Kohonen's algorithm. Pure NumPy at the core, optional Numba JIT on the hot path, and a visualization layer that produces publication-quality 4-panel figures and training animations. This post covers the algorithm step by step, the math behind each design choice, the 3D mesh datasets, and the pieces I think push beyond what typical SOM libraries offer.
 
 <nav className="article-toc" aria-label="Contents">
 
@@ -269,9 +269,9 @@ snapshots = som.fit(data, epochs=100, learning_rate=0.5,
 
 ## Distance Metrics: The Math and the Effect
 
-Now, the most fundamental design choice: the distance metric.
+The distance metric is the most fundamental design choice in a SOM.
 
-The metric defines what "closest node" means in BMU selection. It directly controls the **shape of the Voronoi cells** around each node — the regions of input space that each node "owns." Choosing the wrong metric for your data is equivalent to measuring distance with the wrong ruler.
+It defines what "closest node" means in BMU selection. It directly controls the **shape of the Voronoi cells** around each node — the regions of input space that each node "owns." Choosing the wrong metric for your data is equivalent to measuring distance with the wrong ruler.
 
 ### Euclidean (L2)
 
@@ -418,7 +418,7 @@ For the clusters dataset, PCA init already separates the three blob regions befo
 
 ## Adaptive Learning Rate
 
-Now, let's talk about the decay schedule. The learning rate and neighborhood radius both decay linearly by default. This is the classic SOM schedule, and it works well in practice.
+The learning rate and neighborhood radius both decay linearly by default — the classic SOM schedule, and it works well in practice.
 
 Linear decay is stable but conservative. The adaptive scheduler watches the Mean Quantization Error (MQE) and adjusts the decay speed in real time.
 
@@ -594,7 +594,7 @@ A healthy map has no fully dark regions. A few cold spots are normal near the ed
 
 ## Visualization: The 4-Panel Figure
 
-Now, let's put it all together. ZSOM's visualization module produces a 4-panel figure that shows the training progress from multiple angles simultaneously:
+ZSOM's visualization module produces a 4-panel figure that shows training progress from multiple angles at once:
 
 ```python
 from examples.visualization import plot_static, plot_animated
@@ -697,9 +697,7 @@ Renders wireframe + point cloud for any number of models. The wireframe uses a N
 
 ## What Makes This Different
 
-Most SOM implementations are either toy examples (50 lines, one metric) or heavy frameworks optimized for API compatibility over transparency.
-
-ZSOM sits in a different spot:
+I built ZSOM because the existing options were either too simple (50-line demos with one metric) or too opaque (large frameworks where the algorithm disappears behind layers of abstraction). ZSOM tries to sit between those:
 
 - **Readable** — the NumPy path is ~200 lines. The algorithm is exactly what the textbook describes, vectorized.
 - **Fast** — Numba JIT gets within 2–5× of a C implementation for the common case.
@@ -715,8 +713,6 @@ The source is at [github.com/ZauJulio/ZSOM](https://github.com/ZauJulio/ZSOM).
 
 <br />
 
-> SOMs are 35 years old and still produce the most immediately legible unsupervised learning visualizations I know of. The U-Matrix alone — a 2D image where cluster boundaries are literally visible as ridges — communicates more to a non-ML audience in five seconds than any t-SNE plot I have ever shown them.
+> SOMs are 35 years old and still produce the most legible unsupervised learning visualizations I know of. The U-Matrix alone — a 2D image where cluster boundaries show up as ridges — communicates more to a non-ML audience in five seconds than any t-SNE plot I've ever shown them.
 
-> I hope ZSOM makes it easier for people to experiment with SOMs and discover their unique capabilities for themselves. If you have any questions, suggestions, or want to share cool things you've done with ZSOM, reach out on Twitter or GitHub!
-
-> This was the first neural network algorithm I learned and applied during college — originally as part of a scientific initiation project that later inspired my undergraduate thesis. Getting to revisit it, this time with a little artificial hand alongside, made it all the more meaningful.
+> This was the first neural network algorithm I worked with in college, during a scientific initiation project that eventually became my undergraduate thesis. Revisiting it years later and building a proper library around it felt like closing a loop. If you try ZSOM and do something interesting with it, I'd love to hear about it — reach out on Twitter or GitHub.
