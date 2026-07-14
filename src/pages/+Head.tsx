@@ -46,9 +46,6 @@ export default function HeadDefault() {
       <meta property="og:description" content={SITE_DESCRIPTION} />
       <meta property="og:site_name" content="Zau Julio" />
       <meta property="og:locale" content={locale === "pt" ? "pt_BR" : "en_US"} />
-      <meta property="og:image" content="https://zaujulio.com/avatar.png" />
-      <meta property="og:image:width" content="400" />
-      <meta property="og:image:height" content="400" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={SITE_TITLE} />
       <meta name="twitter:description" content={SITE_DESCRIPTION} />

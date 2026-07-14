@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import { usePageContext } from "vike-react/usePageContext";
 
 import { Analytics, LanguageSwitcher, ToastProvider } from "@/components";
+import { Footer } from "@/components/Footer";
 import { i18nByLocale, I18N, type Locale } from "@/i18n";
 
 import "@fontsource/geist-sans/400.css";
@@ -56,6 +57,7 @@ export default function LayoutDefault({ children }: { children: ReactNode }) {
         <div style={accent}>
           <LanguageSwitcher />
           {children}
+          <Footer />
         </div>
         {/* Privacy-focused analytics, injected resiliently (never fatal). */}
         <Analytics />

@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { ChefHatIcon, CookingPotIcon, SearchIcon } from "lucide-react";
 
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Footer } from "@/components/Footer";
 import { Link } from "@/components/Link";
 import { PageHeader } from "@/components/PageHeader";
 import { Pagination } from "@/components/Pagination";
@@ -73,8 +72,6 @@ function CookingView() {
       </section>
 
       <CookingPagination />
-
-      <Footer />
     </div>
   );
 }
