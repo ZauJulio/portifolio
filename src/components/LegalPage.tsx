@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Footer } from "@/components/Footer";
 import { PageHeader } from "@/components/PageHeader";
 
 export type LegalSection = { heading: string; body: string };
@@ -50,8 +49,6 @@ export function LegalPage({ title, intro, sections, breadcrumbLabel, footerSlot 
 
         {footerSlot}
       </main>
-
-      <Footer />
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { useGlitch } from "react-powerglitch";
 import { useData } from "vike-react/useData";
 
-import { Footer } from "@/components/Footer";
 import { NavigationBar } from "@/components/Navigation";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ScrollSpy } from "@/components/ScrollSpy";
@@ -137,11 +136,6 @@ export default function Home() {
           <HireMeSection />
         </ScrollReveal>
       </div>
-
-      {/* Footer */}
-      <ScrollReveal delay={100} distance={20}>
-        <Footer />
-      </ScrollReveal>
     </div>
   );
 }

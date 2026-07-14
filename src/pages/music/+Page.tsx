@@ -5,7 +5,6 @@ import { useComposed } from "@indago/hyper-json/hooks";
 import { Disc3Icon, Music2Icon, SearchIcon } from "lucide-react";
 
 import { FilterRow } from "@/components/FilterRow";
-import { Footer } from "@/components/Footer";
 import { YouTubeMusicIcon } from "@/components/icons/YouTubeMusicIcon";
 import { PageHeader } from "@/components/PageHeader";
 import { Pagination } from "@/components/Pagination";
@@ -204,8 +203,6 @@ export default function MusicPage() {
           </div>
         </section>
       )}
-
-      <Footer />
     </div>
   );
 }

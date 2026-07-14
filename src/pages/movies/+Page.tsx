@@ -5,7 +5,6 @@ import { useComposed } from "@indago/hyper-json/hooks";
 import { ClapperboardIcon } from "lucide-react";
 
 import { FilterRow } from "@/components/FilterRow";
-import { Footer } from "@/components/Footer";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import { HobbyHero } from "@/components/HobbyHero";
 import { PageHeader } from "@/components/PageHeader";
@@ -131,8 +130,6 @@ export default function MoviesPage() {
           </div>
         </section>
       )}
-
-      <Footer />
     </div>
   );
 }

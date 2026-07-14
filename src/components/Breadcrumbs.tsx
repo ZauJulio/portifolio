@@ -13,25 +13,17 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
       <ol className="flex items-center gap-2 text-sm min-w-0">
         {items.map((item, index) => (
           <li key={item.href || item.label} className="flex items-center gap-2 min-w-0">
-            {index > 0 && <ChevronRightIcon className="size-4 text-gray-600" />}
+            {index > 0 && <ChevronRightIcon className="size-4 shrink-0 text-gray-600" />}
             {item.href ? (
               <Link
                 to={item.href}
-                className="text-gray-400 hover:text-brand-300 transition-colors flex items-center gap-1"
+                className="text-gray-400 hover:text-brand-300 transition-colors flex items-center gap-1 min-w-0"
               >
-                {index === 0 && <HomeIcon className="size-4" />}
-                <span className={index === items.length - 1 ? "truncate max-w-[50vw]" : undefined}>
-                  {item.label}
-                </span>
+                {index === 0 && <HomeIcon className="size-4 shrink-0" />}
+                <span className="truncate max-w-[30vw] sm:max-w-[40vw]">{item.label}</span>
               </Link>
             ) : (
-              <span
-                className={
-                  index === items.length - 1
-                    ? "text-brand-300 font-medium truncate max-w-[50vw]"
-                    : "text-brand-300 font-medium"
-                }
-              >
+              <span className="text-brand-300 font-medium truncate max-w-[30vw] sm:max-w-[40vw]">
                 {item.label}
               </span>
             )}
