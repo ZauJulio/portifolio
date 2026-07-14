@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { CameraIcon, ImageIcon } from "lucide-react";
 
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Footer } from "@/components/Footer";
 import { HobbyHero } from "@/components/HobbyHero";
 import { PageHeader } from "@/components/PageHeader";
 
@@ -62,8 +61,6 @@ function PhotographyView() {
           )}
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

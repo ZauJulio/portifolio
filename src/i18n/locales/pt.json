@@ -125,8 +125,7 @@
   },
   "footer": {
     "copyright": "Todos os direitos reservados.",
-    "builtWith": "Construído com",
-    "and": "e",
+    "poweredBy": "Powered by",
     "links": "Links do site",
     "about": "Sobre",
     "accessibility": "Acessibilidade",

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { HeartIcon, MailIcon } from "lucide-react";
+import { MailIcon } from "lucide-react";
 
 import { GithubIcon, LinkedinIcon } from "@/components/Icons";
 import { Link } from "@/components/Link";
@@ -21,16 +21,14 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Left: branding */}
           <div className="flex items-center gap-2 text-gray-400 text-sm">
-            <span>{t(($) => $.footer.builtWith)}</span>
-            <HeartIcon className="size-3.5 text-brand-500 fill-brand-500" />
-            <span>{t(($) => $.footer.and)}</span>
+            <span>{t(($) => $.footer.poweredBy)}</span>
             <a
               href="https://github.com/zaujulio"
               target="_blank"
               rel="noopener noreferrer"
               className="text-brand-300 hover:text-brand-500 transition-colors no-underline font-medium"
             >
-              Zau Julio
+              zaujulio
             </a>
           </div>
 

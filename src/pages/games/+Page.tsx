@@ -5,7 +5,6 @@ import { useComposed } from "@indago/hyper-json/hooks";
 import { GamepadIcon } from "lucide-react";
 
 import { FilterRow } from "@/components/FilterRow";
-import { Footer } from "@/components/Footer";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import { HobbyHero } from "@/components/HobbyHero";
 import { PageHeader } from "@/components/PageHeader";
@@ -112,8 +111,6 @@ export default function GamesPage() {
           </div>
         </section>
       )}
-
-      <Footer />
     </div>
   );
 }
