@@ -27,6 +27,7 @@ export function ImageCarousel({
     if (child && typeof child === "object" && "props" in child) {
       return (child.props as Record<string, unknown>).src as string | undefined;
     }
+
     return undefined;
   });
 
@@ -43,6 +44,7 @@ export function ImageCarousel({
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -54,6 +56,7 @@ export function ImageCarousel({
       },
       { root: el, threshold: 0.6 },
     );
+
     for (const child of el.children) observer.observe(child);
     return () => observer.disconnect();
   }, [count]);
@@ -69,6 +72,7 @@ export function ImageCarousel({
         if (prev === null) return null;
         return (((prev + delta) % count) + count) % count;
       });
+
       resetZoom();
     },
     [count],

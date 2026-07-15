@@ -338,6 +338,7 @@ export function ZoomableMermaid({ code }: { code: string }) {
           mermaid.initialize({ startOnLoad: false, theme: "dark" });
           mermaidInitialized = true;
         }
+
         return mermaid.render(renderId, code);
       })
       .then(({ svg: rendered }) => {
