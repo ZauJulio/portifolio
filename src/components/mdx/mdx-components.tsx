@@ -3,6 +3,7 @@ import type { ComponentPropsWithoutRef, ComponentType } from "react";
 import { defaultMdxComponents } from "@indago/hyper-down";
 
 import { ImageCarousel } from "./ImageCarousel";
+import { Update, UpdateLog } from "./UpdateLog";
 import { ZoomableMermaid } from "./ZoomableMermaid";
 
 import type { ComponentMap } from "@indago/hyper-down";
@@ -22,4 +23,6 @@ export const mdxComponents: ComponentMap = {
     return <DefaultCode {...props} />;
   },
   ImageCarousel,
+  UpdateLog,
+  Update,
 };

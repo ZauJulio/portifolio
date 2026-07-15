@@ -421,6 +421,31 @@ bun run tauri dev
 
 If you find a WebKitGTK quirk I haven't worked around yet, or a capability scoped wider than it needs to be, that's exactly the kind of issue and PR I want.
 
+<UpdateLog>
+  <Update date="2026-07-14">
+    Hardened sandbox event bridge with stricter command validation; added update checker.
+  </Update>
+  <Update date="2026-07-08">
+    v1.4.0 — Dynamic About version; bump script aligning all release files.
+  </Update>
+  <Update date="2026-07-08">
+    v1.3.0 — Download toast with save-as dialog; MPRIS refinements to stop stray media player
+    entries.
+  </Update>
+  <Update date="2026-07-07">
+    v1.2.0 — Auto-lock rewritten as a Rust-side idle watcher (previously a per-webview `setTimeout`
+    that didn't track the whole app); fixed notification icon on Linux.
+  </Update>
+  <Update date="2026-07-07">
+    v1.1.0 — Spell check, clipboard paste, native window controls, tabbed settings panel; hardened
+    app-lock with notification icon and tray menu.
+  </Update>
+  <Update date="2026-07-06">
+    v1.0.0 — Initial release with notification avatars, granular privacy levels, macOS transparent
+    windows; `.deb`, `.rpm`, `.AppImage`, `.msi`, `.dmg` installers.
+  </Update>
+</UpdateLog>
+
 <br />
 
 ---

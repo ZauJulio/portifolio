@@ -21,6 +21,7 @@ author: "Zau Julio"
 readingTime: "15 min de leitura"
 canonical: ""
 cover: "https://raw.githubusercontent.com/ZauJulio/indago/refs/heads/main/packages/HyperDown/assets/cover.webp"
+repo: "https://github.com/ZauJulio/indago"
 prev: "building-this-portfolio"
 ---
 
@@ -447,3 +448,32 @@ isso conectado num site real e em produção, leia
 rodar um site totalmente pesquisável e bilíngue, sem backend. Para a API exaustiva, os READMEs dos
 pacotes no npm (`@indago/hyper-down`, `@indago/hyper-json`) são a referência — e o jeito mais rápido
 de sentir na prática ainda é `bun create @indago/app`.
+
+<UpdateLog>
+  <Update date="2026-07-12">
+    HyperDown 1.7 — modo de índice composto para artigos (tabela `article_sections` + FTS por
+    seção); API `searchSections()`; plugin `remarkHeadingBadges` para pills na sidebar;
+    `getMetaBySlug` agora retorna `meta.sections` como `SectionNode[]`.
+  </Update>
+  <Update date="2026-06-19">
+    HyperDown 1.6 — modo FTS `detail=column` para índices menores; `optimize` automático no build;
+    HyperJson 1.1.1 com validação de schema mais rigorosa.
+  </Update>
+  <Update date="2026-06-18">
+    HyperDown 1.5 — code blocks mais ricos na renderização MDX; componente de sidebar tutorial
+    disponibilizado pela lib com scroll-spy e theming customizável.
+  </Update>
+  <Update date="2026-06-17">
+    HyperDown 1.3 — busca dentro do artigo via rota JSON Hono `/api/search`; seção de tutorial do
+    HyperJson adicionada ao artigo; componente seletor de package manager (`bun`/`npm`/`pnpm`).
+  </Update>
+  <Update date="2026-06-16">
+    HyperDown 1.2 — sistema de drafts (`draft: true` no frontmatter pula prerender e exclui das
+    listagens); scaffold via `bun create @indago/app`.
+  </Update>
+  <Update date="2026-06-13">
+    Lançamento inicial dos engines Indago — HyperDown 1.0 (MDX → SQLite FTS5 contentless) e
+    HyperJson 1.0 (JSON Schema → conteúdo tipado). Publicados no npm como `@indago/hyper-down` e
+    `@indago/hyper-json`.
+  </Update>
+</UpdateLog>
