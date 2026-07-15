@@ -20,6 +20,7 @@ author: "Zau Julio"
 readingTime: "50 min read"
 canonical: ""
 cover: "https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/cover.webp"
+repo: "https://github.com/ZauJulio/ZSOM"
 ---
 
 # ZSOM: A Production-Ready Self-Organizing Map in Pure NumPy
@@ -27,6 +28,8 @@ cover: "https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/
 I first ran into Self-Organizing Maps during a scientific initiation project in college, and they stuck with me enough to become the basis of my undergraduate thesis. SOMs do something no other algorithm does quite as cleanly: they learn a **topology-preserving map** from high-dimensional space to a 2D grid — no backpropagation, no labels, no loss function to tune. Neighbors on the grid end up representing similar inputs, and that property alone makes them uniquely useful for visualization and exploration.
 
 <br />
+
+If you want to follow along with the code, the repo is at [**ZauJulio/ZSOM**](https://github.com/ZauJulio/ZSOM) — everything discussed here maps directly to what's in the codebase.
 
 ZSOM is my from-scratch implementation of Kohonen's algorithm. Pure NumPy at the core, optional Numba JIT on the hot path, and a visualization layer that produces publication-quality 4-panel figures and training animations. This post covers the algorithm step by step, the math behind each design choice, the 3D mesh datasets, and the pieces I think push beyond what typical SOM libraries offer.
 

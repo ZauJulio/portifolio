@@ -64,6 +64,11 @@
           "type": "string"
         },
         {
+          "title": "Repository URL",
+          "name": "repo",
+          "type": "string"
+        },
+        {
           "title": "Series — previous slug",
           "name": "prev",
           "type": "string"

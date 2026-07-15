@@ -18,6 +18,11 @@
         {
           "platform": "epic-games",
           "url": "https://store.epicgames.com/en-US/p/tomb-raider"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=M4SG6DfVvLs",
+          "label": "Trailer"
         }
       ]
     },
@@ -38,6 +43,11 @@
         {
           "platform": "epic-games",
           "url": "https://store.epicgames.com/en-US/p/rise-of-the-tomb-raider"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=qiYiddjc6cU",
+          "label": "Trailer"
         }
       ]
     },
@@ -58,6 +68,11 @@
         {
           "platform": "epic-games",
           "url": "https://store.epicgames.com/en-US/p/shadow-of-the-tomb-raider"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=XYtyeqVQnRI",
+          "label": "Trailer"
         }
       ]
     },
@@ -83,6 +98,11 @@
         {
           "platform": "nintendo",
           "url": "https://www.nintendo.com/us/store/products/undertale-switch/"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=1Hojv0m3TqA",
+          "label": "Trailer"
         }
       ]
     },
@@ -103,6 +123,11 @@
         {
           "platform": "gog",
           "url": "https://www.gog.com/game/resident_evil_2"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=u3wS-Q2KBpk",
+          "label": "Trailer"
         }
       ]
     },
@@ -119,6 +144,11 @@
         {
           "platform": "steam",
           "url": "https://store.steampowered.com/app/2050650/Resident_Evil_4/"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=isN_Y9ULtXY",
+          "label": "Trailer"
         }
       ]
     },
@@ -135,6 +165,11 @@
         {
           "platform": "steam",
           "url": "https://store.steampowered.com/app/21690/Resident_Evil_5/"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=8LW35X5xxRs",
+          "label": "Trailer"
         }
       ]
     },
@@ -151,6 +186,11 @@
         {
           "platform": "steam",
           "url": "https://store.steampowered.com/app/221040/Resident_Evil_6/"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=XCkc5HjC5FM",
+          "label": "Trailer"
         }
       ]
     },
@@ -167,6 +207,11 @@
         {
           "platform": "steam",
           "url": "https://store.steampowered.com/app/418370/Resident_Evil_7_Biohazard/"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=W1OUs3HwIuo",
+          "label": "Trailer"
         }
       ]
     },
@@ -182,6 +227,11 @@
         {
           "platform": "steam",
           "url": "https://store.steampowered.com/app/4197610/Librarian_Tidy_Up_the_Arcane_Library/"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=Fw61OdZYs0g",
+          "label": "Trailer"
         }
       ]
     }

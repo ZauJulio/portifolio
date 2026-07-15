@@ -28,7 +28,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="text-brand-300 hover:text-brand-500 transition-colors no-underline font-medium"
             >
-              zaujulio
+              zaujulio ♥️
             </a>
           </div>
 

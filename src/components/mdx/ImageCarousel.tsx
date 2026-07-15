@@ -1,7 +1,7 @@
 import { Children, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
-/* eslint-disable jsx-a11y/prefer-tag-over-role, jsx-a11y/no-noninteractive-element-to-interactive-role */
-import { XIcon, ZoomInIcon, ZoomOutIcon } from "lucide-react";
+/* eslint-disable jsx-a11y/prefer-tag-over-role, jsx-a11y/no-noninteractive-element-to-interactive-role, react/no-array-index-key */
+import { ChevronLeftIcon, ChevronRightIcon, XIcon, ZoomInIcon, ZoomOutIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -13,14 +13,22 @@ export function ImageCarousel({
   className?: string;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const count = Children.count(children);
+  const items = Children.toArray(children);
+  const count = items.length;
   const [active, setActive] = useState(0);
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [scale, setScale] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const isDraggingRef = useRef(false);
   const lastPointerRef = useRef({ x: 0, y: 0 });
   const didMoveRef = useRef(false);
+
+  const srcs = items.map((child) => {
+    if (child && typeof child === "object" && "props" in child) {
+      return (child.props as Record<string, unknown>).src as string | undefined;
+    }
+    return undefined;
+  });
 
   const scrollTo = useCallback(
     (index: number) => {
@@ -50,11 +58,29 @@ export function ImageCarousel({
     return () => observer.disconnect();
   }, [count]);
 
+  const resetZoom = () => {
+    setScale(1);
+    setOffset({ x: 0, y: 0 });
+  };
+
+  const goLightbox = useCallback(
+    (delta: number) => {
+      setLightboxIndex((prev) => {
+        if (prev === null) return null;
+        return (((prev + delta) % count) + count) % count;
+      });
+      resetZoom();
+    },
+    [count],
+  );
+
   useEffect(() => {
-    if (!lightbox) return undefined;
+    if (lightboxIndex === null) return undefined;
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setLightbox(null);
+      if (event.key === "Escape") setLightboxIndex(null);
+      if (event.key === "ArrowLeft") goLightbox(-1);
+      if (event.key === "ArrowRight") goLightbox(1);
     };
 
     document.addEventListener("keydown", onKeyDown);
@@ -65,16 +91,14 @@ export function ImageCarousel({
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
     };
-  }, [lightbox]);
+  }, [lightboxIndex, count, goLightbox]);
 
-  const handleSlideClick = (e: React.MouseEvent) => {
-    const img = (e.currentTarget as HTMLElement).querySelector("img");
-    if (img) {
-      setLightbox(img.src);
-      setScale(1);
-      setOffset({ x: 0, y: 0 });
-    }
+  const handleSlideClick = (index: number) => {
+    setLightboxIndex(index);
+    resetZoom();
   };
+
+  const lightboxSrc = lightboxIndex !== null ? srcs[lightboxIndex] : null;
 
   return (
     <>
@@ -83,15 +107,15 @@ export function ImageCarousel({
           ref={scrollRef}
           className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
-          {Children.map(children, (child, i) => (
+          {items.map((child, i) => (
             <div
               key={i}
               data-idx={i}
               role="button"
               tabIndex={0}
-              onClick={handleSlideClick}
+              onClick={() => handleSlideClick(i)}
               onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") handleSlideClick(e as never);
+                if (e.key === "Enter" || e.key === " ") handleSlideClick(i);
               }}
               className="flex w-full shrink-0 snap-center items-center justify-center cursor-zoom-in"
             >
@@ -108,15 +132,7 @@ export function ImageCarousel({
               onClick={() => scrollTo(active - 1)}
               className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white backdrop-blur-sm transition hover:bg-black/60"
             >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path
-                  d="M12.5 15L7.5 10L12.5 5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <ChevronLeftIcon className="size-5" />
             </button>
             <button
               type="button"
@@ -124,15 +140,7 @@ export function ImageCarousel({
               onClick={() => scrollTo(active + 1)}
               className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white backdrop-blur-sm transition hover:bg-black/60"
             >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path
-                  d="M7.5 15L12.5 10L7.5 5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <ChevronRightIcon className="size-5" />
             </button>
 
             <div className="mt-3 flex justify-center gap-2">
@@ -153,17 +161,45 @@ export function ImageCarousel({
         )}
       </div>
 
-      {lightbox && (
+      {lightboxSrc && lightboxIndex !== null && (
         <div
           role="button"
           tabIndex={0}
           aria-label="Close lightbox"
           onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") setLightbox(null);
+            if (e.key === "Enter" || e.key === " ") setLightboxIndex(null);
           }}
           className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 cursor-default"
-          onClick={() => setLightbox(null)}
+          onClick={() => setLightboxIndex(null)}
         >
+          {/* Lightbox arrows — only for multi-image carousels */}
+          {count > 1 && (
+            <>
+              <button
+                type="button"
+                aria-label="Previous image"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goLightbox(-1);
+                }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-[60] rounded-full bg-black/50 p-2.5 text-white backdrop-blur-sm transition hover:bg-black/70"
+              >
+                <ChevronLeftIcon className="size-6" />
+              </button>
+              <button
+                type="button"
+                aria-label="Next image"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goLightbox(1);
+                }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-[60] rounded-full bg-black/50 p-2.5 text-white backdrop-blur-sm transition hover:bg-black/70"
+              >
+                <ChevronRightIcon className="size-6" />
+              </button>
+            </>
+          )}
+
           <div
             role="presentation"
             className="relative max-w-[90vw] max-h-[85vh]"
@@ -184,7 +220,7 @@ export function ImageCarousel({
               </button>
               <button
                 type="button"
-                onClick={() => setLightbox(null)}
+                onClick={() => setLightboxIndex(null)}
                 className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-gray-700 bg-black/70 px-3 py-1 text-xs text-gray-200 hover:text-white"
                 aria-label="Close image"
               >
@@ -228,7 +264,7 @@ export function ImageCarousel({
               <img
                 role="button"
                 tabIndex={0}
-                src={lightbox}
+                src={lightboxSrc}
                 alt=""
                 aria-label="Toggle zoom"
                 className={`max-w-[90vw] max-h-[85vh] object-contain transition-transform duration-200 ${
@@ -262,6 +298,27 @@ export function ImageCarousel({
                 onDragStart={(event) => event.preventDefault()}
               />
             </div>
+
+            {/* Lightbox page indicators */}
+            {count > 1 && (
+              <div className="flex justify-center gap-2 mt-4">
+                {Array.from({ length: count }, (_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    aria-label={`Go to image ${i + 1}`}
+                    onClick={() => {
+                      setLightboxIndex(i);
+                      resetZoom();
+                    }}
+                    className={cn(
+                      "h-2 rounded-full transition-all",
+                      i === lightboxIndex ? "w-6 bg-white/80" : "w-2 bg-white/30",
+                    )}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

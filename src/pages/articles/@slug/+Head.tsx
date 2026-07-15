@@ -53,6 +53,14 @@ export default function Head() {
             publisher: { "@type": "Person", name: "Zau Julio", url: SITE_URL },
             ...(article.cover && { image: article.cover }),
             ...(article.tags?.length && { keywords: article.tags.join(", ") }),
+            ...(article.repo && {
+              codeRepository: article.repo,
+              about: {
+                "@type": "SoftwareSourceCode",
+                codeRepository: article.repo,
+                url: article.repo,
+              },
+            }),
             inLanguage: I18N.locales[locale].canonical,
             mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
           }),
