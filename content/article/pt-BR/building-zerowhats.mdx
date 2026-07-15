@@ -21,6 +21,7 @@ author: "Zau Julio"
 readingTime: "24 min de leitura"
 canonical: ""
 cover: "https://raw.githubusercontent.com/ZauJulio/ZeroWhats/main/release/linux/screenshots/print-global.jpg"
+repo: "https://github.com/ZauJulio/ZeroWhats"
 ---
 
 # Construindo o ZeroWhats: Rust, Tauri e o Argumento Contra Empacotar um Navegador
@@ -28,6 +29,8 @@ cover: "https://raw.githubusercontent.com/ZauJulio/ZeroWhats/main/release/linux/
 **Sem Electron. Sem navegador embutido. Sem telemetria.** O ZeroWhats é um cliente desktop de WhatsApp Web para Linux, macOS e Windows, construído com [Tauri](https://tauri.app) e [Preact](https://preactjs.com): notificações nativas do SO, bloqueio de app com auto-lock, contador de não lidas na bandeja, um sandbox de navegação exclusivo do WhatsApp, e um binário que sai na faixa de poucos megabytes em vez de algumas centenas.
 
 <br />
+
+O código completo tá no GitHub — [**ZauJulio/ZeroWhats**](https://github.com/ZauJulio/ZeroWhats). Vale deixar aberto enquanto lê; cada trecho aqui aponta pra código real que dá pra conferir.
 
 Este post cobre a história técnica: por que o wry do Tauri venceu Servo, Gecko e Chromium-via-CEF para esse trabalho, o que a seleção "automática" de WebView realmente significa, como o modelo de segurança tem escopo definido capability por capability com o JSON de verdade, por que Preact e por que Rust, quanto isso custa em números reais dos artefatos de release, e onde a IA entrou (e onde não).
 

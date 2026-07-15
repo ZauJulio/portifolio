@@ -21,6 +21,7 @@ author: "Zau Julio"
 readingTime: "24 min read"
 canonical: ""
 cover: "https://raw.githubusercontent.com/ZauJulio/ZeroWhats/main/release/linux/screenshots/print-global.jpg"
+repo: "https://github.com/ZauJulio/ZeroWhats"
 ---
 
 # Building ZeroWhats: Rust, Tauri, and the Case Against Bundling a Browser
@@ -28,6 +29,8 @@ cover: "https://raw.githubusercontent.com/ZauJulio/ZeroWhats/main/release/linux/
 **No Electron. No bundled browser. No telemetry.** ZeroWhats is a WhatsApp Web desktop client for Linux, macOS, and Windows, built on [Tauri](https://tauri.app) and [Preact](https://preactjs.com): native OS notifications, an app lock with auto-lock, a tray unread counter, a WhatsApp-only navigation sandbox, and a binary that ships at a few megabytes instead of a few hundred.
 
 <br />
+
+The full source is on GitHub — [**ZauJulio/ZeroWhats**](https://github.com/ZauJulio/ZeroWhats). I'd recommend keeping it open while you read; every snippet here points at real code you can grep.
 
 This post is the technical story: why wry beat Servo, Gecko, and CEF for this job; how the security model is scoped capability by capability (with the actual JSON); why Preact, why Rust, and what it all costs in real numbers from the shipped artifacts. I also compare it honestly against Karere, ZapZap, and Ferdium — and cover where AI helped in the process, and where it didn't.
 

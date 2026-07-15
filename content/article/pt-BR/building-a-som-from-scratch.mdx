@@ -20,6 +20,7 @@ author: "Zau Julio"
 readingTime: "50 min de leitura"
 canonical: ""
 cover: "https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/cover.webp"
+repo: "https://github.com/ZauJulio/ZSOM"
 ---
 
 # ZSOM: Um Mapa Auto-Organizável pronto para produção em NumPy puro
@@ -27,6 +28,8 @@ cover: "https://raw.githubusercontent.com/ZauJulio/ZSOM/v2.0.1/__docs__/article/
 Conheci Mapas Auto-Organizáveis durante um projeto de iniciação científica na faculdade, e eles ficaram comigo o suficiente para virarem base da minha monografia. SOMs fazem algo que nenhum outro algoritmo faz tão bem: aprendem um **mapa que preserva a topologia** do espaço de alta dimensão para uma grade 2D — sem backpropagation, sem rótulos e sem função de perda para ajustar. Vizinhos na grade acabam representando entradas similares, e só essa propriedade já os torna únicos para visualização e exploração.
 
 <br />
+
+Pra quem quiser acompanhar pelo código, o repositório é o [**ZauJulio/ZSOM**](https://github.com/ZauJulio/ZSOM) — tudo que discuto aqui tem correspondência direta no source.
 
 ZSOM é minha implementação do algoritmo de Kohonen do zero. NumPy puro no núcleo, Numba JIT opcional no caminho crítico e uma camada de visualização que produz figuras 4-painéis em nível de publicação e animações de treinamento. Este artigo cobre o algoritmo passo a passo, a matemática por trás de cada decisão de design, os datasets de malhas 3D e as partes que vão além do que bibliotecas SOM típicas oferecem.
 

@@ -7,6 +7,7 @@ import {
   CalendarIcon,
   ClockIcon,
   ExternalLinkIcon,
+  GitBranchIcon,
   NewspaperIcon,
 } from "lucide-react";
 import { useData } from "vike-react/useData";
@@ -151,6 +152,25 @@ export default function ArticlePage() {
                 )}
               </div>
             </div>
+
+            {/* Repository banner */}
+            {article.repo && (
+              <a
+                href={article.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 mb-8 px-4 py-3 rounded-xl border border-brand-500/20 bg-brand-500/5 hover:bg-brand-500/10 transition-colors no-underline group"
+              >
+                <GitBranchIcon className="size-5 text-brand-400 shrink-0" />
+                <span className="flex-1 text-sm text-gray-300">
+                  {t(($) => $.articles.viewSourceCode)}
+                </span>
+                <span className="text-xs font-medium text-brand-400 group-hover:text-brand-300 transition-colors flex items-center gap-1">
+                  {t(($) => $.articles.viewRepo)}
+                  <ExternalLinkIcon className="size-3.5" />
+                </span>
+              </a>
+            )}
 
             {/* MDX Body */}
             <div className="prose prose-invert prose-ul:list-disc prose-ol:list-decimal prose-li:marker:text-brand-400 max-w-none">

@@ -39,11 +39,14 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
   const [value, setValue] = useState("");
   const [results, setResults] = useState<SearchResponse>(EMPTY);
   const [open, setOpen] = useState(false);
-  // Index of the keyboard-highlighted row across the flat [pages, sections] list
-  // (-1 = nothing highlighted). Arrow keys move it; Enter activates it.
+  const [loading, setLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    fetch("/api/search?q=_warmup&locale=en", { method: "HEAD" }).catch(() => {});
+  }, []);
 
   const isCurrentMode = value.startsWith("#");
   const query = (isCurrentMode ? value.slice(1) : value).trim();
@@ -95,15 +98,23 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
     }
 
     const controller = new AbortController();
+    setLoading(true);
     const timer = setTimeout(async () => {
       const params = new URLSearchParams({ q: query, locale });
       if (isCurrentMode) params.set("slug", currentSlug);
 
       try {
         const res = await fetch(`/api/search?${params}`, { signal: controller.signal });
-        if (res.ok) setResults((await res.json()) as SearchResponse);
+        if (res.ok) {
+          setResults((await res.json()) as SearchResponse);
+        } else {
+          const retry = await fetch(`/api/search?${params}`, { signal: controller.signal });
+          if (retry.ok) setResults((await retry.json()) as SearchResponse);
+        }
       } catch {
         // Aborted or offline — keep the previous results.
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
       }
     }, 250);
 
@@ -163,7 +174,12 @@ export function ArticleSearch({ currentSlug, locale }: { currentSlug: string; lo
           id={listId}
           className="absolute z-50 mt-2 w-full rounded-xl border border-gray-800 bg-gray-950/95 backdrop-blur-md shadow-2xl shadow-black/50 overflow-hidden max-h-[60vh] overflow-y-auto"
         >
-          {!hasResults ? (
+          {loading ? (
+            <div className="px-4 py-3 flex items-center gap-2 text-sm text-gray-500">
+              <span className="size-3.5 border-2 border-gray-600 border-t-brand-400 rounded-full animate-spin" />
+              {t(($) => $.articles.searchLoading)}
+            </div>
+          ) : !hasResults ? (
             <p className="px-4 py-3 text-sm text-gray-500">
               {t(($) => $.articles.searchNoResults)}
             </p>
