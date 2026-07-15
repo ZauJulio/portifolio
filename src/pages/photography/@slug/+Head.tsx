@@ -22,12 +22,12 @@ export default function Head() {
     <>
       {/* og:url + canonical + hreflang are emitted (locale-aware) by the root +Head. */}
       <meta property="og:type" content="article" />
-      <meta property="og:title" content={album.name} />
+      <meta property="og:title" content={`Zau Julio | ${album.name}`} />
       {album.description && <meta property="og:description" content={album.description} />}
       <meta property="og:site_name" content="Zau Julio" />
       <meta property="og:image" content={image} />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={album.name} />
+      <meta name="twitter:title" content={`Zau Julio | ${album.name}`} />
       {album.description && <meta name="twitter:description" content={album.description} />}
       <meta name="twitter:creator" content="@zaujulio" />
       <meta name="twitter:image" content={image} />

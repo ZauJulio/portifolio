@@ -38,7 +38,7 @@ export default function Head() {
       {/* og:url + canonical + hreflang are emitted (locale-aware) by the root +Head. */}
       <meta name="author" content="Zau Julio" />
       <meta property="og:type" content="article" />
-      <meta property="og:title" content={review.title} />
+      <meta property="og:title" content={`Zau Julio | ${review.title}`} />
       <meta property="og:description" content={review.description} />
       <meta property="og:site_name" content="Zau Julio" />
       <meta property="og:image" content={image} />
@@ -48,7 +48,7 @@ export default function Head() {
         <meta key={tag} property="article:tag" content={tag} />
       ))}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={review.title} />
+      <meta name="twitter:title" content={`Zau Julio | ${review.title}`} />
       <meta name="twitter:description" content={review.description} />
       <meta name="twitter:creator" content="@zaujulio" />
       <meta name="twitter:image" content={image} />

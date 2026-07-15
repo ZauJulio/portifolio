@@ -11,6 +11,7 @@ import { Link } from "@/components/Link";
 import { mdxComponents } from "@/components/mdx/mdx-components";
 import { PageHeader } from "@/components/PageHeader";
 import { RelatedContent } from "@/components/RelatedContent";
+import { ShareButton } from "@/components/ShareButton";
 import { useReadingState } from "@/hooks/use-reading-state";
 import { useLocale } from "@/i18n";
 
@@ -70,7 +71,10 @@ export default function ReviewPage() {
       <div className="py-4">
         <article className="bg-[#101010]/35 border border-[#101010] rounded-2xl max-w-4xl mx-auto px-6 py-12">
           <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{review.title}</h1>
+            <div className="flex items-start justify-between gap-4">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{review.title}</h1>
+              <ShareButton title={`Zau Julio | ${review.title}`} description={review.description} />
+            </div>
 
             <p className="text-lg text-gray-400 leading-relaxed mb-6">{review.description}</p>
 

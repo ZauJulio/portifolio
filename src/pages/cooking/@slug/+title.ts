@@ -6,7 +6,7 @@ import type { PageContext } from "vike/types";
 // because it's a function of pageContext.data (not serializable in +config).
 export default function title(pageContext: PageContext): string {
   const recipe = pageContext.data as { title?: string } | null;
-  if (recipe?.title) return `${recipe.title} | Zau Julio`;
+  if (recipe?.title) return `Zau Julio | ${recipe.title}`;
 
-  return `${getT(pageContext.locale ?? "en")(($) => $.cooking.notFound)} | Zau Julio`;
+  return `Zau Julio | ${getT(pageContext.locale ?? "en")(($) => $.cooking.notFound)}`;
 }

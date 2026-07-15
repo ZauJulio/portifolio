@@ -21,6 +21,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { PageMinimap } from "@/components/PageMinimap";
 import { RelatedContent } from "@/components/RelatedContent";
 import { SeriesNav } from "@/components/SeriesNav";
+import { ShareButton } from "@/components/ShareButton";
 import { TutorialSidebar } from "@/components/TutorialSidebar";
 import { useHashScroll } from "@/hooks/use-hash-scroll";
 import { useReadingState } from "@/hooks/use-reading-state";
@@ -114,7 +115,13 @@ export default function ArticlePage() {
           >
             {/* Meta Header */}
             <div className="mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{article.title}</h1>
+              <div className="flex items-start justify-between gap-4">
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{article.title}</h1>
+                <ShareButton
+                  title={`Zau Julio | ${article.title}`}
+                  description={article.description}
+                />
+              </div>
 
               <p className="text-lg text-gray-400 leading-relaxed mb-6">{article.description}</p>
 

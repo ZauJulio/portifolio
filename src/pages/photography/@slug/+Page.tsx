@@ -83,7 +83,7 @@ export default function AlbumPage() {
                   </span>
                 </div>
               </div>
-              <ShareButton />
+              <ShareButton title={`Zau Julio | ${album.name}`} description={album.description} />
             </div>
           </div>
         </div>

@@ -116,7 +116,7 @@ export function SubjectHeader({
           >
             {title}
           </h1>
-          <ShareButton />
+          <ShareButton title={`Zau Julio | ${title}`} description={description} />
         </div>
 
         <div className="flex flex-wrap items-center gap-3 mt-3 text-sm text-gray-400 transition-colors duration-300">

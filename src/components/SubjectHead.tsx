@@ -36,12 +36,12 @@ export function SubjectHead({ schemaType }: { schemaType: "Book" | "Movie" | "Vi
     <>
       {/* og:url + canonical + hreflang are emitted (locale-aware) by the root +Head. */}
       <meta property="og:type" content="article" />
-      <meta property="og:title" content={subject.title} />
+      <meta property="og:title" content={`Zau Julio | ${subject.title}`} />
       {subject.description && <meta property="og:description" content={subject.description} />}
       <meta property="og:site_name" content="Zau Julio" />
       <meta property="og:image" content={image} />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={subject.title} />
+      <meta name="twitter:title" content={`Zau Julio | ${subject.title}`} />
       {subject.description && <meta name="twitter:description" content={subject.description} />}
       <meta name="twitter:creator" content="@zaujulio" />
       <meta name="twitter:image" content={image} />

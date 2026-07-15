@@ -11,6 +11,7 @@ import { mdxComponents } from "@/components/mdx/mdx-components";
 import { PageHeader } from "@/components/PageHeader";
 import { PageMinimap } from "@/components/PageMinimap";
 import { RelatedContent } from "@/components/RelatedContent";
+import { ShareButton } from "@/components/ShareButton";
 import { useReadingState } from "@/hooks/use-reading-state";
 import { useLocale } from "@/i18n";
 
@@ -120,7 +121,10 @@ export default function RecipePage() {
             )}
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{recipe.title}</h1>
+          <div className="flex items-start justify-between gap-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{recipe.title}</h1>
+            <ShareButton title={`Zau Julio | ${recipe.title}`} description={recipe.description} />
+          </div>
 
           <p className="text-lg text-gray-400 leading-relaxed mb-6">{recipe.description}</p>
 

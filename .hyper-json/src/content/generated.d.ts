@@ -11,6 +11,16 @@
  *  schema.json file and rebuild the project.
  * --------------------------------------------------------
  */
+declare module "@content/books/en/books.json" {
+  import type { BooksDataStore } from "@indago/hyper-json";
+  const value: BooksDataStore;
+  export default value;
+}
+declare module "@content/books/pt-BR/books.json" {
+  import type { BooksDataStore } from "@indago/hyper-json";
+  const value: BooksDataStore;
+  export default value;
+}
 declare module "@content/education/en/education.json" {
   import type { EducationContentSchema } from "@indago/hyper-json";
   const value: EducationContentSchema;
@@ -21,17 +31,37 @@ declare module "@content/education/pt-BR/education.json" {
   const value: EducationContentSchema;
   export default value;
 }
+declare module "@content/games/en/games.json" {
+  import type { GamesDataStore } from "@indago/hyper-json";
+  const value: GamesDataStore;
+  export default value;
+}
+declare module "@content/games/pt-BR/games.json" {
+  import type { GamesDataStore } from "@indago/hyper-json";
+  const value: GamesDataStore;
+  export default value;
+}
 declare module "@content/languages/languages.json" {
   import type { LanguageContentSchema } from "@indago/hyper-json";
   const value: LanguageContentSchema;
   export default value;
 }
-declare module "@content/music/en/favorites.json" {
+declare module "@content/movies/en/movies.json" {
+  import type { MoviesDataStore } from "@indago/hyper-json";
+  const value: MoviesDataStore;
+  export default value;
+}
+declare module "@content/movies/pt-BR/movies.json" {
+  import type { MoviesDataStore } from "@indago/hyper-json";
+  const value: MoviesDataStore;
+  export default value;
+}
+declare module "@content/music/en/channels.json" {
   import type { MusicDataStore } from "@indago/hyper-json";
   const value: MusicDataStore;
   export default value;
 }
-declare module "@content/music/en/channels.json" {
+declare module "@content/music/en/favorites.json" {
   import type { MusicDataStore } from "@indago/hyper-json";
   const value: MusicDataStore;
   export default value;
@@ -74,35 +104,5 @@ declare module "@content/projects/en/projects.json" {
 declare module "@content/skills/skills.json" {
   import type { SkillsContentSchema } from "@indago/hyper-json";
   const value: SkillsContentSchema;
-  export default value;
-}
-declare module "@content/games/en/games.json" {
-  import type { GamesDataStore } from "@indago/hyper-json";
-  const value: GamesDataStore;
-  export default value;
-}
-declare module "@content/games/pt-BR/games.json" {
-  import type { GamesDataStore } from "@indago/hyper-json";
-  const value: GamesDataStore;
-  export default value;
-}
-declare module "@content/books/en/books.json" {
-  import type { BooksDataStore } from "@indago/hyper-json";
-  const value: BooksDataStore;
-  export default value;
-}
-declare module "@content/books/pt-BR/books.json" {
-  import type { BooksDataStore } from "@indago/hyper-json";
-  const value: BooksDataStore;
-  export default value;
-}
-declare module "@content/movies/en/movies.json" {
-  import type { MoviesDataStore } from "@indago/hyper-json";
-  const value: MoviesDataStore;
-  export default value;
-}
-declare module "@content/movies/pt-BR/movies.json" {
-  import type { MoviesDataStore } from "@indago/hyper-json";
-  const value: MoviesDataStore;
   export default value;
 }

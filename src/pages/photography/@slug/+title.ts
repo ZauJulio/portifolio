@@ -5,7 +5,7 @@ import type { PageContext } from "vike/types";
 
 export default function title(pageContext: PageContext): string {
   const data = pageContext.data as Data | null;
-  if (data?.name) return `${data.name} | Photography | Zau Julio`;
+  if (data?.name) return `Zau Julio | ${data.name} | Photography`;
 
-  return `${getT(pageContext.locale ?? "en")(($) => $.photography.title)} | Zau Julio`;
+  return `Zau Julio | ${getT(pageContext.locale ?? "en")(($) => $.photography.title)}`;
 }

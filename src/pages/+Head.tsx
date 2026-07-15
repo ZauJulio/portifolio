@@ -8,7 +8,6 @@ import { usePageContext } from "vike-react/usePageContext";
 import { I18N, stripLocale, type Locale } from "@/i18n";
 import { absoluteUrl, SITE_URL } from "@/lib/seo";
 
-const SITE_TITLE = "Zau Julio | Software Engineer";
 const SITE_DESCRIPTION =
   "Software Engineer specializing in full-stack development, machine learning, and creative side projects. Explore my work, articles, and hobbies.";
 
@@ -42,12 +41,10 @@ export default function HeadDefault() {
       <meta name="theme-color" content="#000000" />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={canonical} />
-      <meta property="og:title" content={SITE_TITLE} />
       <meta property="og:description" content={SITE_DESCRIPTION} />
       <meta property="og:site_name" content="Zau Julio" />
       <meta property="og:locale" content={locale === "pt" ? "pt_BR" : "en_US"} />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={SITE_TITLE} />
       <meta name="twitter:description" content={SITE_DESCRIPTION} />
       <meta name="twitter:creator" content="@zaujulio" />
       <meta name="google-site-verification" content="5C13FbkQmK0v7ZlaO_Q0UBHyFpFAGR_3V4Stn_7yVF0" />

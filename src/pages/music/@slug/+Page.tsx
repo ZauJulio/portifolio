@@ -51,7 +51,10 @@ export default function PlaylistPage() {
                   {playlist.genre && <span>&bull; {playlist.genre}</span>}
                 </div>
               </div>
-              <ShareButton />
+              <ShareButton
+                title={`Zau Julio | ${playlist.title}`}
+                description={playlist.description}
+              />
             </div>
           </div>
         </div>

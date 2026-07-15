@@ -4,12 +4,34 @@ import { Share2Icon } from "lucide-react";
 
 import { useToast } from "./Toast";
 
-export function ShareButton() {
+interface ShareButtonProps {
+  /** Share sheet title — defaults to document.title. */
+  title?: string;
+  /** Share sheet text/description. */
+  description?: string;
+}
+
+export function ShareButton({ title, description }: ShareButtonProps) {
   const { t } = useTranslation();
   const { showToast } = useToast();
 
   const handleShare = async () => {
     const url = window.location.href;
+    const shareTitle = title || document.title;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: shareTitle,
+          ...(description && { text: description }),
+          url,
+        });
+      } catch {
+        // User cancelled or share failed — silent fallback.
+      }
+      return;
+    }
+
     try {
       await navigator.clipboard.writeText(url);
       showToast(
