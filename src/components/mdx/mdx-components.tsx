@@ -17,9 +17,11 @@ const DefaultCode = defaultMdxComponents.code as ComponentType<ComponentPropsWit
 export const mdxComponents: ComponentMap = {
   code: (props: ComponentPropsWithoutRef<"code">) => {
     const { className, children } = props;
+
     if (typeof className === "string" && className.includes("language-mermaid")) {
       return <ZoomableMermaid code={String(children).trim()} />;
     }
+
     return <DefaultCode {...props} />;
   },
   ImageCarousel,
