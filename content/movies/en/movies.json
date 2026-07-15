@@ -23,6 +23,11 @@
         {
           "platform": "imdb",
           "url": "https://www.imdb.com/title/tt0816692/"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=zSWdZVtXT7E",
+          "label": "Trailer"
         }
       ]
     },
@@ -48,6 +53,11 @@
         {
           "platform": "imdb",
           "url": "https://www.imdb.com/title/tt0133093/"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=vKQi3bBA1y8",
+          "label": "Trailer"
         }
       ]
     },
@@ -73,6 +83,11 @@
         {
           "platform": "apple-tv",
           "url": "https://tv.apple.com/movie/the-conjuring"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=k10ETZ41q5o",
+          "label": "Trailer"
         }
       ]
     },
@@ -90,6 +105,11 @@
         {
           "platform": "netflix",
           "url": "https://www.netflix.com/title/81024821"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=kasgE1A0yPQ",
+          "label": "Trailer"
         }
       ]
     },
@@ -107,6 +127,11 @@
         {
           "platform": "netflix",
           "url": "https://www.netflix.com/title/80057281"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=b9EkMc79ZSU",
+          "label": "Trailer"
         }
       ]
     },
@@ -124,6 +149,11 @@
         {
           "platform": "prime-video",
           "url": "https://www.primevideo.com/detail/Them"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=1KMFZEGBaZY",
+          "label": "Trailer"
         }
       ]
     },
@@ -145,6 +175,11 @@
         {
           "platform": "netflix",
           "url": "https://www.netflix.com/title/81726714"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=VEIrcuamXMM",
+          "label": "Trailer"
         }
       ]
     },
@@ -162,6 +197,11 @@
         {
           "platform": "crunchyroll",
           "url": "https://www.crunchyroll.com/series/G0DUEQZP1/go-for-it-nakamura"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=01WEqntM1NI",
+          "label": "Trailer"
         }
       ]
     },
@@ -183,6 +223,11 @@
         {
           "platform": "netflix",
           "url": "https://www.netflix.com/title/80181950"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=d6kBeJjTGnY",
+          "label": "Trailer"
         }
       ]
     },
@@ -204,6 +249,11 @@
         {
           "platform": "netflix",
           "url": "https://www.netflix.com/title/80230316"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=8BAU9gztirM",
+          "label": "Trailer"
         }
       ]
     },
@@ -221,6 +271,11 @@
         {
           "platform": "crunchyroll",
           "url": "https://www.crunchyroll.com/series/GYEXQKJG6/dr-stone"
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/watch?v=KnEMDDMYYfU",
+          "label": "Trailer"
         }
       ]
     }

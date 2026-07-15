@@ -27,6 +27,7 @@ declare module "@indago/hyper-down" {
     readingTime?: string;
     canonical?: string;
     cover?: string;
+    repo?: string;
     prev?: string;
     next?: string;
   }
