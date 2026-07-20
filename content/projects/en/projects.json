@@ -29,22 +29,22 @@
       "topics": ["Docker", "Microservice", "CI/CD", "WeasyPrint"]
     },
     {
-      "name": "AutoThrottleSetup",
-      "description": "Manual configuration tool for unexpected thermal throttle on Linux. Automates CPU frequency and power management.",
-      "url": "https://github.com/ZauJulio/AutoThrottleSetup",
-      "language": "Shell",
-      "languageColor": "#89e051",
-      "stars": 2,
-      "topics": ["Linux", "Thermal", "Power Management"]
+      "name": "ZeroWhats",
+      "description": "WhatsApp desktop client built with Tauri. Native performance with Rust backend and web frontend.",
+      "url": "https://github.com/ZauJulio/ZeroWhats",
+      "language": "Rust",
+      "languageColor": "#dea584",
+      "stars": 0,
+      "topics": ["Tauri", "Rust", "Desktop App", "WhatsApp"]
     },
     {
-      "name": "linuwu-sense-dkms",
-      "description": "DKMS kernel module for Linux hardware sensor monitoring. Provides custom driver support for temperature and fan sensor readings.",
-      "url": "https://github.com/ZauJulio/linuwu-sense-dkms",
-      "language": "C",
-      "languageColor": "#555555",
+      "name": "Indago",
+      "description": "Local headless CMS toolkit: HyperDown (MDX → SQLite FTS5 SSR), HyperJson (JSON Schema → typed content), and a scaffolder CLI.",
+      "url": "https://github.com/ZauJulio/indago",
+      "language": "TypeScript",
+      "languageColor": "#3178c6",
       "stars": 0,
-      "topics": ["Linux", "DKMS", "Kernel Module", "Hardware Sensors"]
+      "topics": ["CMS", "MDX", "SQLite", "TypeScript"]
     },
     {
       "name": "Portifolio",
