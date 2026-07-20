@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { MailIcon, SendIcon } from "lucide-react";
+import { FileTextIcon, MailIcon, SendIcon } from "lucide-react";
 
 import { GithubIcon, LinkedinIcon } from "@/components/Icons";
 
@@ -40,6 +40,16 @@ export function HireMeSection() {
           >
             <LinkedinIcon className="size-5" />
             {t(($) => $.hire.linkedin)}
+          </a>
+
+          <a
+            href="https://raw.githubusercontent.com/ZauJulio/ZauJulio/refs/heads/main/resume/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold px-8 py-3 rounded-lg border border-gray-700 hover:border-brand-500/50 transition-all duration-300 no-underline"
+          >
+            <FileTextIcon className="size-5" />
+            {t(($) => $.hire.cv)}
           </a>
         </div>
 
